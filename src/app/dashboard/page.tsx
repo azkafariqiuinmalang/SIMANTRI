@@ -491,24 +491,39 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Navigation & Upcoming Features Quick Links */}
+        {/* Navigation & Feature Modules */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="card-standard p-6 border border-[#E5DFD6]">
+          <div className="card-standard p-6 border border-[#E5DFD6] hover:shadow-md transition-shadow">
             <div className="flex items-center gap-3 mb-3">
               <TrendingUp className="w-5 h-5 text-[#C4487A]" />
               <h3 className="font-serif font-bold text-base text-[#0E080A]">
-                Modul Harga Pasar (Fase 2)
+                Modul Harga Pasar & Prediksi Cerdas
               </h3>
             </div>
             <p className="text-xs text-[#4A3A32] leading-relaxed mb-4">
               {profile?.role === 'admin'
-                ? 'Sebagai Admin, Anda memiliki hak input harga harian manual yang akan menjadi bahan baku model prediksi XGBoost.'
-                : 'Data harga harian dan hasil prakiraan 7 hari ke depan akan tampil di sini setelah modul Fase 2 diaktifkan.'}
+                ? 'Sebagai Admin, Anda memiliki hak input harga harian manual yang otomatis menyinkronkan cuaca Open-Meteo dan menggerakkan model XGBoost.'
+                : 'Lihat grafik tren harga pasar 30 hari terakhir dan estimasi harga panen cerdas 1–7 hari ke depan dengan akurasi MAPE ~3%.'}
             </p>
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#8A8580] bg-[#FBF4EE] px-3 py-1.5 rounded-lg border border-[#E5DFD6]">
-              <Sparkles className="w-3.5 h-3.5 text-[#E6A15C]" />
-              Menunggu Fase 2 (Deploy ML XGBoost)
-            </span>
+            <div className="flex items-center gap-3">
+              {profile?.role === 'admin' ? (
+                <Link
+                  href="/admin/market/input"
+                  className="btn-primary py-2 px-4 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 shadow-sm"
+                >
+                  <TrendingUp className="w-3.5 h-3.5" />
+                  Buka Form Input Harga Harian &rarr;
+                </Link>
+              ) : (
+                <Link
+                  href="/dashboard/harga"
+                  className="btn-primary py-2 px-4 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 shadow-sm"
+                >
+                  <TrendingUp className="w-3.5 h-3.5" />
+                  Lihat Prakiraan Harga Petani &rarr;
+                </Link>
+              )}
+            </div>
           </div>
 
           <div className="card-standard p-6 border border-[#E5DFD6]">
