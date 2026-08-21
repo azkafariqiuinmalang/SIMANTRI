@@ -129,7 +129,49 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-[#E5DFD6] text-center text-sm text-[#4A3A32]">
+          {/* Quick Demo Fill Buttons */}
+          <div className="mt-6 pt-5 border-t border-[#E5DFD6]">
+            <p className="text-xs font-semibold text-[#8A8580] uppercase tracking-wider mb-2 text-center">
+              Pilih Akun Demo untuk Pengujian Cepat:
+            </p>
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail('admin.simantri@gmail.com')
+                  setPassword('Simantri123!')
+                }}
+                className="py-1.5 px-2 rounded-lg bg-[#E6A15C]/15 hover:bg-[#E6A15C]/30 text-[#0E080A] text-xs font-semibold border border-[#E6A15C]/40 transition-colors"
+              >
+                Admin
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail('penyuluh.simantri@gmail.com')
+                  setPassword('Simantri123!')
+                }}
+                className="py-1.5 px-2 rounded-lg bg-[#3A5A40]/15 hover:bg-[#3A5A40]/30 text-[#3A5A40] text-xs font-semibold border border-[#3A5A40]/30 transition-colors"
+              >
+                Penyuluh
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail('petani.simantri@gmail.com')
+                  setPassword('Simantri123!')
+                }}
+                className="py-1.5 px-2 rounded-lg bg-[#C4487A]/15 hover:bg-[#C4487A]/30 text-[#C4487A] text-xs font-semibold border border-[#C4487A]/30 transition-colors"
+              >
+                Petani
+              </button>
+            </div>
+            <p className="text-[11px] text-[#8A8580] text-center mt-2">
+              Kata sandi semua akun demo: <code className="font-mono bg-[#FBF4EE] px-1 py-0.5 rounded text-[#0E080A]">Simantri123!</code>
+            </p>
+          </div>
+
+          <div className="mt-6 pt-5 border-t border-[#E5DFD6] text-center text-sm text-[#4A3A32]">
             Belum memiliki akun?{' '}
             <Link
               href="/register"
