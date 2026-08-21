@@ -1,0 +1,110 @@
+// Use Case Diagram - SIMANTRI (v2)
+// Perubahan dari v1:
+// - Petani TIDAK submit Knowledge Base, diganti Beri Feedback CV & Chatbot
+// - Penyuluh (bukan "Kontributor Senior" generik) sebagai penulis KB
+// - Tambah use case "Lihat Sinyal Perlu Ditinjau" khusus Penyuluh
+// - Tambah aktor "Pengunjung Umum" untuk akses publik Dunia Brambang
+//
+// Cara pakai: paste ke https://dreampuf.github.io/GraphvizOnline/
+
+digraph SIMANTRI_UseCase_v2 {
+    rankdir=LR;
+    splines=curved;
+    fontname="Helvetica";
+    labelloc="t";
+    label="USE CASE DIAGRAM v2 - Sistem SIMANTRI";
+    fontsize=18;
+    pad=0.5;
+    nodesep=0.35;
+    ranksep=1.3;
+
+    node [fontname="Helvetica", fontsize=11];
+    edge [fontname="Helvetica", fontsize=9];
+
+    // ================= AKTOR =================
+    Petani    [shape=plaintext, label="Petani\n(User)"];
+    Penyuluh  [shape=plaintext, label="Penyuluh\n(Formal, Kecamatan)"];
+    Admin     [shape=plaintext, label="Admin\n(Moderator)"];
+    Pengunjung[shape=plaintext, label="Pengunjung Umum\n(Publik, tanpa login)"];
+
+    // ================= SYSTEM BOUNDARY =================
+    subgraph cluster_system {
+        label="SIMANTRI SYSTEM";
+        style="rounded";
+        fontsize=14;
+        labelloc="t";
+        margin=25;
+
+        node [shape=ellipse, style=solid, width=1.9, height=0.7];
+
+        UC_Register    [label="Registrasi Akun"];
+        UC_Login       [label="Login"];
+        UC_Logout      [label="Logout"];
+        UC_Price       [label="Lihat Prediksi\nHarga"];
+        UC_CV          [label="Deteksi Penyakit\nTanaman"];
+        UC_CVFeedback  [label="Beri Feedback\nHasil CV"];
+        UC_Chat        [label="Chat dengan\nAsisten AI"];
+        UC_ChatFeedback[label="Beri Feedback\nJawaban Chatbot"];
+        UC_ViewKB      [label="Lihat Dunia\nBrambang"];
+        UC_Report      [label="Laporkan Entri\nKeliru"];
+        UC_WriteKB     [label="Tulis / Kelola\nEntri Knowledge Base"];
+        UC_Signals     [label="Lihat Sinyal\nPerlu Ditinjau"];
+        UC_Content     [label="Kelola Konten"];
+        UC_Users       [label="Kelola Pengguna"];
+        UC_Monitor     [label="Monitoring Sistem"];
+        UC_Stats       [label="Lihat Laporan\nStatistik"];
+        UC_Master      [label="Kelola Data\nMaster"];
+    }
+
+    // ================= AKTOR -> USE CASE (asosiasi) =================
+    edge [style=solid, arrowhead=none, color="#333333"];
+
+    Petani -> UC_Register;
+    Petani -> UC_Login;
+    Petani -> UC_Logout;
+    Petani -> UC_Price;
+    Petani -> UC_CV;
+    Petani -> UC_CVFeedback;
+    Petani -> UC_Chat;
+    Petani -> UC_ChatFeedback;
+    Petani -> UC_ViewKB;
+    Petani -> UC_Report;
+
+    Penyuluh -> UC_Login;
+    Penyuluh -> UC_Logout;
+    Penyuluh -> UC_WriteKB;
+    Penyuluh -> UC_Signals;
+    Penyuluh -> UC_ViewKB;
+
+    Admin -> UC_Login;
+    Admin -> UC_Logout;
+    Admin -> UC_Content;
+    Admin -> UC_Users;
+    Admin -> UC_Monitor;
+    Admin -> UC_Master;
+
+    // Pengunjung Umum: akses publik, TIDAK include Login sama sekali
+    Pengunjung -> UC_ViewKB;
+
+    // ================= <<include>> =================
+    edge [style=dashed, arrowhead=vee, color="#1a5fb4", fontcolor="#1a5fb4"];
+
+    UC_Price        -> UC_Login [label="<<include>>"];
+    UC_CV           -> UC_Login [label="<<include>>"];
+    UC_CVFeedback   -> UC_CV    [label="<<include>>"];
+    UC_Chat         -> UC_Login [label="<<include>>"];
+    UC_ChatFeedback -> UC_Chat  [label="<<include>>"];
+    UC_Report       -> UC_Login [label="<<include>>"];
+    UC_WriteKB      -> UC_Login [label="<<include>>"];
+    UC_Signals      -> UC_Login [label="<<include>>"];
+    UC_Content      -> UC_Login [label="<<include>>"];
+    UC_Users        -> UC_Login [label="<<include>>"];
+    UC_Monitor      -> UC_Login [label="<<include>>"];
+    UC_Master       -> UC_Login [label="<<include>>"];
+
+    // ================= <<extend>> =================
+    edge [style=dashed, arrowhead=vee, color="#c64600", fontcolor="#c64600"];
+
+    UC_Logout -> UC_Login   [label="<<extend>>"];
+    UC_Stats  -> UC_Monitor [label="<<extend>>"];
+}

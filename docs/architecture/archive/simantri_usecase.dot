@@ -1,0 +1,100 @@
+// Use Case Diagram - SIMANTRI
+// Cara pakai: paste ke https://dreampuf.github.io/GraphvizOnline/
+// atau render lokal dengan: dot -Tpng simantri_usecase.dot -o output.png
+
+digraph SIMANTRI_UseCase {
+    rankdir=LR;
+    splines=curved;
+    fontname="Helvetica";
+    labelloc="t";
+    label="USE CASE DIAGRAM - Sistem SIMANTRI";
+    fontsize=18;
+    pad=0.5;
+    nodesep=0.4;
+    ranksep=1.2;
+
+    node [fontname="Helvetica", fontsize=11];
+    edge [fontname="Helvetica", fontsize=9];
+
+    // ================= AKTOR =================
+    Petani   [shape=plaintext, label="Petani\n(User)"];
+    Penyuluh [shape=plaintext, label="Penyuluh\n(Kontributor Senior)"];
+    Admin    [shape=plaintext, label="Admin\n(Moderator)"];
+
+    // ================= SYSTEM BOUNDARY =================
+    subgraph cluster_system {
+        label="SIMANTRI SYSTEM";
+        style="rounded";
+        fontsize=14;
+        labelloc="t";
+        margin=25;
+
+        node [shape=ellipse, style=solid, width=1.8, height=0.7];
+
+        UC_Register [label="Registrasi Akun"];
+        UC_Login    [label="Login"];
+        UC_Logout   [label="Logout"];
+        UC_Price    [label="Lihat Prediksi\nHarga"];
+        UC_CV       [label="Deteksi Penyakit\nTanaman"];
+        UC_Chat     [label="Chat dengan\nAsisten AI"];
+        UC_Submit   [label="Submit Kontribusi\nKnowledge Base"];
+        UC_View     [label="Lihat Dunia\nBrambang"];
+        UC_Report   [label="Laporkan Informasi\nKeliru"];
+        UC_Verify   [label="Verifikasi\nKontribusi"];
+        UC_Badge    [label="Beri Badge\nTerverifikasi"];
+        UC_Content  [label="Kelola Konten"];
+        UC_Users    [label="Kelola Pengguna"];
+        UC_Monitor  [label="Monitoring Sistem"];
+        UC_Stats    [label="Lihat Laporan\nStatistik"];
+        UC_Master   [label="Kelola Data\nMaster"];
+    }
+
+    // ================= AKTOR -> USE CASE (asosiasi) =================
+    edge [style=solid, arrowhead=none, color="#333333"];
+
+    Petani -> UC_Register;
+    Petani -> UC_Login;
+    Petani -> UC_Logout;
+    Petani -> UC_Price;
+    Petani -> UC_CV;
+    Petani -> UC_Chat;
+    Petani -> UC_Submit;
+    Petani -> UC_View;
+    Petani -> UC_Report;
+
+    Penyuluh -> UC_Login;
+    Penyuluh -> UC_Logout;
+    Penyuluh -> UC_Verify;
+    Penyuluh -> UC_Submit;
+    Penyuluh -> UC_View;
+
+    Admin -> UC_Login;
+    Admin -> UC_Logout;
+    Admin -> UC_Content;
+    Admin -> UC_Users;
+    Admin -> UC_Monitor;
+    Admin -> UC_Master;
+
+    // ================= <<include>> =================
+    // Fitur yang MENSYARATKAN login lebih dulu
+    edge [style=dashed, arrowhead=vee, color="#1a5fb4", fontcolor="#1a5fb4"];
+
+    UC_Price   -> UC_Login [label="<<include>>"];
+    UC_CV      -> UC_Login [label="<<include>>"];
+    UC_Chat    -> UC_Login [label="<<include>>"];
+    UC_Submit  -> UC_Login [label="<<include>>"];
+    UC_Report  -> UC_Login [label="<<include>>"];
+    UC_Verify  -> UC_Login [label="<<include>>"];
+    UC_Content -> UC_Login [label="<<include>>"];
+    UC_Users   -> UC_Login [label="<<include>>"];
+    UC_Monitor -> UC_Login [label="<<include>>"];
+    UC_Master  -> UC_Login [label="<<include>>"];
+
+    // ================= <<extend>> =================
+    // Perilaku opsional/tambahan dari use case dasar
+    edge [style=dashed, arrowhead=vee, color="#c64600", fontcolor="#c64600"];
+
+    UC_Logout -> UC_Login   [label="<<extend>>"];
+    UC_Badge  -> UC_Verify  [label="<<extend>>"];
+    UC_Stats  -> UC_Monitor [label="<<extend>>"];
+}

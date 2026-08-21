@@ -1,0 +1,115 @@
+// Use Case Diagram - SIMANTRI (v3)
+// Perubahan dari v2:
+// - "Tulis / Kelola Entri Knowledge Base" sekarang HANYA milik Admin
+// - Petani & Penyuluh dapat use case baru "Ajukan Usulan/Koreksi Pengetahuan"
+// - Petani & Penyuluh dapat use case "Lihat Status Usulan Saya"
+//
+// Cara pakai: paste ke https://dreampuf.github.io/GraphvizOnline/
+
+digraph SIMANTRI_UseCase_v4 {
+    rankdir=LR;
+    splines=curved;
+    fontname="Helvetica";
+    labelloc="t";
+    label="USE CASE DIAGRAM v4 - Sistem SIMANTRI";
+    fontsize=18;
+    pad=0.5;
+    nodesep=0.35;
+    ranksep=1.3;
+
+    node [fontname="Helvetica", fontsize=11];
+    edge [fontname="Helvetica", fontsize=9];
+
+    Pendaki    [shape=plaintext, label="Petani\n(User)"];
+    Penyuluh  [shape=plaintext, label="Penyuluh\n(Formal, Kecamatan)"];
+    Admin     [shape=plaintext, label="Admin\n(Moderator)"];
+    Pengunjung[shape=plaintext, label="Pengunjung Umum\n(Publik, tanpa login)"];
+
+    subgraph cluster_system {
+        label="SIMANTRI SYSTEM";
+        style="rounded";
+        fontsize=14;
+        labelloc="t";
+        margin=25;
+
+        node [shape=ellipse, style=solid, width=1.9, height=0.7];
+
+        UC_Register    [label="Registrasi Akun"];
+        UC_Login       [label="Login"];
+        UC_Logout      [label="Logout"];
+        UC_Price       [label="Lihat Prediksi\nHarga"];
+        UC_CV          [label="Deteksi Penyakit\nTanaman"];
+        UC_CVFeedback  [label="Beri Feedback\nHasil CV"];
+        UC_Chat        [label="Chat dengan\nAsisten AI"];
+        UC_ChatFeedback[label="Beri Feedback\nJawaban Chatbot"];
+        UC_ViewKB      [label="Lihat Dunia\nBrambang"];
+        UC_Suggest     [label="Ajukan Usulan/\nKoreksi Pengetahuan"];
+        UC_TrackStatus [label="Lihat Status\nUsulan Saya"];
+        UC_ManageKB    [label="Tulis / Kelola\nEntri Knowledge Base"];
+        UC_ReviewSuggest[label="Tinjau Usulan\nMasuk"];
+        UC_Signals     [label="Lihat Sinyal\nPerlu Ditinjau"];
+        UC_Content     [label="Kelola Konten"];
+        UC_Users       [label="Kelola Pengguna"];
+        UC_Monitor     [label="Monitoring Sistem"];
+        UC_Stats       [label="Lihat Laporan\nStatistik"];
+        UC_Master      [label="Kelola Data\nMaster"];
+        UC_InputPrice  [label="Input Harga\nHarian"];
+    }
+
+    edge [style=solid, arrowhead=none, color="#333333"];
+
+    Pendaki -> UC_Register;
+    Pendaki -> UC_Login;
+    Pendaki -> UC_Logout;
+    Pendaki -> UC_Price;
+    Pendaki -> UC_CV;
+    Pendaki -> UC_CVFeedback;
+    Pendaki -> UC_Chat;
+    Pendaki -> UC_ChatFeedback;
+    Pendaki -> UC_ViewKB;
+    Pendaki -> UC_Suggest;
+    Pendaki -> UC_TrackStatus;
+
+    Penyuluh -> UC_Login;
+    Penyuluh -> UC_Logout;
+    Penyuluh -> UC_Signals;
+    Penyuluh -> UC_ViewKB;
+    Penyuluh -> UC_Suggest;
+    Penyuluh -> UC_TrackStatus;
+
+    Admin -> UC_Login;
+    Admin -> UC_Logout;
+    Admin -> UC_ManageKB;
+    Admin -> UC_ReviewSuggest;
+    Admin -> UC_Content;
+    Admin -> UC_Users;
+    Admin -> UC_Monitor;
+    Admin -> UC_Master;
+    Admin -> UC_InputPrice;
+
+    Pengunjung -> UC_ViewKB;
+
+    edge [style=dashed, arrowhead=vee, color="#1a5fb4", fontcolor="#1a5fb4"];
+
+    UC_Price         -> UC_Login [label="<<include>>"];
+    UC_CV            -> UC_Login [label="<<include>>"];
+    UC_CVFeedback    -> UC_CV    [label="<<include>>"];
+    UC_Chat          -> UC_Login [label="<<include>>"];
+    UC_ChatFeedback  -> UC_Chat  [label="<<include>>"];
+    UC_Suggest       -> UC_Login [label="<<include>>"];
+    UC_TrackStatus   -> UC_Login [label="<<include>>"];
+    UC_ManageKB      -> UC_Login [label="<<include>>"];
+    UC_ReviewSuggest -> UC_Login [label="<<include>>"];
+    UC_Signals       -> UC_Login [label="<<include>>"];
+    UC_Content       -> UC_Login [label="<<include>>"];
+    UC_Users         -> UC_Login [label="<<include>>"];
+    UC_Monitor       -> UC_Login [label="<<include>>"];
+    UC_Master        -> UC_Login [label="<<include>>"];
+    UC_InputPrice    -> UC_Login [label="<<include>>"];
+
+    edge [style=dashed, arrowhead=vee, color="#c64600", fontcolor="#c64600"];
+
+    UC_Logout -> UC_Login    [label="<<extend>>"];
+    UC_Stats  -> UC_Monitor  [label="<<extend>>"];
+    UC_ManageKB -> UC_ReviewSuggest [label="<<extend>>"];
+}

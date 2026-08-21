@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dunia Brambang — Pameran Digital | SIMANTRI</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Tone.js for Museum Ambient Soundscape -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FBF4EE',
+                        maroon: '#4A1F2B',
+                        'shallot-pink': '#C4487A',
+                        'earth-brown': '#3D261A',
+                        'soft-green': '#3A5A40',
+                        'deep-dark': '#0E080A',
+                        'golden-glow': '#E6A15C'
+                    },
+                    fontFamily: {
+                        serif: ['Fraunces', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0E080A;
+            color: #FBF4EE;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .font-fraunces {
+            font-family: 'Fraunces', serif;
+        }
+
+        .museum-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0E080A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4A1F2B;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C4487A;
+        }
+
+        .glass-panel {
+            background: rgba(251, 244, 238, 0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(251, 244, 238, 0.08);
+        }
+
+        .glass-panel-dark {
+            background: rgba(14, 8, 10, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(196, 72, 122, 0.15);
+        }
+
+        .ambient-spotlight {
+            background: radial-gradient(circle at 50% 50%, rgba(196, 72, 122, 0.15) 0%, rgba(14, 8, 10, 0) 70%);
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+        .animate-float {
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="museum-noise antialiased selection:bg-shallot-pink selection:text-cream">
+
+    <header class="fixed top-0 left-0 w-full z-50 p-6 md:p-8 flex justify-between items-center mix-blend-difference pointer-events-none">
+        <div class="pointer-events-auto flex items-center space-x-3">
+            <span class="w-2.5 h-2.5 rounded-full bg-shallot-pink animate-pulse"></span>
+            <span class="font-serif tracking-wider text-xs md:text-sm uppercase text-cream/80">Pameran SIMANTRI</span>
+        </div>
+
+        <div class="pointer-events-auto flex items-center space-x-4">
+            <button id="audioToggleBtn" class="glass-panel px-4 py-2 rounded-full text-xs flex items-center space-x-2 text-cream/90 hover:text-cream transition-all duration-300">
+                <i data-lucide="volume-x" id="audioIcon" class="w-4 h-4 text-shallot-pink"></i>
+                <span id="audioText" class="hidden sm:inline">Suara Ambien: Mati</span>
+            </button>
+            
+            <div id="galleryCounter" class="glass-panel px-4 py-2 rounded-full text-xs font-mono text-cream/80">
+                G00 / G09
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Navigation Dots -->
+    <nav class="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col space-y-3">
+        <a href="#gallery-0" data-nav="0" class="nav-dot w-2.5 h-2.5 rounded-full bg-cream/20 hover:bg-shallot-pink transition-all duration-300 relative group" title="Kedatangan">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 text-[10px] rounded bg-maroon text-cream opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Kedatangan</span>
+        </a>
+        <a href="#gallery-1" data-nav="1" class="nav-dot w-2.5 h-2.5 rounded-full bg-cream/20 hover:bg-shallot-pink transition-all duration-300 relative group" title="Kota Brambang">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 text-[10px] rounded bg-maroon text-cream opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Kota Brambang</span>
+        </a>
+        <a href="#gallery-tugu" data-nav="2" class="nav-dot w-2.5 h-2.5 rounded-full bg-cream/20 hover:bg-shallot-pink transition-all duration-300 relative group" title="Tugu Bawang Merah">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 text-[10px] rounded bg-maroon text-cream opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Tugu Bawang Merah</span>
+        </a>
+        <a href="#gallery-2" data-nav="3" class="nav-dot w-2.5 h-2.5 rounded-full bg-cream/20 hover:bg-shallot-pink transition-all duration-300 relative group" title="Skala & Dampak">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 text-[10px] rounded bg-maroon text-cream opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Skala & Dampak</span>
+        </a>
+        <a href="#gallery-3" data-nav="4" class="nav-dot w-2.5 h-2.5 rounded-full bg-cream/20 hover:bg-shallot-pink transition-all duration-300 relative group" title="Dua Varietas">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 text-[10px] rounded bg-maroon text-cream opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Bauji & Tajuk</span>
+        </a>
+        <a href="#gallery-4" data-nav="5" class="nav-dot w-2.5 h-2.5 rounded-full bg-cream/20 hover:bg-shallot-pink transition-all duration-300 relative group" title="Perjuangan Petani">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 text-[10px] rounded bg-maroon text-cream opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Perjuangan</span>
+        </a>
+        <a href="#gallery-fase-penanaman" data-nav="6" class="nav-dot w-2.5 h-2.5 rounded-full bg-cream/20 hover:bg-shallot-pink transition-all duration-300 relative group" title="Fase Penanaman">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 text-[10px] rounded bg-maroon text-cream opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Fase Penanaman</span>
+        </a>
+        <a href="#gallery-hasil-panen" data-nav="7" class="nav-dot w-2.5 h-2.5 rounded-full bg-cream/20 hover:bg-shallot-pink transition-all duration-300 relative group" title="Hasil Panen">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 text-[10px] rounded bg-maroon text-cream opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Hasil Panen</span>
+        </a>
+        <a href="#gallery-5" data-nav="8" class="nav-dot w-2.5 h-2.5 rounded-full bg-cream/20 hover:bg-shallot-pink transition-all duration-300 relative group" title="Memori Lisan">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 text-[10px] rounded bg-maroon text-cream opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Memori Lisan</span>
+        </a>
+        <a href="#gallery-6" data-nav="9" class="nav-dot w-2.5 h-2.5 rounded-full bg-cream/20 hover:bg-shallot-pink transition-all duration-300 relative group" title="Lahirnya SIMANTRI">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 text-[10px] rounded bg-maroon text-cream opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Lahirnya SIMANTRI</span>
+        </a>
+        <a href="#gallery-7" data-nav="10" class="nav-dot w-2.5 h-2.5 rounded-full bg-cream/20 hover:bg-shallot-pink transition-all duration-300 relative group" title="Masa Depan">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 text-[10px] rounded bg-maroon text-cream opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Masa Depan</span>
+        </a>
+    </nav>
+
+    <!-- MAIN EXHIBITION CONTAINER -->
+    <main id="exhibition-wrapper" class="w-full relative">
+
+        <section id="gallery-0" class="min-h-screen w-full relative flex flex-col justify-center items-center px-6 py-20 bg-deep-dark text-cream overflow-hidden">
+            <div class="absolute inset-0 ambient-spotlight opacity-70"></div>
+            
+            <div class="absolute w-72 h-72 md:w-[500px] md:h-[500px] opacity-15 pointer-events-none animate-pulse">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full fill-none stroke-shallot-pink stroke-[0.5]">
+                    <path d="M100 20 C140 60, 180 110, 100 180 C20 110, 60 60, 100 20 Z" />
+                    <path d="M100 35 C125 70, 155 110, 100 170 C45 110, 75 70, 100 35 Z" />
+                    <path d="M100 50 C115 80, 130 110, 100 160 C70 110, 85 80, 100 50 Z" />
+                </svg>
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center z-10 space-y-12">
+                <div class="inline-block px-3 py-1 rounded-full border border-shallot-pink/30 text-shallot-pink text-xs tracking-widest uppercase mb-4">
+                    Pameran Digital &bull; SIMANTRI
+                </div>
+
+                <div id="g0-text-1" class="opacity-0 translate-y-8 transition-all">
+                    <p class="font-serif text-2xl md:text-4xl lg:text-5xl font-light leading-relaxed text-cream/90">
+                        "Setiap hari, jutaan orang memasak dengan bawang.
+                    </p>
+                    <p class="font-serif text-2xl md:text-4xl lg:text-5xl italic font-light leading-relaxed text-shallot-pink mt-4">
+                        Namun hanya sedikit yang tahu dari mana kisah ini bermula."
+                    </p>
+                </div>
+
+                <div id="g0-text-2" class="opacity-0 translate-y-8 transition-all">
+                    <h1 class="font-serif text-5xl md:text-8xl lg:text-9xl font-normal tracking-tight text-cream mt-8">
+                        Dunia <span class="text-shallot-pink italic">Brambang.</span>
+                    </h1>
+                    <p class="text-sm md:text-base font-light text-cream/60 max-w-lg mx-auto mt-6 tracking-wide">
+                        Sebuah pengalaman museum interaktif yang mengeksplorasi jiwa kehidupan, tanah suci, dan warisan pertanian Nganjuk.
+                    </p>
+                </div>
+
+                <div id="g0-scroll" class="pt-12 flex flex-col items-center justify-center space-y-3 opacity-0">
+                    <span class="text-xs uppercase tracking-widest text-cream/50">Mulai Perjalanan</span>
+                    <div class="w-6 h-10 border border-cream/30 rounded-full flex justify-center p-1">
+                        <div class="w-1.5 h-3 bg-shallot-pink rounded-full animate-bounce"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery-1" class="min-h-screen w-full relative flex flex-col justify-center px-6 md:px-20 py-28 bg-maroon text-cream transition-colors duration-1000">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-5 space-y-8 lg:order-1 order-2">
+                    <span class="text-shallot-pink text-xs font-mono uppercase tracking-widest">Galeri 01 &bull; Identitas</span>
+                    <h2 class="font-serif text-4xl md:text-6xl font-light leading-tight">
+                        Nganjuk bukan sekadar kota biasa di Jawa Timur.
+                    </h2>
+                    <p class="text-cream/80 leading-relaxed font-light text-base md:text-lg">
+                        Nganjuk telah menempa dirinya menjadi denyut nadi identitas pertanian Indonesia. Di sini, bawang merah bukan sekadar komoditas—melainkan napas, warisan, dan detak jantung kehidupan sehari-hari.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-7 lg:order-2 order-1">
+                    <div class="glass-panel p-8 md:p-12 rounded-2xl relative overflow-hidden space-y-8 shadow-2xl">
+                        <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-shallot-pink/10 rounded-full blur-3xl"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="flex items-baseline space-x-2">
+                                <span class="font-serif text-6xl md:text-8xl font-bold text-shallot-pink">38,72</span>
+                                <span class="font-serif text-3xl md:text-5xl text-cream">%</span>
+                            </div>
+                            <p class="text-sm uppercase tracking-wider text-cream/70 mt-2">
+                                Kontribusi terhadap Total Produksi Bawang Merah Jawa Timur
+                            </p>
+                        </div>
+
+                        <div class="relative z-10 py-6 border-y border-cream/10 grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <h3 class="font-serif text-xl text-cream">Kota Brambang</h3>
+                                <p class="text-xs text-cream/70 leading-relaxed">
+                                    Julukan ini diraih melalui penguasaan tanah selama berdekade-dekade, di mana generasi demi generasi menyempurnakan irigasi, kimia tanah, dan ketahanan benih.
+                                </p>
+                            </div>
+                            <div class="space-y-2">
+                                <h3 class="font-serif text-xl text-cream">Jangkar Kultural</h3>
+                                <p class="text-xs text-cream/70 leading-relaxed">
+                                    Dari fajar hingga senja, ladang-ladang di Nganjuk bergerak secara ritmis dalam penanaman, pemanenan, dan pengeringan bawang yang memberi makan jutaan jiwa.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="relative z-10 h-40 bg-deep-dark/40 rounded-xl border border-cream/10 p-4 flex items-center justify-around">
+                            <div class="text-center">
+                                <i data-lucide="landmark" class="w-8 h-8 text-shallot-pink mx-auto mb-1"></i>
+                                <span class="text-[11px] text-cream/80 block">Tengara Ikonik</span>
+                            </div>
+                            <div class="w-px h-12 bg-cream/10"></div>
+                            <div class="text-center">
+                                <i data-lucide="sprout" class="w-8 h-8 text-soft-green mx-auto mb-1"></i>
+                                <span class="text-[11px] text-cream/80 block">Sabuk Tanah Subur</span>
+                            </div>
+                            <div class="w-px h-12 bg-cream/10"></div>
+                            <div class="text-center">
+                                <i data-lucide="users" class="w-8 h-8 text-golden-glow mx-auto mb-1"></i>
+                                <span class="text-[11px] text-cream/80 block">250.000+ Petani</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="gallery-tugu" class="min-h-screen w-full relative flex flex-col justify-center px-6 md:px-20 py-28 bg-deep-dark text-cream">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <div class="lg:col-span-6 flex justify-center lg:order-2 order-1">
+                    <div class="relative w-80 h-[460px] md:w-[440px] md:h-[520px] flex items-center justify-center p-4">
+                        <div id="tuguGlow" class="absolute inset-0 bg-gradient-to-t from-shallot-pink/0 via-shallot-pink/0 to-transparent rounded-full blur-2xl transition-all duration-1000 opacity-0"></div>
+                        
+                        <svg id="tuguArtwork" viewBox="0 0 400 450" xmlns="http://www.w3.org/2000/svg" class="w-full h-full fill-none stroke-[#C4487A] stroke-[2]">
+                            <ellipse id="part-base-1" cx="200" cy="410" rx="140" ry="18" class="stroke-[#C4487A] opacity-0 translate-y-4 transition-all" />
+                            <path id="part-base-2" d="M 60 410 C 60 425, 340 425, 340 410" class="stroke-[#C4487A] opacity-0" />
+                            <path id="part-base-3" d="M 90 395 L 310 395" class="stroke-[#C4487A] stroke-[1] opacity-0" />
+                            <line id="part-base-4" x1="140" y1="395" x2="140" y2="416" class="stroke-[#C4487A] stroke-[1] opacity-0" />
+                            <line id="part-base-5" x1="200" y1="393" x2="200" y2="422" class="stroke-[#C4487A] stroke-[1] opacity-0" />
+                            <line id="part-base-6" x1="260" y1="395" x2="260" y2="416" class="stroke-[#C4487A] stroke-[1] opacity-0" />
+
+                            <path id="part-pillar-1" d="M 75 390 L 60 365 L 85 360 L 95 385 Z" class="fill-[#4A1F2B]/40 stroke-[#C4487A] opacity-0" />
+                            <path id="part-pillar-2" d="M 115 385 L 105 345 L 130 340 L 138 375 Z" class="fill-[#4A1F2B]/40 stroke-[#C4487A] opacity-0" />
+                            
+                            <path id="part-pedestal-1" d="M 155 350 L 245 350 L 230 395 L 170 395 Z" class="fill-[#4A1F2B]/60 stroke-[#C4487A] opacity-0" />
+                            <rect id="part-pedestal-2" x="150" y="340" width="100" height="12" rx="2" class="fill-[#C4487A]/30 stroke-[#C4487A] opacity-0" />
+
+                            <path id="part-pillar-3" d="M 285 385 L 295 345 L 270 340 L 262 375 Z" class="fill-[#4A1F2B]/40 stroke-[#C4487A] opacity-0" />
+                            <path id="part-pillar-4" d="M 325 390 L 340 365 L 315 360 L 305 385 Z" class="fill-[#4A1F2B]/40 stroke-[#C4487A] opacity-0" />
+
+                            <path id="tuguBulb" d="M 200 70 C 290 100, 335 180, 320 260 C 305 330, 230 340, 200 340 C 170 340, 95 330, 80 260 C 65 180, 110 100, 200 70 Z" class="fill-[#4A1F2B]/30 stroke-[#C4487A] stroke-[2.5]" />
+                            <path id="tuguInner" d="M 200 90 C 255 120, 280 180, 270 250 C 260 300, 220 320, 200 320 C 180 320, 140 300, 130 250 C 120 180, 145 120, 200 90 Z" class="stroke-[#C4487A] stroke-[1] opacity-0" />
+
+                            <text id="tuguText" x="200" y="225" text-anchor="middle" class="font-serif font-bold tracking-[0.35em] fill-[#FBF4EE] opacity-0" style="font-size: 26px;">NGANJUK</text>
+                            
+                            <path id="leaf-1" d="M 200 70 C 190 35, 175 20, 160 5 C 175 30, 190 50, 200 70 Z" class="fill-[#3A5A40]/30 stroke-[#C4487A] stroke-[1.5] opacity-0" />
+                            <path id="leaf-2" d="M 200 70 C 210 35, 225 20, 240 5 C 225 30, 210 50, 200 70 Z" class="fill-[#3A5A40]/30 stroke-[#C4487A] stroke-[1.5] opacity-0" />
+                            <path id="leaf-3" d="M 200 70 C 200 30, 200 15, 200 0 C 200 20, 200 50, 200 70 Z" class="stroke-[#C4487A] stroke-[2] opacity-0" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 space-y-8 lg:order-1 order-2">
+                    <span class="text-shallot-pink text-xs font-mono uppercase tracking-widest">Galeri 02 &bull; Monumen</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-light leading-tight">
+                        Tugu Bawang Merah: Tengara Abadi
+                    </h2>
+                    <p class="text-cream/80 leading-relaxed font-light text-base md:text-lg">
+                        Berdiri kokoh di jantung Nganjuk, monumen ikonik ini lebih dari sekadar struktur batu—ia adalah bentuk penghormatan sakral atas keringat, air mata, dan ketangguhan generasi petani bawang merah.
+                    </p>
+                    <div class="p-6 rounded-2xl glass-panel border-l-4 border-l-shallot-pink space-y-2">
+                        <p class="font-serif text-lg text-cream">"Setiap lekuk monumen mencerminkan bentuk si umbi suci yang menopang kehidupan kita."</p>
+                        <p class="text-xs text-cream/60">— Arsip Warisan Budaya Lokal</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="gallery-2" class="min-h-screen w-full relative flex flex-col justify-center px-6 md:px-20 py-28 bg-deep-dark text-cream">
+            <div class="max-w-7xl mx-auto w-full space-y-16">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-4">
+                    <span class="text-shallot-pink text-xs font-mono uppercase tracking-widest">Galeri 03 &bull; Skala & Dampak</span>
+                    <h2 class="font-serif text-4xl md:text-6xl font-light">Skala Kelimpahan</h2>
+                    <p class="text-cream/70 font-light text-base md:text-lg">
+                        Angka saja tidak cukup untuk merefleksikan pengabdian, namun besarnya angka tersebut menuntut kagum.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="glass-panel p-8 rounded-2xl space-y-3 transform hover:-translate-y-2 transition-all">
+                        <span class="text-xs font-mono text-shallot-pink uppercase tracking-widest">Hasil Tahunan</span>
+                        <div class="font-serif text-5xl md:text-6xl text-cream font-light">
+                            &gt; <span class="font-serif">1,8</span> Juta
+                        </div>
+                        <p class="text-sm text-cream/80 font-medium">Kuintal Dipanen</p>
+                        <p class="text-xs text-cream/60 font-light">Secara konsisten menstabilkan pasokan bawang merah nasional dan mencegah lonjakan harga.</p>
+                    </div>
+
+                    <div class="glass-panel p-8 rounded-2xl space-y-3 transform hover:-translate-y-2 transition-all">
+                        <span class="text-xs font-mono text-golden-glow uppercase tracking-widest">Ketahanan Pangan Nasional</span>
+                        <div class="font-serif text-5xl md:text-6xl text-cream font-light">Top 3</div>
+                        <p class="text-sm text-cream/80 font-medium">Pusat Nasional</p>
+                        <p class="text-xs text-cream/60 font-light">Menyuplai pasar tradisional dan industri kuliner mulai dari Sumatra hingga Papua.</p>
+                    </div>
+
+                    <div class="glass-panel p-8 rounded-2xl space-y-3 transform hover:-translate-y-2 transition-all">
+                        <span class="text-xs font-mono text-soft-green uppercase tracking-widest">Jangkauan Global</span>
+                        <div class="font-serif text-5xl md:text-6xl text-cream font-light">ASEAN</div>
+                        <p class="text-sm text-cream/80 font-medium">Distinction Ekspor</p>
+                        <p class="text-xs text-cream/60 font-light">Termasyhur karena kepadatan umbi yang kokoh, aroma tajam, dan daya simpan panjang di Asia Tenggara.</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8 md:p-12 rounded-3xl relative overflow-hidden">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                        <div>
+                            <h3 class="font-serif text-2xl text-cream">Alur Distribusi Hasil Panen</h3>
+                            <p class="text-xs text-cream/60">Klik salah satu simpul tujuan untuk melacak rantai pasok bawang merah Nganjuk.</p>
+                        </div>
+                        <div id="activeFlowNode" class="px-4 py-2 rounded-full bg-shallot-pink/20 text-shallot-pink text-xs font-mono">
+                            Terpilih: Pilar Domestik (Jakarta & Jawa)
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4" id="flowNodesContainer">
+                        <button onclick="setFlowNode('domestic', 'Pilar Domestik (Jakarta & Jawa)', 'Menyuplai lebih dari 40% kebutuhan harian pasar induk di Jakarta.')" class="flow-btn p-4 rounded-xl border border-shallot-pink bg-shallot-pink/10 text-left space-y-2 transition-all">
+                            <span class="text-xs text-shallot-pink uppercase font-mono">Simpul 01</span>
+                            <p class="font-serif text-lg text-cream">Pusat Domestik</p>
+                            <span class="text-[11px] text-cream/70 block">Jakarta, Surabaya, Bandung</span>
+                        </button>
+
+                        <button onclick="setFlowNode('outer', 'Logistik Luar Pulau', 'Koridor pasokan vital yang memberi makan Maluku, Papua, dan Nusa Tenggara Timur.')" class="flow-btn p-4 rounded-xl border border-cream/10 hover:border-shallot-pink/50 text-left space-y-2 transition-all">
+                            <span class="text-xs text-cream/50 uppercase font-mono">Simpul 02</span>
+                            <p class="font-serif text-lg text-cream">Pulau Luar Jawa</p>
+                            <span class="text-[11px] text-cream/70 block">Papua, Gorontalo, Maluku</span>
+                        </button>
+
+                        <button onclick="setFlowNode('asean', 'Jalur Ekspor Asia Tenggara', 'Umbi varietas Tajuk berkualitas tinggi yang diekspor ke Malaysia, Thailand, dan Vietnam.')" class="flow-btn p-4 rounded-xl border border-cream/10 hover:border-shallot-pink/50 text-left space-y-2 transition-all">
+                            <span class="text-xs text-cream/50 uppercase font-mono">Simpul 03</span>
+                            <p class="font-serif text-lg text-cream">Tetangga ASEAN</p>
+                            <span class="text-[11px] text-cream/70 block">Malaysia, Thailand, Vietnam</span>
+                        </button>
+
+                        <button onclick="setFlowNode('industrial', 'Pengolahan Kuliner & Industri', 'Bahan baku esensial untuk produsen makanan nasional & produsen bawang goreng kemasan.')" class="flow-btn p-4 rounded-xl border border-cream/10 hover:border-shallot-pink/50 text-left space-y-2 transition-all">
+                            <span class="text-xs text-cream/50 uppercase font-mono">Simpul 04</span>
+                            <p class="font-serif text-lg text-cream">Industri Pengolahan</p>
+                            <span class="text-[11px] text-cream/70 block">Industri Makanan & FMCG</span>
+                        </button>
+                    </div>
+
+                    <div id="flowNodeDetails" class="mt-6 p-4 rounded-xl bg-deep-dark/60 border border-cream/10 text-sm text-cream/80 flex items-center space-x-3">
+                        <i data-lucide="info" class="w-5 h-5 text-shallot-pink flex-shrink-0"></i>
+                        <span id="flowDetailsText">Menyuplai lebih dari 40% kebutuhan harian pasar induk di Jakarta.</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="gallery-3" class="min-h-screen w-full relative flex flex-col justify-center px-6 md:px-20 py-28 bg-earth-brown/90 text-cream overflow-hidden">
+            <div class="max-w-7xl mx-auto w-full space-y-20">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-3">
+                    <span class="text-golden-glow text-xs font-mono uppercase tracking-widest">Galeri 04 &bull; Keajaiban Botani</span>
+                    <h2 class="font-serif text-4xl md:text-6xl font-light">Dua Karya Agung Tanah</h2>
+                    <p class="text-cream/70 font-light text-base md:text-lg">
+                        Kenali Bauji dan Tajuk—kultivar bawang merah legendaris yang lahir dari iklim mikro Nganjuk.
+                    </p>
+                </div>
+
+                <!-- VARIETY 1: BAUJI -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7 space-y-6 order-2 lg:order-1">
+                        <div class="inline-block px-3 py-1 rounded-full bg-soft-green/20 text-soft-green text-xs font-mono uppercase tracking-wider">
+                            Raksasa Musim Hujan
+                        </div>
+                        <h3 class="font-serif text-5xl md:text-6xl font-light text-cream">BAUJI</h3>
+                        <p class="text-cream/90 text-lg md:text-xl font-light leading-relaxed">
+                            Dirancang oleh alam dan petani lokal untuk menaklukkan derasnya hujan muson dan tanah tropis yang lembap. Bauji tumbuh subur di saat bawang biasa membusuk, serta memiliki ketahanan tinggi terhadap penyakit moler dan siklus panen cepat selama 55 hari.
+                        </p>
+                        <p class="text-cream/70 text-sm leading-relaxed">
+                            Petani dari Gorontalo dan Papua bahkan datang ribuan kilometer ke Nganjuk demi mendapatkan benih asli Bauji.
+                        </p>
+                    </div>
+                    <div class="lg:col-span-5 flex justify-center order-1 lg:order-2">
+                        <div class="w-64 h-64 md:w-80 md:h-80 glass-panel rounded-full p-6 flex items-center justify-center animate-float border border-soft-green/30">
+                            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full fill-none stroke-soft-green stroke-[1.5]">
+                                <path d="M100 20 C140 60, 170 110, 100 180 C30 110, 60 60, 100 20 Z" />
+                                <path d="M100 40 C125 70, 145 110, 100 160 C55 110, 75 70, 100 40 Z" />
+                                <ellipse cx="100" cy="110" rx="35" ry="45" class="stroke-shallot-pink" />
+                                <circle cx="100" cy="90" r="4" class="fill-soft-green" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full h-px bg-cream/10 my-8"></div>
+
+                <!-- VARIETY 2: TAJUK -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-5 flex justify-center order-1 lg:order-1">
+                        <div class="w-64 h-64 md:w-80 md:h-80 glass-panel rounded-full p-6 flex items-center justify-center animate-float border border-shallot-pink/30" style="animation-delay: 2s;">
+                            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full fill-none stroke-shallot-pink stroke-[1.5]">
+                                <path d="M100 15 C150 55, 185 105, 100 185 C15 105, 50 55, 100 15 Z" />
+                                <path d="M100 35 C130 65, 160 105, 100 165 C40 105, 70 65, 100 35 Z" />
+                                <ellipse cx="100" cy="115" rx="40" ry="40" class="stroke-golden-glow" />
+                                <circle cx="100" cy="95" r="4" class="fill-shallot-pink" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 space-y-6 order-2 lg:order-2">
+                        <div class="inline-block px-3 py-1 rounded-full bg-shallot-pink/20 text-shallot-pink text-xs font-mono uppercase tracking-wider">
+                            Penguasa Musim Kemarau
+                        </div>
+                        <h3 class="font-serif text-5xl md:text-6xl font-light text-cream">TAJUK</h3>
+                        <p class="text-cream/90 text-lg md:text-xl font-light leading-relaxed">
+                            Kebanggaan yang tak terbantahkan di musim kemarau—terkenal karena aromanya yang khas, kepadatan umbi yang solid, dan nilai jual ekspor yang tak tertandingi. Menghasilkan 12 hingga 15 ton per hektar, Tajuk mempertahankan kualitas unggulnya berbulan-bulan pascapanen.
+                        </p>
+                        <p class="text-cream/70 text-sm leading-relaxed">
+                            Tingkat kepedasan yang pekat dan tekstur renyahnya menjadikan varietas ini standar emas untuk dapur kuliner mewah dan koridor ekspor ASEAN.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="gallery-4" class="min-h-screen w-full relative flex flex-col justify-center px-6 md:px-20 py-28 bg-deep-dark text-cream">
+            <div class="max-w-6xl mx-auto w-full space-y-16">
+                
+                <div class="space-y-4">
+                    <span class="text-shallot-pink text-xs font-mono uppercase tracking-widest">Galeri 05 &bull; Beban Tak Terlihat</span>
+                    <h2 class="font-serif text-4xl md:text-6xl font-light text-cream">
+                        Di Balik Setiap Panen Tersimpan Perang Senyap.
+                    </h2>
+                    <p class="text-cream/70 max-w-2xl text-base md:text-lg font-light">
+                        Di balik statistik produksi yang cemerlang terdapat kehidupan manusia nyata yang bergelut dengan alam yang tak menentu dan pasar yang tidak adil.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="p-6 rounded-2xl glass-panel space-y-4 hover:border-red-500/40 transition-all">
+                        <div class="w-10 h-10 rounded-full bg-red-900/30 text-red-400 flex items-center justify-center">
+                            <i data-lucide="cloud-rain" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-serif text-xl text-cream">Anomali Iklim</h3>
+                        <p class="text-xs text-cream/70 leading-relaxed">
+                            Hujan di luar musim selama bulan-bulan kering menyebabkan pembusukan umbi yang cepat dan menghancurkan investasi berbulan-bulan dalam semalam.
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl glass-panel space-y-4 hover:border-red-500/40 transition-all">
+                        <div class="w-10 h-10 rounded-full bg-red-900/30 text-red-400 flex items-center justify-center">
+                            <i data-lucide="bug" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-serif text-xl text-cream">Ulat Grayak</h3>
+                        <p class="text-xs text-cream/70 leading-relaxed">
+                            Hama ulat tentara (*Spodoptera exigua*) yang rakus menghancurkan daun tubular, menghentikan fotosintesis umbi sepenuhnya.
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl glass-panel space-y-4 hover:border-red-500/40 transition-all">
+                        <div class="w-10 h-10 rounded-full bg-red-900/30 text-red-400 flex items-center justify-center">
+                            <i data-lucide="trending-down" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-serif text-xl text-cream">Volatilitas Harga</h3>
+                        <p class="text-xs text-cream/70 leading-relaxed">
+                            Harga pasar berfluktuasi tajam—petani sering kali memanen hasil yang melimpah namun terpaksa menjual di bawah biaya produksi.
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl glass-panel space-y-4 hover:border-red-500/40 transition-all">
+                        <div class="w-10 h-10 rounded-full bg-red-900/30 text-red-400 flex items-center justify-center">
+                            <i data-lucide="coins" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-serif text-xl text-cream">Lonjakan Biaya Tani</h3>
+                        <p class="text-xs text-cream/70 leading-relaxed">
+                            Kenaikan biaya pupuk dan obat pelindung tanaman memaksa petani terjebak dalam lingkaran utang yang menggunung.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8 md:p-12 rounded-3xl relative overflow-hidden bg-gradient-to-r from-maroon/40 to-deep-dark">
+                    <div class="max-w-3xl space-y-6">
+                        <span class="text-xs font-mono text-shallot-pink uppercase tracking-widest">Paradoks Ekonomi</span>
+                        <h3 class="font-serif text-2xl md:text-3xl text-cream">
+                            "Saat hama menyerang, kami merogoh kocek lebih dalam untuk menyelamatkan ladang. Tapi ketika panen tiba, pasar menghargai jerih payah kami dengan harga murah."
+                        </h3>
+                        <p class="text-xs text-cream/60 leading-relaxed font-light">
+                            — Pak Supardi, Petani Bawang Merah di Sukomoro, Nganjuk (34 tahun menggarap tanah)
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="gallery-fase-penanaman" class="min-h-screen w-full relative bg-deep-dark text-cream flex flex-col justify-center overflow-hidden py-28">
+            <div class="max-w-[800px] mx-auto w-full px-6 mb-16 text-center">
+                <span class="text-shallot-pink text-xs font-mono uppercase tracking-[0.25em] block mb-3">Gallery 06 &bull; Fase Penanaman</span>
+                <h2 class="font-serif text-3xl md:text-6xl font-light text-cream tracking-tight leading-tight mb-3">
+                    "Lima musim, lima peluang hasil."
+                </h2>
+                <p class="text-cream/70 text-sm md:text-base font-light leading-relaxed max-w-lg mx-auto">
+                    "Petani tidak hanya menanam. Mereka membaca waktu."
+                </p>
+            </div>
+
+            <!-- Controlled Subtle Vertical Timeline Container -->
+            <div id="faseTimelineContainer" class="relative max-w-[700px] mx-auto w-full px-6 pb-16">
+                
+                <!-- SVG Subtle Vertical Line with 2 gentle curves (deviation max 10-15%) -->
+                <div class="absolute inset-0 pointer-events-none hidden md:block z-0 flex justify-center">
+                    <svg class="w-full h-full overflow-visible" viewBox="0 0 700 950" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Path starting center (350), slight wave left (320) then right (380) then straight vertical -->
+                        <path id="snakePath" d="M 350 20 C 350 150, 310 320, 350 475 C 390 630, 350 800, 350 930" stroke="url(#snakeGradient)" stroke-width="2" stroke-linecap="round" stroke-dasharray="1200" stroke-dashoffset="1200" />
+                        
+                        <defs>
+                            <linearGradient id="snakeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#C4487A" />
+                                <stop offset="35%" stop-color="#E6A15C" />
+                                <stop offset="70%" stop-color="#F59E0B" />
+                                <stop offset="100%" stop-color="#3A5A40" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+
+                <div class="space-y-16 md:space-y-20 relative z-10">
+
+                    <!-- FASE 01 (Right side text, circle on center-left curve) -->
+                    <div class="fase-node relative opacity-0 translate-y-6 transition-all flex flex-col md:flex-row items-center" data-index="1">
+                        <div class="w-full md:w-1/2 md:pr-10 hidden md:block"></div>
+                        
+                        <div class="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-deep-dark border border-shallot-pink text-cream font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
+                            01
+                        </div>
+
+                        <div class="w-full md:w-1/2 pl-12 md:pl-10 md:pr-0">
+                            <div class="space-y-2 text-left">
+                                <span class="text-shallot-pink text-[11px] font-mono uppercase tracking-[0.2em] block">LABUHAN 1</span>
+                                <h3 class="font-serif text-xl md:text-2xl font-light text-cream italic leading-snug">"Awal harapan dimulai dari hujan pertama."</h3>
+                                <p class="text-cream/70 text-xs md:text-sm leading-relaxed font-light">
+                                    Tanah mulai lembap, suhu masih bersahabat. Cocok untuk pertumbuhan awal tanaman.
+                                </p>
+                                <div class="pt-0.5">
+                                    <span class="font-serif text-2xl text-cream font-light tracking-wide">1 : 10</span>
+                                </div>
+                                <div class="w-12 h-px bg-cream/15 mt-2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FASE 02 (Left side text, circle on straight center line) -->
+                    <div class="fase-node relative opacity-0 translate-y-6 transition-all flex flex-col md:flex-row items-center" data-index="2">
+                        <div class="w-full md:w-1/2 pl-12 md:pl-0 md:pr-10 md:text-right">
+                            <div class="space-y-2">
+                                <span class="text-shallot-pink text-[11px] font-mono uppercase tracking-[0.2em] block">LABUHAN 2</span>
+                                <h3 class="font-serif text-xl md:text-2xl font-light text-cream italic leading-snug">"Terlalu banyak air, terlalu banyak risiko."</h3>
+                                <p class="text-cream/70 text-xs md:text-sm leading-relaxed font-light">
+                                    Curah hujan tinggi meningkatkan kelembapan tanah, memerlukan perhatian ekstra terhadap potensi busuk umbi.
+                                </p>
+                                <div class="pt-0.5">
+                                    <span class="font-serif text-2xl text-cream font-light tracking-wide">1 : 3</span>
+                                </div>
+                                <div class="w-12 h-px bg-cream/15 mt-2 ml-auto md:ml-auto md:mr-0"></div>
+                            </div>
+                        </div>
+
+                        <div class="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-deep-dark border border-shallot-pink text-cream font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
+                            02
+                        </div>
+
+                        <div class="w-full md:w-1/2 md:pl-10 hidden md:block"></div>
+                    </div>
+
+                    <!-- FASE 03 (Right side text, circle on straight center line) -->
+                    <div class="fase-node relative opacity-0 translate-y-6 transition-all flex flex-col md:flex-row items-center" data-index="3">
+                        <div class="w-full md:w-1/2 md:pr-10 hidden md:block"></div>
+
+                        <div class="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-deep-dark border border-shallot-pink text-cream font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
+                            03
+                        </div>
+
+                        <div class="w-full md:w-1/2 pl-12 md:pl-10 md:pr-0">
+                            <div class="space-y-2 text-left">
+                                <span class="text-shallot-pink text-[11px] font-mono uppercase tracking-[0.2em] block">LABUHAN 3</span>
+                                <h3 class="font-serif text-xl md:text-2xl font-light text-cream italic leading-snug">"Keseimbangan mulai kembali."</h3>
+                                <p class="text-cream/70 text-xs md:text-sm leading-relaxed font-light">
+                                    Peralihan menuju cuaca yang lebih hangat memberikan kondisi ideal bagi pertumbuhan optimal umbi.
+                                </p>
+                                <div class="pt-0.5">
+                                    <span class="font-serif text-2xl text-cream font-light tracking-wide">1 : 8</span>
+                                </div>
+                                <div class="w-12 h-px bg-cream/15 mt-2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FASE 04 (Left side text, circle on straight center line) -->
+                    <div class="fase-node relative opacity-0 translate-y-6 transition-all flex flex-col md:flex-row items-center" data-index="4">
+                        <div class="w-full md:w-1/2 pl-12 md:pl-0 md:pr-10 md:text-right">
+                            <div class="space-y-2">
+                                <span class="text-shallot-pink text-[11px] font-mono uppercase tracking-[0.2em] block">MUSIM RAYA</span>
+                                <h3 class="font-serif text-xl md:text-2xl font-light text-cream italic leading-snug">"Inilah puncak dari segalanya."</h3>
+                                <p class="text-cream/70 text-xs md:text-sm leading-relaxed font-light">
+                                    Musim kemarau memberikan intensitas matahari penuh, menghasilkan kualitas umbi terbaik dan daya simpan panjang.
+                                </p>
+                                <div class="pt-0.5">
+                                    <span class="font-serif text-2xl text-cream font-light tracking-wide">1 : 20</span>
+                                </div>
+                                <div class="w-12 h-px bg-cream/15 mt-2 ml-auto md:ml-auto md:mr-0"></div>
+                            </div>
+                        </div>
+
+                        <div class="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-deep-dark border border-shallot-pink text-cream font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
+                            04
+                        </div>
+
+                        <div class="w-full md:w-1/2 md:pl-10 hidden md:block"></div>
+                    </div>
+
+                    <!-- FASE 05 (Right side text, circle on center vertical) -->
+                    <div class="fase-node relative opacity-0 translate-y-6 transition-all flex flex-col md:flex-row items-center" data-index="5">
+                        <div class="w-full md:w-1/2 md:pr-10 hidden md:block"></div>
+
+                        <div class="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-deep-dark border border-shallot-pink text-cream font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
+                            05
+                        </div>
+
+                        <div class="w-full md:w-1/2 pl-12 md:pl-10 md:pr-0">
+                            <div class="space-y-2 text-left">
+                                <span class="text-shallot-pink text-[11px] font-mono uppercase tracking-[0.2em] block">APITAN</span>
+                                <h3 class="font-serif text-xl md:text-2xl font-light text-cream italic leading-snug">"Akhir yang tetap memberi harapan."</h3>
+                                <p class="text-cream/70 text-xs md:text-sm leading-relaxed font-light">
+                                    Periode transisi akhir tahun dengan cuaca hangat bercampur hujan ringan yang tetap menyuburkan tanah.
+                                </p>
+                                <div class="pt-0.5">
+                                    <span class="font-serif text-2xl text-cream font-light tracking-wide">1 : 15</span>
+                                </div>
+                                <div class="w-12 h-px bg-cream/15 mt-2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery-hasil-panen" class="min-h-screen w-full relative bg-deep-dark text-cream flex flex-col justify-center items-center py-32 px-6">
+            <div class="max-w-3xl mx-auto w-full text-center space-y-24">
+                
+                <!-- HEADER -->
+                <div class="space-y-6 hp-block opacity-0 translate-y-6 transition-all duration-500">
+                    <span class="text-shallot-pink text-xs font-mono uppercase tracking-[0.25em] block">Gallery 07 &bull; Hasil Panen</span>
+                    <h2 class="font-serif text-4xl md:text-6xl lg:text-7xl font-light text-cream tracking-tight leading-tight">
+                        "Bukan hanya panen bawang. <br><span class="italic text-shallot-pink">Tapi panen masa depan."</span>
+                    </h2>
+                    <p class="text-cream/70 text-base md:text-lg font-light leading-relaxed max-w-xl mx-auto">
+                        Di balik setiap musim, ada peluang yang sering tidak dilihat oleh generasi muda.
+                    </p>
+                    <div class="w-16 h-px bg-shallot-pink/30 mx-auto mt-8"></div>
+                </div>
+
+                <!-- BLOCK 1 — NILAI EKONOMI -->
+                <div class="space-y-8 hp-block opacity-0 translate-y-6 transition-all duration-500">
+                    <div class="space-y-3">
+                        <span class="text-shallot-pink text-xs font-mono uppercase tracking-widest block">Nilai Ekonomi</span>
+                        <h3 class="font-serif text-3xl md:text-4xl font-light text-cream">Satu musim bisa mengubah segalanya.</h3>
+                        <p class="text-cream/70 text-base md:text-lg font-light leading-relaxed max-w-lg mx-auto">
+                            Dengan waktu tanam yang tepat, hasil bisa mencapai hingga 20 kali lipat dari bibit yang ditanam.
+                        </p>
+                    </div>
+
+                    <div class="py-6">
+                        <span class="font-serif text-6xl md:text-8xl font-light text-shallot-pink tracking-tight block">1 : 20</span>
+                    </div>
+
+                    <div class="w-24 h-px bg-cream/10 mx-auto"></div>
+                </div>
+
+                <!-- BLOCK 2 — KEHIDUPAN PETANI -->
+                <div class="space-y-8 hp-block opacity-0 translate-y-6 transition-all duration-500">
+                    <div class="space-y-3">
+                        <span class="text-shallot-pink text-xs font-mono uppercase tracking-widest block">Kehidupan Petani</span>
+                        <h3 class="font-serif text-3xl md:text-4xl font-light text-cream">Lebih dari sekadar pekerjaan.</h3>
+                        <p class="text-cream/70 text-base md:text-lg font-light leading-relaxed max-w-lg mx-auto">
+                            Pertanian adalah tentang kemandirian, kontrol atas waktu, dan hubungan dengan alam.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center items-center gap-6 md:gap-10 text-sm md:text-base font-light text-cream/80 pt-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-shallot-pink"></span>
+                            <span>Tidak terikat kantor</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-shallot-pink"></span>
+                            <span>Penghasilan berbasis hasil</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-shallot-pink"></span>
+                            <span>Dekat dengan keluarga</span>
+                        </div>
+                    </div>
+
+                    <div class="w-24 h-px bg-cream/10 mx-auto"></div>
+                </div>
+
+                <!-- BLOCK 3 — AJAKAN GENERASI MUDA -->
+                <div class="space-y-8 hp-block opacity-0 translate-y-6 transition-all duration-500">
+                    <div class="space-y-3">
+                        <span class="text-shallot-pink text-xs font-mono uppercase tracking-widest block">Panggilan Masa Depan</span>
+                        <h3 class="font-serif text-3xl md:text-4xl font-light text-cream">Pertanian membutuhkan generasi berikutnya.</h3>
+                        <p class="text-cream/70 text-base md:text-lg font-light leading-relaxed max-w-lg mx-auto">
+                            Banyak petani berhenti, tetapi tanah tetap ada. Pertanyaannya, siapa yang akan melanjutkan?
+                        </p>
+                    </div>
+
+                    <div class="pt-6">
+                        <p class="font-serif text-2xl md:text-4xl font-light italic text-shallot-pink tracking-wide">
+                            "Ini bukan pekerjaan lama. Ini peluang baru."
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="gallery-5" class="min-h-screen w-full relative flex flex-col justify-center px-6 md:px-20 py-32 bg-deep-dark text-cream border-y border-cream/5 overflow-hidden">
+            <div class="max-w-5xl mx-auto w-full space-y-20">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-4">
+                    <span class="text-shallot-pink text-xs font-mono uppercase tracking-widest">Galeri 08 &bull; Memori Lisan</span>
+                    <h2 class="font-serif text-4xl md:text-6xl font-light tracking-tight">
+                        Pengetahuan yang Hanya Hidup di Kepala Manusia
+                    </h2>
+                    <p class="text-cream/70 font-light text-base md:text-lg">
+                        Dekade-dekade kebijaksanaan pertanian yang tak ternilai tersimpan dalam tradisi lisan tanpa kartu atau kotak arsip.
+                    </p>
+                </div>
+
+                <div id="timelineContainer" class="relative max-w-4xl mx-auto pt-8 pb-12">
+                    
+                    <div id="timelineLine" class="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[1px] bg-[#C4487A]/40 origin-top scale-y-0 transition-none"></div>
+
+                    <div class="space-y-20 md:space-y-28 relative z-10">
+
+                        <div class="timeline-node relative opacity-0 translate-y-12 transition-all" data-index="1">
+                            <div class="absolute left-1/2 -translate-x-1/2 -top-6 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-deep-dark border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20">
+                                01
+                            </div>
+                            <div class="glass-panel p-8 md:p-10 rounded-3xl max-w-2xl mx-auto text-center space-y-4 relative z-10 border border-[#C4487A]/20">
+                                <span class="text-shallot-pink text-xs font-mono uppercase tracking-widest">Generasi Sesepuh</span>
+                                <h3 class="font-serif text-2xl md:text-3xl font-light text-cream">Seni halus membaca bumi dan langit.</h3>
+                                <p class="text-cream/70 text-sm md:text-base leading-relaxed font-light">
+                                    Selama beberapa generasi, petani Nganjuk mewariskan rahasia secara lisan. Mereka membaca pergeseran cuaca dengan menyentuh tanah basah saat fajar, mengenali serangan hama sebelum gejala muncul di ujung daun, dan menguasai teknik pengeringan alami yang presisi demi memperpanjang umur benih menembus musim hujan.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-node relative opacity-0 translate-y-12 transition-all" data-index="2">
+                            <div class="absolute left-1/2 -translate-x-1/2 -top-6 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-deep-dark border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20">
+                                02
+                            </div>
+                            <div class="glass-panel p-8 md:p-10 rounded-3xl max-w-2xl mx-auto text-center space-y-4 relative z-10 border border-[#C4487A]/20">
+                                <span class="text-shallot-pink text-xs font-mono uppercase tracking-widest">Risiko Kehilangan</span>
+                                <h3 class="font-serif text-2xl md:text-3xl font-light text-cream">Saat para sesepuh berpulang, sejarah tak tertulis ikut memudar.</h3>
+                                <p class="text-cream/70 text-sm md:text-base leading-relaxed font-light">
+                                    Tanpa dokumentasi digital, setiap sesepuh yang berpulang membawa serta naluri rotasi tanaman selama berabad-abad, resep penanggulangan hama langka, dan strategi adaptasi iklim yang terlewatkan oleh buku teks modern.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-node relative opacity-0 translate-y-12 transition-all" data-index="3">
+                            <div class="absolute left-1/2 -translate-x-1/2 -top-6 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-deep-dark border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20">
+                                03
+                            </div>
+                            <div class="glass-panel p-8 md:p-10 rounded-3xl max-w-2xl mx-auto text-center space-y-4 relative z-10 border border-[#C4487A]/20">
+                                <span class="text-shallot-pink text-xs font-mono uppercase tracking-widest">Penjaga Kebijaksanaan</span>
+                                <h3 class="font-serif text-2xl md:text-3xl font-light text-cream">Kisah yang membentuk musim dan panen.</h3>
+                                <p class="text-cream/70 text-sm md:text-base leading-relaxed font-light">
+                                    Mulai dari memilih varietas Bauji dan Tajuk unggulan berdasarkan pengamatan turun-temurun, memahami fase rembulan yang tepat untuk menanam, hingga meracik pestisida organik dari rempah lokal—pengetahuan ini hidup dalam percakapan, bukan dokumen.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-node relative opacity-0 translate-y-12 transition-all" data-index="4">
+                            <div class="absolute left-1/2 -translate-x-1/2 -top-6 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-deep-dark border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20">
+                                04
+                            </div>
+                            <div class="glass-panel p-8 md:p-10 rounded-3xl max-w-2xl mx-auto text-center space-y-4 relative z-10 border border-[#C4487A]/20">
+                                <span class="text-shallot-pink text-xs font-mono uppercase tracking-widest">Bahaya Kepunahan</span>
+                                <h3 class="font-serif text-2xl md:text-3xl font-light text-cream">Sebelum ingatan itu lenyap selamanya.</h3>
+                                <p class="text-cream/70 text-sm md:text-base leading-relaxed font-light">
+                                    Setiap musim berlalu tanpa dokumentasi, kita berisiko kehilangan solusi tak tergantikan yang tidak dapat ditiru oleh teknologi apa pun. Masa depan pertanian Nganjuk bergantung pada upaya melestarikan, menghormati, dan meneruskan warisan hidup ini.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="gallery-6" class="min-h-screen w-full relative flex flex-col justify-center px-6 md:px-20 py-32 bg-maroon text-cream overflow-hidden">
+            <div class="max-w-[760px] mx-auto w-full space-y-16">
+                
+                <div class="text-center space-y-6">
+                    <span class="text-soft-green text-xs font-mono uppercase tracking-[0.25em] block">Galeri 09 &bull; Penjaga SIMANTRI</span>
+                    <h2 class="font-serif text-5xl md:text-7xl font-light text-cream tracking-tight">
+                        Lahirnya SIMANTRI
+                    </h2>
+                    <p class="text-cream/80 text-base md:text-lg font-light leading-relaxed max-w-xl mx-auto">
+                        SIMANTRI bukan sekadar teknologi. Ia lahir untuk menjaga pengetahuan yang telah diwariskan selama puluhan tahun.
+                    </p>
+                </div>
+
+                <div id="simantriStoryContainer" class="relative pt-12 pb-16">
+                    
+                    <div id="simantriTimelineLine" class="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[1px] bg-[#C4487A]/40 origin-top scale-y-0 transition-none"></div>
+
+                    <div class="space-y-32 relative z-10">
+
+                        <div class="simantri-node relative opacity-0 translate-y-12 transition-all" data-index="1">
+                            <div class="absolute left-1/2 -translate-x-1/2 -top-10 flex items-center justify-center w-10 h-10 rounded-full bg-maroon border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20 transition-all duration-300 hover:scale-110 hover:text-cream cursor-pointer node-number">
+                                01
+                            </div>
+                            <div class="max-w-[700px] mx-auto text-center space-y-4 px-4">
+                                <span class="text-shallot-pink text-xs font-mono uppercase tracking-[0.2em] block">Pengalaman Petani</span>
+                                <h3 class="font-serif text-3xl md:text-4xl font-light text-cream italic">"Semua berawal dari pengalaman."</h3>
+                                <p class="text-cream/70 text-base md:text-lg leading-relaxed font-light">
+                                    Musim, tanah, varietas, waktu tanam, dan cara menghadapi hama dipelajari melalui pengalaman yang diwariskan dari generasi ke generasi.
+                                </p>
+                                <div class="w-16 h-[1px] bg-cream/20 mx-auto mt-8"></div>
+                            </div>
+                        </div>
+
+                        <div class="simantri-node relative opacity-0 translate-y-12 transition-all" data-index="2">
+                            <div class="absolute left-1/2 -translate-x-1/2 -top-10 flex items-center justify-center w-10 h-10 rounded-full bg-maroon border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20 transition-all duration-300 hover:scale-110 hover:text-cream cursor-pointer node-number">
+                                02
+                            </div>
+                            <div class="max-w-[700px] mx-auto text-center space-y-4 px-4">
+                                <span class="text-shallot-pink text-xs font-mono uppercase tracking-[0.2em] block">Pengetahuan</span>
+                                <h3 class="font-serif text-3xl md:text-4xl font-light text-cream italic">"Pengalaman berubah menjadi pengetahuan."</h3>
+                                <p class="text-cream/70 text-base md:text-lg leading-relaxed font-light">
+                                    Setiap cerita petani, setiap musim tanam, dan setiap keputusan di lapangan membentuk pengetahuan lokal yang sangat berharga.
+                                </p>
+                                <div class="w-16 h-[1px] bg-cream/20 mx-auto mt-8"></div>
+                            </div>
+                        </div>
+
+                        <div class="simantri-node relative opacity-0 translate-y-12 transition-all" data-index="3">
+                        <div class="absolute left-1/2 -translate-x-1/2 -top-10 flex items-center justify-center w-10 h-10 rounded-full bg-maroon border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20 transition-all duration-300 hover:scale-110 hover:text-cream cursor-pointer node-number">
+                            03
+                        </div>
+                        <div class="max-w-[700px] mx-auto text-center space-y-6 px-4">
+                            <span class="text-shallot-pink text-xs font-mono uppercase tracking-[0.2em] block">SIMANTRI</span>
+                            <h3 class="font-serif text-3xl md:text-4xl font-light text-cream italic">"Pengetahuan yang kini dapat terus hidup."</h3>
+                            <p class="text-cream/70 text-base md:text-lg leading-relaxed font-light">
+                                SIMANTRI mengumpulkan, mendokumentasikan, dan menyusun pengetahuan tersebut menjadi sebuah basis pengetahuan yang dapat dimanfaatkan oleh generasi berikutnya.
+                            </p>
+                            
+                            <div class="pt-8 pb-4 flex flex-col items-center justify-center space-y-3 font-serif text-cream/90 text-lg">
+                                <span class="tracking-widest">Pengalaman</span>
+                                <span class="text-shallot-pink text-sm">&darr;</span>
+                                <span class="tracking-widest">Pengetahuan</span>
+                                <span class="text-shallot-pink text-sm">&darr;</span>
+                                
+                                <!-- Official Logo Image made significantly larger -->
+                                <div class="my-4 flex justify-center">
+                                    <div class="relative w-52 h-52 md:w-64 md:h-64 rounded-full bg-cream/10 border-2 border-[#C4487A] p-3 shadow-2xl flex items-center justify-center animate-float overflow-hidden group">
+                                        <div class="absolute inset-0 bg-gradient-to-tr from-[#4A1F2B]/40 via-transparent to-[#C4487A]/20"></div>
+                                        <img src="LOGO SIMANTRI.png" onerror="this.onerror=null; this.src='https://placehold.co/300x300/4A1F2B/FBF4EE?text=SIMANTRI';" alt="Logo Resmi SIMANTRI" class="w-full h-full object-contain relative z-10 rounded-full transform group-hover:scale-105 transition-transform duration-500">
+                                    </div>
+                                </div>
+
+                                <span class="text-shallot-pink text-sm">&darr;</span>
+                                <span class="tracking-widest">Generasi</span>
+                            </div>
+
+                            <div class="w-16 h-[1px] bg-cream/20 mx-auto mt-8"></div>
+                        </div>
+                    </div>
+
+                    <div class="simantri-node relative opacity-0 translate-y-12 transition-all" data-index="4">
+                            <div class="absolute left-1/2 -translate-x-1/2 -top-10 flex items-center justify-center w-10 h-10 rounded-full bg-maroon border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20 transition-all duration-300 hover:scale-110 hover:text-cream cursor-pointer node-number">
+                                04
+                            </div>
+                            <div class="max-w-[700px] mx-auto text-center space-y-6 px-4">
+                                <span class="text-shallot-pink text-xs font-mono uppercase tracking-[0.2em] block">Masa Depan</span>
+                                <h3 class="font-serif text-3xl md:text-4xl font-light text-cream italic">"Warisan yang tidak lagi hilang."</h3>
+                                <p class="text-cream/70 text-base md:text-lg leading-relaxed font-light">
+                                    Ketika pengetahuan tetap hidup, maka pertanian tidak hanya bertahan hari ini, tetapi juga memiliki masa depan.
+                                </p>
+                                <div class="pt-6">
+                                    <blockquote class="font-serif text-xl md:text-2xl text-shallot-pink font-light italic max-w-xl mx-auto leading-relaxed">
+                                        "Teknologi terbaik bukanlah yang menggantikan manusia, tetapi yang menjaga warisannya."
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="gallery-7" class="min-h-screen w-full relative flex flex-col justify-center items-center px-6 md:px-20 py-28 bg-deep-dark text-cream text-center">
+            <div class="absolute inset-0 ambient-spotlight opacity-50"></div>
+            
+            <div class="max-w-4xl mx-auto space-y-12 z-10">
+                
+                <div class="inline-block px-4 py-1.5 rounded-full border border-shallot-pink/30 text-shallot-pink text-xs font-mono uppercase tracking-widest">
+                    Galeri 10 &bull; Fajar Era Baru
+                </div>
+
+                <h2 class="font-serif text-4xl md:text-7xl font-light leading-tight">
+                    "Kota Brambang tidak dibangun dalam satu musim. <br>
+                    <span class="italic text-shallot-pink">Ia dibangun melintasi generasi."</span>
+                </h2>
+
+                <p class="text-cream/80 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed">
+                    Kini, giliran kita melanjutkan kisah ini. Dengan kebijaksanaan di dalam hati dan teknologi di genggaman tangan.
+                </p>
+
+                <div class="pt-8 flex flex-col sm:flex-row justify-center items-center gap-6">
+                    <button onclick="openPortalModal()" class="w-full sm:w-auto px-8 py-4 rounded-full bg-shallot-pink hover:bg-shallot-pink/90 text-cream font-medium text-sm tracking-wide transition-all shadow-xl hover:shadow-shallot-pink/30 flex items-center justify-center space-x-3 group">
+                        <span>Masuk Portal SIMANTRI</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+
+                    <button onclick="scrollToTop()" class="w-full sm:w-auto px-8 py-4 rounded-full glass-panel hover:bg-cream/10 text-cream font-medium text-sm tracking-wide transition-all flex items-center justify-center space-x-2">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        <span>Ulangi Pameran</span>
+                    </button>
+                </div>
+
+                <footer class="pt-20 border-t border-cream/10 text-xs text-cream/50 space-y-2">
+                    <p>Dunia Brambang &bull; Pameran Budaya & Pertanian Interaktif</p>
+                    <p>Didukung oleh SIMANTRI &bull; Nganjuk, Jawa Timur</p>
+                </footer>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SIMANTRI PORTAL INTERACTIVE MODAL -->
+    <div id="portalModal" class="fixed inset-0 z-50 bg-deep-dark/95 backdrop-blur-2xl hidden flex items-center justify-center p-6 opacity-0 transition-opacity duration-500">
+        <div class="glass-panel p-8 md:p-12 rounded-3xl max-w-xl w-full text-center space-y-6 relative border border-shallot-pink/30">
+            <button onclick="closePortalModal()" class="absolute top-6 right-6 text-cream/60 hover:text-cream">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="w-16 h-16 rounded-full bg-shallot-pink/20 text-shallot-pink mx-auto flex items-center justify-center">
+                <i data-lucide="cpu" class="w-8 h-8"></i>
+            </div>
+
+            <h3 class="font-serif text-3xl text-cream">Platform SIMANTRI</h3>
+            <p class="text-xs text-cream/70 leading-relaxed font-light">
+                Anda sedang bertransisi dari pameran museum menuju Sistem Pendukung Keputusan Pertanian SIMANTRI secara langsung.
+            </p>
+
+            <div class="p-4 rounded-xl bg-maroon/40 border border-cream/10 text-xs text-cream/80 space-y-2 text-left font-mono">
+                <div class="flex justify-between">
+                    <span class="text-shallot-pink">&gt; Mesin Pengetahuan:</span>
+                    <span>AKTIF</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-shallot-pink">&gt; Sensor Nganjuk:</span>
+                    <span>TERHUBUNG</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-shallot-pink">&gt; Jaringan Petani:</span>
+                    <span>250.000+ Simpul</span>
+                </div>
+            </div>
+
+            <div class="pt-4">
+                <button onclick="simulateAccess()" class="w-full py-3.5 rounded-full bg-shallot-pink text-cream font-medium text-xs tracking-wider uppercase hover:bg-shallot-pink/90 transition-all">
+                    Luncurkan Pratinjau Aplikasi SIMANTRI
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        gsap.registerPlugin(ScrollTrigger);
+
+        let synth = null;
+        let isAudioPlaying = false;
+
+        async function initAudio() {
+            if (!synth) {
+                synth = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: { type: "sine" },
+                    envelope: { attack: 3, decay: 4, sustain: 0.8, release: 5 }
+                }).toDestination();
+                synth.volume.value = -24;
+            }
+        }
+
+        function playAmbientNotes() {
+            if (!isAudioPlaying || !synth) return;
+            const chords = [["C3", "G3", "D4"], ["A2", "E3", "C4"], ["F2", "C3", "A3"]];
+            const randomChord = chords[Math.floor(Math.random() * chords.length)];
+            synth.triggerAttackRelease(randomChord, "4n");
+            setTimeout(playAmbientNotes, 6000);
+        }
+
+        document.getElementById('audioToggleBtn').addEventListener('click', async () => {
+            await Tone.start();
+            await initAudio();
+
+            isAudioPlaying = !isAudioPlaying;
+            const icon = document.getElementById('audioIcon');
+            const text = document.getElementById('audioText');
+
+            if (isAudioPlaying) {
+                icon.setAttribute('data-lucide', 'volume-2');
+                text.textContent = 'Suara Ambien: Nyala';
+                playAmbientNotes();
+            } else {
+                icon.setAttribute('data-lucide', 'volume-x');
+                text.textContent = 'Suara Ambien: Mati';
+            }
+            lucide.createIcons();
+        });
+
+        window.addEventListener('load', () => {
+            gsap.timeline()
+                .to('#g0-text-1', { opacity: 1, y: 0, duration: 1.5, ease: 'power3.out', delay: 0.3 })
+                .to('#g0-text-2', { opacity: 1, y: 0, duration: 1.5, ease: 'power3.out' }, "-=0.8")
+                .to('#g0-scroll', { opacity: 1, duration: 1 }, "-=0.5");
+        });
+
+        const tuguBulb = document.getElementById('tuguBulb');
+        if (tuguBulb) {
+            const length = tuguBulb.getTotalLength();
+            tuguBulb.style.strokeDasharray = length;
+            tuguBulb.style.strokeDashoffset = length;
+
+            ScrollTrigger.create({
+                trigger: "#gallery-tugu",
+                start: "top 60%",
+                once: true,
+                onEnter: () => {
+                    const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+
+                    tl.to(tuguBulb, {
+                        strokeDashoffset: 0,
+                        duration: 1.6,
+                        ease: "power1.inOut"
+                    })
+                    .to("#tuguInner", { opacity: 1, duration: 0.6 }, "-=0.4")
+                    .to("#tuguText", { opacity: 1, duration: 0.8 }, "-=0.3")
+                    .to(["#leaf-1", "#leaf-2", "#leaf-3", "#part-base-1", "#part-base-2", "#part-base-3", "#part-base-4", "#part-base-5", "#part-base-6", "#part-pillar-1", "#part-pillar-2", "#part-pillar-3", "#part-pillar-4", "#part-pedestal-1", "#part-pedestal-2"], {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1.0,
+                        stagger: 0.05
+                    }, "-=0.8")
+                    .to("#tuguGlow", { opacity: 0.35, duration: 0.8 })
+                    .to("#tuguGlow", { opacity: 0.1, duration: 1.2 });
+                }
+            });
+        }
+
+        const timelineContainer = document.getElementById('timelineContainer');
+        if (timelineContainer) {
+            ScrollTrigger.create({
+                trigger: "#gallery-5",
+                start: "top 55%",
+                once: true,
+                onEnter: () => {
+                    gsap.to("#timelineLine", {
+                        scaleY: 1,
+                        duration: 1.8,
+                        ease: "power2.inOut"
+                    });
+
+                    const nodes = document.querySelectorAll('.timeline-node');
+                    nodes.forEach((node, index) => {
+                        const delay = 0.4 + (index * 0.4);
+                        gsap.to(node, {
+                            opacity: 1,
+                            y: 0,
+                            duration: 1.0,
+                            ease: "power2.out",
+                            delay: delay
+                        });
+                    });
+                }
+            });
+        }
+
+        const simantriStoryContainer = document.getElementById('simantriStoryContainer');
+        if (simantriStoryContainer) {
+            ScrollTrigger.create({
+                trigger: "#gallery-6",
+                start: "top 50%",
+                once: true,
+                onEnter: () => {
+                    gsap.to("#simantriTimelineLine", {
+                        scaleY: 1,
+                        duration: 2.2,
+                        ease: "power2.inOut"
+                    });
+
+                    const simantriNodes = document.querySelectorAll('.simantri-node');
+                    simantriNodes.forEach((node, index) => {
+                        const delay = 0.5 + (index * 0.5);
+                        gsap.to(node, {
+                            opacity: 1,
+                            y: 0,
+                            duration: 1.2,
+                            ease: "power2.out",
+                            delay: delay
+                        });
+                    });
+                }
+            });
+        }
+
+        const faseTimelineContainer = document.getElementById('faseTimelineContainer');
+        if (faseTimelineContainer) {
+            ScrollTrigger.create({
+                trigger: "#gallery-fase-penanaman",
+                start: "top 55%",
+                once: true,
+                onEnter: () => {
+                    gsap.to("#snakePath", {
+                        strokeDashoffset: 0,
+                        duration: 1.2,
+                        ease: "power2.inOut"
+                    });
+
+                    const faseNodes = document.querySelectorAll('.fase-node');
+                    faseNodes.forEach((node, index) => {
+                        const delay = 0.2 + (index * 0.15);
+                        
+                        const circle = node.querySelector('.node-circle');
+                        if (circle) {
+                            gsap.to(circle, {
+                                scale: 1,
+                                duration: 0.5,
+                                ease: "back.out(1.7)",
+                                delay: delay
+                            });
+                        }
+
+                        gsap.to(node, {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.6,
+                            ease: "power2.out",
+                            delay: delay + 0.1
+                        });
+                    });
+                }
+            });
+        }
+
+        const hasilPanenSection = document.getElementById('gallery-hasil-panen');
+        if (hasilPanenSection) {
+            ScrollTrigger.create({
+                trigger: "#gallery-hasil-panen",
+                start: "top 60%",
+                once: true,
+                onEnter: () => {
+                    const hpBlocks = hasilPanenSection.querySelectorAll('.hp-block');
+                    hpBlocks.forEach((block, index) => {
+                        gsap.to(block, {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.5,
+                            ease: "power2.out",
+                            delay: index * 0.2
+                        });
+                    });
+                }
+            });
+        }
+
+        const sections = document.querySelectorAll('section');
+        const navDots = document.querySelectorAll('.nav-dot');
+        const counter = document.getElementById('galleryCounter');
+
+        window.addEventListener('scroll', () => {
+            let current = 0;
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - sectionHeight / 3) {
+                    current = index;
+                }
+            });
+
+            counter.textContent = `G0${current} / G09`;
+
+            navDots.forEach(dot => {
+                dot.classList.remove('bg-shallot-pink', 'scale-125');
+                dot.classList.add('bg-cream/20');
+                if (parseInt(dot.getAttribute('data-nav')) === current) {
+                    dot.classList.remove('bg-cream/20');
+                    dot.classList.add('bg-shallot-pink', 'scale-125');
+                }
+            });
+        });
+
+        gsap.utils.toArray('section').forEach((section, i) => {
+            if (i === 0) return;
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 0,
+                y: 50,
+                duration: 1.2,
+                ease: "power2.out"
+            });
+        });
+
+        function setFlowNode(node, title, details) {
+            document.getElementById('activeFlowNode').textContent = `Terpilih: ${title}`;
+            document.getElementById('flowDetailsText').textContent = details;
+
+            const buttons = document.querySelectorAll('.flow-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('border-shallot-pink', 'bg-shallot-pink/10');
+                btn.classList.add('border-cream/10');
+            });
+
+            event.currentTarget.classList.remove('border-cream/10');
+            event.currentTarget.classList.add('border-shallot-pink', 'bg-shallot-pink/10');
+        }
+
+        function openPortalModal() {
+            const modal = document.getElementById('portalModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
+        }
+
+        function closePortalModal() {
+            const modal = document.getElementById('portalModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); }, 500);
+        }
+
+        function simulateAccess() {
+            alert('Selamat datang di Sistem Pendukung Keputusan SIMANTRI. Akses diberikan ke Simpul Intelijen Pertanian Nganjuk.');
+            closePortalModal();
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
