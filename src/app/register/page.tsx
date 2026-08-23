@@ -3,8 +3,20 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
-import { Sprout, ArrowRight, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react'
+import {
+  ArrowRight,
+  AlertCircle,
+  CheckCircle2,
+  Loader2,
+  ShieldCheck,
+  ShieldAlert,
+  FileCheck,
+  Upload,
+  X,
+  BadgeCheck,
+} from 'lucide-react'
 
 const NGANJUK_VILLAGES = [
   'Sukomoro',
@@ -28,6 +40,17 @@ const NGANJUK_VILLAGES = [
   'Ngronggot',
 ]
 
+const BPP_INSTITUTIONS = [
+  'BPP Wilayah Sukomoro',
+  'BPP Wilayah Bagor',
+  'BPP Wilayah Rejoso',
+  'BPP Wilayah Gondang',
+  'BPP Wilayah Tanjunganom',
+  'BPP Wilayah Kertosono',
+  'Dinas Pertanian Kabupaten Nganjuk',
+  'Penyuluh Swadaya / Mandiri',
+]
+
 export default function RegisterPage() {
   const router = useRouter()
   const [fullName, setFullName] = useState('')
@@ -35,9 +58,32 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('')
   const [role, setRole] = useState<'petani' | 'penyuluh'>('petani')
   const [village, setVillage] = useState('Sukomoro')
+
+  // Penyuluh Verification Extra Fields
+  const [nip, setNip] = useState('')
+  const [institution, setInstitution] = useState('BPP Wilayah Sukomoro')
+  const [docBase64, setDocBase64] = useState<string | null>(null)
+  const [docFileName, setDocFileName] = useState<string | null>(null)
+
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0]
+      if (file.size > 5 * 1024 * 1024) {
+        setErrorMessage('Ukuran file dokumen maksimal 5MB.')
+        return
+      }
+      setDocFileName(file.name)
+      const reader = new FileReader()
+      reader.onload = () => {
+        setDocBase64(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -47,6 +93,12 @@ export default function RegisterPage() {
 
     if (password.length < 6) {
       setErrorMessage('Kata sandi minimal terdiri dari 6 karakter.')
+      setLoading(false)
+      return
+    }
+
+    if (role === 'penyuluh' && (!nip.trim() || !docBase64)) {
+      setErrorMessage('Penyuluh wajib mengisi NIP/No. Registrasi dan mengunggah dokumen bukti KTA/SK.')
       setLoading(false)
       return
     }
@@ -61,23 +113,33 @@ export default function RegisterPage() {
             full_name: fullName,
             role: role,
             village: village,
+            nip: role === 'penyuluh' ? nip.trim() : null,
+            institution: role === 'penyuluh' ? institution : null,
+            verification_doc_url: role === 'penyuluh' ? docBase64 : null,
           },
         },
       })
 
       if (error) {
-        setErrorMessage(error.message)
+        let msg = error.message
+        if (msg.toLowerCase().includes('rate limit')) {
+          msg = 'Batas pengiriman email sistem pendaftaran sementara telah tercapai (Supabase Rate Limit). Silakan gunakan Akun Demo di halaman Masuk.'
+        } else if (msg.toLowerCase().includes('already registered')) {
+          msg = 'Alamat email ini sudah terdaftar di SIMANTRI. Silakan masuk menggunakan akun Anda.'
+        }
+        setErrorMessage(msg)
         setLoading(false)
         return
       }
 
       if (data.session) {
-        // Otomatis login jika email confirmation dimatikan di Supabase
         router.push('/dashboard')
         router.refresh()
       } else {
         setSuccessMessage(
-          'Pendaftaran berhasil! Akun Anda telah dibuat. Silakan masuk.'
+          role === 'penyuluh'
+            ? 'Pendaftaran Penyuluh berhasil dikirim! Dokumen KTA/SK Anda sedang dalam antrean verifikasi Admin Dinas Pertanian.'
+            : 'Pendaftaran berhasil! Akun Anda telah dibuat. Silakan masuk.'
         )
         setLoading(false)
       }
@@ -89,37 +151,44 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-[#FBF4EE]">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
+    <div className="min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#FBF4EE]">
+      <div className="sm:mx-auto sm:w-full sm:max-w-lg text-center">
         <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
-          <div className="w-12 h-12 rounded-xl bg-[#4A1F2B] text-[#FBF4EE] flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-            <Sprout className="w-7 h-7 text-[#E6A15C]" />
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white p-2 shadow-lg border border-[#E5DFD6] flex items-center justify-center group-hover:scale-105 transition-transform">
+            <Image
+              src="/logo_simantri.png"
+              alt="Logo SIMANTRI"
+              width={54}
+              height={54}
+              className="w-full h-full object-contain"
+              priority
+            />
           </div>
         </Link>
-        <h2 className="text-3xl font-serif font-bold text-[#0E080A] tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#0E080A] tracking-tight">
           Daftar Akun SIMANTRI
         </h2>
-        <p className="mt-2 text-sm text-[#4A3A32]">
-          Bergabung dengan ekosistem pertanian bawang merah Nganjuk berbasis data
+        <p className="mt-1.5 text-xs sm:text-sm text-[#4A3A32]">
+          Ekosistem terpercaya data pertanian bawang merah Nganjuk
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0">
-        <div className="card-standard p-8 sm:p-10 shadow-lg border border-[#E5DFD6]">
+      <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-lg">
+        <div className="card-standard p-6 sm:p-8 shadow-lg border border-[#E5DFD6]">
           {errorMessage && (
-            <div className="mb-6 p-4 rounded-lg bg-[#8C3A3A]/10 border border-[#8C3A3A]/20 flex items-start gap-3">
+            <div className="mb-5 p-4 rounded-xl bg-[#8C3A3A]/10 border border-[#8C3A3A]/20 flex items-start gap-3">
               <AlertCircle className="w-5 h-5 text-[#8C3A3A] shrink-0 mt-0.5" />
-              <p className="text-sm text-[#8C3A3A] font-medium leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#8C3A3A] font-medium leading-relaxed">
                 {errorMessage}
               </p>
             </div>
           )}
 
           {successMessage && (
-            <div className="mb-6 p-4 rounded-lg bg-[#3A5A40]/10 border border-[#3A5A40]/20 flex items-start gap-3">
+            <div className="mb-5 p-4 rounded-xl bg-[#3A5A40]/10 border border-[#3A5A40]/20 flex items-start gap-3">
               <CheckCircle2 className="w-5 h-5 text-[#3A5A40] shrink-0 mt-0.5" />
               <div>
-                <p className="text-sm text-[#3A5A40] font-medium leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#3A5A40] font-medium leading-relaxed">
                   {successMessage}
                 </p>
                 <Link
@@ -136,7 +205,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="fullName"
-                className="block text-sm font-medium text-[#4A3A32] mb-1"
+                className="block text-xs sm:text-sm font-medium text-[#4A3A32] mb-1"
               >
                 Nama Lengkap
               </label>
@@ -146,15 +215,15 @@ export default function RegisterPage() {
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                placeholder="Contoh: Pak Budi Santoso"
-                className="w-full input-standard text-sm placeholder-[#8A8580]"
+                placeholder="Contoh: Budi Santoso, S.P."
+                className="w-full input-standard text-xs sm:text-sm placeholder-[#8A8580]"
               />
             </div>
 
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-[#4A3A32] mb-1"
+                className="block text-xs sm:text-sm font-medium text-[#4A3A32] mb-1"
               >
                 Alamat Email
               </label>
@@ -164,15 +233,15 @@ export default function RegisterPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="budi@example.com"
-                className="w-full input-standard text-sm placeholder-[#8A8580]"
+                placeholder="nama@email.com"
+                className="w-full input-standard text-xs sm:text-sm placeholder-[#8A8580]"
               />
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-[#4A3A32] mb-1"
+                className="block text-xs sm:text-sm font-medium text-[#4A3A32] mb-1"
               >
                 Kata Sandi
               </label>
@@ -183,15 +252,15 @@ export default function RegisterPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Minimal 6 karakter"
-                className="w-full input-standard text-sm placeholder-[#8A8580]"
+                className="w-full input-standard text-xs sm:text-sm placeholder-[#8A8580]"
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-3 pt-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
               <div>
                 <label
                   htmlFor="role"
-                  className="block text-sm font-medium text-[#4A3A32] mb-1"
+                  className="block text-xs sm:text-sm font-medium text-[#4A3A32] mb-1"
                 >
                   Peran / Profesi
                 </label>
@@ -199,17 +268,17 @@ export default function RegisterPage() {
                   id="role"
                   value={role}
                   onChange={(e) => setRole(e.target.value as 'petani' | 'penyuluh')}
-                  className="w-full input-standard text-sm bg-white"
+                  className="w-full input-standard text-xs sm:text-sm bg-white font-medium"
                 >
-                  <option value="petani">Petani Bawang</option>
-                  <option value="penyuluh">Penyuluh Pertanian</option>
+                  <option value="petani">🌾 Petani Bawang</option>
+                  <option value="penyuluh">📋 Penyuluh Pertanian (Resmi)</option>
                 </select>
               </div>
 
               <div>
                 <label
                   htmlFor="village"
-                  className="block text-sm font-medium text-[#4A3A32] mb-1"
+                  className="block text-xs sm:text-sm font-medium text-[#4A3A32] mb-1"
                 >
                   Kecamatan / Wilayah
                 </label>
@@ -217,7 +286,7 @@ export default function RegisterPage() {
                   id="village"
                   value={village}
                   onChange={(e) => setVillage(e.target.value)}
-                  className="w-full input-standard text-sm bg-white"
+                  className="w-full input-standard text-xs sm:text-sm bg-white"
                 >
                   {NGANJUK_VILLAGES.map((v) => (
                     <option key={v} value={v}>
@@ -228,11 +297,118 @@ export default function RegisterPage() {
               </div>
             </div>
 
+            {/* EXTRA VERIFICATION SECTION FOR PENYULUH */}
+            {role === 'penyuluh' && (
+              <div className="mt-3 p-4 rounded-2xl bg-gradient-to-br from-[#2A5A70]/10 via-[#FBF4EE] to-[#2A5A70]/5 border border-[#2A5A70]/30 space-y-3.5 animate-fadeIn">
+                <div className="flex items-start gap-2.5">
+                  <BadgeCheck className="w-5 h-5 text-[#2A5A70] shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-xs font-bold text-[#0E080A]">
+                      Verifikasi Identitas Penyuluh Pertanian
+                    </h4>
+                    <p className="text-[11px] text-[#4A3A32] leading-relaxed">
+                      Sesuai standar ekosistem terpercaya (*Trusted Ecosystem*), akun Penyuluh memerlukan validasi dokumen resmi sebelum hak validasi lapangan diberikan.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label
+                      htmlFor="nip"
+                      className="block text-[11px] font-semibold text-[#4A3A32] mb-1"
+                    >
+                      NIP / No. Registrasi KTA <span className="text-[#A6304F]">*</span>
+                    </label>
+                    <input
+                      id="nip"
+                      type="text"
+                      required
+                      value={nip}
+                      onChange={(e) => setNip(e.target.value)}
+                      placeholder="Contoh: 198503152010011002"
+                      className="w-full input-standard text-xs placeholder-[#8A8580] bg-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="institution"
+                      className="block text-[11px] font-semibold text-[#4A3A32] mb-1"
+                    >
+                      Instansi / BPP Penugasan <span className="text-[#A6304F]">*</span>
+                    </label>
+                    <select
+                      id="institution"
+                      value={institution}
+                      onChange={(e) => setInstitution(e.target.value)}
+                      className="w-full input-standard text-xs bg-white"
+                    >
+                      {BPP_INSTITUTIONS.map((inst) => (
+                        <option key={inst} value={inst}>
+                          {inst}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-[#4A3A32] mb-1">
+                    Unggah Dokumen Bukti (KTA / SK Dinas) <span className="text-[#A6304F]">*</span>
+                  </label>
+                  <div className="p-3 border-2 border-dashed border-[#2A5A70]/30 rounded-xl bg-white text-center hover:border-[#2A5A70] transition-colors relative">
+                    <input
+                      type="file"
+                      id="docUpload"
+                      accept="image/jpeg,image/png,image/webp,application/pdf"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                      required={!docBase64}
+                    />
+
+                    {docFileName ? (
+                      <div className="flex items-center justify-between gap-2 text-xs text-[#2A5A70] font-medium px-1">
+                        <span className="flex items-center gap-1.5 truncate">
+                          <FileCheck className="w-4 h-4 text-[#3A5A40]" />
+                          {docFileName}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setDocBase64(null)
+                            setDocFileName(null)
+                          }}
+                          className="p-1 text-[#8C3A3A] hover:bg-[#8C3A3A]/10 rounded-full"
+                          title="Hapus Dokumen"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    ) : (
+                      <label
+                        htmlFor="docUpload"
+                        className="cursor-pointer flex flex-col items-center justify-center gap-1 py-1"
+                      >
+                        <Upload className="w-5 h-5 text-[#2A5A70]" />
+                        <span className="text-xs font-semibold text-[#2A5A70]">
+                          Pilih Foto KTA / Dokumen SK
+                        </span>
+                        <span className="text-[10px] text-[#8A8580]">
+                          JPG, PNG, atau PDF (Maks 5MB)
+                        </span>
+                      </label>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className="pt-2">
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full btn-primary py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 shadow-sm text-sm"
+                className="w-full btn-primary py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-sm text-sm font-semibold transition-all active:scale-95"
               >
                 {loading ? (
                   <>
@@ -241,7 +417,7 @@ export default function RegisterPage() {
                   </>
                 ) : (
                   <>
-                    <span>Daftar Akun</span>
+                    <span>Daftar Akun {role === 'penyuluh' ? 'Penyuluh' : 'Petani'}</span>
                     <ArrowRight className="w-4 h-4" />
                   </>
                 )}
@@ -249,11 +425,11 @@ export default function RegisterPage() {
             </div>
           </form>
 
-          <div className="mt-6 pt-5 border-t border-[#E5DFD6] text-center text-sm text-[#4A3A32]">
+          <div className="mt-6 pt-4 border-t border-[#E5DFD6] text-center text-xs sm:text-sm text-[#4A3A32]">
             Sudah memiliki akun?{' '}
             <Link
               href="/login"
-              className="font-medium text-[#C4487A] hover:underline"
+              className="font-semibold text-[#C4487A] hover:underline"
             >
               Masuk di sini
             </Link>

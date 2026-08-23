@@ -1,5 +1,121 @@
 @import "tailwindcss";
 
+@keyframes sim-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+}
+
+@keyframes sim-pulse {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes sim-draw {
+  from {
+    stroke-dasharray: 980;
+    stroke-dashoffset: 980;
+  }
+  to {
+    stroke-dasharray: 980;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sim-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sim-spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-sim-float {
+  animation: sim-float 6s ease-in-out infinite;
+}
+
+.animate-sim-pulse {
+  animation: sim-pulse 2s ease-out infinite;
+}
+
+.animate-sim-draw {
+  animation: sim-draw 1.8s ease-in-out both;
+}
+
+.animate-sim-fade-up {
+  animation: sim-fade-up 900ms ease-out both;
+}
+
+.animate-sim-spin-slow {
+  animation: sim-spin-slow 28s linear infinite;
+}
+
+.museum-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@theme {
+  --color-cream: #FBF4EE;
+  --color-maroon: #4A1F2B;
+  --color-shallot-pink: #C4487A;
+  --color-earth-brown: #3D261A;
+  --color-soft-green: #3A5A40;
+  --color-deep-dark: #0E080A;
+  --color-golden-glow: #E6A15C;
+}
+
+.glass-panel {
+  background: rgba(251, 244, 238, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(251, 244, 238, 0.08);
+}
+
+.glass-panel-dark {
+  background: rgba(14, 8, 10, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(196, 72, 122, 0.15);
+}
+
+.ambient-spotlight {
+  background: radial-gradient(circle at 50% 50%, rgba(196, 72, 122, 0.15) 0%, rgba(14, 8, 10, 0) 70%);
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+.animate-float {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.font-fraunces {
+  font-family: var(--font-serif), 'Fraunces', serif;
+}
+
 @layer base {
   :root {
     --color-shallot-pink: #C4487A;
@@ -20,11 +136,11 @@
 }
 
 .font-serif {
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-serif), 'Fraunces', Georgia, serif;
 }
 
 .font-sans {
-  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-sans), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Design System Component Utilities */
@@ -92,3 +208,134 @@
   border-color: #8C3A3A;
   box-shadow: 0px 0px 0px 3px rgba(140, 58, 58, 0.12);
 }
+
+/* ==========================================================================
+   SIMANTRI Interactive Hover System
+   ========================================================================== */
+
+.nav-link-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.15rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(36, 24, 18, 0.8);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  text-decoration: none;
+}
+.nav-link-pill:hover {
+  background-color: #C4487A !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px -4px rgba(196, 72, 122, 0.45);
+}
+.nav-link-pill:active {
+  transform: scale(0.96);
+}
+
+.simantri-card-hover {
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  will-change: transform, box-shadow, border-color;
+}
+.simantri-card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: #A6304F !important;
+  box-shadow: 0 24px 48px -12px rgba(166, 48, 79, 0.3) !important;
+}
+.simantri-card-hover:active {
+  transform: translateY(-2px) scale(0.99);
+}
+
+.simantri-feature-card-hover {
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  will-change: transform, box-shadow, border-color;
+}
+.simantri-feature-card-hover:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: #A6304F !important;
+  box-shadow: 0 28px 56px -14px rgba(166, 48, 79, 0.35), 0 0 0 1px rgba(166, 48, 79, 0.25) !important;
+}
+.simantri-feature-card-hover:active {
+  transform: translateY(-2px) scale(0.99);
+}
+
+.simantri-dark-card-hover {
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.simantri-dark-card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+  background-color: #38241b !important;
+  border-color: #E6A15C !important;
+  box-shadow: 0 24px 48px -12px rgba(230, 161, 92, 0.35) !important;
+}
+
+.simantri-step-card-hover {
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  will-change: transform, box-shadow, border-color;
+}
+.simantri-step-card-hover:hover {
+  transform: translateY(-8px) scale(1.03);
+  background-color: #FFFFFF !important;
+  border-color: #A6304F !important;
+  box-shadow: 0 24px 48px -12px rgba(166, 48, 79, 0.3) !important;
+}
+.simantri-step-card-hover:active {
+  transform: translateY(-2px) scale(0.99);
+}
+
+.simantri-timeline-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  will-change: transform, box-shadow, border-color;
+}
+.simantri-timeline-card-hover:hover {
+  transform: translateX(6px) translateY(-2px);
+  background-color: #FFFDF8 !important;
+  border-color: #A6304F !important;
+  box-shadow: 0 18px 36px -10px rgba(166, 48, 79, 0.28) !important;
+}
+.simantri-timeline-card-hover:active {
+  transform: scale(0.98);
+}
+
+.simantri-persona-card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  will-change: transform, box-shadow;
+}
+.simantri-persona-card-hover:hover {
+  transform: translateY(-10px) scale(1.025);
+  box-shadow: 0 32px 64px -16px rgba(36, 24, 18, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.15) !important;
+}
+.simantri-persona-card-hover:active {
+  transform: translateY(-3px) scale(0.99);
+}
+
+/* Landing Page Sticky Glass Header */
+.landing-glass-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: rgba(246, 236, 223, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(36, 24, 18, 0.08);
+}
+
+.landing-glass-header.is-scrolled {
+  background-color: rgba(246, 236, 223, 0.72) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(36, 24, 18, 0.15) !important;
+  box-shadow: 0 12px 32px -10px rgba(36, 24, 18, 0.12) !important;
+}
+
+

@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-import { Sprout, ArrowRight, AlertCircle, Loader2 } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowRight, AlertCircle, Loader2 } from 'lucide-react'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -48,8 +49,15 @@ export default function LoginPage() {
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-[#FBF4EE]">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
         <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
-          <div className="w-12 h-12 rounded-xl bg-[#4A1F2B] text-[#FBF4EE] flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-            <Sprout className="w-7 h-7 text-[#E6A15C]" />
+          <div className="w-16 h-16 rounded-2xl bg-white p-2 shadow-lg border border-[#E5DFD6] flex items-center justify-center group-hover:scale-105 transition-transform">
+            <Image
+              src="/logo_simantri.png"
+              alt="Logo SIMANTRI"
+              width={54}
+              height={54}
+              className="w-full h-full object-contain"
+              priority
+            />
           </div>
         </Link>
         <h2 className="text-3xl font-serif font-bold text-[#0E080A] tracking-tight">

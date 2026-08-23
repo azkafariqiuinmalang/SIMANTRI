@@ -24,7 +24,14 @@ export interface Profile {
   role: UserRole
   village: string | null
   is_verified_contributor: boolean
+  nip?: string | null
+  institution?: string | null
+  verification_doc_url?: string | null
+  verification_status?: 'unverified' | 'pending' | 'verified' | 'rejected'
+  verified_at?: string | null
+  verified_by?: string | null
   created_at: string
+  updated_at?: string
 }
 
 export interface KnowledgeEntry {

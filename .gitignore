@@ -39,3 +39,23 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Python & ML
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+venv/
+.venv/
+env/
+
+# IDE & system
+.vscode/
+.idea/
+.gemini/
+*.log
+*.zip
+*.tar.gz
+*.pt
+
+
