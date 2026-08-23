@@ -250,7 +250,6 @@ ${weatherString}
     const apiKey = process.env.GEMINI_API_KEY
 
     if (!apiKey) {
-      // Graceful fallback response when API Key is pending
       if (dariKb) {
         aiResponse = `Berdasarkan data resmi Knowledge Base SIMANTRI (${sumber.map((s) => s.title).join(', ')}):\n\n${
           finalDocs[0]?.summary || finalDocs[0]?.content.slice(0, 400)
@@ -259,35 +258,42 @@ ${weatherString}
         aiResponse = `Halo! Pertanyaan Anda terkait "${userMessage}" saat ini belum tercakup spesifik dalam basis data lokal SIMANTRI. Namun secara umum untuk budidaya bawang merah, disarankan memperhatikan kelembaban tanah, drainase, dan rotasi tanaman.\n\nSaran:\n- Periksa kondisi riil di lahan sawah.\n- Hubungi PPL / Penyuluh pertanian terdekat.`
       }
     } else {
-      try {
-        const genAI = new GoogleGenerativeAI(apiKey)
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+      const CANDIDATE_MODELS = [
+        'gemini-3.5-flash',
+        'gemini-3.7-flash',
+        'gemini-3.1-pro-preview',
+        'gemini-flash-latest',
+        'gemini-2.5-pro',
+      ]
 
-        const result = await model.generateContent({
-          contents: [{ role: 'user', parts: [{ text: userMessage }] }],
-          systemInstruction: systemPrompt,
-        })
+      const genAI = new GoogleGenerativeAI(apiKey)
+      let generated = false
 
-        aiResponse = result.response.text()
-      } catch (genError: unknown) {
-        console.error('Gemini API generation error:', genError)
-        // Try fallback to gemini-2.0-flash if 1.5-flash encounters an error
+      for (const modelName of CANDIDATE_MODELS) {
         try {
-          const genAI = new GoogleGenerativeAI(apiKey)
-          const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
+          const model = genAI.getGenerativeModel({ model: modelName })
           const result = await model.generateContent({
             contents: [{ role: 'user', parts: [{ text: userMessage }] }],
             systemInstruction: systemPrompt,
           })
-          aiResponse = result.response.text()
-        } catch {
-          if (dariKb) {
-            aiResponse = `Berdasarkan data resmi Knowledge Base SIMANTRI (${sumber.map((s) => s.title).join(', ')}):\n\n${
-              finalDocs[0]?.summary || finalDocs[0]?.content.slice(0, 500)
-            }\n\nSaran:\n- Sesuaikan pola tanam dengan curah hujan setempat.\n- Konsultasikan dengan penyuluh BPP Nganjuk terdekat.`
-          } else {
-            aiResponse = `Halo! Mengenai "${userMessage}", secara umum dalam budidaya bawang merah Nganjuk, pastikan drainase bedengan dibuat optimal dan perhatikan kondisi cuaca sebelum pemupukan.\n\nSaran:\n- Cek kondisi kelembaban tanah lahan.\n- Hubungi Penyuluh Pertanian Lapangan (PPL) setempat.`
+          const text = result.response.text()
+          if (text && text.trim().length > 0) {
+            aiResponse = text.trim()
+            generated = true
+            break
           }
+        } catch (modelErr) {
+          console.warn(`Model ${modelName} failed, trying next candidate:`, modelErr)
+        }
+      }
+
+      if (!generated) {
+        if (dariKb) {
+          aiResponse = `Berdasarkan data resmi Knowledge Base SIMANTRI (${sumber.map((s) => s.title).join(', ')}):\n\n${
+            finalDocs[0]?.summary || finalDocs[0]?.content.slice(0, 500)
+          }\n\nSaran:\n- Sesuaikan pola tanam dengan curah hujan setempat.\n- Konsultasikan dengan penyuluh BPP Nganjuk terdekat.`
+        } else {
+          aiResponse = `Halo! Mengenai "${userMessage}", secara umum dalam budidaya bawang merah Nganjuk, pastikan drainase bedengan dibuat optimal dan perhatikan kondisi cuaca sebelum pemupukan.\n\nSaran:\n- Cek kondisi kelembaban tanah lahan.\n- Hubungi Penyuluh Pertanian Lapangan (PPL) setempat.`
         }
       }
     }
