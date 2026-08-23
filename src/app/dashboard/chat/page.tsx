@@ -119,13 +119,21 @@ export default function ChatAssistantPage() {
       }
 
       const result = await response.json()
+      const replyText =
+        result.reply ||
+        result.response ||
+        result.data?.response ||
+        result.data?.reply ||
+        result.data?.message ||
+        result.message ||
+        'Jawaban tidak dapat dimuat.'
 
       const simaMsg: Message = {
-        id: result.chat_id || null,
+        id: result.chat_id || result.data?.id || null,
         sender: 'sima',
-        text: result.reply,
-        sumber: result.sumber || [],
-        dari_kb: result.dari_kb ?? false,
+        text: replyText,
+        sumber: result.sumber || result.data?.sumber || [],
+        dari_kb: result.dari_kb ?? result.data?.dari_kb ?? false,
         timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
       }
 

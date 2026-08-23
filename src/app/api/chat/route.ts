@@ -261,7 +261,7 @@ ${weatherString}
     } else {
       try {
         const genAI = new GoogleGenerativeAI(apiKey)
-        const model = genAI.getGenerativeModel({ model: 'gemini-3.6-flash' })
+        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
 
         const result = await model.generateContent({
           contents: [{ role: 'user', parts: [{ text: userMessage }] }],
@@ -271,11 +271,24 @@ ${weatherString}
         aiResponse = result.response.text()
       } catch (genError: unknown) {
         console.error('Gemini API generation error:', genError)
-        const msg = genError instanceof Error ? genError.message : 'Gagal menghubungi Gemini API'
-        // Fallback graceful response instead of crashing
-        aiResponse = `Mohon maaf, terjadi kendala saat memproses jawaban dengan model AI (${msg}). Namun berikut informasi dari basis data SIMANTRI:\n\n${
-          finalDocs[0]?.summary || 'Silakan ulangi beberapa saat lagi atau tanyakan topik budidaya lainnya.'
-        }`
+        // Try fallback to gemini-2.0-flash if 1.5-flash encounters an error
+        try {
+          const genAI = new GoogleGenerativeAI(apiKey)
+          const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
+          const result = await model.generateContent({
+            contents: [{ role: 'user', parts: [{ text: userMessage }] }],
+            systemInstruction: systemPrompt,
+          })
+          aiResponse = result.response.text()
+        } catch {
+          if (dariKb) {
+            aiResponse = `Berdasarkan data resmi Knowledge Base SIMANTRI (${sumber.map((s) => s.title).join(', ')}):\n\n${
+              finalDocs[0]?.summary || finalDocs[0]?.content.slice(0, 500)
+            }\n\nSaran:\n- Sesuaikan pola tanam dengan curah hujan setempat.\n- Konsultasikan dengan penyuluh BPP Nganjuk terdekat.`
+          } else {
+            aiResponse = `Halo! Mengenai "${userMessage}", secara umum dalam budidaya bawang merah Nganjuk, pastikan drainase bedengan dibuat optimal dan perhatikan kondisi cuaca sebelum pemupukan.\n\nSaran:\n- Cek kondisi kelembaban tanah lahan.\n- Hubungi Penyuluh Pertanian Lapangan (PPL) setempat.`
+          }
+        }
       }
     }
 
@@ -308,6 +321,11 @@ ${weatherString}
         sumber: sumber,
         dari_kb: dariKb,
       },
+      reply: aiResponse,
+      response: aiResponse,
+      sumber: sumber,
+      dari_kb: dariKb,
+      chat_id: logId,
       error: null,
     })
   } catch (error: unknown) {
