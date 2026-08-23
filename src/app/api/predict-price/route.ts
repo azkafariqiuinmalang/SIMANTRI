@@ -137,8 +137,12 @@ export async function POST(req: NextRequest) {
     let predictedPrice = Math.round(ma7 * 0.4 + ema7 * 0.4 + lag1 * 0.2) // baseline estimate
 
     // 3. Panggil ML service FastAPI jika URL terkonfigurasi
-    const mlApiUrl = process.env.PRICE_MODEL_API_URL
+    let mlApiUrl = process.env.PRICE_MODEL_API_URL
     if (mlApiUrl) {
+      if (!mlApiUrl.startsWith('http://') && !mlApiUrl.startsWith('https://')) {
+        mlApiUrl = `https://${mlApiUrl}`
+      }
+      mlApiUrl = mlApiUrl.replace(/\/+$/, '')
       try {
         const mlRes = await fetch(`${mlApiUrl}/predict-from-history`, {
           method: 'POST',

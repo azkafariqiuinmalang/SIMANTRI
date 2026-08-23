@@ -106,7 +106,12 @@ export async function POST(req: NextRequest) {
     const detectionId = detectionRecord.id
 
     // 3. Kirim gambar ke FastAPI YOLOv8
-    const cvApiUrl = process.env.CV_MODEL_API_URL || 'http://localhost:8001'
+    let cvApiUrl = process.env.CV_MODEL_API_URL || 'http://localhost:8001'
+    if (!cvApiUrl.startsWith('http://') && !cvApiUrl.startsWith('https://')) {
+      cvApiUrl = `https://${cvApiUrl}`
+    }
+    cvApiUrl = cvApiUrl.replace(/\/+$/, '')
+
     let fastApiResponse: {
       detections: RawDetectionItem[]
       total_objects: number
@@ -139,7 +144,7 @@ export async function POST(req: NextRequest) {
         {
           data: null,
           error: {
-            message: `Layanan deteksi Computer Vision lokal (${cvApiUrl}) belum aktif atau gagal merespons. Pastikan server FastAPI telah dijalankan di port 8001. (${errorMsg})`,
+            message: `Layanan deteksi Computer Vision (${cvApiUrl}) belum aktif atau gagal merespons. (${errorMsg})`,
             code: 'CV_SERVICE_UNAVAILABLE',
           },
         },

@@ -976,12 +976,12 @@
                 </p>
 
                 <div class="pt-8 flex flex-col sm:flex-row justify-center items-center gap-6">
-                    <button onclick="openPortalModal()" class="w-full sm:w-auto px-8 py-4 rounded-full bg-shallot-pink hover:bg-shallot-pink/90 text-cream font-medium text-sm tracking-wide transition-all shadow-xl hover:shadow-shallot-pink/30 flex items-center justify-center space-x-3 group">
+                    <a href="/login" target="_top" class="w-full sm:w-auto px-8 py-4 rounded-full bg-shallot-pink hover:bg-shallot-pink/90 text-cream font-medium text-sm tracking-wide transition-all shadow-xl hover:shadow-shallot-pink/30 flex items-center justify-center space-x-3 group cursor-pointer">
                         <span>Masuk Portal SIMANTRI</span>
                         <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                    </button>
+                    </a>
 
-                    <button onclick="scrollToTop()" class="w-full sm:w-auto px-8 py-4 rounded-full glass-panel hover:bg-cream/10 text-cream font-medium text-sm tracking-wide transition-all flex items-center justify-center space-x-2">
+                    <button onclick="scrollToTop()" class="w-full sm:w-auto px-8 py-4 rounded-full glass-panel hover:bg-cream/10 text-cream font-medium text-sm tracking-wide transition-all flex items-center justify-center space-x-2 cursor-pointer">
                         <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
                         <span>Ulangi Pameran</span>
                     </button>
@@ -996,45 +996,6 @@
         </section>
 
     </main>
-
-    <!-- SIMANTRI PORTAL INTERACTIVE MODAL -->
-    <div id="portalModal" class="fixed inset-0 z-50 bg-deep-dark/95 backdrop-blur-2xl hidden flex items-center justify-center p-6 opacity-0 transition-opacity duration-500">
-        <div class="glass-panel p-8 md:p-12 rounded-3xl max-w-xl w-full text-center space-y-6 relative border border-shallot-pink/30">
-            <button onclick="closePortalModal()" class="absolute top-6 right-6 text-cream/60 hover:text-cream">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-
-            <div class="w-16 h-16 rounded-full bg-shallot-pink/20 text-shallot-pink mx-auto flex items-center justify-center">
-                <i data-lucide="cpu" class="w-8 h-8"></i>
-            </div>
-
-            <h3 class="font-serif text-3xl text-cream">Platform SIMANTRI</h3>
-            <p class="text-xs text-cream/70 leading-relaxed font-light">
-                Anda sedang bertransisi dari pameran museum menuju Sistem Pendukung Keputusan Pertanian SIMANTRI secara langsung.
-            </p>
-
-            <div class="p-4 rounded-xl bg-maroon/40 border border-cream/10 text-xs text-cream/80 space-y-2 text-left font-mono">
-                <div class="flex justify-between">
-                    <span class="text-shallot-pink">&gt; Mesin Pengetahuan:</span>
-                    <span>AKTIF</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-shallot-pink">&gt; Sensor Nganjuk:</span>
-                    <span>TERHUBUNG</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-shallot-pink">&gt; Jaringan Petani:</span>
-                    <span>250.000+ Simpul</span>
-                </div>
-            </div>
-
-            <div class="pt-4">
-                <button onclick="simulateAccess()" class="w-full py-3.5 rounded-full bg-shallot-pink text-cream font-medium text-xs tracking-wider uppercase hover:bg-shallot-pink/90 transition-all">
-                    Luncurkan Pratinjau Aplikasi SIMANTRI
-                </button>
-            </div>
-        </div>
-    </div>
 
     <script>
         lucide.createIcons();
@@ -1288,23 +1249,6 @@
 
             event.currentTarget.classList.remove('border-cream/10');
             event.currentTarget.classList.add('border-shallot-pink', 'bg-shallot-pink/10');
-        }
-
-        function openPortalModal() {
-            const modal = document.getElementById('portalModal');
-            modal.classList.remove('hidden');
-            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
-        }
-
-        function closePortalModal() {
-            const modal = document.getElementById('portalModal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => { modal.classList.add('hidden'); }, 500);
-        }
-
-        function simulateAccess() {
-            alert('Selamat datang di Sistem Pendukung Keputusan SIMANTRI. Akses diberikan ke Simpul Intelijen Pertanian Nganjuk.');
-            closePortalModal();
         }
 
         function scrollToTop() {

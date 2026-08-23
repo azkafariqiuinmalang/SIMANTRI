@@ -2,13 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import {
   ArrowRight,
   Bug,
   CloudRain,
   Coins,
-  Cpu,
   Info,
   Landmark,
   RotateCcw,
@@ -17,18 +15,14 @@ import {
   Users,
   Volume2,
   VolumeX,
-  X,
 } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import * as Tone from 'tone'
 
 export default function DuniaBrambangExperience() {
-  const router = useRouter()
   const [isAudioPlaying, setIsAudioPlaying] = useState(false)
   const [activeGalleryIndex, setActiveGalleryIndex] = useState(0)
-  const [isPortalModalOpen, setIsPortalModalOpen] = useState(false)
-  const [modalOpacity, setModalOpacity] = useState(false)
 
   // Flow node state
   const [selectedFlow, setSelectedFlow] = useState({
@@ -329,25 +323,6 @@ export default function DuniaBrambangExperience() {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
     }
   }, [])
-
-  const openPortalModal = () => {
-    setIsPortalModalOpen(true)
-    setTimeout(() => {
-      setModalOpacity(true)
-    }, 10)
-  }
-
-  const closePortalModal = () => {
-    setModalOpacity(false)
-    setTimeout(() => {
-      setIsPortalModalOpen(false)
-    }, 500)
-  }
-
-  const simulateAccess = () => {
-    closePortalModal()
-    router.push('/dashboard')
-  }
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -1789,14 +1764,13 @@ export default function DuniaBrambangExperience() {
             </p>
 
             <div className="pt-8 flex flex-col sm:flex-row justify-center items-center gap-6">
-              <button
-                type="button"
-                onClick={openPortalModal}
+              <Link
+                href="/login"
                 className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#C4487A] hover:bg-[#C4487A]/90 text-[#FBF4EE] font-medium text-sm tracking-wide transition-all shadow-xl hover:shadow-[#C4487A]/30 flex items-center justify-center space-x-3 group cursor-pointer"
               >
                 <span>Masuk Portal SIMANTRI</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
 
               <button
                 type="button"
@@ -1816,60 +1790,6 @@ export default function DuniaBrambangExperience() {
         </section>
       </main>
 
-      {/* SIMANTRI PORTAL INTERACTIVE MODAL */}
-      {isPortalModalOpen && (
-        <div
-          id="portalModal"
-          className={`fixed inset-0 z-50 bg-[#0E080A]/95 backdrop-blur-2xl flex items-center justify-center p-6 transition-opacity duration-500 ${
-            modalOpacity ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          <div className="glass-panel p-8 md:p-12 rounded-3xl max-w-xl w-full text-center space-y-6 relative border border-[#C4487A]/30">
-            <button
-              type="button"
-              onClick={closePortalModal}
-              className="absolute top-6 right-6 text-[#FBF4EE]/60 hover:text-[#FBF4EE] cursor-pointer"
-            >
-              <X className="w-6 h-6" />
-            </button>
-
-            <div className="w-16 h-16 rounded-full bg-[#C4487A]/20 text-[#C4487A] mx-auto flex items-center justify-center">
-              <Cpu className="w-8 h-8" />
-            </div>
-
-            <h3 className="font-serif text-3xl text-[#FBF4EE]">Platform SIMANTRI</h3>
-            <p className="text-xs text-[#FBF4EE]/70 leading-relaxed font-light">
-              Anda sedang bertransisi dari pameran museum menuju Sistem Pendukung
-              Keputusan Pertanian SIMANTRI secara langsung.
-            </p>
-
-            <div className="p-4 rounded-xl bg-[#4A1F2B]/40 border border-[#FBF4EE]/10 text-xs text-[#FBF4EE]/80 space-y-2 text-left font-mono">
-              <div className="flex justify-between">
-                <span className="text-[#C4487A]">&gt; Mesin Pengetahuan:</span>
-                <span>AKTIF</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-[#C4487A]">&gt; Sensor Nganjuk:</span>
-                <span>TERHUBUNG</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-[#C4487A]">&gt; Jaringan Petani:</span>
-                <span>250.000+ Simpul</span>
-              </div>
-            </div>
-
-            <div className="pt-4">
-              <button
-                type="button"
-                onClick={simulateAccess}
-                className="w-full py-3.5 rounded-full bg-[#C4487A] text-[#FBF4EE] font-medium text-xs tracking-wider uppercase hover:bg-[#C4487A]/90 transition-all cursor-pointer"
-              >
-                Luncurkan Pratinjau Aplikasi SIMANTRI
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

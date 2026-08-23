@@ -57,5 +57,7 @@ env/
 *.zip
 *.tar.gz
 *.pt
+.agents/
+skills-lock.json
 
 
