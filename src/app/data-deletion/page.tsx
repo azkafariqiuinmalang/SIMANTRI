@@ -15,29 +15,67 @@ import {
   Clock,
   Send,
   ExternalLink,
+  Copy,
+  Check,
 } from 'lucide-react'
 
 export default function DataDeletionPage() {
   const [userEmail, setUserEmail] = useState('')
   const [userName, setUserName] = useState('')
   const [reason, setReason] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const [statusMessage, setStatusMessage] = useState<string | null>(null)
 
-  const handleSendEmail = (e: React.FormEvent) => {
+  const emailSubject = `Permohonan Penghapusan Data Akun SIMANTRI - ${userName || userEmail || 'Pengguna'}`
+  const emailBody = 
+`Halo Admin SIMANTRI,
+
+Saya ingin mengajukan permohonan penghapusan akun dan data pribadi saya dari platform SIMANTRI.
+
+Detail Akun:
+- Nama: ${userName || '[Nama Pengguna]'}
+- Email Terdaftar: ${userEmail || '[Email Terdaftar]'}
+- Alasan Permohonan: ${reason || 'Penghapusan akun sukarela'}
+
+Saya memahami bahwa setelah data dihapus, riwayat diagnosis penyakit tanaman dan konfigurasi lahan saya tidak dapat dipulihkan.
+
+Terima kasih.`
+
+  const handleOpenGmail = (e: React.FormEvent) => {
     e.preventDefault()
-    const subject = encodeURIComponent(`Permohonan Penghapusan Data Akun SIMANTRI - ${userName || userEmail}`)
-    const body = encodeURIComponent(
-      `Halo Tim Dukungan SIMANTRI,\n\n` +
-      `Saya ingin mengajukan permohonan penghapusan akun dan data pribadi saya dari platform SIMANTRI.\n\n` +
-      `Detail Akun:\n` +
-      `- Nama: ${userName}\n` +
-      `- Email Terdaftar: ${userEmail}\n` +
-      `- Alasan Permohonan: ${reason || 'Penghapusan akun sukarela'}\n\n` +
-      `Saya memahami bahwa setelah data dihapus, riwayat diagnosis penyakit tanaman dan konfigurasi lahan saya tidak dapat dipulihkan.\n\n` +
-      `Terima kasih.`
-    )
-    window.location.href = `mailto:azkabanaran65@gmail.com?subject=${subject}&body=${body}`
-    setSubmitted(true)
+    if (!userName || !userEmail) {
+      setStatusMessage('Mohon lengkapi Nama dan Alamat Email Anda terlebih dahulu.')
+      return
+    }
+    const url = `https://mail.google.com/mail/?view=cm&fs=1&to=azkabanaran65@gmail.com&su=${encodeURIComponent(
+      emailSubject
+    )}&body=${encodeURIComponent(emailBody)}`
+    window.open(url, '_blank')
+    setStatusMessage('Tab Gmail Web telah dibuka. Silakan tekan tombol "Send / Kirim" di halaman Gmail tersebut.')
+  }
+
+  const handleOpenDefaultMail = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!userName || !userEmail) {
+      setStatusMessage('Mohon lengkapi Nama dan Alamat Email Anda terlebih dahulu.')
+      return
+    }
+    const mailtoUrl = `mailto:azkabanaran65@gmail.com?subject=${encodeURIComponent(
+      emailSubject
+    )}&body=${encodeURIComponent(emailBody)}`
+    window.location.href = mailtoUrl
+    setStatusMessage('Aplikasi email perangkat Anda telah dibuka. Silakan klik "Kirim" pada aplikasi email Anda.')
+  }
+
+  const handleCopyText = () => {
+    if (!userName || !userEmail) {
+      setStatusMessage('Mohon lengkapi Nama dan Alamat Email Anda terlebih dahulu.')
+      return
+    }
+    navigator.clipboard.writeText(emailBody)
+    setCopied(true)
+    setStatusMessage('Teks permohonan berhasil disalin ke clipboard! Anda dapat menempelkannya (paste) ke email Anda secara manual.')
+    setTimeout(() => setCopied(false), 3000)
   }
 
   return (
@@ -125,7 +163,7 @@ export default function DataDeletionPage() {
               Instruksi & Permohonan Penghapusan Data
             </h1>
             <p className="mt-3 text-sm sm:text-base text-[#6b5b52] leading-relaxed max-w-2xl">
-              SIMANTRI menghormati hak privasi dan kendali data Anda (*Right to be Forgotten*). Halaman ini menyediakan panduan lengkap bagi pengguna untuk menghapus akun dan data pribadi dari server SIMANTRI.
+              SIMANTRI menghormati hak privasi dan kendali data Anda (<em>Right to be Forgotten</em>). Halaman ini menyediakan panduan lengkap bagi pengguna untuk menghapus akun dan data pribadi dari platform SIMANTRI.
             </p>
           </div>
 
@@ -173,23 +211,22 @@ export default function DataDeletionPage() {
                       2
                     </div>
                     <h3 className="font-bold text-sm text-[#241812] mb-1">
-                      Melalui Permohonan Email Resmi
+                      Melalui Email ke Admin SIMANTRI
                     </h3>
                     <p className="text-xs text-[#6b5b52] leading-relaxed mb-4">
-                      Jika Anda tidak dapat mengakses akun atau ingin menghapus seluruh jejak data secara permanen oleh tim teknis kami:
+                      Jika Anda tidak dapat mengakses akun atau ingin menghapus seluruh jejak data secara permanen oleh pengelola:
                     </p>
                     <ol className="text-xs text-[#54433A] space-y-1.5 list-decimal list-inside">
-                      <li>Gunakan formulir cepat di bawah ini atau kirim email langsung</li>
-                      <li>Kirim email ke <strong className="text-[#241812]">azkabanaran65@gmail.com</strong></li>
-                      <li>Gunakan subjek: <code className="bg-[#FAF0E4] px-1 py-0.5 rounded text-[11px]">Permohonan Penghapusan Akun</code></li>
-                      <li>Sertakan alamat email yang terdaftar</li>
+                      <li>Isi formulir di bawah ini</li>
+                      <li>Kirimkan ke <strong className="text-[#241812]">azkabanaran65@gmail.com</strong> via Gmail Web atau aplikasi email Anda</li>
+                      <li>Admin akan memverifikasi dan menghapus data Anda</li>
                     </ol>
                   </div>
                   <a
                     href="#form-penghapusan"
                     className="mt-4 inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#A6304F] px-4 py-2 text-xs font-semibold text-white hover:bg-[#7E2340] transition-colors"
                   >
-                    Isi Formulir Permohonan Cepat
+                    Buka Formulir Email
                   </a>
                 </div>
               </div>
@@ -239,7 +276,7 @@ export default function DataDeletionPage() {
                     Waktu Pemrosesan (SLA)
                   </h2>
                   <p className="text-sm text-[#54433A]">
-                    Permohonan penghapusan data yang diajukan melalui email atau formulir resmi akan diproses dalam waktu maksimal <strong className="text-[#241812]">3 x 24 jam kerja</strong> setelah verifikasi kepemilikan akun berhasil dilakukan. Anda akan menerima email konfirmasi penutupan data setelah proses selesai.
+                    Permohonan penghapusan data yang diajukan ke admin akan diproses dalam waktu maksimal <strong className="text-[#241812]">3 x 24 jam kerja</strong> setelah verifikasi kepemilikan akun berhasil dilakukan. Anda akan menerima email konfirmasi setelah proses penghapusan selesai.
                   </p>
                 </div>
               </div>
@@ -256,42 +293,42 @@ export default function DataDeletionPage() {
                     Formulir Permohonan Penghapusan Akun
                   </h2>
                   <p className="text-xs sm:text-sm text-[#6b5b52] mt-1">
-                    Isi detail berikut untuk membuka klien email Anda dengan template permohonan yang telah terformat otomatis.
+                    Lengkapi data di bawah, lalu pilih metode pengiriman email ke Admin SIMANTRI (<strong>azkabanaran65@gmail.com</strong>).
                   </p>
                 </div>
 
-                {submitted && (
-                  <div className="mb-6 p-4 rounded-xl bg-[#56724A]/15 border border-[#56724A]/30 text-[#36512C] text-xs sm:text-sm flex items-center gap-2.5">
-                    <CheckCircle2 className="h-5 w-5 shrink-0 text-[#56724A]" />
-                    <span>Aplikasi email Anda telah dibuka. Silakan klik tombol <strong>Kirim</strong> pada klien email Anda untuk merampungkan permohonan.</span>
+                {statusMessage && (
+                  <div className="mb-6 p-4 rounded-xl bg-[#56724A]/15 border border-[#56724A]/30 text-[#36512C] text-xs sm:text-sm flex items-start gap-2.5">
+                    <CheckCircle2 className="h-5 w-5 shrink-0 text-[#56724A] mt-0.5" />
+                    <span>{statusMessage}</span>
                   </div>
                 )}
 
-                <form onSubmit={handleSendEmail} className="space-y-4">
+                <div className="space-y-4">
                   <div>
                     <label className="block text-xs font-bold text-[#241812] uppercase tracking-wider mb-1.5">
-                      Nama Lengkap Anda
+                      Nama Lengkap Anda <span className="text-[#A6304F]">*</span>
                     </label>
                     <input
                       type="text"
                       required
                       value={userName}
                       onChange={(e) => setUserName(e.target.value)}
-                      placeholder="Contoh: Budi Santoso"
+                      placeholder="Contoh: Evodya Arun Rahma"
                       className="w-full rounded-xl border border-[#241812]/20 bg-[#FFFDF8] px-4 py-2.5 text-sm text-[#241812] placeholder-[#6b5b52]/50 focus:border-[#A6304F] focus:outline-none focus:ring-2 focus:ring-[#A6304F]/20"
                     />
                   </div>
 
                   <div>
                     <label className="block text-xs font-bold text-[#241812] uppercase tracking-wider mb-1.5">
-                      Alamat Email Terdaftar di SIMANTRI
+                      Alamat Email Terdaftar di SIMANTRI <span className="text-[#A6304F]">*</span>
                     </label>
                     <input
                       type="email"
                       required
                       value={userEmail}
                       onChange={(e) => setUserEmail(e.target.value)}
-                      placeholder="email@domain.com"
+                      placeholder="Contoh: emailAnda@gmail.com"
                       className="w-full rounded-xl border border-[#241812]/20 bg-[#FFFDF8] px-4 py-2.5 text-sm text-[#241812] placeholder-[#6b5b52]/50 focus:border-[#A6304F] focus:outline-none focus:ring-2 focus:ring-[#A6304F]/20"
                     />
                   </div>
@@ -309,19 +346,67 @@ export default function DataDeletionPage() {
                     />
                   </div>
 
-                  <div className="pt-2">
+                  {/* PREVIEW BOX */}
+                  <div className="p-3.5 rounded-xl bg-[#FAF0E4] border border-[#E5DFD6] text-xs">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="font-semibold text-[#241812] uppercase tracking-wider text-[10px]">
+                        Preview Format Permohonan Email:
+                      </span>
+                      <span className="text-[#6b5b52] text-[10px]">Tujuan: azkabanaran65@gmail.com</span>
+                    </div>
+                    <pre className="font-mono text-[11px] text-[#54433A] whitespace-pre-wrap bg-white/80 p-2.5 rounded-lg border border-[#E5DFD6] overflow-x-auto max-h-36">
+                      {emailBody}
+                    </pre>
+                  </div>
+
+                  {/* ACTIONS */}
+                  <div className="pt-2 space-y-2.5">
+                    {/* Option 1: Gmail Web Direct (Most Reliable) */}
                     <button
-                      type="submit"
+                      type="button"
+                      onClick={handleOpenGmail}
                       className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#A6304F] px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-[#7E2340] active:scale-[0.99]"
                     >
-                      <Send className="h-4 w-4" />
-                      Kirim Permohonan via Email
+                      <ExternalLink className="h-4 w-4" />
+                      Buka & Kirim Langsung via Gmail Web
                     </button>
-                    <p className="text-[11px] text-center text-[#6b5b52] mt-2">
-                      Permohonan akan diarahkan langsung ke <span className="font-mono text-[#241812]">azkabanaran65@gmail.com</span> (Admin SIMANTRI)
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {/* Option 2: Default Mail App */}
+                      <button
+                        type="button"
+                        onClick={handleOpenDefaultMail}
+                        className="flex items-center justify-center gap-2 rounded-xl border border-[#241812]/15 bg-[#FAF0E4] px-4 py-2.5 text-xs font-semibold text-[#241812] hover:bg-[#EDE3D3] transition-all"
+                      >
+                        <Mail className="h-3.5 w-3.5" />
+                        Buka Aplikasi Email Perangkat
+                      </button>
+
+                      {/* Option 3: Copy to Clipboard */}
+                      <button
+                        type="button"
+                        onClick={handleCopyText}
+                        className="flex items-center justify-center gap-2 rounded-xl border border-[#241812]/15 bg-white px-4 py-2.5 text-xs font-semibold text-[#241812] hover:bg-[#FAF0E4] transition-all"
+                      >
+                        {copied ? (
+                          <>
+                            <Check className="h-3.5 w-3.5 text-[#56724A]" />
+                            <span className="text-[#56724A]">Format Disalin!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="h-3.5 w-3.5" />
+                            Salin Format Teks
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    <p className="text-[11px] text-center text-[#6b5b52] pt-1">
+                      Penerima: <span className="font-mono text-[#241812] font-medium">azkabanaran65@gmail.com</span> (Admin SIMANTRI)
                     </p>
                   </div>
-                </form>
+                </div>
               </div>
             </section>
           </div>
