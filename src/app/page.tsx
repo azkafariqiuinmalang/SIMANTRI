@@ -729,9 +729,24 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-          <p className="mt-6 sm:mt-8 max-w-4xl font-mono text-[11px] sm:text-xs leading-relaxed text-[#F6ECDF]/60">
-            SIMANTRI - Sistem Manajemen Tani Bawang Merah Nganjuk. Dibangun di atas pengetahuan nyata petani, data yang terkurasi, dan akses yang lebih terpercaya.
-          </p>
+          <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <p className="max-w-xl font-mono text-[11px] sm:text-xs leading-relaxed text-[#F6ECDF]/60">
+              SIMANTRI - Sistem Manajemen Tani Bawang Merah Nganjuk. Dibangun di atas pengetahuan nyata petani, data yang terkurasi, dan akses yang lebih terpercaya.
+            </p>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[#F6ECDF]/75">
+              <Link href="/privacy" className="hover:text-[#E6A15C] transition-colors">
+                Kebijakan Privasi
+              </Link>
+              <span>•</span>
+              <Link href="/terms" className="hover:text-[#E6A15C] transition-colors">
+                Syarat & Ketentuan
+              </Link>
+              <span>•</span>
+              <Link href="/data-deletion" className="hover:text-[#E6A15C] transition-colors">
+                Penghapusan Data
+              </Link>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
