@@ -243,8 +243,8 @@ export default function PrivacyPage() {
                   <p className="mb-3 text-[#54433A]">
                     Jika Anda memiliki pertanyaan mengenai Kebijakan Privasi ini atau pengelolaan data di SIMANTRI, silakan hubungi tim kami melalui:
                   </p>
-                  <div className="p-4 rounded-xl bg-white border border-[#E5DFD6] space-y-1 text-xs text-[#54433A]">
-                    <p><strong className="text-[#241812]">Email Resmi:</strong> privacy@simantri.id / admin@simantri.id</p>
+                  <div className="p-4 rounded-xl bg-white border border-[#E5DFD6] space-y-1.5 text-xs text-[#54433A]">
+                    <p><strong className="text-[#241812]">Kontak:</strong> <a href="mailto:azkabanaran65@gmail.com" className="text-[#A6304F] hover:underline font-medium">azkabanaran65@gmail.com</a> (Admin SIMANTRI)</p>
                     <p><strong className="text-[#241812]">Instansi:</strong> Tim SIMANTRI & Kolaborasi Pertanian Bawang Merah Kabupaten Nganjuk</p>
                     <p><strong className="text-[#241812]">Lokasi:</strong> Kabupaten Nganjuk, Jawa Timur, Indonesia</p>
                   </div>

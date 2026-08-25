@@ -36,7 +36,7 @@ export default function DataDeletionPage() {
       `Saya memahami bahwa setelah data dihapus, riwayat diagnosis penyakit tanaman dan konfigurasi lahan saya tidak dapat dipulihkan.\n\n` +
       `Terima kasih.`
     )
-    window.location.href = `mailto:support@simantri.id?subject=${subject}&body=${body}`
+    window.location.href = `mailto:azkabanaran65@gmail.com?subject=${subject}&body=${body}`
     setSubmitted(true)
   }
 
@@ -180,7 +180,7 @@ export default function DataDeletionPage() {
                     </p>
                     <ol className="text-xs text-[#54433A] space-y-1.5 list-decimal list-inside">
                       <li>Gunakan formulir cepat di bawah ini atau kirim email langsung</li>
-                      <li>Kirim email ke <strong className="text-[#241812]">support@simantri.id</strong></li>
+                      <li>Kirim email ke <strong className="text-[#241812]">azkabanaran65@gmail.com</strong></li>
                       <li>Gunakan subjek: <code className="bg-[#FAF0E4] px-1 py-0.5 rounded text-[11px]">Permohonan Penghapusan Akun</code></li>
                       <li>Sertakan alamat email yang terdaftar</li>
                     </ol>
@@ -318,7 +318,7 @@ export default function DataDeletionPage() {
                       Kirim Permohonan via Email
                     </button>
                     <p className="text-[11px] text-center text-[#6b5b52] mt-2">
-                      Permohonan akan diarahkan langsung ke <span className="font-mono text-[#241812]">support@simantri.id</span>
+                      Permohonan akan diarahkan langsung ke <span className="font-mono text-[#241812]">azkabanaran65@gmail.com</span> (Admin SIMANTRI)
                     </p>
                   </div>
                 </form>
