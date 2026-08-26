@@ -340,7 +340,7 @@ html {
 
 /* 3D Tilt Card & Cursor Glare */
 :root {
-  --tilt-perspective: 1000px;
+  --tilt-perspective: 750px;
   --tilt-return: 800ms;
   --tilt-return-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --tilt-follow: 250ms;

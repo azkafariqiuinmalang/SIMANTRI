@@ -12,7 +12,7 @@ interface TiltCardProps {
 
 export function TiltCard({
   children,
-  max = 18,
+  max = 32,
   className = '',
   cardClassName = '',
   glare = true,

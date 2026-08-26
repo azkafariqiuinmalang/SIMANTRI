@@ -168,7 +168,7 @@ function HeroBulb() {
 
       {/* Main Logo Container with 3D Tilt & Glare */}
       <div className="relative z-10 flex w-full max-w-[280px] sm:max-w-[360px] items-center justify-center py-4 animate-sim-float">
-        <TiltCard max={18} className="w-full flex items-center justify-center">
+        <TiltCard max={32} className="w-full flex items-center justify-center">
           <Image
             src="/logo_simantri.png"
             alt="Logo Resmi SIMANTRI"
