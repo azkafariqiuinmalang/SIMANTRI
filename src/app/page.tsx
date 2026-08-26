@@ -167,14 +167,14 @@ function HeroBulb() {
       <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(196,72,122,0.18)_0%,rgba(216,155,60,0.12)_40%,transparent_70%)] blur-3xl animate-pulse pointer-events-none" />
 
       {/* Main Logo Container with 3D Tilt & Glare */}
-      <div className="relative z-10 flex w-full max-w-[285px] sm:max-w-[365px] items-center justify-center py-4 animate-sim-float">
+      <div className="relative z-10 flex w-full max-w-[295px] sm:max-w-[375px] items-center justify-center py-4 animate-sim-float">
         <TiltCard max={32} className="w-full flex items-center justify-center">
           <Image
             src="/logo_simantri.png"
             alt="Logo Resmi SIMANTRI"
-            width={365}
-            height={365}
-            className="h-auto w-full max-w-[265px] sm:max-w-[345px] object-contain drop-shadow-[0_22px_30px_rgba(36,24,18,0.42)] drop-shadow-[0_8px_14px_rgba(74,31,43,0.28)]"
+            width={375}
+            height={375}
+            className="h-auto w-full max-w-[275px] sm:max-w-[355px] object-contain drop-shadow-[0_20px_35px_rgba(36,24,18,0.18)]"
             priority
           />
         </TiltCard>
