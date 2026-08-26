@@ -25,6 +25,7 @@ import {
   HelpCircle,
   TrendingUp,
 } from 'lucide-react'
+import { TiltCard } from '@/components/ui/TiltCard'
 
 const navItems = [
   { label: 'Masalah', href: '#masalah' },
@@ -165,16 +166,18 @@ function HeroBulb() {
       {/* Dynamic ambient background glow */}
       <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(196,72,122,0.18)_0%,rgba(216,155,60,0.12)_40%,transparent_70%)] blur-3xl animate-pulse pointer-events-none" />
 
-      {/* Main Logo Container */}
+      {/* Main Logo Container with 3D Tilt & Glare */}
       <div className="relative z-10 flex w-full max-w-[280px] sm:max-w-[360px] items-center justify-center py-4 animate-sim-float">
-        <Image
-          src="/logo_simantri.png"
-          alt="Logo Resmi SIMANTRI"
-          width={360}
-          height={360}
-          className="h-auto w-full max-w-[260px] sm:max-w-[340px] object-contain drop-shadow-[0_20px_35px_rgba(36,24,18,0.18)] transition-transform duration-500 hover:scale-105"
-          priority
-        />
+        <TiltCard max={18} className="w-full flex items-center justify-center">
+          <Image
+            src="/logo_simantri.png"
+            alt="Logo Resmi SIMANTRI"
+            width={360}
+            height={360}
+            className="h-auto w-full max-w-[260px] sm:max-w-[340px] object-contain drop-shadow-[0_20px_35px_rgba(36,24,18,0.18)]"
+            priority
+          />
+        </TiltCard>
       </div>
 
       {/* Badge MAPE — Sleek glassmorphic card */}
