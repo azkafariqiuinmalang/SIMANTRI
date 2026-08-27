@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import {
+  ArrowLeft,
   ArrowRight,
   AlertCircle,
   CheckCircle2,
@@ -151,7 +152,18 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#FBF4EE]">
+    <div className="relative min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#FBF4EE]">
+      {/* Tombol Kembali ke Landing Page */}
+      <div className="absolute top-4 left-4 sm:top-6 sm:left-8 z-20">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 rounded-full border border-[#E5DFD6] bg-white/85 backdrop-blur-sm px-4 py-2 text-xs sm:text-sm font-semibold text-[#4A3A32] shadow-sm transition-all duration-200 hover:bg-white hover:border-[#A6304F]/40 hover:text-[#A6304F] hover:-translate-x-0.5 active:scale-95"
+        >
+          <ArrowLeft className="h-4 w-4 text-[#A6304F]" />
+          <span>Kembali ke Beranda</span>
+        </Link>
+      </div>
+
       <div className="sm:mx-auto sm:w-full sm:max-w-lg text-center">
         <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
           <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white p-2 shadow-lg border border-[#E5DFD6] flex items-center justify-center group-hover:scale-105 transition-transform">
