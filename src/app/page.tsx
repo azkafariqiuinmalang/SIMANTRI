@@ -7,22 +7,17 @@ import {
   ArrowRight,
   BookOpen,
   Bot,
-  BrainCircuit,
   ChevronRight,
   CloudSun,
-  DatabaseZap,
   Leaf,
   LineChart,
   Microscope,
   ShieldCheck,
-  Sprout,
   Users,
   Menu,
   X,
-  Sparkles,
   LogIn,
   UserPlus,
-  HelpCircle,
   TrendingUp,
 } from 'lucide-react'
 import { TiltCard } from '@/components/ui/TiltCard'
@@ -151,14 +146,6 @@ function BrandMark({
   )
 }
 
-function SectionEyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="mb-4 sm:mb-5 inline-flex items-center gap-2 rounded-full border border-[#A6304F]/20 bg-[#A6304F]/10 px-3.5 py-1.5 font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-[#7E2340]">
-      <span className="h-1.5 w-1.5 rounded-full bg-[#A6304F]" />
-      {children}
-    </div>
-  )
-}
 
 function HeroBulb() {
   return (
@@ -483,19 +470,10 @@ export default function HomePage() {
           {/* 3. Hero Content Foreground */}
           <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 sm:gap-14 lg:grid-cols-[1.14fr_0.86fr]">
             <div className="text-center lg:text-left">
-              {/* Sleek Pill Eyebrow */}
-              <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-[#F472B6]/30 bg-black/40 px-4 py-1.5 font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.16em] text-[#FCDDEC] backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.35)]">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F472B6] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F472B6]"></span>
-                </span>
-                Sistem Cerdas Bawang Merah Nganjuk
-              </div>
-
               {/* Editorial Title with High Contrast Drop Shadows */}
               <h1 className="max-w-4xl font-serif text-3xl sm:text-5xl lg:text-7xl font-semibold leading-[1.14] sm:leading-[1.06] tracking-tight text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.7)]">
                 Bawang merah Nganjuk, dijaga oleh{' '}
-                <em className="font-medium italic bg-gradient-to-r from-[#F9A8D4] via-[#F472B6] to-[#E6A15C] bg-clip-text text-transparent drop-shadow-[0_2px_15px_rgba(244,114,182,0.4)]">
+                <em className="font-medium italic text-[#F9A8D4] drop-shadow-[0_2px_15px_rgba(244,114,182,0.3)]">
                   pengetahuan petaninya sendiri.
                 </em>
               </h1>
@@ -535,7 +513,6 @@ export default function HomePage() {
         <section id="masalah" className="border-t border-[#241812]/10 bg-[#FFFDF8] px-4 sm:px-8 py-16 sm:py-24 lg:py-28">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
-              <SectionEyebrow>Tantangan di Lapangan</SectionEyebrow>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight tracking-tight">
                 Tiga tekanan utama yang dihadapi petani bawang merah Nganjuk hari ini.
               </h2>
@@ -562,7 +539,6 @@ export default function HomePage() {
         <section id="solusi" className="border-t border-[#241812]/10 bg-[#F6ECDF] px-4 sm:px-8 py-16 sm:py-24 lg:py-28">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
-              <SectionEyebrow>Modul Utama</SectionEyebrow>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight tracking-tight">
                 Empat pilar solusi yang bekerja terintegrasi.
               </h2>
@@ -617,7 +593,6 @@ export default function HomePage() {
         <section id="siklus" className="bg-[#FFFDF8] px-4 sm:px-8 py-16 sm:py-24 lg:py-28">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
-              <SectionEyebrow>Siklus Budidaya</SectionEyebrow>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight tracking-tight">
                 Dari persiapan lahan sampai keputusan jual panen.
               </h2>
@@ -691,7 +666,6 @@ export default function HomePage() {
         <section id="siapa" className="bg-[#F6ECDF] px-4 sm:px-8 py-16 sm:py-24 lg:py-28">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
-              <SectionEyebrow>Untuk Siapa</SectionEyebrow>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight tracking-tight">
                 Dibuat untuk ekosistem, bukan hanya satu jenis pengguna.
               </h2>
