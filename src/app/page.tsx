@@ -164,37 +164,39 @@ function HeroBulb() {
   return (
     <div className="relative mx-auto flex w-full max-w-[480px] flex-col items-center justify-center p-2 sm:p-4">
       {/* Dynamic ambient background glow */}
-      <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(196,72,122,0.18)_0%,rgba(216,155,60,0.12)_40%,transparent_70%)] blur-3xl animate-pulse pointer-events-none" />
+      <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(244,114,182,0.3)_0%,rgba(230,161,92,0.18)_40%,transparent_70%)] blur-3xl animate-pulse pointer-events-none" />
 
-      {/* Main Logo Container with 3D Tilt & Glare */}
-      <div className="relative z-10 flex w-full max-w-[295px] sm:max-w-[375px] items-center justify-center py-4 animate-sim-float">
-        <TiltCard max={32} className="w-full flex items-center justify-center">
-          <Image
-            src="/logo_simantri.png"
-            alt="Logo Resmi SIMANTRI"
-            width={375}
-            height={375}
-            className="h-auto w-full max-w-[275px] sm:max-w-[355px] object-contain drop-shadow-[0_20px_35px_rgba(36,24,18,0.18)]"
-            priority
-          />
+      {/* Main Logo Container with 3D Tilt & Frosted Glass Frame */}
+      <div className="relative z-10 flex w-full max-w-[300px] sm:max-w-[380px] items-center justify-center py-4 animate-sim-float">
+        <TiltCard max={24} className="w-full flex items-center justify-center">
+          <div className="relative p-6 sm:p-8 rounded-3xl bg-black/30 backdrop-blur-xl border border-white/20 shadow-[0_25px_50px_rgba(0,0,0,0.55)] group hover:border-[#F472B6]/60 transition-all duration-300">
+            <Image
+              src="/logo_simantri.png"
+              alt="Logo Resmi SIMANTRI"
+              width={375}
+              height={375}
+              className="h-auto w-full max-w-[240px] sm:max-w-[310px] object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.6)]"
+              priority
+            />
+          </div>
         </TiltCard>
       </div>
 
       {/* Badge MAPE — Sleek glassmorphic card */}
-      <div className="absolute -right-2 top-2 sm:top-4 hidden sm:block rounded-2xl border border-[#241812]/10 bg-[#FFFDF8]/85 backdrop-blur-md px-4 py-2.5 sm:px-5 sm:py-3 shadow-[0_16px_36px_-18px_rgba(36,24,18,0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl z-20">
-        <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.14em] text-[#6b5b52]">MAPE Historis</p>
-        <p className="font-serif text-xl sm:text-2xl font-bold text-[#A6304F]">~3.0%</p>
+      <div className="absolute -right-2 top-2 sm:top-4 hidden sm:block rounded-2xl border border-white/25 bg-[#1A0C11]/85 backdrop-blur-xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-[0_20px_40px_rgba(0,0,0,0.55)] transition-all duration-300 hover:-translate-y-1 hover:border-[#F472B6]/40 hover:shadow-2xl z-20">
+        <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.14em] text-[#E5DFD6]/80">MAPE Historis</p>
+        <p className="font-serif text-xl sm:text-2xl font-bold text-[#F9A8D4] drop-shadow-sm">~3.0%</p>
       </div>
 
       {/* Field Signal Indicator — Sleek integrated status card */}
-      <div className="mt-3 sm:mt-4 w-full rounded-2xl border border-[#241812]/10 bg-[#FFFDF8]/90 backdrop-blur-md p-3.5 sm:p-4 shadow-[0_18px_40px_-20px_rgba(36,24,18,0.25)] transition-all duration-300 hover:-translate-y-1 hover:border-[#A6304F]/30 hover:shadow-xl z-20">
+      <div className="mt-3 sm:mt-4 w-full rounded-2xl border border-white/20 bg-[#1A0C11]/85 backdrop-blur-xl p-3.5 sm:p-4 shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-all duration-300 hover:-translate-y-1 hover:border-[#F472B6]/40 hover:shadow-2xl z-20">
         <div className="flex items-center gap-3">
-          <span className="relative flex h-3 w-3 shrink-0 rounded-full bg-[#56724A]">
-            <span className="absolute inset-0 rounded-full border-2 border-[#56724A] animate-sim-pulse" />
+          <span className="relative flex h-3 w-3 shrink-0 rounded-full bg-[#4ADE80]">
+            <span className="absolute inset-0 rounded-full border-2 border-[#4ADE80] animate-sim-pulse" />
           </span>
           <div>
-            <p className="text-xs sm:text-sm font-semibold text-[#241812]">Harga hari ini terpantau stabil</p>
-            <p className="text-[11px] sm:text-xs text-[#6b5b52]">Tersambung langsung ke pasar & cuaca Nganjuk.</p>
+            <p className="text-xs sm:text-sm font-semibold text-[#FFFDF8]">Harga hari ini terpantau stabil</p>
+            <p className="text-[11px] sm:text-xs text-[#E5DFD6]/80">Tersambung langsung ke pasar & cuaca Nganjuk.</p>
           </div>
         </div>
       </div>
@@ -232,7 +234,7 @@ export default function HomePage() {
     <div className="min-h-screen overflow-x-clip bg-[#F6ECDF] text-[#241812]">
       {/* STICKY HEADER WITH DYNAMIC BLUR ON SCROLL */}
       <header
-        className={`landing-glass-header ${scrolled ? 'is-scrolled' : ''}`}
+        className={`landing-glass-header ${scrolled ? 'is-scrolled' : 'is-at-top'}`}
       >
         <nav className="mx-auto flex h-[68px] sm:h-[76px] max-w-7xl items-center justify-between px-4 sm:px-8">
           {/* LOGO & BRAND */}
@@ -241,12 +243,16 @@ export default function HomePage() {
             className="group flex items-center gap-2.5 sm:gap-3 transition-transform duration-300 hover:scale-105 active:scale-95"
             aria-label="SIMANTRI beranda"
           >
-            <BrandMark compact />
+            <BrandMark compact whiteBg={!scrolled} />
             <div>
-              <span className="block font-serif text-lg sm:text-xl font-bold leading-none tracking-tight group-hover:text-[#A6304F] transition-colors duration-300">
-                SIMAN<em className="text-[#A6304F]">TRI</em>
+              <span className={`block font-serif text-lg sm:text-xl font-bold leading-none tracking-tight transition-colors duration-300 ${
+                scrolled ? 'text-[#241812] group-hover:text-[#A6304F]' : 'text-white drop-shadow-sm group-hover:text-[#F9A8D4]'
+              }`}>
+                SIMAN<em className={scrolled ? 'text-[#A6304F]' : 'text-[#F9A8D4]'}>TRI</em>
               </span>
-              <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.14em] text-[#6b5b52]">
+              <span className={`font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.14em] transition-colors duration-300 ${
+                scrolled ? 'text-[#6b5b52]' : 'text-[#F6ECDF]/80'
+              }`}>
                 Bawang Merah Nganjuk
               </span>
             </div>
@@ -258,7 +264,7 @@ export default function HomePage() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="nav-link-pill"
+                className={scrolled ? 'nav-link-pill' : 'nav-link-pill-hero'}
               >
                 {item.label}
               </Link>
@@ -269,13 +275,21 @@ export default function HomePage() {
           <div className="hidden sm:flex items-center gap-3">
             <Link
               href="/login"
-              className="rounded-full px-5 py-2.5 text-sm font-semibold text-[#241812]/80 transition-all duration-300 hover:bg-[#A6304F]/10 hover:text-[#A6304F] hover:scale-105 active:scale-95 hover:shadow-sm"
+              className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 hover:scale-105 active:scale-95 ${
+                scrolled
+                  ? 'text-[#241812]/80 hover:bg-[#A6304F]/10 hover:text-[#A6304F]'
+                  : 'text-white/90 hover:bg-white/15 hover:text-white hover:shadow-sm'
+              }`}
             >
               Masuk
             </Link>
             <Link
               href="/register"
-              className="group inline-flex items-center gap-2 rounded-full bg-[#241812] px-6 py-2.5 text-sm font-semibold text-[#F6ECDF] shadow-[0_14px_28px_-18px_rgba(36,24,18,0.85)] transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:bg-[#A6304F] hover:shadow-[0_20px_36px_-18px_rgba(166,48,79,0.8)] active:scale-95"
+              className={`group inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 active:scale-95 ${
+                scrolled
+                  ? 'bg-[#241812] text-[#F6ECDF] shadow-[0_14px_28px_-18px_rgba(36,24,18,0.85)] hover:bg-[#A6304F] hover:shadow-[0_20px_36px_-18px_rgba(166,48,79,0.8)]'
+                  : 'bg-gradient-to-r from-[#C4487A] to-[#A6304F] text-white shadow-[0_10px_24px_rgba(196,72,122,0.5)] hover:shadow-[0_14px_30px_rgba(244,114,182,0.7)] border border-white/20'
+              }`}
             >
               Daftar
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -286,13 +300,21 @@ export default function HomePage() {
           <div className="flex items-center gap-2 lg:hidden">
             <Link
               href="/login"
-              className="sm:hidden text-xs font-semibold text-[#A6304F] px-3 py-1.5 rounded-full border border-[#A6304F]/30 bg-[#A6304F]/10"
+              className={`sm:hidden text-xs font-semibold px-3 py-1.5 rounded-full border ${
+                scrolled
+                  ? 'text-[#A6304F] border-[#A6304F]/30 bg-[#A6304F]/10'
+                  : 'text-white border-white/30 bg-white/15 backdrop-blur-sm'
+              }`}
             >
               Masuk
             </Link>
             <button
               onClick={() => setMobileDrawerOpen(true)}
-              className="p-2 rounded-xl text-[#241812] hover:text-[#A6304F] hover:bg-[#A6304F]/10 border border-[#241812]/15 transition-all active:scale-95"
+              className={`p-2 rounded-xl transition-all active:scale-95 border ${
+                scrolled
+                  ? 'text-[#241812] hover:text-[#A6304F] hover:bg-[#A6304F]/10 border-[#241812]/15'
+                  : 'text-white hover:bg-white/15 border-white/25 backdrop-blur-sm'
+              }`}
               aria-label="Buka Menu Navigasi"
             >
               <Menu className="w-6 h-6" />
@@ -427,41 +449,83 @@ export default function HomePage() {
 
       {/* MAIN CONTENT */}
       <main>
-        {/* HERO SECTION */}
-        <section className="relative px-4 sm:px-8 py-10 sm:py-16 lg:py-24">
-          <div className="absolute inset-0 bg-[repeating-linear-gradient(100deg,rgba(36,24,18,0.04)_0px,rgba(36,24,18,0.04)_2px,transparent_2px,transparent_34px)] pointer-events-none" />
-          <div className="relative mx-auto grid max-w-7xl items-center gap-8 sm:gap-12 lg:grid-cols-[1.12fr_0.88fr]">
+        {/* HERO SECTION WITH SAWAH VIDEO BACKGROUND */}
+        <section className="relative px-4 sm:px-8 py-16 sm:py-24 lg:py-32 overflow-hidden min-h-[660px] lg:min-h-[740px] flex items-center justify-center -mt-[68px] sm:-mt-[76px] pt-[88px] sm:pt-[106px]">
+          {/* 1. Background Video */}
+          <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="h-full w-full object-cover object-center scale-105 filter brightness-[0.78] contrast-[1.08] saturate-[1.15]"
+            >
+              <source src="/video_landing_page.mp4" type="video/mp4" />
+            </video>
+
+            {/* 2. Multi-layer Vignette & Editorial Atmosphere Overlays */}
+            {/* Primary Dark Warm Gradient Overlay for Maximum Text Readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#12070A]/95 via-[#1A0C11]/82 to-[#12070A]/60" />
+            
+            {/* Organic Ambient Glow in Shallot Pink & Warm Amber */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(196,72,122,0.3)_0%,rgba(230,161,92,0.15)_40%,transparent_70%)]" />
+
+            {/* Fine Grid Texture for Modern Agritech Feel */}
+            <div className="absolute inset-0 bg-[repeating-linear-gradient(100deg,rgba(255,255,255,0.03)_0px,rgba(255,255,255,0.03)_1px,transparent_1px,transparent_34px)] opacity-70" />
+
+            {/* Seamless Top Vignette */}
+            <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/60 to-transparent" />
+
+            {/* Seamless Bottom Fade Transition directly into Masalah Section */}
+            <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#FFFDF8] via-[#FFFDF8]/35 to-transparent" />
+          </div>
+
+          {/* 3. Hero Content Foreground */}
+          <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 sm:gap-14 lg:grid-cols-[1.14fr_0.86fr]">
             <div className="text-center lg:text-left">
-              <SectionEyebrow>Sistem Cerdas Bawang Merah Nganjuk</SectionEyebrow>
-              <h1 className="max-w-4xl font-serif text-3xl sm:text-5xl lg:text-7xl font-semibold leading-[1.15] sm:leading-[1.06] tracking-tight text-[#241812]">
+              {/* Sleek Pill Eyebrow */}
+              <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-[#F472B6]/30 bg-black/40 px-4 py-1.5 font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.16em] text-[#FCDDEC] backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.35)]">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F472B6] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F472B6]"></span>
+                </span>
+                Sistem Cerdas Bawang Merah Nganjuk
+              </div>
+
+              {/* Editorial Title with High Contrast Drop Shadows */}
+              <h1 className="max-w-4xl font-serif text-3xl sm:text-5xl lg:text-7xl font-semibold leading-[1.14] sm:leading-[1.06] tracking-tight text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.7)]">
                 Bawang merah Nganjuk, dijaga oleh{' '}
-                <em className="font-medium italic text-[#A6304F]">
+                <em className="font-medium italic bg-gradient-to-r from-[#F9A8D4] via-[#F472B6] to-[#E6A15C] bg-clip-text text-transparent drop-shadow-[0_2px_15px_rgba(244,114,182,0.4)]">
                   pengetahuan petaninya sendiri.
                 </em>
               </h1>
-              <p className="mt-4 sm:mt-7 max-w-2xl text-sm sm:text-lg leading-relaxed sm:leading-8 text-[#6b5b52] mx-auto lg:mx-0">
+
+              {/* Subtitle with Shadow & High Legibility */}
+              <p className="mt-5 sm:mt-7 max-w-2xl text-sm sm:text-lg leading-relaxed sm:leading-8 text-[#F6ECDF]/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] font-sans mx-auto lg:mx-0">
                 SIMANTRI adalah teman pintar untuk petani bawang merah Nganjuk — belajar langsung dari wawancara petani berpengalaman, bukan dari internet umum. Bertanya kapan waktu tanam, pantau harga pasar, deteksi penyakit dari foto, dan kenalkan bawang merah pada generasi muda.
               </p>
-              <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-3.5 justify-center lg:justify-start">
+
+              {/* CTA Action Buttons with Glassmorphic Elegance */}
+              <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3.5 sm:gap-4 justify-center lg:justify-start">
                 <Link
                   href="/register"
-                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#A6304F] px-7 py-3.5 sm:px-8 sm:py-4 text-sm font-semibold text-[#FFFDF8] shadow-[0_18px_34px_-18px_rgba(166,48,79,0.85)] transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-[#7E2340] active:scale-95"
+                  className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#C4487A] via-[#A6304F] to-[#8C2442] px-7 py-3.5 sm:px-8 sm:py-4 text-sm font-semibold text-white shadow-[0_14px_32px_-6px_rgba(196,72,122,0.8)] transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-[0_20px_40px_-6px_rgba(244,114,182,0.9)] active:scale-95 border border-white/20"
                 >
-                  Mulai Gunakan SIMANTRI
+                  <span>Mulai Gunakan SIMANTRI</span>
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
                 <Link
                   href="/dunia-brambang"
-                  className="group inline-flex items-center justify-center gap-2 rounded-full border border-[#241812]/20 bg-[#FFFDF8]/70 px-7 py-3.5 sm:px-8 sm:py-4 text-sm font-semibold text-[#241812] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-[#FFFDF8] hover:border-[#A6304F] active:scale-95"
+                  className="group inline-flex items-center justify-center gap-2.5 rounded-full border border-white/30 bg-black/35 px-7 py-3.5 sm:px-8 sm:py-4 text-sm font-semibold text-[#FFFDF8] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-white/20 hover:border-[#F9A8D4]/60 hover:text-white active:scale-95 shadow-[0_8px_24px_rgba(0,0,0,0.3)]"
                 >
-                  <BookOpen className="h-4 w-4 text-[#A6304F]" />
-                  Jelajah Dunia Brambang
+                  <BookOpen className="h-4 w-4 text-[#F9A8D4]" />
+                  <span>Jelajah Dunia Brambang</span>
                 </Link>
               </div>
             </div>
 
-            {/* HERO VISUAL */}
-            <div className="mt-4 lg:mt-0">
+            {/* HERO VISUAL WITH TILT & GLOW */}
+            <div className="mt-6 lg:mt-0">
               <HeroBulb />
             </div>
           </div>

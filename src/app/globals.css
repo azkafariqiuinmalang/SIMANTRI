@@ -236,6 +236,29 @@ html {
   transform: scale(0.96);
 }
 
+.nav-link-pill-hero {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.15rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  text-decoration: none;
+}
+.nav-link-pill-hero:hover {
+  background-color: rgba(255, 255, 255, 0.18) !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.3);
+}
+.nav-link-pill-hero:active {
+  transform: scale(0.96);
+}
+
 .simantri-card-hover {
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
@@ -323,19 +346,22 @@ html {
   position: sticky;
   top: 0;
   z-index: 50;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background-color: rgba(246, 236, 223, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(36, 24, 18, 0.08);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.landing-glass-header.is-at-top {
+  background-color: rgba(18, 7, 10, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .landing-glass-header.is-scrolled {
-  background-color: rgba(246, 236, 223, 0.72) !important;
+  background-color: rgba(246, 236, 223, 0.88) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  border-bottom: 1px solid rgba(36, 24, 18, 0.15) !important;
-  box-shadow: 0 12px 32px -10px rgba(36, 24, 18, 0.12) !important;
+  border-bottom: 1px solid rgba(36, 24, 18, 0.12) !important;
+  box-shadow: 0 12px 32px -10px rgba(36, 24, 18, 0.15) !important;
 }
 
 /* 3D Tilt Card & Cursor Glare */
