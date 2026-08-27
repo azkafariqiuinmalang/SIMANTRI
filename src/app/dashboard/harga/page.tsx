@@ -206,7 +206,7 @@ export default function PriceForecastPage() {
                 : ''}
             </span>
             <span className="font-medium text-[#4A3A32]">
-              Rentang: Rp {Math.round(minPrice).toLocaleString('id-ID')} — Rp{' '}
+              Rentang: Rp {Math.round(minPrice).toLocaleString('id-ID')} s.d. Rp{' '}
               {Math.round(maxPrice).toLocaleString('id-ID')} / Kg
             </span>
             <span>

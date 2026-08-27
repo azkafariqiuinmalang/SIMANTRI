@@ -191,7 +191,7 @@ export default function LoginPage() {
         </div>
 
         <div className="mt-6 text-center text-xs text-[#8A8580]">
-          Kompetisi Web Development — &ldquo;NextGen Secure: Building the Future of Trusted Web Ecosystems&rdquo;
+          Kompetisi Web Development: &ldquo;NextGen Secure: Building the Future of Trusted Web Ecosystems&rdquo;
         </div>
       </div>
     </div>

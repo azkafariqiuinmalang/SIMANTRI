@@ -419,7 +419,7 @@ export default function DashboardPage() {
                   <Bot className="w-5 h-5" />
                 </div>
                 <h3 className="font-serif font-bold text-base text-[#0E080A]">
-                  SIMA — Asisten Tani
+                  SIMA Asisten Tani
                 </h3>
               </div>
               <p className="text-xs text-[#4A3A32] leading-relaxed mb-4">
@@ -568,7 +568,7 @@ export default function DashboardPage() {
                     [{log.action}] on `{log.table}`
                   </span>
                   <span className="text-[#8A8580] text-[11px]">
-                    — {log.message}
+                    : {log.message}
                   </span>
                 </div>
                 <span className="text-[10px] text-[#8A8580] shrink-0">

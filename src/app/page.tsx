@@ -169,13 +169,13 @@ function HeroBulb() {
         </TiltCard>
       </div>
 
-      {/* Badge MAPE — Sleek glassmorphic card */}
+      {/* Badge MAPE: Sleek glassmorphic card */}
       <div className="absolute -right-2 top-2 sm:top-4 hidden sm:block rounded-2xl border border-white/25 bg-[#1A0C11]/85 backdrop-blur-xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-[0_20px_40px_rgba(0,0,0,0.55)] transition-all duration-300 hover:-translate-y-1 hover:border-[#F472B6]/40 hover:shadow-2xl z-20">
         <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.14em] text-[#E5DFD6]/80">MAPE Historis</p>
         <p className="font-serif text-xl sm:text-2xl font-bold text-[#F9A8D4] drop-shadow-sm">~3.0%</p>
       </div>
 
-      {/* Field Signal Indicator — Sleek integrated status card */}
+      {/* Field Signal Indicator: Sleek integrated status card */}
       <div className="mt-3 sm:mt-4 w-full rounded-2xl border border-white/20 bg-[#1A0C11]/85 backdrop-blur-xl p-3.5 sm:p-4 shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-all duration-300 hover:-translate-y-1 hover:border-[#F472B6]/40 hover:shadow-2xl z-20">
         <div className="flex items-center gap-3">
           <span className="relative flex h-3 w-3 shrink-0 rounded-full bg-[#4ADE80]">
@@ -480,7 +480,7 @@ export default function HomePage() {
 
               {/* Subtitle with Shadow & High Legibility */}
               <p className="mt-5 sm:mt-7 max-w-2xl text-sm sm:text-lg leading-relaxed sm:leading-8 text-[#F6ECDF]/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] font-sans mx-auto lg:mx-0">
-                SIMANTRI adalah teman pintar untuk petani bawang merah Nganjuk — belajar langsung dari wawancara petani berpengalaman, bukan dari internet umum. Bertanya kapan waktu tanam, pantau harga pasar, deteksi penyakit dari foto, dan kenalkan bawang merah pada generasi muda.
+                SIMANTRI adalah teman pintar untuk petani bawang merah Nganjuk yang belajar langsung dari wawancara petani berpengalaman, bukan dari internet umum. Bertanya kapan waktu tanam, pantau harga pasar, deteksi penyakit dari foto, dan kenalkan bawang merah pada generasi muda.
               </p>
 
               {/* CTA Action Buttons with Glassmorphic Elegance */}

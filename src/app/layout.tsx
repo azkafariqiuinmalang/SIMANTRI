@@ -15,7 +15,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'SIMANTRI — Sistem Informasi Manajemen Pertanian Bawang Merah Nganjuk',
+  title: 'SIMANTRI | Sistem Informasi Manajemen Pertanian Bawang Merah Nganjuk',
   description:
     'Platform ekosistem terpercaya untuk petani bawang merah Kabupaten Nganjuk: Prediksi Harga, Diagnosis Penyakit CV, dan Pameran Pengetahuan Digital Dunia Brambang.',
 }

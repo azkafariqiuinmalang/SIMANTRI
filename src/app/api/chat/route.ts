@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     } = await supabase.auth.getUser()
 
     // -------------------------------------------------------------------------
-    // Langkah 1 — Retrieval (Ambil konteks dari knowledge_entries)
+    // Langkah 1: Retrieval (Ambil konteks dari knowledge_entries)
     // -------------------------------------------------------------------------
     const STOPWORDS = new Set([
       'dan', 'di', 'ke', 'dari', 'yang', 'ini', 'itu', 'pada', 'untuk', 'dengan',
@@ -116,7 +116,7 @@ export async function POST(req: NextRequest) {
     }))
 
     // -------------------------------------------------------------------------
-    // Langkah 2 — Augmentation (Susun system prompt)
+    // Langkah 2: Augmentation (Susun system prompt)
     // -------------------------------------------------------------------------
     const contextString = dariKb
       ? finalDocs
@@ -244,7 +244,7 @@ ${weatherString}
 ======================================================`
 
     // -------------------------------------------------------------------------
-    // Langkah 3 — Generation (Panggil Gemini API Server-Side)
+    // Langkah 3: Generation (Panggil Gemini API Server-Side)
     // -------------------------------------------------------------------------
     let aiResponse = ''
     const apiKey = process.env.GEMINI_API_KEY
@@ -299,7 +299,7 @@ ${weatherString}
     }
 
     // -------------------------------------------------------------------------
-    // Langkah 4 — Logging (Simpan ke chat_logs)
+    // Langkah 4: Logging (Simpan ke chat_logs)
     // -------------------------------------------------------------------------
     let logId: string | null = null
     try {

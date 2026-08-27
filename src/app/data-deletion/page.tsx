@@ -418,7 +418,7 @@ Terima kasih.`
         <div className="mx-auto max-w-6xl flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
           <div className="flex items-center gap-2">
             <span className="font-serif font-bold text-[#F6ECDF]">SIMANTRI</span>
-            <span>&copy; {new Date().getFullYear()} — Bawang Merah Nganjuk</span>
+            <span>&copy; {new Date().getFullYear()} Bawang Merah Nganjuk</span>
           </div>
           <div className="flex flex-wrap gap-4 text-[#F6ECDF]/80">
             <Link href="/privacy" className="hover:text-white transition-colors">

@@ -476,7 +476,7 @@ export default function DuniaBrambangExperience() {
               <p className="text-[#FBF4EE]/80 leading-relaxed font-light text-base md:text-lg">
                 Nganjuk telah menempa dirinya menjadi denyut nadi identitas
                 pertanian Indonesia. Di sini, bawang merah bukan sekadar
-                komoditas—melainkan napas, warisan, dan detak jantung kehidupan
+                komoditas, melainkan napas, warisan, dan detak jantung kehidupan
                 sehari-hari.
               </p>
             </div>
@@ -698,7 +698,7 @@ export default function DuniaBrambangExperience() {
               </h2>
               <p className="text-[#FBF4EE]/80 leading-relaxed font-light text-base md:text-lg">
                 Berdiri kokoh di jantung Nganjuk, monumen ikonik ini lebih dari
-                sekadar struktur batu—ia adalah bentuk penghormatan sakral atas
+                sekadar struktur batu, ia adalah bentuk penghormatan sakral atas
                 keringat, air mata, dan ketangguhan generasi petani bawang merah.
               </p>
               <div className="p-6 rounded-2xl glass-panel border-l-4 border-l-[#C4487A] space-y-2">
@@ -707,7 +707,7 @@ export default function DuniaBrambangExperience() {
                   yang menopang kehidupan kita.&quot;
                 </p>
                 <p className="text-xs text-[#FBF4EE]/60">
-                  — Arsip Warisan Budaya Lokal
+                  Arsip Warisan Budaya Lokal
                 </p>
               </div>
             </div>
@@ -949,7 +949,7 @@ export default function DuniaBrambangExperience() {
                 Dua Karya Agung Tanah
               </h2>
               <p className="text-[#FBF4EE]/70 font-light text-base md:text-lg">
-                Kenali Bauji dan Tajuk—kultivar bawang merah legendaris yang
+                Kenali Bauji dan Tajuk, kultivar bawang merah legendaris yang
                 lahir dari iklim mikro Nganjuk.
               </p>
             </div>
@@ -1032,7 +1032,7 @@ export default function DuniaBrambangExperience() {
                   TAJUK
                 </h3>
                 <p className="text-[#FBF4EE]/90 text-lg md:text-xl font-light leading-relaxed">
-                  Kebanggaan yang tak terbantahkan di musim kemarau—terkenal
+                  Kebanggaan yang tak terbantahkan di musim kemarau, terkenal
                   karena aromanya yang khas, kepadatan umbi yang solid, dan
                   nilai jual ekspor yang tak tertandingi. Menghasilkan 12
                   hingga 15 ton per hektar, Tajuk mempertahankan kualitas
@@ -1101,7 +1101,7 @@ export default function DuniaBrambangExperience() {
                   Volatilitas Harga
                 </h3>
                 <p className="text-xs text-[#FBF4EE]/70 leading-relaxed">
-                  Harga pasar berfluktuasi tajam—petani sering kali memanen hasil
+                  Harga pasar berfluktuasi tajam, petani sering kali memanen hasil
                   yang melimpah namun terpaksa menjual di bawah biaya produksi.
                 </p>
               </div>
@@ -1131,7 +1131,7 @@ export default function DuniaBrambangExperience() {
                   jerih payah kami dengan harga murah.&quot;
                 </h3>
                 <p className="text-xs text-[#FBF4EE]/60 leading-relaxed font-light">
-                  — Pak Supardi, Petani Bawang Merah di Sukomoro, Nganjuk (34
+                  Pak Supardi, Petani Bawang Merah di Sukomoro, Nganjuk (34
                   tahun menggarap tanah)
                 </p>
               </div>
@@ -1552,7 +1552,7 @@ export default function DuniaBrambangExperience() {
                       Mulai dari memilih varietas Bauji dan Tajuk unggulan
                       berdasarkan pengamatan turun-temurun, memahami fase
                       rembulan yang tepat untuk menanam, hingga meracik
-                      pestisida organik dari rempah lokal—pengetahuan ini hidup
+                      pestisida organik dari rempah lokal, pengetahuan ini hidup
                       dalam percakapan, bukan dokumen.
                     </p>
                   </div>
