@@ -462,24 +462,21 @@ export default function HomePage() {
 
             {/* Seamless Top Vignette */}
             <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/60 to-transparent" />
-
-            {/* Seamless Bottom Fade Transition directly into Masalah Section */}
-            <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#FFFDF8] via-[#FFFDF8]/35 to-transparent" />
           </div>
 
           {/* 3. Hero Content Foreground */}
           <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 sm:gap-14 lg:grid-cols-[1.14fr_0.86fr]">
             <div className="text-center lg:text-left">
-              {/* Editorial Title with High Contrast Drop Shadows */}
-              <h1 className="max-w-4xl font-serif text-3xl sm:text-5xl lg:text-7xl font-semibold leading-[1.14] sm:leading-[1.06] tracking-tight text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.7)]">
+              {/* Editorial Title - Clean without heavy shadow */}
+              <h1 className="max-w-4xl font-serif text-3xl sm:text-5xl lg:text-7xl font-semibold leading-[1.14] sm:leading-[1.06] tracking-tight text-white">
                 Bawang merah Nganjuk, dijaga oleh{' '}
-                <em className="font-medium italic text-[#F9A8D4] drop-shadow-[0_2px_15px_rgba(244,114,182,0.3)]">
+                <em className="font-medium italic text-[#F9A8D4]">
                   pengetahuan petaninya sendiri.
                 </em>
               </h1>
 
-              {/* Subtitle with Shadow & High Legibility */}
-              <p className="mt-5 sm:mt-7 max-w-2xl text-sm sm:text-lg leading-relaxed sm:leading-8 text-[#F6ECDF]/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] font-sans mx-auto lg:mx-0">
+              {/* Subtitle - Clean without heavy shadow */}
+              <p className="mt-5 sm:mt-7 max-w-2xl text-sm sm:text-lg leading-relaxed sm:leading-8 text-[#F6ECDF]/95 font-sans mx-auto lg:mx-0">
                 SIMANTRI adalah teman pintar untuk petani bawang merah Nganjuk yang belajar langsung dari wawancara petani berpengalaman, bukan dari internet umum. Bertanya kapan waktu tanam, pantau harga pasar, deteksi penyakit dari foto, dan kenalkan bawang merah pada generasi muda.
               </p>
 
