@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
+import {
+  validateUserInput,
+  detectPromptInjection,
+  buildSecureSystemPrompt,
+  encapsulateUserPrompt,
+  sanitizeAiOutput,
+} from '@/lib/security/ai-guardrails'
 
 interface KnowledgeEntryMatch {
   doc_id: string
@@ -12,14 +19,66 @@ interface KnowledgeEntryMatch {
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json()
-    const userMessage = body?.message?.trim()
+    const body = await req.json().catch(() => ({}))
 
-    if (!userMessage) {
+    // -------------------------------------------------------------------------
+    // LAYER 1: INPUT VALIDATION & NORMALIZATION
+    // -------------------------------------------------------------------------
+    const validation = validateUserInput(body?.message)
+    if (!validation.isValid) {
       return NextResponse.json(
-        { data: null, error: { message: 'Pesan tidak boleh kosong', code: 'INVALID_MESSAGE' } },
+        {
+          data: null,
+          error: {
+            message: validation.error?.message || 'Pesan tidak valid',
+            code: validation.error?.code || 'INVALID_INPUT',
+          },
+        },
         { status: 400 }
       )
+    }
+
+    const userMessage = validation.sanitizedMessage
+
+    // -------------------------------------------------------------------------
+    // LAYER 2: PROMPT INJECTION & INTENT RISK DETECTION
+    // -------------------------------------------------------------------------
+    const injectionAnalysis = detectPromptInjection(userMessage)
+    if (injectionAnalysis.isBlocked) {
+      const refusal = injectionAnalysis.refusalMessage || 'Permintaan ditolak oleh filter keamanan.'
+      
+      // Log blocked injection attempts for audit trail
+      try {
+        const supabase = await createClient()
+        const { data: { user } } = await supabase.auth.getUser()
+        await supabase.from('chat_logs').insert({
+          user_id: user?.id ?? null,
+          message: userMessage,
+          response: `[BLOCKED_BY_GUARDRAIL] ${refusal}`,
+        })
+      } catch (logErr) {
+        console.warn('Logging blocked injection failed:', logErr)
+      }
+
+      return NextResponse.json({
+        data: {
+          id: null,
+          response: refusal,
+          sumber: [],
+          dari_kb: false,
+          security: {
+            status: 'blocked',
+            risk_level: injectionAnalysis.riskLevel,
+            reason: 'prompt_injection_detected',
+          },
+        },
+        reply: refusal,
+        response: refusal,
+        sumber: [],
+        dari_kb: false,
+        chat_id: null,
+        error: null,
+      })
     }
 
     const supabase = await createClient()
@@ -28,7 +87,7 @@ export async function POST(req: NextRequest) {
     } = await supabase.auth.getUser()
 
     // -------------------------------------------------------------------------
-    // Langkah 1: Retrieval (Ambil konteks dari knowledge_entries)
+    // Retrieval (Ambil konteks dari knowledge_entries)
     // -------------------------------------------------------------------------
     const STOPWORDS = new Set([
       'dan', 'di', 'ke', 'dari', 'yang', 'ini', 'itu', 'pada', 'untuk', 'dengan',
@@ -116,7 +175,7 @@ export async function POST(req: NextRequest) {
     }))
 
     // -------------------------------------------------------------------------
-    // Langkah 2: Augmentation (Susun system prompt)
+    // LAYER 3 & 4: PROMPT ISOLATION & SYSTEM PROMPT PROTECTION
     // -------------------------------------------------------------------------
     const contextString = dariKb
       ? finalDocs
@@ -130,132 +189,27 @@ export async function POST(req: NextRequest) {
     const weatherString =
       'Kabupaten Nganjuk, Jawa Timur. Iklim tropis monsun dengan suhu rata-rata 25-32°C, kelembaban udara 65-85%, sentra utama budidaya bawang merah dataran rendah (6-80 mdpl).'
 
-    const systemPrompt = `Kamu adalah **SIMANTRI**, asisten virtual khusus budidaya bawang merah Indonesia.
+    const systemPrompt = buildSecureSystemPrompt(
+      contextString,
+      weatherString,
+      injectionAnalysis.riskLevel
+    )
 
-Tugasmu adalah membantu petani, penyuluh, mahasiswa, maupun masyarakat umum dengan memberikan informasi yang akurat, mudah dipahami, dan ramah.
-
-Kamu berbicara seperti penyuluh pertanian yang berpengalaman, bukan seperti robot.
-
-======================================================
-
-# PERSONALITY
-
-Selalu bersikap:
-- Ramah
-- Sopan
-- Sabar
-- Rendah hati
-- Bersedia mengakui jika informasi belum lengkap
-- Mengajak berdiskusi, bukan menggurui
-
-Gunakan bahasa Indonesia yang alami seperti sedang berbicara langsung dengan petani.
-Jangan terlalu formal.
-
-======================================================
-
-# OBJECTIVE
-
-Jawablah pertanyaan pengguna menggunakan informasi pada Context.
-
-Jika Context tidak cukup,
-gunakan pengetahuan umum yang aman untuk membantu pengguna,
-tetapi jelaskan bahwa informasi tersebut berasal dari pengetahuan umum,
-bukan dari knowledge base.
-
-======================================================
-
-# CONVERSATION RULES
-
-Jika pengguna:
-
-• menyapa
-→ balas dengan ramah.
-Contoh: "Halo Pak/Bu, ada yang bisa saya bantu mengenai budidaya bawang merah?"
-
-• bercanda (Contoh: "yeuu kocak")
-→ balas secara santai.
-Contoh: "Haha 😄 semoga masih mau lanjut diskusi ya."
-
-• membantah jawabanmu (Contoh: "Bukannya Bauji ya?")
-→ jangan defensif. Akui bahwa kemungkinan memang terdapat beberapa sudut pandang. Jelaskan mengapa jawabanmu berbeda berdasarkan Context. Jika pengguna benar, akui dengan sopan.
-
-• memberikan informasi baru (Contoh: "Saya membaca di Google bahwa...")
-→ anggap sebagai bahan diskusi. Bandingkan dengan Context.
-
-======================================================
-
-# CLARIFICATION RULES
-
-Jika pertanyaan kurang jelas, bertanyalah kembali.
-Contoh: "Yang Bapak maksud musim tanam di Nganjuk atau daerah lain?"
-
-======================================================
-
-# CONTEXT RULES
-
-Prioritas jawaban:
-1. Gunakan informasi dari Context.
-2. Jika Context belum lengkap, gunakan pengetahuan umum yang aman.
-3. Jika benar-benar tidak mengetahui, katakan dengan jujur.
-JANGAN mengarang.
-
-======================================================
-
-# RESPONSE STYLE
-
-Jawaban harus terasa alami.
-Hindari kalimat seperti:
-"Menurut Context..."
-"Informasi belum tersedia."
-"Sebagai AI..."
-
-Gunakan kalimat seperti:
-"Berdasarkan informasi yang saya miliki..."
-"Dari data yang tersedia..."
-"Untuk kondisi seperti itu..."
-
-======================================================
-
-# RESPONSE FORMAT
-
-Jawaban:
-<tuliskan jawaban langsung yang jelas dan informatif>
-
-Jika diperlukan, tambahkan:
-Mengapa demikian?
-<penjelasan ringkas>
-
-Saran:
-- <poin 1>
-- <poin 2>
-
-======================================================
-
-# KNOWLEDGE BASE
-
-${contextString}
-
-======================================================
-
-# WEATHER
-
-${weatherString}
-
-======================================================`
+    const isolatedUserPrompt = encapsulateUserPrompt(userMessage)
 
     // -------------------------------------------------------------------------
-    // Langkah 3: Generation (Panggil Gemini API Server-Side)
+    // Generation (Panggil Gemini API Server-Side)
     // -------------------------------------------------------------------------
-    let aiResponse = ''
+    let rawAiResponse = ''
     const apiKey = process.env.GEMINI_API_KEY
 
     if (!apiKey) {
       if (dariKb) {
-        aiResponse = `Berdasarkan data resmi Knowledge Base SIMANTRI (${sumber.map((s) => s.title).join(', ')}):\n\n${
+        rawAiResponse = `Berdasarkan data resmi Knowledge Base SIMANTRI (${sumber.map((s) => s.title).join(', ')}):\n\n${
           finalDocs[0]?.summary || finalDocs[0]?.content.slice(0, 400)
         }\n\nSaran:\n- Silakan pastikan kondisi lahan dan drainase memadai.\n- Konsultasikan dengan penyuluh pertanian setempat.`
       } else {
-        aiResponse = `Halo! Pertanyaan Anda terkait "${userMessage}" saat ini belum tercakup spesifik dalam basis data lokal SIMANTRI. Namun secara umum untuk budidaya bawang merah, disarankan memperhatikan kelembaban tanah, drainase, dan rotasi tanaman.\n\nSaran:\n- Periksa kondisi riil di lahan sawah.\n- Hubungi PPL / Penyuluh pertanian terdekat.`
+        rawAiResponse = `Halo! Pertanyaan Anda terkait "${userMessage}" saat ini belum tercakup spesifik dalam basis data lokal SIMANTRI. Namun secara umum untuk budidaya bawang merah, disarankan memperhatikan kelembaban tanah, drainase, dan rotasi tanaman.\n\nSaran:\n- Periksa kondisi riil di lahan sawah.\n- Hubungi PPL / Penyuluh pertanian terdekat.`
       }
     } else {
       const CANDIDATE_MODELS = [
@@ -273,12 +227,12 @@ ${weatherString}
         try {
           const model = genAI.getGenerativeModel({ model: modelName })
           const result = await model.generateContent({
-            contents: [{ role: 'user', parts: [{ text: userMessage }] }],
+            contents: [{ role: 'user', parts: [{ text: isolatedUserPrompt }] }],
             systemInstruction: systemPrompt,
           })
           const text = result.response.text()
           if (text && text.trim().length > 0) {
-            aiResponse = text.trim()
+            rawAiResponse = text.trim()
             generated = true
             break
           }
@@ -289,17 +243,23 @@ ${weatherString}
 
       if (!generated) {
         if (dariKb) {
-          aiResponse = `Berdasarkan data resmi Knowledge Base SIMANTRI (${sumber.map((s) => s.title).join(', ')}):\n\n${
+          rawAiResponse = `Berdasarkan data resmi Knowledge Base SIMANTRI (${sumber.map((s) => s.title).join(', ')}):\n\n${
             finalDocs[0]?.summary || finalDocs[0]?.content.slice(0, 500)
           }\n\nSaran:\n- Sesuaikan pola tanam dengan curah hujan setempat.\n- Konsultasikan dengan penyuluh BPP Nganjuk terdekat.`
         } else {
-          aiResponse = `Halo! Mengenai "${userMessage}", secara umum dalam budidaya bawang merah Nganjuk, pastikan drainase bedengan dibuat optimal dan perhatikan kondisi cuaca sebelum pemupukan.\n\nSaran:\n- Cek kondisi kelembaban tanah lahan.\n- Hubungi Penyuluh Pertanian Lapangan (PPL) setempat.`
+          rawAiResponse = `Halo! Mengenai "${userMessage}", secara umum dalam budidaya bawang merah Nganjuk, pastikan drainase bedengan dibuat optimal dan perhatikan kondisi cuaca sebelum pemupukan.\n\nSaran:\n- Cek kondisi kelembaban tanah lahan.\n- Hubungi Penyuluh Pertanian Lapangan (PPL) setempat.`
         }
       }
     }
 
     // -------------------------------------------------------------------------
-    // Langkah 4: Logging (Simpan ke chat_logs)
+    // LAYER 5: OUTPUT SECURITY & SENSITIVE INFORMATION REDACTION
+    // -------------------------------------------------------------------------
+    const outputSecurity = sanitizeAiOutput(rawAiResponse)
+    const finalAiResponse = outputSecurity.sanitizedOutput
+
+    // -------------------------------------------------------------------------
+    // Logging (Simpan ke chat_logs)
     // -------------------------------------------------------------------------
     let logId: string | null = null
     try {
@@ -308,7 +268,7 @@ ${weatherString}
         .insert({
           user_id: user?.id ?? null,
           message: userMessage,
-          response: aiResponse,
+          response: finalAiResponse,
         })
         .select('id')
         .single()
@@ -323,12 +283,17 @@ ${weatherString}
     return NextResponse.json({
       data: {
         id: logId,
-        response: aiResponse,
+        response: finalAiResponse,
         sumber: sumber,
         dari_kb: dariKb,
+        security: {
+          status: 'cleared',
+          risk_level: injectionAnalysis.riskLevel,
+          redacted: outputSecurity.redactedCount > 0,
+        },
       },
-      reply: aiResponse,
-      response: aiResponse,
+      reply: finalAiResponse,
+      response: finalAiResponse,
       sumber: sumber,
       dari_kb: dariKb,
       chat_id: logId,
