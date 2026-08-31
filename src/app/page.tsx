@@ -172,7 +172,7 @@ function HeroBulb() {
       {/* Badge MAPE: Sleek glassmorphic card */}
       <div className="absolute -right-2 top-2 sm:top-4 hidden sm:block rounded-2xl border border-white/25 bg-[#1A0C11]/85 backdrop-blur-xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-[0_20px_40px_rgba(0,0,0,0.55)] transition-all duration-300 hover:-translate-y-1 hover:border-[#F472B6]/40 hover:shadow-2xl z-20">
         <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.14em] text-[#E5DFD6]/80">MAPE Historis</p>
-        <p className="font-serif text-xl sm:text-2xl font-bold text-[#F9A8D4] drop-shadow-sm">~3.0%</p>
+        <p className="font-serif text-xl sm:text-2xl font-bold text-[#F9A8D4]">~3.0%</p>
       </div>
 
       {/* Field Signal Indicator: Sleek integrated status card */}
@@ -233,7 +233,7 @@ export default function HomePage() {
             <BrandMark compact whiteBg={!scrolled} />
             <div>
               <span className={`block font-serif text-lg sm:text-xl font-bold leading-none tracking-tight transition-colors duration-300 ${
-                scrolled ? 'text-[#241812] group-hover:text-[#A6304F]' : 'text-white drop-shadow-sm group-hover:text-[#F9A8D4]'
+                scrolled ? 'text-[#241812] group-hover:text-[#A6304F]' : 'text-white group-hover:text-[#F9A8D4]'
               }`}>
                 SIMAN<em className={scrolled ? 'text-[#A6304F]' : 'text-[#F9A8D4]'}>TRI</em>
               </span>
@@ -265,21 +265,20 @@ export default function HomePage() {
               className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 hover:scale-105 active:scale-95 ${
                 scrolled
                   ? 'text-[#241812]/80 hover:bg-[#A6304F]/10 hover:text-[#A6304F]'
-                  : 'text-white/90 hover:bg-white/15 hover:text-white hover:shadow-sm'
+                  : 'text-white/90 hover:bg-white/15 hover:text-white'
               }`}
             >
               Masuk
             </Link>
             <Link
               href="/register"
-              className={`group inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 active:scale-95 ${
+              className={`group inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 active:scale-95 ${
                 scrolled
-                  ? 'bg-[#241812] text-[#F6ECDF] shadow-[0_14px_28px_-18px_rgba(36,24,18,0.85)] hover:bg-[#A6304F] hover:shadow-[0_20px_36px_-18px_rgba(166,48,79,0.8)]'
-                  : 'bg-gradient-to-r from-[#C4487A] to-[#A6304F] text-white shadow-[0_10px_24px_rgba(196,72,122,0.5)] hover:shadow-[0_14px_30px_rgba(244,114,182,0.7)] border border-white/20'
+                  ? 'bg-[#241812] text-[#F6ECDF] hover:bg-[#A6304F]'
+                  : 'bg-gradient-to-r from-[#C4487A] to-[#A6304F] text-white border border-white/20'
               }`}
             >
               Daftar
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
 
@@ -484,14 +483,13 @@ export default function HomePage() {
               <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3.5 sm:gap-4 justify-center lg:justify-start">
                 <Link
                   href="/register"
-                  className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#C4487A] via-[#A6304F] to-[#8C2442] px-7 py-3.5 sm:px-8 sm:py-4 text-sm font-semibold text-white shadow-[0_14px_32px_-6px_rgba(196,72,122,0.8)] transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-[0_20px_40px_-6px_rgba(244,114,182,0.9)] active:scale-95 border border-white/20"
+                  className="group inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#C4487A] via-[#A6304F] to-[#8C2442] px-7 py-3.5 sm:px-8 sm:py-4 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:scale-105 active:scale-95 border border-white/20"
                 >
                   <span>Mulai Gunakan SIMANTRI</span>
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
                 <Link
                   href="/dunia-brambang"
-                  className="group inline-flex items-center justify-center gap-2.5 rounded-full border border-white/30 bg-black/35 px-7 py-3.5 sm:px-8 sm:py-4 text-sm font-semibold text-[#FFFDF8] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-white/20 hover:border-[#F9A8D4]/60 hover:text-white active:scale-95 shadow-[0_8px_24px_rgba(0,0,0,0.3)]"
+                  className="group inline-flex items-center justify-center gap-2.5 rounded-full border border-white/30 bg-black/35 px-7 py-3.5 sm:px-8 sm:py-4 text-sm font-semibold text-[#FFFDF8] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-white/20 hover:border-[#F9A8D4]/60 hover:text-white active:scale-95"
                 >
                   <BookOpen className="h-4 w-4 text-[#F9A8D4]" />
                   <span>Jelajah Dunia Brambang</span>
