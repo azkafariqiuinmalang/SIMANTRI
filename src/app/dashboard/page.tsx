@@ -519,40 +519,88 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* RLS SECURITY VERIFICATION SECTION */}
-      <div className="card-standard p-6 border border-[#E5DFD6] bg-white">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+      {/* RLS SECURITY & PRIVACY TRANSPARENCY PANEL */}
+      <div className="card-standard p-6 border border-[#E5DFD6] bg-white space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h3 className="font-serif font-bold text-base text-[#0E080A] flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-[#3A5A40]" />
-              Verifikasi Keamanan Row Level Security (RLS)
+              Transparansi Privasi & Keamanan Data (Row Level Security)
             </h3>
             <p className="text-xs text-[#8A8580] mt-1">
-              Uji langsung proteksi data Supabase terhadap profil peran Anda ({role}).
+              Arsitektur Zero-Trust: PostgreSQL Row Level Security (RLS) menjamin perlindungan privasi data Anda di level database.
             </p>
           </div>
 
-          <button
-            onClick={runRlsTests}
-            disabled={testing}
-            className="btn-secondary py-2 px-4 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 self-start sm:self-auto"
-          >
-            {testing ? (
-              <>
-                <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                <span>Menjalankan Uji...</span>
-              </>
-            ) : (
-              <>
-                <PlayCircle className="w-3.5 h-3.5 text-[#C4487A]" />
-                <span>Jalankan Uji RLS</span>
-              </>
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#3A5A40]/10 text-[#3A5A40] border border-[#3A5A40]/20">
+              <span className="w-2 h-2 rounded-full bg-[#3A5A40] animate-pulse" />
+              RLS Proteksi Aktif ({role.toUpperCase()})
+            </span>
+
+            {role === 'admin' && (
+              <button
+                onClick={runRlsTests}
+                disabled={testing}
+                className="btn-secondary py-1.5 px-3 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5"
+              >
+                {testing ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Menguji Audit...</span>
+                  </>
+                ) : (
+                  <>
+                    <PlayCircle className="w-3.5 h-3.5 text-[#C4487A]" />
+                    <span>Audit Kepatuhan RLS</span>
+                  </>
+                )}
+              </button>
             )}
-          </button>
+          </div>
         </div>
 
-        {testLog.length > 0 ? (
-          <div className="space-y-2">
+        {/* Security Policy Information Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="p-4 rounded-xl bg-[#FBF4EE]/70 border border-[#E5DFD6] space-y-1.5">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#0E080A]">
+              <CheckCircle2 className="w-4 h-4 text-[#3A5A40]" />
+              <span>Isolasi Multi-Tenant</span>
+            </div>
+            <p className="text-[11px] text-[#4A3A32] leading-relaxed">
+              Query database otomatis memfilter <code className="font-mono text-[10px] bg-white px-1 py-0.5 rounded border border-[#E5DFD6]">auth.uid()</code>. Riwayat deteksi foto dan konsultasi AI terisolasi khusus untuk akun Anda.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-[#FBF4EE]/70 border border-[#E5DFD6] space-y-1.5">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#0E080A]">
+              <CheckCircle2 className="w-4 h-4 text-[#3A5A40]" />
+              <span>Role-Based Access (RBAC)</span>
+            </div>
+            <p className="text-[11px] text-[#4A3A32] leading-relaxed">
+              {role === 'petani' && 'Akses penuh kelola riwayat tanaman sendiri & baca data pasar. Proteksi dari modifikasi konfigurasi sistem.'}
+              {role === 'penyuluh' && 'Akses pantau sinyal wilayah & pengajuan usulan kurasi terverifikasi tanpa izin modifikasi harga pasar.'}
+              {role === 'admin' && 'Otoritas verifikasi penyuluh, moderasi data pasar Nganjuk, dan pembaruan Knowledge Base.'}
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-[#FBF4EE]/70 border border-[#E5DFD6] space-y-1.5">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#0E080A]">
+              <CheckCircle2 className="w-4 h-4 text-[#3A5A40]" />
+              <span>AI Guardrail & Anti-Leak</span>
+            </div>
+            <p className="text-[11px] text-[#4A3A32] leading-relaxed">
+              Dilengkapi perlindungan OWASP LLM01 & LLM02 (Prompt Injection Defense & Redaksi Otomatis Kredensial Sensitif).
+            </p>
+          </div>
+        </div>
+
+        {/* Audit Log Results (Visible if test run) */}
+        {testLog.length > 0 && (
+          <div className="mt-4 pt-4 border-t border-[#E5DFD6] space-y-2">
+            <p className="text-xs font-semibold text-[#0E080A]">
+              Hasil Audit Kepatuhan Hak Akses Real-Time:
+            </p>
             {testLog.map((log, idx) => (
               <div
                 key={idx}
@@ -576,10 +624,6 @@ export default function DashboardPage() {
                 </span>
               </div>
             ))}
-          </div>
-        ) : (
-          <div className="p-4 rounded-lg bg-[#FBF4EE] border border-[#E5DFD6] text-center text-xs text-[#8A8580]">
-            Klik tombol &ldquo;Jalankan Uji RLS&rdquo; untuk memvalidasi hak akses database live.
           </div>
         )}
       </div>

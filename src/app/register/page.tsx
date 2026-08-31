@@ -124,7 +124,7 @@ export default function RegisterPage() {
       if (error) {
         let msg = error.message
         if (msg.toLowerCase().includes('rate limit')) {
-          msg = 'Batas pengiriman email sistem pendaftaran sementara telah tercapai (Supabase Rate Limit). Silakan gunakan Akun Demo di halaman Masuk.'
+          msg = 'Batas pengiriman email sistem pendaftaran sementara telah tercapai (Supabase Rate Limit). Silakan coba lagi beberapa saat kemudian atau hubungi administrator.'
         } else if (msg.toLowerCase().includes('already registered')) {
           msg = 'Alamat email ini sudah terdaftar di SIMANTRI. Silakan masuk menggunakan akun Anda.'
         }
