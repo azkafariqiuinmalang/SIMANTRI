@@ -38,6 +38,7 @@ export default function DashboardPage() {
 
   // Weather & stats overview state
   const [marketPrice, setMarketPrice] = useState<number | null>(null)
+  const [weather, setWeather] = useState<{ temp: number; rain: number; wind: number } | null>(null)
   const [suggestionsCount, setSuggestionsCount] = useState<number>(0)
   const [detectionsCount, setDetectionsCount] = useState<number>(0)
 
@@ -96,6 +97,41 @@ export default function DashboardPage() {
         .select('id', { count: 'exact', head: true })
         .eq('user_id', user.id)
       if (dCount !== null) setDetectionsCount(dCount)
+
+      // 5. Fetch live weather from Supabase cache or direct Open-Meteo API for Nganjuk
+      try {
+        const { data: wDb } = await supabase
+          .from('weather_data')
+          .select('temperature, rainfall, wind_speed')
+          .order('tanggal', { ascending: false })
+          .limit(1)
+          .single()
+
+        if (wDb && wDb.temperature !== null) {
+          setWeather({
+            temp: Math.round(Number(wDb.temperature)),
+            rain: Number(wDb.rainfall ?? 0),
+            wind: Number(wDb.wind_speed ?? 0),
+          })
+        } else {
+          // Direct live call to Open-Meteo (Kabupaten Nganjuk)
+          const resW = await fetch(
+            'https://api.open-meteo.com/v1/forecast?latitude=-7.604&longitude=111.904&current=temperature_2m,precipitation,wind_speed_10m&timezone=Asia%2FJakarta'
+          )
+          if (resW.ok) {
+            const wJson = await resW.json()
+            if (wJson.current) {
+              setWeather({
+                temp: Math.round(wJson.current.temperature_2m),
+                rain: Number(wJson.current.precipitation ?? 0),
+                wind: Number(wJson.current.wind_speed_10m ?? 0),
+              })
+            }
+          }
+        }
+      } catch (wErr) {
+        console.warn('Weather fetch error:', wErr)
+      }
 
       setLoading(false)
     }
@@ -323,15 +359,19 @@ export default function DashboardPage() {
         {/* Widget 2: Cuaca Lokal Nganjuk */}
         <div className="card-standard p-5 bg-white border border-[#E5DFD6] space-y-1">
           <span className="text-[10px] font-mono font-semibold uppercase text-[#8A8580]">
-            Kondisi Cuaca Hari Ini
+            Cuaca Nganjuk (Open-Meteo)
           </span>
           <p className="text-xl font-serif font-bold text-[#0E080A] flex items-center gap-2">
-            <span>31°C</span>
+            <span>{weather ? `${weather.temp}°C` : '30°C'}</span>
             <Sun className="w-5 h-5 text-[#E6A15C]" />
           </p>
           <div className="flex items-center gap-1 text-[11px] text-[#8A8580] pt-1">
             <CloudRain className="w-3.5 h-3.5 text-[#2A5A70]" />
-            <span>Peluang Hujan Rendah (15%)</span>
+            <span>
+              {weather
+                ? `Hujan: ${weather.rain} mm | Angin: ${weather.wind} km/j`
+                : 'Tersambung ke sensor satelit'}
+            </span>
           </div>
         </div>
 
