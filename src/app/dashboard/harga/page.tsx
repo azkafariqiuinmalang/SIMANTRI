@@ -18,8 +18,10 @@ import {
   ArrowDownRight,
   Minus,
   Sparkles,
-  Layers,
   MapPin,
+  CheckCircle2,
+  Activity,
+  Layers,
 } from 'lucide-react'
 
 interface RegionalPriceItem {
@@ -42,6 +44,14 @@ export default function PriceForecastPage() {
   const [history, setHistory] = useState<MarketPrice[]>([])
   const [regionalPrices, setRegionalPrices] = useState<RegionalPriceItem[]>([])
   const [loadingRegional, setLoadingRegional] = useState(false)
+  const [hoveredPoint, setHoveredPoint] = useState<{
+    x: number
+    y: number
+    tanggal: string
+    harga: number
+    source: string
+  } | null>(null)
+
   const [forecast, setForecast] = useState<{
     prediction_date: string
     predicted_price: number
@@ -54,15 +64,15 @@ export default function PriceForecastPage() {
     setLoading(true)
     const supabase = createClient()
 
-    // 1. Fetch 30 hari riwayat harga
+    // 1. Fetch 30 hari riwayat harga TERBARU (Urutkan Descending lalu Reverse)
     const { data: priceData, error } = await supabase
       .from('market_price')
       .select('id, tanggal, harga, source, created_at')
-      .order('tanggal', { ascending: true })
+      .order('tanggal', { ascending: false })
       .limit(30)
 
     if (!error && priceData && priceData.length > 0) {
-      setHistory(priceData as MarketPrice[])
+      setHistory([...priceData].reverse() as MarketPrice[])
     }
 
     setLoading(false)
@@ -115,14 +125,22 @@ export default function PriceForecastPage() {
     loadRegionalPrices()
   }, [loadData, loadRegionalPrices])
 
-  // Simple SVG Line Chart generator
+  // Hitung Statistik 30 Hari
+  const prices = history.map((h) => Number(h.harga))
+  const latestItem = history.length > 0 ? history[history.length - 1] : null
+  const latestPrice = latestItem ? Number(latestItem.harga) : 15700
+  const avgPrice = prices.length > 0 ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 15300
+  const minPriceVal = prices.length > 0 ? Math.min(...prices) : 15000
+  const maxPriceVal = prices.length > 0 ? Math.max(...prices) : 16000
+
+  // SVG Line Chart Visualizer
   const renderChart = () => {
     if (history.length < 2) {
       return (
-        <div className="py-12 text-center text-[#8A8580] bg-[#FBF4EE] rounded-xl border border-dashed border-[#E5DFD6]">
+        <div className="py-16 text-center text-[#8A8580] bg-[#FBF4EE] rounded-2xl border border-dashed border-[#E5DFD6]">
           <Info className="w-8 h-8 mx-auto mb-2 text-[#8A8580]" />
           <p className="text-xs sm:text-sm font-medium text-[#4A3A32]">
-            Data harga historis belum mencukupi untuk menampilkan grafik tren.
+            Data harga historis belum mencukupi untuk grafik tren.
           </p>
           <p className="text-[11px] text-[#8A8580] mt-1">
             Data akan terisi secara otomatis melalui integrasi scraper harian PIHPS.
@@ -131,136 +149,195 @@ export default function PriceForecastPage() {
       )
     }
 
-    const prices = history.map((h) => Number(h.harga))
-    const minPrice = Math.min(...prices) * 0.95
-    const maxPrice = Math.max(...prices) * 1.05
-    const height = 220
-    const width = 700
+    const minPrice = Math.min(...prices) * 0.96
+    const maxPrice = Math.max(...prices) * 1.04
+    const height = 240
+    const width = 720
+    const paddingLeft = 50
+    const paddingRight = 30
+    const paddingTop = 30
+    const paddingBottom = 40
+
+    const chartWidth = width - paddingLeft - paddingRight
+    const chartHeight = height - paddingTop - paddingBottom
 
     const points = history.map((h, i) => {
-      const x = (i / (history.length - 1)) * (width - 60) + 40
+      const x = paddingLeft + (i / (history.length - 1)) * chartWidth
       const y =
-        height -
-        40 -
-        ((Number(h.harga) - minPrice) / (maxPrice - minPrice || 1)) *
-          (height - 70)
-      return `${x},${y}`
+        paddingTop +
+        chartHeight -
+        ((Number(h.harga) - minPrice) / (maxPrice - minPrice || 1)) * chartHeight
+      return { x, y, data: h }
     })
 
-    const pathData = `M ${points.join(' L ')}`
+    const pathData = `M ${points.map((p) => `${p.x},${p.y}`).join(' L ')}`
+    const areaData = `${pathData} L ${points[points.length - 1].x},${height - paddingBottom} L ${points[0].x},${height - paddingBottom} Z`
 
     return (
-      <div className="w-full overflow-x-auto custom-scrollbar pb-2">
-        <div className="min-w-[500px]">
-          <svg
-            viewBox={`0 0 ${width} ${height}`}
-            className="w-full h-48 sm:h-56 stroke-[#C4487A]"
+      <div className="relative w-full">
+        {/* Tooltip Popup on Hover */}
+        {hoveredPoint && (
+          <div
+            className="absolute z-30 pointer-events-none -translate-x-1/2 -translate-y-full px-3 py-2 bg-[#0E080A] text-white rounded-xl shadow-xl text-xs space-y-0.5 border border-white/20 transition-all duration-150 animate-fadeIn"
+            style={{
+              left: `${(hoveredPoint.x / width) * 100}%`,
+              top: `${(hoveredPoint.y / height) * 100 - 12}%`,
+            }}
           >
-            {/* Grid lines */}
-            <line
-              x1="30"
-              y1="30"
-              x2={width - 20}
-              y2="30"
-              stroke="#E5DFD6"
-              strokeDasharray="4"
-            />
-            <line
-              x1="30"
-              y1={height / 2}
-              x2={width - 20}
-              y2={height / 2}
-              stroke="#E5DFD6"
-              strokeDasharray="4"
-            />
-            <line
-              x1="30"
-              y1={height - 35}
-              x2={width - 20}
-              y2={height - 35}
-              stroke="#E5DFD6"
-            />
+            <p className="text-[10px] text-[#E6A15C] font-mono font-semibold">
+              {new Date(hoveredPoint.tanggal).toLocaleDateString('id-ID', {
+                weekday: 'short',
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+              })}
+            </p>
+            <p className="font-bold text-sm">
+              Rp {Number(hoveredPoint.harga).toLocaleString('id-ID')}
+              <span className="text-[10px] text-white/70 font-normal">/kg</span>
+            </p>
+            <p className="text-[9px] text-white/60">
+              Sumber: {hoveredPoint.source === 'scraping' ? 'PIHPS BI' : 'Input Admin'}
+            </p>
+          </div>
+        )}
 
-            {/* Area gradient under line */}
-            <defs>
-              <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#C4487A" stopOpacity="0.25" />
-                <stop offset="100%" stopColor="#C4487A" stopOpacity="0.0" />
-              </linearGradient>
-            </defs>
+        <div className="w-full overflow-x-auto custom-scrollbar pb-1">
+          <div className="min-w-[600px]">
+            <svg
+              viewBox={`0 0 ${width} ${height}`}
+              className="w-full h-56 sm:h-64"
+              onMouseLeave={() => setHoveredPoint(null)}
+            >
+              {/* Grid Lines */}
+              {[0, 0.33, 0.66, 1].map((ratio, idx) => {
+                const y = paddingTop + chartHeight * ratio
+                const val = maxPrice - (maxPrice - minPrice) * ratio
+                return (
+                  <g key={idx}>
+                    <line
+                      x1={paddingLeft}
+                      y1={y}
+                      x2={width - paddingRight}
+                      y2={y}
+                      stroke="#E5DFD6"
+                      strokeDasharray={idx === 3 ? '0' : '4'}
+                      strokeWidth="1"
+                    />
+                    <text
+                      x={paddingLeft - 8}
+                      y={y + 3}
+                      textAnchor="end"
+                      className="text-[10px] fill-[#8A8580] font-mono"
+                    >
+                      {Math.round(val / 100) * 100}
+                    </text>
+                  </g>
+                )
+              })}
 
-            {/* Area */}
-            <path
-              d={`${pathData} L ${
-                (width - 60) + 40
-              },${height - 35} L 40,${height - 35} Z`}
-              fill="url(#priceGradient)"
-              stroke="none"
-            />
+              {/* Area Gradient */}
+              <defs>
+                <linearGradient id="priceGlowGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#C4487A" stopOpacity="0.35" />
+                  <stop offset="60%" stopColor="#C4487A" stopOpacity="0.1" />
+                  <stop offset="100%" stopColor="#C4487A" stopOpacity="0.0" />
+                </linearGradient>
+              </defs>
 
-            {/* Line */}
-            <path
-              d={pathData}
-              fill="none"
-              stroke="#C4487A"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+              {/* Area Fill */}
+              <path d={areaData} fill="url(#priceGlowGradient)" />
 
-            {/* Data points */}
-            {history.map((h, i) => {
-              const x = (i / (history.length - 1)) * (width - 60) + 40
-              const y =
-                height -
-                40 -
-                ((Number(h.harga) - minPrice) / (maxPrice - minPrice || 1)) *
-                  (height - 70)
-              return (
-                <g key={h.id} className="group cursor-pointer">
-                  <circle
-                    cx={x}
-                    cy={y}
-                    r="4"
-                    fill="#FFFFFF"
-                    stroke="#4A1F2B"
-                    strokeWidth="2"
-                  />
-                </g>
-              )
-            })}
-          </svg>
+              {/* Trend Line */}
+              <path
+                d={pathData}
+                fill="none"
+                stroke="#C4487A"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
 
-          <div className="flex justify-between items-center text-[10px] sm:text-[11px] text-[#8A8580] px-2 pt-2">
-            <span>
-              {history[0]?.tanggal
-                ? new Date(history[0].tanggal).toLocaleDateString('id-ID', {
-                    month: 'short',
-                    day: 'numeric',
-                  })
-                : ''}
-            </span>
-            <span className="font-medium text-[#4A3A32]">
-              Rentang: Rp {Math.round(minPrice).toLocaleString('id-ID')} s.d. Rp{' '}
-              {Math.round(maxPrice).toLocaleString('id-ID')} / Kg
-            </span>
-            <span>
-              {history[history.length - 1]?.tanggal
-                ? new Date(
-                    history[history.length - 1].tanggal
-                  ).toLocaleDateString('id-ID', {
-                    month: 'short',
-                    day: 'numeric',
-                  })
-                : ''}
-            </span>
+              {/* Interactive Data Points */}
+              {points.map((p, i) => {
+                const isLast = i === points.length - 1
+                return (
+                  <g
+                    key={p.data.id || i}
+                    className="cursor-pointer transition-transform"
+                    onMouseEnter={() =>
+                      setHoveredPoint({
+                        x: p.x,
+                        y: p.y,
+                        tanggal: p.data.tanggal,
+                        harga: Number(p.data.harga),
+                        source: p.data.source,
+                      })
+                    }
+                  >
+                    {/* Outer pulse for latest item */}
+                    {isLast && (
+                      <circle
+                        cx={p.x}
+                        cy={p.y}
+                        r="8"
+                        fill="#C4487A"
+                        fillOpacity="0.25"
+                        className="animate-ping"
+                      />
+                    )}
+                    <circle
+                      cx={p.x}
+                      cy={p.y}
+                      r={isLast ? '5.5' : '3.5'}
+                      fill={isLast ? '#C4487A' : '#FFFFFF'}
+                      stroke={isLast ? '#FFFFFF' : '#4A1F2B'}
+                      strokeWidth="2"
+                    />
+                  </g>
+                )
+              })}
+            </svg>
+
+            {/* Bottom Dates and Statistics Bar */}
+            <div className="flex justify-between items-center text-[11px] text-[#8A8580] px-3 pt-2 border-t border-[#E5DFD6]">
+              <span className="font-semibold text-[#4A3A32]">
+                {history[0]?.tanggal
+                  ? new Date(history[0].tanggal).toLocaleDateString('id-ID', {
+                      day: 'numeric',
+                      month: 'short',
+                      year: 'numeric',
+                    })
+                  : ''}
+              </span>
+              <div className="flex items-center gap-4 text-xs">
+                <span>
+                  Min: <strong className="text-[#3A5A40]">Rp {minPriceVal.toLocaleString('id-ID')}</strong>
+                </span>
+                <span>
+                  Rata-rata: <strong className="text-[#4A3A32]">Rp {avgPrice.toLocaleString('id-ID')}</strong>
+                </span>
+                <span>
+                  Max: <strong className="text-[#C4487A]">Rp {maxPriceVal.toLocaleString('id-ID')}</strong>
+                </span>
+              </div>
+              <span className="font-bold text-[#C4487A] flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-[#C4487A] animate-pulse"></span>
+                Hari Ini:{' '}
+                {history[history.length - 1]?.tanggal
+                  ? new Date(history[history.length - 1].tanggal).toLocaleDateString('id-ID', {
+                      day: 'numeric',
+                      month: 'short',
+                      year: 'numeric',
+                    })
+                  : ''}
+              </span>
+            </div>
           </div>
         </div>
       </div>
     )
   }
-
-  const latestJatimPrice = history[history.length - 1]?.harga ? Number(history[history.length - 1].harga) : 15700
 
   return (
     <div className="flex-1 p-3 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto text-[#0E080A]">
@@ -280,7 +357,7 @@ export default function PriceForecastPage() {
             Prakiraan & Radar Harga Bawang Merah
           </h1>
           <p className="text-xs text-[#8A8580] mt-1">
-            Data harga produsen PIHPS Bank Indonesia + Sinyal cuaca Nganjuk + Model XGBoost.
+            Data harga produsen PIHPS Bank Indonesia + Sinyal cuaca harian Nganjuk + Model XGBoost.
           </p>
         </div>
 
@@ -312,7 +389,7 @@ export default function PriceForecastPage() {
       {/* TABS & TRANSPARENCY PILLS */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-1 p-1 bg-white rounded-xl border border-[#E5DFD6] w-fit">
+        <div className="flex items-center gap-1 p-1 bg-white rounded-xl border border-[#E5DFD6] w-fit shadow-sm">
           <button
             onClick={() => setActiveTab('forecast')}
             className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 ${
@@ -356,7 +433,7 @@ export default function PriceForecastPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Forecast Card */}
             <div className="lg:col-span-1">
-              <div className="card-standard p-5 sm:p-6 shadow-sm border-2 border-[#C4487A]/30 bg-gradient-to-b from-white to-[#FBF4EE]/50 flex flex-col justify-between">
+              <div className="card-standard p-5 sm:p-6 shadow-sm border-2 border-[#C4487A]/30 bg-gradient-to-b from-white to-[#FBF4EE]/50 flex flex-col justify-between h-full">
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-xs font-bold tracking-wider text-[#C4487A] uppercase font-mono">
@@ -368,7 +445,7 @@ export default function PriceForecastPage() {
                   </div>
 
                   {predicting ? (
-                    <div className="py-10 text-center">
+                    <div className="py-12 text-center">
                       <Loader2 className="w-8 h-8 animate-spin text-[#C4487A] mx-auto mb-2" />
                       <p className="text-xs text-[#4A3A32]">
                         Menghitung inferensi 23 fitur XGBoost...
@@ -397,23 +474,32 @@ export default function PriceForecastPage() {
                           </span>
                         </div>
 
-                        {history.length > 0 && (
-                          <div className="mt-3 p-3 rounded-xl bg-white/80 border border-[#E5DFD6] space-y-1 text-xs">
-                            <div className="flex justify-between text-[#4A3A32]">
-                              <span>Harga Produsen Hari Ini:</span>
-                              <strong className="text-[#3A5A40]">
-                                Rp {Number(history[history.length - 1].harga).toLocaleString('id-ID')}
-                              </strong>
-                            </div>
-                            <div className="flex justify-between text-[#4A3A32]">
-                              <span>Ekspektasi Perubahan:</span>
-                              <span className={`font-bold ${forecast.predicted_price >= Number(history[history.length - 1].harga) ? 'text-[#3A5A40]' : 'text-[#8C3A3A]'}`}>
-                                {forecast.predicted_price >= Number(history[history.length - 1].harga) ? '+' : ''}
-                                Rp {(forecast.predicted_price - Number(history[history.length - 1].harga)).toLocaleString('id-ID')}
-                              </span>
-                            </div>
+                        <div className="mt-4 p-3.5 rounded-xl bg-white/90 border border-[#E5DFD6] space-y-2 text-xs shadow-sm">
+                          <div className="flex justify-between items-center text-[#4A3A32]">
+                            <span className="text-[#8A8580]">Harga Produsen Hari Ini:</span>
+                            <strong className="text-[#0E080A] font-bold">
+                              Rp {latestPrice.toLocaleString('id-ID')}
+                            </strong>
                           </div>
-                        )}
+                          <div className="flex justify-between items-center text-[#4A3A32]">
+                            <span className="text-[#8A8580]">Ekspektasi Perubahan:</span>
+                            <span
+                              className={`font-bold flex items-center gap-1 ${
+                                forecast.predicted_price >= latestPrice
+                                  ? 'text-[#3A5A40]'
+                                  : 'text-[#8C3A3A]'
+                              }`}
+                            >
+                              {forecast.predicted_price >= latestPrice ? (
+                                <ArrowUpRight className="w-3.5 h-3.5" />
+                              ) : (
+                                <ArrowDownRight className="w-3.5 h-3.5" />
+                              )}
+                              {forecast.predicted_price >= latestPrice ? '+' : ''}
+                              Rp {(forecast.predicted_price - latestPrice).toLocaleString('id-ID')}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ) : (
@@ -424,7 +510,7 @@ export default function PriceForecastPage() {
                 </div>
 
                 {/* Target Horizon Buttons */}
-                <div className="pt-4 border-t border-[#E5DFD6] space-y-2">
+                <div className="pt-4 border-t border-[#E5DFD6] space-y-2 mt-4">
                   <label className="text-xs font-semibold text-[#4A3A32] block">
                     Pilih Target Periode Hari:
                   </label>
@@ -453,20 +539,29 @@ export default function PriceForecastPage() {
 
             {/* Trend Chart Card */}
             <div className="lg:col-span-2">
-              <div className="card-standard p-5 sm:p-6 shadow-sm border border-[#E5DFD6] bg-white">
-                <div className="flex items-center justify-between gap-4 mb-4">
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5 text-[#C4487A]" />
-                    <h2 className="text-base sm:text-lg font-serif font-bold text-[#0E080A]">
-                      Grafik Tren Harga Historis (Jawa Timur / Nganjuk)
-                    </h2>
+              <div className="card-standard p-5 sm:p-6 shadow-sm border border-[#E5DFD6] bg-white flex flex-col justify-between">
+                <div>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-[#C4487A]/15 text-[#C4487A] flex items-center justify-center">
+                        <TrendingUp className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <h2 className="text-base sm:text-lg font-serif font-bold text-[#0E080A]">
+                          Grafik Tren Harga Historis (Jawa Timur / Nganjuk)
+                        </h2>
+                        <p className="text-[11px] text-[#8A8580]">
+                          Data riil 30 hari terakhir dari PIHPS Bank Indonesia (Produsen Sedang)
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-xs font-mono font-semibold text-[#C4487A] bg-[#C4487A]/10 px-2.5 py-1 rounded-lg border border-[#C4487A]/20 self-start sm:self-auto">
+                      30 Hari Terakhir
+                    </span>
                   </div>
-                  <span className="text-xs font-mono text-[#8A8580] bg-[#FBF4EE] px-2 py-1 rounded-md border border-[#E5DFD6]">
-                    Produsen Sedang
-                  </span>
-                </div>
 
-                {renderChart()}
+                  {renderChart()}
+                </div>
               </div>
             </div>
           </div>
@@ -476,7 +571,7 @@ export default function PriceForecastPage() {
       {/* TAB 2: REGIONAL MARKET RADAR (ARBITRASE & KOMPARASI) */}
       {activeTab === 'radar' && (
         <div className="space-y-6">
-          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#2A5A70]/10 via-white to-[#2A5A70]/5 border border-[#2A5A70]/25 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#2A5A70]/10 via-white to-[#2A5A70]/5 border border-[#2A5A70]/25 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
             <div className="space-y-1">
               <h3 className="text-sm sm:text-base font-serif font-bold text-[#0E080A] flex items-center gap-2">
                 <Globe className="w-4 h-4 text-[#2A5A70]" />
@@ -487,12 +582,12 @@ export default function PriceForecastPage() {
               </p>
             </div>
             <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-[#2A5A70] text-white shrink-0">
-              Basis Jatim: Rp {latestJatimPrice.toLocaleString('id-ID')}/Kg
+              Basis Jatim: Rp {latestPrice.toLocaleString('id-ID')}/Kg
             </span>
           </div>
 
           {loadingRegional ? (
-            <div className="py-16 text-center card-standard">
+            <div className="py-16 text-center card-standard bg-white">
               <Loader2 className="w-8 h-8 animate-spin text-[#2A5A70] mx-auto mb-2" />
               <p className="text-xs text-[#4A3A32]">Memuat data radar harga seluruh provinsi...</p>
             </div>
@@ -504,7 +599,7 @@ export default function PriceForecastPage() {
               </p>
             </div>
           ) : (
-            <div className="card-standard p-5 sm:p-6 border border-[#E5DFD6] overflow-hidden">
+            <div className="card-standard p-5 sm:p-6 border border-[#E5DFD6] overflow-hidden bg-white shadow-sm">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs sm:text-sm">
                   <thead>
@@ -518,7 +613,7 @@ export default function PriceForecastPage() {
                   </thead>
                   <tbody className="divide-y divide-[#E5DFD6]">
                     {regionalPrices.map((item) => {
-                      const diffWithJatim = Number(item.harga) - latestJatimPrice
+                      const diffWithJatim = Number(item.harga) - latestPrice
                       const isJatim = item.prov_id === 16 || item.provinsi.toLowerCase().includes('jawa timur')
 
                       return (

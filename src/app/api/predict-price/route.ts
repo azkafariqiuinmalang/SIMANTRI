@@ -22,24 +22,27 @@ export async function POST(req: NextRequest) {
       new Date(Date.now() + 86400000).toISOString().split('T')[0] // default besok
 
     // 1. Ambil data historis 30 hari terakhir dari market_price
-    const { data: prices, error: priceError } = await supabase
+    const { data: rawPrices, error: priceError } = await supabase
       .from('market_price')
       .select('tanggal, harga')
-      .order('tanggal', { ascending: true })
+      .order('tanggal', { ascending: false })
+      .limit(30)
 
-    if (priceError || !prices || prices.length === 0) {
+    if (priceError || !rawPrices || rawPrices.length === 0) {
       return NextResponse.json(
         {
           data: null,
           error: {
             message:
-              'Data harga pasar belum tersedia. Admin perlu menginput harga terlebih dahulu.',
+              'Data harga pasar belum tersedia. Data akan diisi otomatis oleh scraper PIHPS.',
             code: 'NO_DATA',
           },
         },
         { status: 400 }
       )
     }
+
+    const prices = [...rawPrices].reverse()
 
     // 2. Ambil data cuaca terbaru dari weather_data
     const { data: weather } = await supabase
