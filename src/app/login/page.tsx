@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
-import { ArrowLeft, ArrowRight, AlertCircle, Loader2, Eye, EyeOff } from 'lucide-react'
+import { ArrowLeft, ArrowRight, AlertCircle, Loader2, Eye, EyeOff, ShieldCheck } from 'lucide-react'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -13,7 +13,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-
   const [showPassword, setShowPassword] = useState(false)
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -50,21 +49,37 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-[#FBF4EE]">
+    <div className="relative min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* BACKGROUND IMAGE WITH DARK DRAMATIC OVERLAY */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <Image
+          src="/bg_tugu_bawang.jpg"
+          alt="Tugu Bawang Merah Nganjuk"
+          fill
+          priority
+          className="object-cover object-center scale-105 filter brightness-[0.75] contrast-[1.05]"
+        />
+        {/* Darkening & Rich Tint Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#180A10]/85 via-[#1E0E15]/75 to-[#0F0508]/90 backdrop-blur-[2px]" />
+        {/* Soft Vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.5)_100%)]" />
+      </div>
+
       {/* Tombol Kembali ke Landing Page */}
       <div className="absolute top-4 left-4 sm:top-6 sm:left-8 z-20">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 rounded-full border border-[#E5DFD6] bg-white/85 backdrop-blur-sm px-4 py-2 text-xs sm:text-sm font-semibold text-[#4A3A32] shadow-sm transition-all duration-200 hover:bg-white hover:border-[#A6304F]/40 hover:text-[#A6304F] hover:-translate-x-0.5 active:scale-95"
+          className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/40 backdrop-blur-md px-4 py-2 text-xs sm:text-sm font-semibold text-[#FFFDF8] shadow-lg transition-all duration-200 hover:bg-black/60 hover:border-[#C4487A] hover:text-[#FFFDF8] hover:-translate-x-0.5 active:scale-95"
         >
-          <ArrowLeft className="h-4 w-4 text-[#A6304F]" />
+          <ArrowLeft className="h-4 w-4 text-[#E6A15C]" />
           <span>Kembali ke Beranda</span>
         </Link>
       </div>
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
-          <div className="w-16 h-16 rounded-2xl bg-white p-2 shadow-lg border border-[#E5DFD6] flex items-center justify-center group-hover:scale-105 transition-transform">
+      {/* HEADER LOGO & TITLE */}
+      <div className="sm:mx-auto sm:w-full sm:max-w-md text-center z-10">
+        <Link href="/" className="inline-flex items-center gap-2 mb-3.5 group">
+          <div className="w-16 h-16 rounded-2xl bg-white/95 backdrop-blur-md p-2 shadow-2xl border border-white/50 flex items-center justify-center group-hover:scale-105 transition-transform">
             <Image
               src="/logo_simantri.png"
               alt="Logo SIMANTRI"
@@ -75,30 +90,31 @@ export default function LoginPage() {
             />
           </div>
         </Link>
-        <h2 className="text-3xl font-serif font-bold text-[#0E080A] tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight drop-shadow-md">
           Masuk ke SIMANTRI
         </h2>
-        <p className="mt-2 text-sm text-[#4A3A32]">
+        <p className="mt-1.5 text-xs sm:text-sm text-[#F5F0EB]/85 drop-shadow-sm font-medium">
           Sistem Informasi Manajemen Pertanian Bawang Merah Nganjuk
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0">
-        <div className="card-standard p-8 sm:p-10 shadow-lg border border-[#E5DFD6]">
+      {/* FROSTED GLASS CONTAINER */}
+      <div className="mt-7 sm:mx-auto sm:w-full sm:max-w-md z-10">
+        <div className="bg-white/90 backdrop-blur-xl p-7 sm:p-9 shadow-2xl rounded-3xl border border-white/60">
           {errorMessage && (
-            <div className="mb-6 p-4 rounded-lg bg-[#8C3A3A]/10 border border-[#8C3A3A]/20 flex items-start gap-3">
+            <div className="mb-5 p-3.5 rounded-xl bg-[#8C3A3A]/10 border border-[#8C3A3A]/25 flex items-start gap-2.5">
               <AlertCircle className="w-5 h-5 text-[#8C3A3A] shrink-0 mt-0.5" />
-              <p className="text-sm text-[#8C3A3A] font-medium leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#8C3A3A] font-medium leading-relaxed">
                 {errorMessage}
               </p>
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-5">
+          <form onSubmit={handleLogin} className="space-y-4 sm:space-y-5">
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-[#4A3A32] mb-1.5"
+                className="block text-xs sm:text-sm font-semibold text-[#4A3A32] mb-1.5"
               >
                 Alamat Email
               </label>
@@ -109,7 +125,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="nama@email.com"
-                className="w-full input-standard text-sm placeholder-[#8A8580]"
+                className="w-full p-3 rounded-xl border border-[#E5DFD6] bg-white/80 focus:bg-white text-xs sm:text-sm text-[#0E080A] placeholder-[#8A8580] focus:outline-none focus:border-[#C4487A] focus:ring-2 focus:ring-[#C4487A]/20 transition-all shadow-xs"
               />
             </div>
 
@@ -117,7 +133,7 @@ export default function LoginPage() {
               <div className="flex items-center justify-between mb-1.5">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-[#4A3A32]"
+                  className="block text-xs sm:text-sm font-semibold text-[#4A3A32]"
                 >
                   Kata Sandi
                 </label>
@@ -130,7 +146,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full input-standard text-sm placeholder-[#8A8580] pr-10"
+                  className="w-full p-3 rounded-xl border border-[#E5DFD6] bg-white/80 focus:bg-white text-xs sm:text-sm text-[#0E080A] placeholder-[#8A8580] focus:outline-none focus:border-[#C4487A] focus:ring-2 focus:ring-[#C4487A]/20 transition-all shadow-xs pr-10"
                 />
                 <button
                   type="button"
@@ -146,7 +162,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full btn-primary py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 shadow-sm text-sm"
+              className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#4A1F2B] via-[#8A2D50] to-[#C4487A] hover:from-[#3D1823] hover:to-[#A83A68] text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#C4487A]/25 transition-all active:scale-95 disabled:opacity-50"
             >
               {loading ? (
                 <>
@@ -155,18 +171,18 @@ export default function LoginPage() {
                 </>
               ) : (
                 <>
-                  <span>Masuk</span>
+                  <span>Masuk ke Akun</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
             </button>
           </form>
 
-          <div className="mt-6 pt-5 border-t border-[#E5DFD6] text-center text-sm text-[#4A3A32]">
+          <div className="mt-6 pt-5 border-t border-[#E5DFD6]/80 text-center text-xs sm:text-sm text-[#4A3A32]">
             Belum memiliki akun?{' '}
             <Link
               href="/register"
-              className="font-medium text-[#C4487A] hover:underline"
+              className="font-bold text-[#C4487A] hover:text-[#A83A68] hover:underline"
             >
               Daftar Sekarang
             </Link>

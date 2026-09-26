@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import type { Profile } from '@/types/database'
 import {
@@ -199,13 +200,19 @@ export default function ChatAssistantPage() {
       {/* CHAT BANNER BAR */}
       <div className="flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 bg-white border border-[#E5DFD6] rounded-2xl shadow-sm mb-2 sm:mb-3 shrink-0">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#4A1F2B] text-[#FFFDF8] flex items-center justify-center shadow-md shrink-0">
-            <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-[#E6A15C]" />
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white p-0.5 border border-[#C4487A]/30 flex items-center justify-center shadow-md shrink-0 overflow-hidden">
+            <Image
+              src="/logo_sima.png"
+              alt="Logo SIMA"
+              width={44}
+              height={44}
+              className="w-full h-full object-contain"
+            />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-sm sm:text-base font-serif font-bold text-[#0E080A]">
-                SIMA AI Asisten Tani
+                SIMA (Asisten Tani Nganjuk)
               </h1>
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono font-semibold bg-[#3A5A40]/10 text-[#3A5A40] border border-[#3A5A40]/20">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#3A5A40] animate-pulse" />
@@ -233,11 +240,17 @@ export default function ChatAssistantPage() {
         {messages.length === 0 ? (
           /* EMPTY STATE / WELCOME CARD */
           <div className="py-6 sm:py-10 px-3 sm:px-6 text-center flex flex-col items-center justify-center max-w-2xl mx-auto">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-[#C4487A]/10 border border-[#C4487A]/20 flex items-center justify-center text-[#C4487A] shadow-inner mb-3 sm:mb-4">
-              <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-[#C4487A]" />
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-white p-1.5 border border-[#C4487A]/25 flex items-center justify-center shadow-lg mb-3 sm:mb-4 overflow-hidden">
+              <Image
+                src="/logo_sima.png"
+                alt="Logo SIMA Mascot"
+                width={96}
+                height={96}
+                className="w-full h-full object-contain"
+              />
             </div>
             <h2 className="text-lg sm:text-2xl font-serif font-bold text-[#0E080A]">
-              Halo! Ada yang bisa SIMA bantu?
+              Halo! Saya SIMA, Siap Bantu Panjenengan!
             </h2>
             <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-[#4A3A32] leading-relaxed max-w-md">
               SIMA belajar dari 39 dokumen pengetahuan budidaya bawang merah Nganjuk, mencakup varietas, fase tanam, hama, penyakit, dan karakteristik tanah per kecamatan.
@@ -271,8 +284,14 @@ export default function ChatAssistantPage() {
               }`}
             >
               {msg.sender === 'sima' && (
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#4A1F2B] text-[#E6A15C] flex items-center justify-center shrink-0 mt-1 shadow-sm">
-                  <Bot className="w-4 h-4 sm:w-5 sm:h-5" />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white p-0.5 border border-[#C4487A]/30 shadow-sm flex items-center justify-center shrink-0 mt-1 overflow-hidden">
+                  <Image
+                    src="/logo_sima.png"
+                    alt="SIMA"
+                    width={36}
+                    height={36}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
               )}
 
@@ -345,8 +364,14 @@ export default function ChatAssistantPage() {
         {/* LOADING INDICATOR */}
         {loading && (
           <div className="flex gap-2 sm:gap-3 justify-start items-start">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#4A1F2B] text-[#E6A15C] flex items-center justify-center shrink-0 shadow-sm">
-              <Bot className="w-4 h-4 sm:w-5 sm:h-5" />
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white p-0.5 border border-[#C4487A]/30 shadow-sm flex items-center justify-center shrink-0 overflow-hidden">
+              <Image
+                src="/logo_sima.png"
+                alt="SIMA"
+                width={36}
+                height={36}
+                className="w-full h-full object-contain"
+              />
             </div>
             <div className="p-3 sm:p-4 rounded-2xl rounded-tl-none bg-white border border-[#E5DFD6] shadow-sm flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C4487A] animate-bounce" style={{ animationDelay: '0ms' }} />

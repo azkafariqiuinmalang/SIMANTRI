@@ -11,8 +11,6 @@ import {
   AlertCircle,
   CheckCircle2,
   Loader2,
-  ShieldCheck,
-  ShieldAlert,
   FileCheck,
   Upload,
   X,
@@ -157,21 +155,37 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#FBF4EE]">
+    <div className="relative min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* BACKGROUND IMAGE WITH DARK DRAMATIC OVERLAY */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <Image
+          src="/bg_tugu_bawang.jpg"
+          alt="Tugu Bawang Merah Nganjuk"
+          fill
+          priority
+          className="object-cover object-center scale-105 filter brightness-[0.75] contrast-[1.05]"
+        />
+        {/* Darkening & Rich Tint Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#180A10]/85 via-[#1E0E15]/75 to-[#0F0508]/90 backdrop-blur-[2px]" />
+        {/* Soft Vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.5)_100%)]" />
+      </div>
+
       {/* Tombol Kembali ke Landing Page */}
       <div className="absolute top-4 left-4 sm:top-6 sm:left-8 z-20">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 rounded-full border border-[#E5DFD6] bg-white/85 backdrop-blur-sm px-4 py-2 text-xs sm:text-sm font-semibold text-[#4A3A32] shadow-sm transition-all duration-200 hover:bg-white hover:border-[#A6304F]/40 hover:text-[#A6304F] hover:-translate-x-0.5 active:scale-95"
+          className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/40 backdrop-blur-md px-4 py-2 text-xs sm:text-sm font-semibold text-[#FFFDF8] shadow-lg transition-all duration-200 hover:bg-black/60 hover:border-[#C4487A] hover:text-[#FFFDF8] hover:-translate-x-0.5 active:scale-95"
         >
-          <ArrowLeft className="h-4 w-4 text-[#A6304F]" />
+          <ArrowLeft className="h-4 w-4 text-[#E6A15C]" />
           <span>Kembali ke Beranda</span>
         </Link>
       </div>
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-lg text-center">
-        <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
-          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white p-2 shadow-lg border border-[#E5DFD6] flex items-center justify-center group-hover:scale-105 transition-transform">
+      {/* HEADER LOGO & TITLE */}
+      <div className="sm:mx-auto sm:w-full sm:max-w-lg text-center z-10">
+        <Link href="/" className="inline-flex items-center gap-2 mb-3.5 group">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/95 backdrop-blur-md p-2 shadow-2xl border border-white/50 flex items-center justify-center group-hover:scale-105 transition-transform">
             <Image
               src="/logo_simantri.png"
               alt="Logo SIMANTRI"
@@ -182,18 +196,19 @@ export default function RegisterPage() {
             />
           </div>
         </Link>
-        <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#0E080A] tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight drop-shadow-md">
           Daftar Akun SIMANTRI
         </h2>
-        <p className="mt-1.5 text-xs sm:text-sm text-[#4A3A32]">
+        <p className="mt-1 text-xs sm:text-sm text-[#F5F0EB]/85 drop-shadow-sm font-medium">
           Ekosistem terpercaya data pertanian bawang merah Nganjuk
         </p>
       </div>
 
-      <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-lg">
-        <div className="card-standard p-6 sm:p-8 shadow-lg border border-[#E5DFD6]">
+      {/* FROSTED GLASS CONTAINER */}
+      <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-lg z-10">
+        <div className="bg-white/90 backdrop-blur-xl p-6 sm:p-9 shadow-2xl rounded-3xl border border-white/60">
           {errorMessage && (
-            <div className="mb-5 p-4 rounded-xl bg-[#8C3A3A]/10 border border-[#8C3A3A]/20 flex items-start gap-3">
+            <div className="mb-5 p-3.5 rounded-xl bg-[#8C3A3A]/10 border border-[#8C3A3A]/25 flex items-start gap-2.5">
               <AlertCircle className="w-5 h-5 text-[#8C3A3A] shrink-0 mt-0.5" />
               <p className="text-xs sm:text-sm text-[#8C3A3A] font-medium leading-relaxed">
                 {errorMessage}
@@ -202,7 +217,7 @@ export default function RegisterPage() {
           )}
 
           {successMessage && (
-            <div className="mb-5 p-4 rounded-xl bg-[#3A5A40]/10 border border-[#3A5A40]/20 flex items-start gap-3">
+            <div className="mb-5 p-4 rounded-2xl bg-[#3A5A40]/10 border border-[#3A5A40]/25 flex items-start gap-3">
               <CheckCircle2 className="w-5 h-5 text-[#3A5A40] shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs sm:text-sm text-[#3A5A40] font-medium leading-relaxed">
@@ -210,7 +225,7 @@ export default function RegisterPage() {
                 </p>
                 <Link
                   href="/login"
-                  className="mt-2 inline-block text-xs font-semibold text-[#C4487A] hover:underline"
+                  className="mt-2 inline-block text-xs font-bold text-[#C4487A] hover:underline"
                 >
                   Lanjut ke Halaman Masuk &rarr;
                 </Link>
@@ -218,11 +233,11 @@ export default function RegisterPage() {
             </div>
           )}
 
-          <form onSubmit={handleRegister} className="space-y-4">
+          <form onSubmit={handleRegister} className="space-y-3.5 sm:space-y-4">
             <div>
               <label
                 htmlFor="fullName"
-                className="block text-xs sm:text-sm font-medium text-[#4A3A32] mb-1"
+                className="block text-xs sm:text-sm font-semibold text-[#4A3A32] mb-1"
               >
                 Nama Lengkap
               </label>
@@ -233,14 +248,14 @@ export default function RegisterPage() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Contoh: Budi Santoso, S.P."
-                className="w-full input-standard text-xs sm:text-sm placeholder-[#8A8580]"
+                className="w-full p-2.5 sm:p-3 rounded-xl border border-[#E5DFD6] bg-white/80 focus:bg-white text-xs sm:text-sm text-[#0E080A] placeholder-[#8A8580] focus:outline-none focus:border-[#C4487A] focus:ring-2 focus:ring-[#C4487A]/20 transition-all shadow-xs"
               />
             </div>
 
             <div>
               <label
                 htmlFor="email"
-                className="block text-xs sm:text-sm font-medium text-[#4A3A32] mb-1"
+                className="block text-xs sm:text-sm font-semibold text-[#4A3A32] mb-1"
               >
                 Alamat Email
               </label>
@@ -251,14 +266,14 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="nama@email.com"
-                className="w-full input-standard text-xs sm:text-sm placeholder-[#8A8580]"
+                className="w-full p-2.5 sm:p-3 rounded-xl border border-[#E5DFD6] bg-white/80 focus:bg-white text-xs sm:text-sm text-[#0E080A] placeholder-[#8A8580] focus:outline-none focus:border-[#C4487A] focus:ring-2 focus:ring-[#C4487A]/20 transition-all shadow-xs"
               />
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-xs sm:text-sm font-medium text-[#4A3A32] mb-1"
+                className="block text-xs sm:text-sm font-semibold text-[#4A3A32] mb-1"
               >
                 Kata Sandi
               </label>
@@ -270,7 +285,7 @@ export default function RegisterPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Minimal 6 karakter"
-                  className="w-full input-standard text-xs sm:text-sm placeholder-[#8A8580] pr-10"
+                  className="w-full p-2.5 sm:p-3 rounded-xl border border-[#E5DFD6] bg-white/80 focus:bg-white text-xs sm:text-sm text-[#0E080A] placeholder-[#8A8580] focus:outline-none focus:border-[#C4487A] focus:ring-2 focus:ring-[#C4487A]/20 transition-all shadow-xs pr-10"
                 />
                 <button
                   type="button"
@@ -283,11 +298,11 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-0.5">
               <div>
                 <label
                   htmlFor="role"
-                  className="block text-xs sm:text-sm font-medium text-[#4A3A32] mb-1"
+                  className="block text-xs sm:text-sm font-semibold text-[#4A3A32] mb-1"
                 >
                   Peran / Profesi
                 </label>
@@ -295,7 +310,7 @@ export default function RegisterPage() {
                   id="role"
                   value={role}
                   onChange={(e) => setRole(e.target.value as 'petani' | 'penyuluh')}
-                  className="w-full input-standard text-xs sm:text-sm bg-white font-medium"
+                  className="w-full p-2.5 sm:p-3 rounded-xl border border-[#E5DFD6] bg-white/90 text-xs sm:text-sm font-semibold text-[#0E080A] focus:outline-none focus:border-[#C4487A] shadow-xs"
                 >
                   <option value="petani">🌾 Petani Bawang</option>
                   <option value="penyuluh">📋 Penyuluh Pertanian (Resmi)</option>
@@ -305,7 +320,7 @@ export default function RegisterPage() {
               <div>
                 <label
                   htmlFor="village"
-                  className="block text-xs sm:text-sm font-medium text-[#4A3A32] mb-1"
+                  className="block text-xs sm:text-sm font-semibold text-[#4A3A32] mb-1"
                 >
                   Kecamatan / Wilayah
                 </label>
@@ -313,7 +328,7 @@ export default function RegisterPage() {
                   id="village"
                   value={village}
                   onChange={(e) => setVillage(e.target.value)}
-                  className="w-full input-standard text-xs sm:text-sm bg-white"
+                  className="w-full p-2.5 sm:p-3 rounded-xl border border-[#E5DFD6] bg-white/90 text-xs sm:text-sm text-[#0E080A] focus:outline-none focus:border-[#C4487A] shadow-xs"
                 >
                   {NGANJUK_VILLAGES.map((v) => (
                     <option key={v} value={v}>
@@ -326,7 +341,7 @@ export default function RegisterPage() {
 
             {/* EXTRA VERIFICATION SECTION FOR PENYULUH */}
             {role === 'penyuluh' && (
-              <div className="mt-3 p-4 rounded-2xl bg-gradient-to-br from-[#2A5A70]/10 via-[#FBF4EE] to-[#2A5A70]/5 border border-[#2A5A70]/30 space-y-3.5 animate-fadeIn">
+              <div className="mt-3 p-4 rounded-2xl bg-gradient-to-br from-[#2A5A70]/10 via-white/80 to-[#2A5A70]/5 border border-[#2A5A70]/30 space-y-3 animate-in fade-in">
                 <div className="flex items-start gap-2.5">
                   <BadgeCheck className="w-5 h-5 text-[#2A5A70] shrink-0 mt-0.5" />
                   <div>
@@ -354,7 +369,7 @@ export default function RegisterPage() {
                       value={nip}
                       onChange={(e) => setNip(e.target.value)}
                       placeholder="Contoh: 198503152010011002"
-                      className="w-full input-standard text-xs placeholder-[#8A8580] bg-white"
+                      className="w-full p-2 rounded-xl border border-[#E5DFD6] bg-white text-xs placeholder-[#8A8580] focus:outline-none focus:border-[#2A5A70]"
                     />
                   </div>
 
@@ -369,7 +384,7 @@ export default function RegisterPage() {
                       id="institution"
                       value={institution}
                       onChange={(e) => setInstitution(e.target.value)}
-                      className="w-full input-standard text-xs bg-white"
+                      className="w-full p-2 rounded-xl border border-[#E5DFD6] bg-white text-xs text-[#0E080A] focus:outline-none focus:border-[#2A5A70]"
                     >
                       {BPP_INSTITUTIONS.map((inst) => (
                         <option key={inst} value={inst}>
@@ -435,7 +450,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full btn-primary py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-sm text-sm font-semibold transition-all active:scale-95"
+                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#4A1F2B] via-[#8A2D50] to-[#C4487A] hover:from-[#3D1823] hover:to-[#A83A68] text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#C4487A]/25 transition-all active:scale-95 disabled:opacity-50"
               >
                 {loading ? (
                   <>
@@ -452,11 +467,11 @@ export default function RegisterPage() {
             </div>
           </form>
 
-          <div className="mt-6 pt-4 border-t border-[#E5DFD6] text-center text-xs sm:text-sm text-[#4A3A32]">
+          <div className="mt-6 pt-4 border-t border-[#E5DFD6]/80 text-center text-xs sm:text-sm text-[#4A3A32]">
             Sudah memiliki akun?{' '}
             <Link
               href="/login"
-              className="font-semibold text-[#C4487A] hover:underline"
+              className="font-bold text-[#C4487A] hover:text-[#A83A68] hover:underline"
             >
               Masuk di sini
             </Link>

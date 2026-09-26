@@ -534,7 +534,15 @@ export default function DiseaseDetectionPage() {
                           {/* Quick AI Consultation Trigger */}
                           <div className="p-2.5 rounded-xl bg-gradient-to-r from-[#4A1F2B]/5 to-[#C4487A]/10 border border-[#C4487A]/20 flex items-center justify-between gap-2">
                             <div className="flex items-center gap-2">
-                              <Bot className="w-4 h-4 text-[#C4487A] shrink-0" />
+                              <div className="w-5 h-5 rounded-full overflow-hidden shrink-0 flex items-center justify-center bg-white border border-[#C4487A]/30">
+                                <Image
+                                  src="/logo_sima.png"
+                                  alt="SIMA"
+                                  width={20}
+                                  height={20}
+                                  className="w-full h-full object-contain"
+                                />
+                              </div>
                               <span className="text-[11px] font-medium text-[#0E080A]">
                                 Butuh panduan langkah penanganan penyakit ini?
                               </span>
@@ -547,7 +555,7 @@ export default function DiseaseDetectionPage() {
                                   autoSend: true,
                                 })
                               }}
-                              className="px-2.5 py-1.5 rounded-lg bg-[#C4487A] hover:bg-[#A83A68] text-white text-[11px] font-semibold transition-all inline-flex items-center gap-1 shadow-xs active:scale-95 shrink-0"
+                              className="px-2.5 py-1.5 rounded-lg bg-[#C4487A] hover:bg-[#A83A68] text-white text-[11px] font-semibold transition-all inline-flex items-center gap-1.5 shadow-xs active:scale-95 shrink-0"
                             >
                               <Sparkles className="w-3 h-3 text-[#E6A15C]" />
                               Tanya Solusi ke SIMA

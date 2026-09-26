@@ -173,9 +173,17 @@ export default function DashboardLayout({
             <button
               onClick={() => openSimaAssistant()}
               className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#C4487A] bg-[#C4487A]/10 hover:bg-[#C4487A]/20 rounded-xl border border-[#C4487A]/25 transition-colors shadow-sm cursor-pointer active:scale-95"
-              title="Buka Asisten SIMA AI"
+              title="Buka Asisten SIMA"
             >
-              <Bot className="w-3.5 h-3.5" />
+              <div className="w-4 h-4 rounded-full overflow-hidden shrink-0 flex items-center justify-center">
+                <Image
+                  src="/logo_sima.png"
+                  alt="SIMA"
+                  width={16}
+                  height={16}
+                  className="w-full h-full object-contain"
+                />
+              </div>
               <span>Tanya SIMA</span>
             </button>
 
@@ -240,12 +248,20 @@ export default function DashboardLayout({
           {/* AI Chatbot SIMA (Prominent Center Button) */}
           <Link
             href="/dashboard/chat"
-            className={`relative -top-3 flex flex-col items-center justify-center w-13 h-13 rounded-2xl bg-gradient-to-tr from-[#4A1F2B] to-[#C4487A] text-white shadow-lg shadow-[#C4487A]/30 transition-transform active:scale-95 ${
+            className={`relative -top-3 flex flex-col items-center justify-center w-13 h-13 rounded-2xl bg-gradient-to-tr from-[#4A1F2B] to-[#C4487A] text-white shadow-lg shadow-[#C4487A]/30 transition-transform active:scale-95 p-1 ${
               pathname.startsWith('/dashboard/chat') ? 'ring-2 ring-[#C4487A] ring-offset-2' : ''
             }`}
           >
-            <Bot className="w-6 h-6" />
-            <span className="text-[9px] font-bold tracking-tight mt-0.5">SIMA AI</span>
+            <div className="w-6 h-6 rounded-full overflow-hidden flex items-center justify-center bg-white/20 p-0.5">
+              <Image
+                src="/logo_sima.png"
+                alt="SIMA"
+                width={24}
+                height={24}
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <span className="text-[9px] font-bold tracking-tight mt-0.5">SIMA</span>
           </Link>
 
           {/* Prediksi Harga */}

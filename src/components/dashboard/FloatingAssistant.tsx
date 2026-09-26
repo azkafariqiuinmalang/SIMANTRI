@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
-  Bot,
   X,
   Send,
   Sparkles,
@@ -12,7 +12,6 @@ import {
   RefreshCw,
   HelpCircle,
   Minimize2,
-  MessageSquare,
   ThumbsUp,
   ThumbsDown,
 } from 'lucide-react'
@@ -195,7 +194,7 @@ export default function FloatingAssistant() {
 
   return (
     <>
-      {/* FLOATING LAUNCHER BUTTON */}
+      {/* FLOATING LAUNCHER BUTTON WITH SIMA MASCOT */}
       {!isOpen && (
         <div className="fixed bottom-20 lg:bottom-6 right-4 sm:right-6 z-40">
           <button
@@ -203,8 +202,8 @@ export default function FloatingAssistant() {
               setIsOpen(true)
               setIsMinimized(false)
             }}
-            className="group relative flex items-center gap-2.5 px-3.5 py-3 sm:px-4 sm:py-3.5 rounded-2xl bg-gradient-to-tr from-[#4A1F2B] via-[#8A2D50] to-[#C4487A] text-white shadow-xl shadow-[#C4487A]/25 border border-white/20 hover:scale-105 active:scale-95 transition-all duration-300"
-            aria-label="Buka Asisten SIMA AI"
+            className="group relative flex items-center gap-2.5 px-3 py-2.5 sm:px-4 sm:py-3 rounded-2xl bg-gradient-to-tr from-[#4A1F2B] via-[#8A2D50] to-[#C4487A] text-white shadow-xl shadow-[#C4487A]/30 border border-white/25 hover:scale-105 active:scale-95 transition-all duration-300"
+            aria-label="Buka Asisten SIMA"
           >
             {/* Pulsing indicator */}
             <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
@@ -212,16 +211,22 @@ export default function FloatingAssistant() {
               <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-[#E6A15C] border-2 border-white" />
             </span>
 
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center text-[#E6A15C] group-hover:rotate-12 transition-transform">
-              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#E6A15C]" />
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white p-0.5 overflow-hidden shadow-md group-hover:scale-105 transition-transform shrink-0 flex items-center justify-center">
+              <Image
+                src="/logo_sima.png"
+                alt="Logo SIMA Mascot"
+                width={36}
+                height={36}
+                className="w-full h-full object-contain"
+              />
             </div>
 
             <div className="text-left pr-1">
-              <span className="block text-xs sm:text-sm font-bold tracking-tight text-white leading-none">
-                Tanya SIMA AI
+              <span className="block text-xs sm:text-sm font-serif font-bold tracking-tight text-white leading-none">
+                Tanya SIMA
               </span>
-              <span className="block text-[9px] text-[#F5F0EB]/80 font-mono mt-0.5 leading-none">
-                Bantuan Cerdas
+              <span className="block text-[9px] text-[#F5F0EB]/85 font-sans font-medium mt-0.5 leading-none">
+                Asisten Tani Nganjuk
               </span>
             </div>
           </button>
@@ -237,24 +242,30 @@ export default function FloatingAssistant() {
               : 'bottom-20 lg:bottom-6 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[430px] h-[550px] max-h-[82vh]'
           } bg-white rounded-2xl shadow-2xl border border-[#E5DFD6] flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5`}
         >
-          {/* HEADER */}
-          <div className="px-3.5 py-2.5 bg-gradient-to-r from-[#4A1F2B] to-[#732742] text-white flex items-center justify-between shrink-0 select-none shadow-sm">
+          {/* HEADER WITH MASCOT */}
+          <div className="px-3.5 py-2.5 bg-gradient-to-r from-[#4A1F2B] via-[#732742] to-[#8A2D50] text-white flex items-center justify-between shrink-0 select-none shadow-sm">
             <div
               className="flex items-center gap-2.5 cursor-pointer flex-1"
               onClick={() => setIsMinimized(!isMinimized)}
             >
-              <div className="w-8 h-8 rounded-xl bg-white/15 flex items-center justify-center text-[#E6A15C] shadow-inner">
-                <Bot className="w-4 h-4" />
+              <div className="w-8.5 h-8.5 rounded-xl bg-white p-0.5 flex items-center justify-center shadow-md shrink-0 overflow-hidden">
+                <Image
+                  src="/logo_sima.png"
+                  alt="SIMA Mascot"
+                  width={34}
+                  height={34}
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
                   <span className="text-xs sm:text-sm font-serif font-bold text-white leading-tight">
-                    SIMA AI Asisten
+                    SIMA (Asisten Tani)
                   </span>
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 </div>
-                <p className="text-[10px] text-[#F5F0EB]/70 leading-none mt-0.5">
-                  Tanya seputar hama, pupuk, & harga
+                <p className="text-[10px] text-[#F5F0EB]/80 leading-none mt-0.5">
+                  Tanya seputar budidaya & penanganan hama
                 </p>
               </div>
             </div>
@@ -263,7 +274,7 @@ export default function FloatingAssistant() {
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setMessages([])}
-                className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                className="p-1.5 rounded-lg text-white/75 hover:text-white hover:bg-white/15 transition-colors"
                 title="Reset Obrolan"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
@@ -271,7 +282,7 @@ export default function FloatingAssistant() {
 
               <Link
                 href="/dashboard/chat"
-                className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                className="p-1.5 rounded-lg text-white/75 hover:text-white hover:bg-white/15 transition-colors"
                 title="Buka di Halaman Penuh"
                 onClick={() => setIsOpen(false)}
               >
@@ -280,7 +291,7 @@ export default function FloatingAssistant() {
 
               <button
                 onClick={() => setIsMinimized(!isMinimized)}
-                className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                className="p-1.5 rounded-lg text-white/75 hover:text-white hover:bg-white/15 transition-colors"
                 title={isMinimized ? 'Perbesar' : 'Minimalkan'}
               >
                 <Minimize2 className="w-3.5 h-3.5" />
@@ -288,7 +299,7 @@ export default function FloatingAssistant() {
 
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-red-500/30 transition-colors"
+                className="p-1.5 rounded-lg text-white/75 hover:text-white hover:bg-red-500/30 transition-colors"
                 title="Tutup Panel"
               >
                 <X className="w-4 h-4" />
@@ -303,20 +314,26 @@ export default function FloatingAssistant() {
               <div className="flex-1 overflow-y-auto p-3 space-y-3 bg-[#FDFBF7] custom-scrollbar">
                 {messages.length === 0 ? (
                   <div className="py-6 px-3 text-center flex flex-col items-center justify-center">
-                    <div className="w-10 h-10 rounded-2xl bg-[#C4487A]/10 border border-[#C4487A]/20 flex items-center justify-center text-[#C4487A] mb-2.5">
-                      <Sparkles className="w-5 h-5" />
+                    <div className="w-16 h-16 rounded-2xl bg-white p-1 shadow-lg border border-[#C4487A]/25 flex items-center justify-center mb-2.5 overflow-hidden">
+                      <Image
+                        src="/logo_sima.png"
+                        alt="SIMA Mascot"
+                        width={60}
+                        height={60}
+                        className="w-full h-full object-contain"
+                      />
                     </div>
-                    <p className="text-xs font-serif font-bold text-[#0E080A]">
-                      Asisten Cerdas Budidaya Bawang
+                    <p className="text-sm font-serif font-bold text-[#0E080A]">
+                      Halo! Saya SIMA, Asisten Tani Anda
                     </p>
-                    <p className="text-[11px] text-[#8A8580] mt-1 max-w-[260px] leading-relaxed">
-                      SIMA siap menjawab pertanyaan Anda dari mana saja di SIMANTRI.
+                    <p className="text-[11px] text-[#8A8580] mt-1 max-w-[270px] leading-relaxed">
+                      Siap membantu tanya jawab seputar budidaya bawang merah, diagnosis penyakit, dan penanganannya di Nganjuk.
                     </p>
 
                     {/* Quick suggestion chips */}
                     <div className="mt-4 w-full space-y-1.5">
                       <p className="text-[10px] font-mono font-semibold uppercase tracking-wider text-[#8A8580] text-left">
-                        Pertanyaan Cepat:
+                        Pertanyaan Populer:
                       </p>
                       {QUICK_QUESTIONS.map((q) => (
                         <button
@@ -339,8 +356,14 @@ export default function FloatingAssistant() {
                       }`}
                     >
                       {msg.sender === 'sima' && (
-                        <div className="w-6 h-6 rounded-lg bg-[#4A1F2B] text-[#E6A15C] flex items-center justify-center shrink-0 mt-1">
-                          <Bot className="w-3.5 h-3.5" />
+                        <div className="w-7 h-7 rounded-xl bg-white p-0.5 border border-[#C4487A]/30 shadow-xs flex items-center justify-center shrink-0 mt-0.5 overflow-hidden">
+                          <Image
+                            src="/logo_sima.png"
+                            alt="SIMA"
+                            width={26}
+                            height={26}
+                            className="w-full h-full object-contain"
+                          />
                         </div>
                       )}
 
@@ -355,7 +378,7 @@ export default function FloatingAssistant() {
                           {msg.sender === 'sima' && (
                             <div className="flex items-center justify-between gap-1 pb-1 mb-1.5 border-b border-[#E5DFD6]/60">
                               <span className="font-serif font-bold text-[10px] text-[#C4487A]">
-                                SIMA AI
+                                SIMA (Asisten Tani)
                               </span>
                               <span className="text-[8px] font-mono text-[#8A8580]">
                                 {msg.timestamp}
@@ -407,14 +430,20 @@ export default function FloatingAssistant() {
                 {/* Loading state */}
                 {loading && (
                   <div className="flex gap-2 justify-start items-center">
-                    <div className="w-6 h-6 rounded-lg bg-[#4A1F2B] text-[#E6A15C] flex items-center justify-center shrink-0">
-                      <Bot className="w-3.5 h-3.5" />
+                    <div className="w-7 h-7 rounded-xl bg-white p-0.5 border border-[#C4487A]/30 shadow-xs flex items-center justify-center shrink-0 overflow-hidden">
+                      <Image
+                        src="/logo_sima.png"
+                        alt="SIMA"
+                        width={26}
+                        height={26}
+                        className="w-full h-full object-contain"
+                      />
                     </div>
                     <div className="p-2.5 rounded-2xl rounded-tl-none bg-white border border-[#E5DFD6] shadow-xs flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#C4487A] animate-bounce" style={{ animationDelay: '0ms' }} />
                       <span className="w-1.5 h-1.5 rounded-full bg-[#C4487A] animate-bounce" style={{ animationDelay: '150ms' }} />
                       <span className="w-1.5 h-1.5 rounded-full bg-[#C4487A] animate-bounce" style={{ animationDelay: '300ms' }} />
-                      <span className="text-[10px] text-[#8A8580] ml-1.5">SIMA merangkai jawaban...</span>
+                      <span className="text-[10px] text-[#8A8580] ml-1.5 font-medium">SIMA sedang merangkai jawaban...</span>
                     </div>
                   </div>
                 )}
