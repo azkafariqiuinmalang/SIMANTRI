@@ -205,7 +205,7 @@ export async function POST(req: NextRequest) {
 
     if (!apiKey) {
       if (dariKb) {
-        rawAiResponse = `Berdasarkan data resmi Knowledge Base SIMANTRI (${sumber.map((s) => s.title).join(', ')}):\n\n${
+        rawAiResponse = `${
           finalDocs[0]?.summary || finalDocs[0]?.content.slice(0, 400)
         }\n\nSaran:\n- Silakan pastikan kondisi lahan dan drainase memadai.\n- Konsultasikan dengan penyuluh pertanian setempat.`
       } else {
@@ -213,11 +213,11 @@ export async function POST(req: NextRequest) {
       }
     } else {
       const CANDIDATE_MODELS = [
-        'gemini-3.5-flash',
-        'gemini-3.7-flash',
-        'gemini-3.1-pro-preview',
-        'gemini-flash-latest',
+        'gemini-2.5-flash',
+        'gemini-2.0-flash',
+        'gemini-1.5-flash',
         'gemini-2.5-pro',
+        'gemini-1.5-pro',
       ]
 
       const genAI = new GoogleGenerativeAI(apiKey)
@@ -243,7 +243,7 @@ export async function POST(req: NextRequest) {
 
       if (!generated) {
         if (dariKb) {
-          rawAiResponse = `Berdasarkan data resmi Knowledge Base SIMANTRI (${sumber.map((s) => s.title).join(', ')}):\n\n${
+          rawAiResponse = `${
             finalDocs[0]?.summary || finalDocs[0]?.content.slice(0, 500)
           }\n\nSaran:\n- Sesuaikan pola tanam dengan curah hujan setempat.\n- Konsultasikan dengan penyuluh BPP Nganjuk terdekat.`
         } else {

@@ -25,7 +25,9 @@ import {
   Info,
   Bug,
   Leaf,
+  Bot,
 } from 'lucide-react'
+import { openSimaAssistant } from '@/components/dashboard/FloatingAssistant'
 
 interface DetectionDisplayResult {
   result_id: string
@@ -527,6 +529,29 @@ export default function DiseaseDetectionPage() {
                               className={`h-full ${progressColor} transition-all duration-700`}
                               style={{ width: `${Math.min(100, Math.max(5, conf))}%` }}
                             />
+                          </div>
+
+                          {/* Quick AI Consultation Trigger */}
+                          <div className="p-2.5 rounded-xl bg-gradient-to-r from-[#4A1F2B]/5 to-[#C4487A]/10 border border-[#C4487A]/20 flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <Bot className="w-4 h-4 text-[#C4487A] shrink-0" />
+                              <span className="text-[11px] font-medium text-[#0E080A]">
+                                Butuh panduan langkah penanganan penyakit ini?
+                              </span>
+                            </div>
+                            <button
+                              onClick={() => {
+                                const diseaseName = item.display_name || item.predicted_class
+                                openSimaAssistant({
+                                  prompt: `Saya mendeteksi penyakit ${diseaseName} pada tanaman bawang merah (Keyakinan: ${conf}%). Bagaimana langkah penanganan, dosis obat/fungisida, dan cara mencegah penyebarannya?`,
+                                  autoSend: true,
+                                })
+                              }}
+                              className="px-2.5 py-1.5 rounded-lg bg-[#C4487A] hover:bg-[#A83A68] text-white text-[11px] font-semibold transition-all inline-flex items-center gap-1 shadow-xs active:scale-95 shrink-0"
+                            >
+                              <Sparkles className="w-3 h-3 text-[#E6A15C]" />
+                              Tanya Solusi ke SIMA
+                            </button>
                           </div>
 
                           {/* Feedback Section */}

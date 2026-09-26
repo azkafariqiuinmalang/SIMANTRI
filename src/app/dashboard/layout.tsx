@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import type { Profile } from '@/types/database'
 import Sidebar from '@/components/dashboard/Sidebar'
+import FloatingAssistant, { openSimaAssistant } from '@/components/dashboard/FloatingAssistant'
 import {
   Menu,
   PanelLeftOpen,
@@ -169,13 +170,14 @@ export default function DashboardLayout({
 
           {/* Right Header Badges */}
           <div className="flex items-center gap-2.5 sm:gap-3">
-            <Link
-              href="/dashboard/chat"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#C4487A] bg-[#C4487A]/10 hover:bg-[#C4487A]/20 rounded-xl border border-[#C4487A]/25 transition-colors shadow-sm"
+            <button
+              onClick={() => openSimaAssistant()}
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#C4487A] bg-[#C4487A]/10 hover:bg-[#C4487A]/20 rounded-xl border border-[#C4487A]/25 transition-colors shadow-sm cursor-pointer active:scale-95"
+              title="Buka Asisten SIMA AI"
             >
               <Bot className="w-3.5 h-3.5" />
               <span>Tanya SIMA</span>
-            </Link>
+            </button>
 
             <Link
               href="/dashboard/profil"
@@ -200,6 +202,9 @@ export default function DashboardLayout({
         <main className="flex-1 flex flex-col pb-20 lg:pb-0 min-h-0">
           {children}
         </main>
+
+        {/* GLOBAL FLOATING SIMA ASSISTANT PANEL */}
+        <FloatingAssistant />
 
         {/* MOBILE FLOATING BOTTOM NAVIGATION BAR (lg:hidden) */}
         <nav

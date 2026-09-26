@@ -20,6 +20,7 @@ import {
   RefreshCw,
   Info,
 } from 'lucide-react'
+import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer'
 
 interface Message {
   id?: string | null
@@ -281,11 +282,11 @@ export default function ChatAssistantPage() {
                   className={`p-3.5 sm:p-4 text-xs sm:text-sm leading-relaxed shadow-sm ${
                     msg.sender === 'user'
                       ? 'bg-[#C4487A] text-white rounded-2xl rounded-tr-none'
-                      : 'bg-white border border-[#E5DFD6] text-[#0E080A] rounded-2xl rounded-tl-none whitespace-pre-wrap'
+                      : 'bg-white border border-[#E5DFD6] text-[#0E080A] rounded-2xl rounded-tl-none'
                   }`}
                 >
                   {msg.sender === 'sima' && (
-                    <div className="flex items-center justify-between gap-2 pb-1.5 mb-1.5 border-b border-[#E5DFD6]/60">
+                    <div className="flex items-center justify-between gap-2 pb-1.5 mb-2 border-b border-[#E5DFD6]/60">
                       <span className="font-serif font-bold text-[11px] sm:text-xs text-[#C4487A]">
                         SIMA (Asisten Tani)
                       </span>
@@ -294,65 +295,40 @@ export default function ChatAssistantPage() {
                       </span>
                     </div>
                   )}
-                  <div>{msg.text}</div>
+                  {msg.sender === 'sima' ? (
+                    <MarkdownRenderer content={msg.text} />
+                  ) : (
+                    <div className="whitespace-pre-wrap">{msg.text}</div>
+                  )}
                 </div>
 
-                {/* Footer Sources & Feedback */}
-                {msg.sender === 'sima' && (
-                  <div className="flex flex-wrap items-center justify-between gap-1.5 px-1 text-[11px]">
-                    <div>
-                      {msg.dari_kb && msg.sumber && msg.sumber.length > 0 ? (
-                        <div className="flex flex-wrap items-center gap-1">
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-[#3A5A40]/10 text-[#3A5A40] border border-[#3A5A40]/20">
-                            <BookOpen className="w-3 h-3" />
-                            Sumber:
-                          </span>
-                          {msg.sumber.map((s) => (
-                            <span
-                              key={s.doc_id}
-                              className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-white border border-[#3A5A40]/20 text-[#3A5A40]"
-                              title={s.title}
-                            >
-                              {s.title.length > 20 ? s.title.slice(0, 20) + '...' : s.title}
-                            </span>
-                          ))}
-                        </div>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-[#8A8580]/10 text-[#8A8580]">
-                          <Info className="w-3 h-3" />
-                          Jawaban Umum
-                        </span>
-                      )}
-                    </div>
-
-                    {msg.id && (
-                      <div className="flex items-center gap-1 text-[#8A8580]">
-                        <button
-                          onClick={() => handleFeedback(msg.id!, 'helpful')}
-                          disabled={feedbackSending === msg.id}
-                          className={`p-1 rounded border transition-all ${
-                            msg.feedback === 'helpful'
-                              ? 'bg-[#3A5A40]/15 text-[#3A5A40] border-[#3A5A40]'
-                              : 'hover:bg-white text-[#8A8580] border-transparent'
-                          }`}
-                          title="Jawaban Membantu"
-                        >
-                          <ThumbsUp className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          onClick={() => handleFeedback(msg.id!, 'not_helpful')}
-                          disabled={feedbackSending === msg.id}
-                          className={`p-1 rounded border transition-all ${
-                            msg.feedback === 'not_helpful'
-                              ? 'bg-[#8C3A3A]/15 text-[#8C3A3A] border-[#8C3A3A]'
-                              : 'hover:bg-white text-[#8A8580] border-transparent'
-                          }`}
-                          title="Jawaban Kurang Membantu"
-                        >
-                          <ThumbsDown className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    )}
+                {/* Footer Feedback */}
+                {msg.sender === 'sima' && msg.id && (
+                  <div className="flex items-center justify-end gap-1 px-1 text-[#8A8580]">
+                    <button
+                      onClick={() => handleFeedback(msg.id!, 'helpful')}
+                      disabled={feedbackSending === msg.id}
+                      className={`p-1 rounded border transition-all ${
+                        msg.feedback === 'helpful'
+                          ? 'bg-[#3A5A40]/15 text-[#3A5A40] border-[#3A5A40]'
+                          : 'hover:bg-white text-[#8A8580] border-transparent'
+                      }`}
+                      title="Jawaban Membantu"
+                    >
+                      <ThumbsUp className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={() => handleFeedback(msg.id!, 'not_helpful')}
+                      disabled={feedbackSending === msg.id}
+                      className={`p-1 rounded border transition-all ${
+                        msg.feedback === 'not_helpful'
+                          ? 'bg-[#8C3A3A]/15 text-[#8C3A3A] border-[#8C3A3A]'
+                          : 'hover:bg-white text-[#8A8580] border-transparent'
+                      }`}
+                      title="Jawaban Kurang Membantu"
+                    >
+                      <ThumbsDown className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 )}
               </div>
