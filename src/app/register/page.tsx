@@ -156,8 +156,8 @@ export default function RegisterPage() {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center p-4 sm:p-6 overflow-hidden">
-      {/* NATURAL BACKGROUND IMAGE (NO BLACK OVERLAY) */}
-      <div className="fixed inset-0 -z-10">
+      {/* BACKGROUND IMAGE WITH SUBTLE DARK SHADOW OVERLAY */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
         <Image
           src="/bg_tugu_bawang.jpg"
           alt="Tugu Bawang Merah Nganjuk"
@@ -165,30 +165,33 @@ export default function RegisterPage() {
           priority
           className="object-cover object-center"
         />
+        {/* Soft black shadow layer to reduce brightness without drowning out the image */}
+        <div className="absolute inset-0 bg-black/35" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/50" />
       </div>
 
-      {/* TOMBOL KEMBALI KE BERANDA (FROSTED PILL) */}
+      {/* TOMBOL KEMBALI KE BERANDA */}
       <div className="absolute top-4 left-4 sm:top-6 sm:left-8 z-20">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/20 backdrop-blur-md px-4 py-2 text-xs sm:text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-white/35 hover:scale-105 active:scale-95"
+          className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-black/25 backdrop-blur-sm px-4 py-2 text-xs sm:text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-black/45 hover:scale-105 active:scale-95"
         >
-          <ArrowLeft className="h-4 w-4 text-white" />
+          <ArrowLeft className="h-4 w-4 text-[#E6A15C]" />
           <span>Kembali ke Beranda</span>
         </Link>
       </div>
 
-      {/* FROSTED GLASS CONTAINER (MATCHING REFERENCE IMAGE) */}
+      {/* FROSTED GLASS CONTAINER (MODERATE BLUR & REFINED CONTRAST) */}
       <div className="w-full max-w-lg my-auto z-10">
-        <div className="relative rounded-3xl border border-white/40 bg-white/20 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.35)] p-6 sm:p-9 flex flex-col items-center text-center">
+        <div className="relative rounded-3xl border border-white/30 bg-white/18 backdrop-blur-md shadow-[0_16px_45px_rgba(0,0,0,0.4)] p-6 sm:p-9 flex flex-col items-center text-center">
           {/* LOGO */}
           <Link href="/" className="mb-2.5 group">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/90 backdrop-blur-md p-2 shadow-lg border border-white/60 flex items-center justify-center group-hover:scale-105 transition-transform">
+            <div className="w-14 h-14 sm:w-15 sm:h-15 rounded-2xl bg-white/95 backdrop-blur-sm p-2 shadow-lg border border-white/50 flex items-center justify-center group-hover:scale-105 transition-transform">
               <Image
                 src="/logo_simantri.png"
                 alt="Logo SIMANTRI"
-                width={50}
-                height={50}
+                width={48}
+                height={48}
                 className="w-full h-full object-contain"
                 priority
               />
@@ -205,7 +208,7 @@ export default function RegisterPage() {
 
           {/* ERROR ALERT */}
           {errorMessage && (
-            <div className="w-full mt-4 p-3 rounded-xl bg-red-600/30 backdrop-blur-md border border-red-300/40 text-left flex items-start gap-2.5 text-white">
+            <div className="w-full mt-4 p-3 rounded-xl bg-red-600/35 backdrop-blur-sm border border-red-300/40 text-left flex items-start gap-2.5 text-white">
               <AlertCircle className="w-4 h-4 text-red-200 shrink-0 mt-0.5" />
               <p className="text-xs leading-relaxed font-medium">{errorMessage}</p>
             </div>
@@ -213,7 +216,7 @@ export default function RegisterPage() {
 
           {/* SUCCESS ALERT */}
           {successMessage && (
-            <div className="w-full mt-4 p-3.5 rounded-xl bg-emerald-600/30 backdrop-blur-md border border-emerald-300/40 text-left flex items-start gap-2.5 text-white">
+            <div className="w-full mt-4 p-3.5 rounded-xl bg-emerald-600/35 backdrop-blur-sm border border-emerald-300/40 text-left flex items-start gap-2.5 text-white">
               <CheckCircle2 className="w-4 h-4 text-emerald-200 shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs leading-relaxed font-medium">{successMessage}</p>
@@ -232,7 +235,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="fullName"
-                className="block text-xs font-semibold text-white/95 mb-1 drop-shadow-sm"
+                className="block text-xs font-semibold text-white mb-1 drop-shadow-sm"
               >
                 Nama Lengkap
               </label>
@@ -243,14 +246,14 @@ export default function RegisterPage() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Contoh: Budi Santoso, S.P."
-                className="w-full p-2.5 sm:p-3 rounded-xl border border-white/40 bg-white/85 backdrop-blur-md text-xs sm:text-sm text-gray-900 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C4487A] focus:border-transparent transition-all shadow-sm"
+                className="w-full p-2.5 sm:p-3 rounded-xl border border-white/40 bg-white/90 focus:bg-white text-xs sm:text-sm text-[#0E080A] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#C4487A] transition-all shadow-sm"
               />
             </div>
 
             <div>
               <label
                 htmlFor="email"
-                className="block text-xs font-semibold text-white/95 mb-1 drop-shadow-sm"
+                className="block text-xs font-semibold text-white mb-1 drop-shadow-sm"
               >
                 Alamat Email
               </label>
@@ -261,14 +264,14 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="nama@email.com"
-                className="w-full p-2.5 sm:p-3 rounded-xl border border-white/40 bg-white/85 backdrop-blur-md text-xs sm:text-sm text-gray-900 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C4487A] focus:border-transparent transition-all shadow-sm"
+                className="w-full p-2.5 sm:p-3 rounded-xl border border-white/40 bg-white/90 focus:bg-white text-xs sm:text-sm text-[#0E080A] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#C4487A] transition-all shadow-sm"
               />
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-xs font-semibold text-white/95 mb-1 drop-shadow-sm"
+                className="block text-xs font-semibold text-white mb-1 drop-shadow-sm"
               >
                 Kata Sandi
               </label>
@@ -280,7 +283,7 @@ export default function RegisterPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Minimal 6 karakter"
-                  className="w-full p-2.5 sm:p-3 rounded-xl border border-white/40 bg-white/85 backdrop-blur-md text-xs sm:text-sm text-gray-900 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C4487A] focus:border-transparent transition-all shadow-sm pr-10"
+                  className="w-full p-2.5 sm:p-3 rounded-xl border border-white/40 bg-white/90 focus:bg-white text-xs sm:text-sm text-[#0E080A] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#C4487A] transition-all shadow-sm pr-10"
                 />
                 <button
                   type="button"
@@ -297,7 +300,7 @@ export default function RegisterPage() {
               <div>
                 <label
                   htmlFor="role"
-                  className="block text-xs font-semibold text-white/95 mb-1 drop-shadow-sm"
+                  className="block text-xs font-semibold text-white mb-1 drop-shadow-sm"
                 >
                   Peran / Profesi
                 </label>
@@ -305,7 +308,7 @@ export default function RegisterPage() {
                   id="role"
                   value={role}
                   onChange={(e) => setRole(e.target.value as 'petani' | 'penyuluh')}
-                  className="w-full p-2.5 sm:p-3 rounded-xl border border-white/40 bg-white/85 backdrop-blur-md text-xs sm:text-sm text-gray-900 font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C4487A] shadow-sm"
+                  className="w-full p-2.5 sm:p-3 rounded-xl border border-white/40 bg-white/90 text-xs sm:text-sm text-[#0E080A] font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C4487A] shadow-sm"
                 >
                   <option value="petani">🌾 Petani Bawang</option>
                   <option value="penyuluh">📋 Penyuluh Pertanian (Resmi)</option>
@@ -315,7 +318,7 @@ export default function RegisterPage() {
               <div>
                 <label
                   htmlFor="village"
-                  className="block text-xs font-semibold text-white/95 mb-1 drop-shadow-sm"
+                  className="block text-xs font-semibold text-white mb-1 drop-shadow-sm"
                 >
                   Kecamatan / Wilayah
                 </label>
@@ -323,7 +326,7 @@ export default function RegisterPage() {
                   id="village"
                   value={village}
                   onChange={(e) => setVillage(e.target.value)}
-                  className="w-full p-2.5 sm:p-3 rounded-xl border border-white/40 bg-white/85 backdrop-blur-md text-xs sm:text-sm text-gray-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C4487A] shadow-sm"
+                  className="w-full p-2.5 sm:p-3 rounded-xl border border-white/40 bg-white/90 text-xs sm:text-sm text-[#0E080A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C4487A] shadow-sm"
                 >
                   {NGANJUK_VILLAGES.map((v) => (
                     <option key={v} value={v}>
@@ -336,7 +339,7 @@ export default function RegisterPage() {
 
             {/* EXTRA VERIFICATION SECTION FOR PENYULUH */}
             {role === 'penyuluh' && (
-              <div className="mt-3 p-3.5 rounded-2xl bg-white/25 backdrop-blur-md border border-white/40 space-y-3 text-white">
+              <div className="mt-3 p-3.5 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/35 space-y-3 text-white">
                 <div className="flex items-start gap-2">
                   <BadgeCheck className="w-5 h-5 text-emerald-200 shrink-0 mt-0.5" />
                   <div>
@@ -364,7 +367,7 @@ export default function RegisterPage() {
                       value={nip}
                       onChange={(e) => setNip(e.target.value)}
                       placeholder="Contoh: 198503152010011002"
-                      className="w-full p-2 rounded-xl border border-white/40 bg-white/85 text-xs text-gray-900 placeholder-gray-500 focus:bg-white focus:outline-none"
+                      className="w-full p-2 rounded-xl border border-white/40 bg-white/90 text-xs text-[#0E080A] placeholder-gray-500 focus:bg-white focus:outline-none"
                     />
                   </div>
 
@@ -379,7 +382,7 @@ export default function RegisterPage() {
                       id="institution"
                       value={institution}
                       onChange={(e) => setInstitution(e.target.value)}
-                      className="w-full p-2 rounded-xl border border-white/40 bg-white/85 text-xs text-gray-900 focus:bg-white focus:outline-none"
+                      className="w-full p-2 rounded-xl border border-white/40 bg-white/90 text-xs text-[#0E080A] focus:bg-white focus:outline-none"
                     >
                       {BPP_INSTITUTIONS.map((inst) => (
                         <option key={inst} value={inst}>
@@ -394,7 +397,7 @@ export default function RegisterPage() {
                   <label className="block text-[11px] font-semibold text-white mb-1">
                     Unggah Dokumen Bukti (KTA / SK Dinas) <span className="text-[#FFD0E0]">*</span>
                   </label>
-                  <div className="p-2.5 border-2 border-dashed border-white/50 rounded-xl bg-white/20 text-center hover:bg-white/30 transition-colors relative">
+                  <div className="p-2.5 border-2 border-dashed border-white/50 rounded-xl bg-white/15 text-center hover:bg-white/25 transition-colors relative">
                     <input
                       type="file"
                       id="docUpload"
@@ -445,7 +448,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#8A2D50] via-[#A83A68] to-[#C4487A] hover:brightness-110 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-black/20 transition-all active:scale-95 disabled:opacity-50"
+                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#8A2D50] via-[#A83A68] to-[#C4487A] hover:brightness-110 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-black/25 transition-all active:scale-95 disabled:opacity-50"
               >
                 {loading ? (
                   <>
