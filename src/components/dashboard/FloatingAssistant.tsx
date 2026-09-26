@@ -12,6 +12,7 @@ import {
   RefreshCw,
   HelpCircle,
   Minimize2,
+  ChevronUp,
   ThumbsUp,
   ThumbsDown,
 } from 'lucide-react'
@@ -238,63 +239,79 @@ export default function FloatingAssistant() {
         <div
           className={`fixed z-50 transition-all duration-300 ease-out ${
             isMinimized
-              ? 'bottom-20 lg:bottom-6 right-4 sm:right-6 w-72 sm:w-80 h-14'
-              : 'bottom-20 lg:bottom-6 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[430px] h-[550px] max-h-[82vh]'
-          } bg-white rounded-2xl shadow-2xl border border-[#E5DFD6] flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5`}
+              ? 'bottom-20 lg:bottom-6 right-4 sm:right-6 w-[270px] sm:w-[300px] h-auto rounded-2xl shadow-xl border border-white/25'
+              : 'bottom-20 lg:bottom-6 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[430px] h-[550px] max-h-[82vh] rounded-2xl shadow-2xl border border-[#E5DFD6]'
+          } bg-white flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5`}
         >
           {/* HEADER WITH MASCOT */}
-          <div className="px-3.5 py-2.5 bg-gradient-to-r from-[#4A1F2B] via-[#732742] to-[#8A2D50] text-white flex items-center justify-between shrink-0 select-none shadow-sm">
+          <div
+            className={`bg-gradient-to-r from-[#4A1F2B] via-[#732742] to-[#8A2D50] text-white flex items-center justify-between shrink-0 select-none shadow-sm ${
+              isMinimized ? 'px-3 py-2.5 cursor-pointer' : 'px-3.5 py-2.5'
+            }`}
+            onClick={isMinimized ? () => setIsMinimized(false) : undefined}
+          >
             <div
-              className="flex items-center gap-2.5 cursor-pointer flex-1"
+              className="flex items-center gap-2.5 cursor-pointer flex-1 min-w-0 pr-1"
               onClick={() => setIsMinimized(!isMinimized)}
             >
-              <div className="w-8.5 h-8.5 rounded-xl bg-white p-0.5 flex items-center justify-center shadow-md shrink-0 overflow-hidden">
+              <div className="w-8 h-8 rounded-xl bg-white p-0.5 flex items-center justify-center shadow-md shrink-0 overflow-hidden">
                 <Image
                   src="/logo_sima.png"
                   alt="SIMA Mascot"
-                  width={34}
-                  height={34}
+                  width={32}
+                  height={32}
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-xs sm:text-sm font-serif font-bold text-white leading-tight">
+                  <span className="text-xs sm:text-sm font-serif font-bold text-white leading-tight truncate">
                     SIMA (Asisten Tani)
                   </span>
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0 animate-pulse" />
                 </div>
-                <p className="text-[10px] text-[#F5F0EB]/80 leading-none mt-0.5">
-                  Tanya seputar budidaya & penanganan hama
+                <p className="text-[10px] text-[#F5F0EB]/85 leading-none mt-0.5 truncate">
+                  {isMinimized ? 'Klik untuk buka' : 'Tanya budidaya & hama'}
                 </p>
               </div>
             </div>
 
             {/* Action buttons */}
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => setMessages([])}
-                className="p-1.5 rounded-lg text-white/75 hover:text-white hover:bg-white/15 transition-colors"
-                title="Reset Obrolan"
-              >
-                <RefreshCw className="w-3.5 h-3.5" />
-              </button>
+            <div
+              className="flex items-center gap-0.5 sm:gap-1 shrink-0"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {!isMinimized && (
+                <>
+                  <button
+                    onClick={() => setMessages([])}
+                    className="p-1.5 rounded-lg text-white/75 hover:text-white hover:bg-white/15 transition-colors"
+                    title="Reset Obrolan"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" />
+                  </button>
 
-              <Link
-                href="/dashboard/chat"
-                className="p-1.5 rounded-lg text-white/75 hover:text-white hover:bg-white/15 transition-colors"
-                title="Buka di Halaman Penuh"
-                onClick={() => setIsOpen(false)}
-              >
-                <Maximize2 className="w-3.5 h-3.5" />
-              </Link>
+                  <Link
+                    href="/dashboard/chat"
+                    className="p-1.5 rounded-lg text-white/75 hover:text-white hover:bg-white/15 transition-colors"
+                    title="Buka di Halaman Penuh"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Maximize2 className="w-3.5 h-3.5" />
+                  </Link>
+                </>
+              )}
 
               <button
                 onClick={() => setIsMinimized(!isMinimized)}
                 className="p-1.5 rounded-lg text-white/75 hover:text-white hover:bg-white/15 transition-colors"
-                title={isMinimized ? 'Perbesar' : 'Minimalkan'}
+                title={isMinimized ? 'Buka Panel' : 'Minimalkan'}
               >
-                <Minimize2 className="w-3.5 h-3.5" />
+                {isMinimized ? (
+                  <ChevronUp className="w-4 h-4" />
+                ) : (
+                  <Minimize2 className="w-3.5 h-3.5" />
+                )}
               </button>
 
               <button
