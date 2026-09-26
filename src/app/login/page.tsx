@@ -3,9 +3,9 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
 import Image from 'next/image'
-import { ArrowLeft, ArrowRight, AlertCircle, Loader2 } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
+import { ArrowLeft, ArrowRight, AlertCircle, Loader2, Eye, EyeOff } from 'lucide-react'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -14,22 +14,26 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
+  const [showPassword, setShowPassword] = useState(false)
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setErrorMessage(null)
 
+    const cleanEmail = email.trim().toLowerCase()
+
     try {
       const supabase = createClient()
       const { error } = await supabase.auth.signInWithPassword({
-        email,
+        email: cleanEmail,
         password,
       })
 
       if (error) {
         setErrorMessage(
           error.message === 'Invalid login credentials'
-            ? 'Email atau kata sandi tidak cocok. Silakan coba lagi.'
+            ? 'Email atau kata sandi tidak cocok. Silakan periksa kembali penulisan email dan kata sandi Anda.'
             : error.message
         )
         setLoading(false)
@@ -118,15 +122,25 @@ export default function LoginPage() {
                   Kata Sandi
                 </label>
               </div>
-              <input
-                id="password"
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full input-standard text-sm placeholder-[#8A8580]"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full input-standard text-sm placeholder-[#8A8580] pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8A8580] hover:text-[#4A3A32] focus:outline-none transition-colors"
+                  title={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
 
             <button

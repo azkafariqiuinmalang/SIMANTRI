@@ -1,0 +1,684 @@
+tanggal,prov_id,provinsi,komoditas,price_type,harga,harga_diff,semua_provinsi,percentage
+2026-08-27,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-08-27,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-08-27,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-08-27,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-08-27,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-08-27,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-08-27,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-08-27,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-08-27,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-08-27,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-08-27,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-08-27,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-08-27,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-08-27,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-08-27,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-08-27,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-08-27,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-08-27,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-08-27,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-08-27,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-08-27,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-08-27,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-08-28,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-08-28,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-08-28,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-08-28,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-08-28,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-08-28,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-08-28,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-08-28,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-08-28,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-08-28,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-08-28,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-08-28,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-08-28,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-08-28,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-08-28,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-08-28,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-08-28,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-08-28,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-08-28,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-08-28,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-08-28,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-08-28,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-08-29,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-08-29,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-08-29,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-08-29,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-08-29,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-08-29,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-08-29,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-08-29,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-08-29,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-08-29,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-08-29,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-08-29,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-08-29,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-08-29,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-08-29,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-08-29,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-08-29,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-08-29,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-08-29,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-08-29,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-08-29,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-08-29,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-08-30,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-08-30,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-08-30,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-08-30,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-08-30,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-08-30,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-08-30,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-08-30,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-08-30,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-08-30,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-08-30,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-08-30,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-08-30,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-08-30,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-08-30,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-08-30,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-08-30,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-08-30,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-08-30,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-08-30,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-08-30,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-08-30,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-08-31,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-08-31,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-08-31,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-08-31,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-08-31,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-08-31,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-08-31,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-08-31,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-08-31,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-08-31,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-08-31,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-08-31,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-08-31,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-08-31,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-08-31,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-08-31,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-08-31,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-08-31,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-08-31,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-08-31,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-08-31,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-08-31,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-01,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-01,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-01,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-01,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-01,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-01,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-01,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-01,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-01,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-01,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-01,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-01,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-01,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-01,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-01,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-01,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-01,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-01,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-01,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-01,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-01,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-01,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-02,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-02,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-02,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-02,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-02,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-02,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-02,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-02,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-02,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-02,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-02,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-02,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-02,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-02,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-02,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-02,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-02,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-02,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-02,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-02,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-02,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-02,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-03,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-03,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-03,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-03,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-03,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-03,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-03,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-03,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-03,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-03,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-03,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-03,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-03,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-03,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-03,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-03,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-03,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-03,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-03,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-03,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-03,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-03,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-04,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-04,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-04,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-04,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-04,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-04,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-04,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-04,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-04,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-04,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-04,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-04,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-04,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-04,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-04,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-04,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-04,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-04,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-04,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-04,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-04,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-04,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-05,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-05,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-05,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-05,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-05,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-05,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-05,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-05,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-05,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-05,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-05,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-05,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-05,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-05,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-05,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-05,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-05,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-05,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-05,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-05,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-05,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-05,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-06,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-06,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-06,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-06,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-06,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-06,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-06,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-06,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-06,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-06,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-06,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-06,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-06,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-06,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-06,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-06,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-06,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-06,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-06,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-06,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-06,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-06,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-07,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-07,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-07,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-07,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-07,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-07,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-07,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-07,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-07,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-07,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-07,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-07,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-07,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-07,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-07,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-07,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-07,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-07,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-07,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-07,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-07,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-07,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-08,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-08,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-08,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-08,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-08,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-08,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-08,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-08,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-08,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-08,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-08,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-08,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-08,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-08,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-08,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-08,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-08,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-08,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-08,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-08,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-08,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-08,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-09,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-09,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-09,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-09,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-09,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-09,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-09,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-09,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-09,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-09,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-09,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-09,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-09,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-09,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-09,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-09,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-09,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-09,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-09,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-09,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-09,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-09,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-10,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-10,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-10,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-10,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-10,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-10,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-10,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-10,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-10,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-10,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-10,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-10,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-10,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-10,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-10,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-10,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-10,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-10,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-10,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-10,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-10,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-10,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-11,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-11,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-11,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-11,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-11,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-11,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-11,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-11,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-11,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-11,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-11,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-11,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-11,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-11,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-11,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-11,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-11,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-11,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-11,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-11,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-11,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-11,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-12,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-12,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-12,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-12,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-12,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-12,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-12,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-12,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-12,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-12,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-12,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-12,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-12,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-12,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-12,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-12,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-12,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-12,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-12,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-12,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-12,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-12,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-13,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-13,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-13,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-13,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-13,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-13,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-13,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-13,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-13,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-13,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-13,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-13,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-13,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-13,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-13,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-13,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-13,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-13,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-13,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-13,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-13,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-13,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-14,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-14,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-14,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-14,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-14,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-14,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-14,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-14,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-14,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-14,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-14,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-14,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-14,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-14,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-14,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-14,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-14,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-14,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-14,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-14,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-14,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-14,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-15,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-15,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-15,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-15,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-15,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-15,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-15,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-15,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-15,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-15,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-15,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-15,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-15,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-15,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-15,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-15,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-15,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-15,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-15,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-15,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-15,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-15,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-16,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-16,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-16,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-16,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-16,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-16,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-16,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-16,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-16,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-16,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-16,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-16,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-16,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-16,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-16,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-16,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-16,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-16,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-16,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-16,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-16,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-16,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-17,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-17,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-17,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-17,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-17,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-17,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-17,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-17,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-17,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-17,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-17,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-17,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-17,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-17,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-17,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-17,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-17,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-17,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-17,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-17,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-17,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-17,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-18,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-18,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-18,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-18,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-18,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-18,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-18,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-18,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-18,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-18,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-18,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-18,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-18,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-18,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-18,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-18,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-18,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-18,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-18,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-18,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-18,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-18,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-19,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-19,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-19,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-19,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-19,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-19,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-19,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-19,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-19,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-19,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-19,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-19,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-19,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-19,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-19,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-19,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-19,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-19,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-19,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-19,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-19,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-19,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-20,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14350.0,Rp0,26050.0,0.0
+2026-09-20,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-20,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-20,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-20,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-20,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-20,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-20,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-20,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-20,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-20,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-20,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-20,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-20,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-20,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-20,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-20,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-20,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-20,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-20,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-20,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-20,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-21,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,26050.0,0.0
+2026-09-21,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14650.0,Rp0,26050.0,0.0
+2026-09-21,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,26050.0,0.0
+2026-09-21,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,26050.0,0.0
+2026-09-21,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,26050.0,0.0
+2026-09-21,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,26050.0,0.0
+2026-09-21,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,26050.0,0.0
+2026-09-21,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-21,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,26050.0,0.0
+2026-09-21,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,23350.0,Rp0,26050.0,0.0
+2026-09-21,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,26050.0,0.0
+2026-09-21,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,26050.0,0.0
+2026-09-21,25,Gorontalo,Bawang Merah Ukuran Sedang,4,25500.0,Rp0,26050.0,0.0
+2026-09-21,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,26050.0,0.0
+2026-09-21,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,26050.0,0.0
+2026-09-21,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,26050.0,0.0
+2026-09-21,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,26050.0,0.0
+2026-09-21,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,26050.0,0.0
+2026-09-21,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,26050.0,0.0
+2026-09-21,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,26050.0,0.0
+2026-09-21,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,26050.0,0.0
+2026-09-21,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,26050.0,0.0
+2026-09-22,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,25100.0,0.0
+2026-09-22,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14650.0,Rp0,25100.0,0.0
+2026-09-22,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,25100.0,0.0
+2026-09-22,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,25100.0,0.0
+2026-09-22,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,17650.0,-Rp5700,25100.0,-24.41
+2026-09-22,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,25100.0,0.0
+2026-09-22,25,Gorontalo,Bawang Merah Ukuran Sedang,4,20000.0,-Rp5500,25100.0,-21.57
+2026-09-22,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,25100.0,0.0
+2026-09-22,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,25100.0,0.0
+2026-09-22,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,25100.0,0.0
+2026-09-22,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,25100.0,0.0
+2026-09-22,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,25100.0,0.0
+2026-09-22,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,25100.0,0.0
+2026-09-22,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,25100.0,0.0
+2026-09-22,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,25100.0,0.0
+2026-09-22,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,25100.0,0.0
+2026-09-22,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,25100.0,0.0
+2026-09-22,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,25100.0,0.0
+2026-09-22,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,25100.0,0.0
+2026-09-22,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,25100.0,0.0
+2026-09-22,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,25100.0,0.0
+2026-09-23,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,25550.0,0.0
+2026-09-23,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14650.0,Rp0,25550.0,0.0
+2026-09-23,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,25550.0,0.0
+2026-09-23,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,25550.0,0.0
+2026-09-23,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,17650.0,Rp0,25550.0,0.0
+2026-09-23,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,25550.0,0.0
+2026-09-23,25,Gorontalo,Bawang Merah Ukuran Sedang,4,20000.0,Rp0,25550.0,0.0
+2026-09-23,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,25550.0,0.0
+2026-09-23,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,25550.0,0.0
+2026-09-23,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,25550.0,0.0
+2026-09-23,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,25550.0,0.0
+2026-09-23,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,25550.0,0.0
+2026-09-23,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,25550.0,0.0
+2026-09-23,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,25550.0,0.0
+2026-09-23,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,25550.0,0.0
+2026-09-23,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,25550.0,0.0
+2026-09-23,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,25550.0,0.0
+2026-09-23,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,25550.0,0.0
+2026-09-23,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,25550.0,0.0
+2026-09-23,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,25550.0,0.0
+2026-09-23,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,25550.0,0.0
+2026-09-23,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,25550.0,0.0
+2026-09-24,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,25550.0,0.0
+2026-09-24,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,14650.0,Rp0,25550.0,0.0
+2026-09-24,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15300.0,Rp0,25550.0,0.0
+2026-09-24,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,16000.0,Rp0,25550.0,0.0
+2026-09-24,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,17650.0,Rp0,25550.0,0.0
+2026-09-24,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,19350.0,Rp0,25550.0,0.0
+2026-09-24,25,Gorontalo,Bawang Merah Ukuran Sedang,4,20000.0,Rp0,25550.0,0.0
+2026-09-24,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,22000.0,Rp0,25550.0,0.0
+2026-09-24,1,Aceh,Bawang Merah Ukuran Sedang,4,22150.0,Rp0,25550.0,0.0
+2026-09-24,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,25550.0,0.0
+2026-09-24,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,25550.0,0.0
+2026-09-24,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,24000.0,Rp0,25550.0,0.0
+2026-09-24,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,24650.0,Rp0,25550.0,0.0
+2026-09-24,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,26350.0,Rp0,25550.0,0.0
+2026-09-24,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,26850.0,Rp0,25550.0,0.0
+2026-09-24,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,27000.0,Rp0,25550.0,0.0
+2026-09-24,33,Papua,Bawang Merah Ukuran Sedang,4,29000.0,Rp0,25550.0,0.0
+2026-09-24,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,25550.0,0.0
+2026-09-24,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,25550.0,0.0
+2026-09-24,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,25550.0,0.0
+2026-09-24,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,25550.0,0.0
+2026-09-24,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,25550.0,0.0
+2026-09-25,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,25150.0,0.0
+2026-09-25,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,15000.0,-Rp1000,25150.0,-6.25
+2026-09-25,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15700.0,Rp400,25150.0,2.61
+2026-09-25,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,17400.0,-Rp5600,25150.0,-24.35
+2026-09-25,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,17650.0,Rp0,25150.0,0.0
+2026-09-25,25,Gorontalo,Bawang Merah Ukuran Sedang,4,20000.0,Rp0,25150.0,0.0
+2026-09-25,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,20350.0,-Rp1650,25150.0,-7.5
+2026-09-25,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,20550.0,Rp1200,25150.0,6.2
+2026-09-25,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,20650.0,-Rp4000,25150.0,-16.23
+2026-09-25,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,20650.0,-Rp5700,25150.0,-21.63
+2026-09-25,1,Aceh,Bawang Merah Ukuran Sedang,4,21150.0,-Rp1000,25150.0,-4.51
+2026-09-25,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,21650.0,Rp7000,25150.0,47.78
+2026-09-25,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,22500.0,-Rp1500,25150.0,-6.25
+2026-09-25,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,25150.0,0.0
+2026-09-25,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,23100.0,-Rp3750,25150.0,-13.97
+2026-09-25,33,Papua,Bawang Merah Ukuran Sedang,4,28350.0,-Rp650,25150.0,-2.24
+2026-09-25,11,Banten,Bawang Merah Ukuran Sedang,4,29750.0,Rp0,25150.0,0.0
+2026-09-25,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,25150.0,0.0
+2026-09-25,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,30000.0,Rp3000,25150.0,11.11
+2026-09-25,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,25150.0,0.0
+2026-09-25,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,25150.0,0.0
+2026-09-25,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,25150.0,0.0
+2026-09-25,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,25150.0,0.0
+2026-09-26,17,Bali,Bawang Merah Ukuran Sedang,4,14400.0,Rp0,25150.0,0.0
+2026-09-26,2,Sumatera Utara,Bawang Merah Ukuran Sedang,4,15000.0,-Rp1000,25150.0,-6.25
+2026-09-26,16,Jawa Timur,Bawang Merah Ukuran Sedang,4,15700.0,Rp400,25150.0,2.61
+2026-09-26,26,Sulawesi Selatan,Bawang Merah Ukuran Sedang,4,17400.0,-Rp5600,25150.0,-24.35
+2026-09-26,18,Nusa Tenggara Barat,Bawang Merah Ukuran Sedang,4,17650.0,Rp0,25150.0,0.0
+2026-09-26,25,Gorontalo,Bawang Merah Ukuran Sedang,4,20000.0,Rp0,25150.0,0.0
+2026-09-26,3,Sumatera Barat,Bawang Merah Ukuran Sedang,4,20350.0,-Rp1650,25150.0,-7.5
+2026-09-26,14,Jawa Tengah,Bawang Merah Ukuran Sedang,4,20550.0,Rp1200,25150.0,6.2
+2026-09-26,15,DI Yogyakarta,Bawang Merah Ukuran Sedang,4,20650.0,-Rp4000,25150.0,-16.23
+2026-09-26,21,Kalimantan Selatan,Bawang Merah Ukuran Sedang,4,20650.0,-Rp5700,25150.0,-21.63
+2026-09-26,1,Aceh,Bawang Merah Ukuran Sedang,4,21150.0,-Rp1000,25150.0,-4.51
+2026-09-26,12,Jawa Barat,Bawang Merah Ukuran Sedang,4,21650.0,Rp7000,25150.0,47.78
+2026-09-26,9,Kepulauan Bangka Belitung,Bawang Merah Ukuran Sedang,4,22500.0,-Rp1500,25150.0,-6.25
+2026-09-26,5,Kepulauan Riau,Bawang Merah Ukuran Sedang,4,23000.0,Rp0,25150.0,0.0
+2026-09-26,28,Sulawesi Tengah,Bawang Merah Ukuran Sedang,4,23100.0,-Rp3750,25150.0,-13.97
+2026-09-26,33,Papua,Bawang Merah Ukuran Sedang,4,28350.0,-Rp650,25150.0,-2.24
+2026-09-26,11,Banten,Bawang Merah Ukuran Sedang,4,29750.0,Rp0,25150.0,0.0
+2026-09-26,29,Sulawesi Utara,Bawang Merah Ukuran Sedang,4,30000.0,Rp0,25150.0,0.0
+2026-09-26,30,Sulawesi Barat,Bawang Merah Ukuran Sedang,4,30000.0,Rp3000,25150.0,11.11
+2026-09-26,27,Sulawesi Tenggara,Bawang Merah Ukuran Sedang,4,31650.0,Rp0,25150.0,0.0
+2026-09-26,8,Sumatera Selatan,Bawang Merah Ukuran Sedang,4,35000.0,Rp0,25150.0,0.0
+2026-09-26,24,Kalimantan Utara,Bawang Merah Ukuran Sedang,4,40000.0,Rp0,25150.0,0.0
+2026-09-26,32,Maluku Utara,Bawang Merah Ukuran Sedang,4,60000.0,Rp0,25150.0,0.0

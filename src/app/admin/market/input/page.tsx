@@ -17,6 +17,11 @@ import {
   History,
   TrendingUp,
   ShieldAlert,
+  RefreshCw,
+  Cpu,
+  Globe,
+  Database,
+  Radio,
 } from 'lucide-react'
 
 export default function AdminMarketInputPage() {
@@ -31,6 +36,8 @@ export default function AdminMarketInputPage() {
   )
   const [harga, setHarga] = useState('')
   const [submitting, setSubmitting] = useState(false)
+  const [syncingToday, setSyncingToday] = useState(false)
+  const [syncingBackfill, setSyncingBackfill] = useState(false)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
@@ -78,6 +85,7 @@ export default function AdminMarketInputPage() {
     checkAuthAndLoad()
   }, [router, fetchPriceHistory])
 
+  // Handle Manual Price Submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
@@ -130,6 +138,81 @@ export default function AdminMarketInputPage() {
     }
   }
 
+  // Handle Triggering PIHPS Scraper (Today)
+  const handleSyncToday = async () => {
+    setSyncingToday(true)
+    setSuccessMessage(null)
+    setErrorMessage(null)
+
+    try {
+      const res = await fetch('/api/market/sync-pihps', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mode: 'today' }),
+      })
+
+      const json = await res.json()
+
+      if (!res.ok || json.error) {
+        setErrorMessage(json.error?.message || 'Gagal sinkronisasi data dari PIHPS.')
+        return
+      }
+
+      const syncedItem = json.data?.results?.[0]
+      const pred = json.data?.prediction
+
+      setSuccessMessage(
+        `Sinkronisasi PIHPS Hari Ini Berhasil! Harga Jatim/Nganjuk: Rp ${Number(
+          syncedItem?.jatim_price || 0
+        ).toLocaleString('id-ID')} (${syncedItem?.regional_count || 0} provinsi). ${
+          pred ? `Prakiraan XGBoost besok: Rp ${Number(pred.predicted_price).toLocaleString('id-ID')}` : ''
+        }`
+      )
+      await fetchPriceHistory()
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Kesalahan jaringan'
+      setErrorMessage(msg)
+    } finally {
+      setSyncingToday(false)
+    }
+  }
+
+  // Handle Triggering PIHPS Scraper (30 Days Backfill)
+  const handleSyncBackfill = async () => {
+    if (!confirm('Apakah Anda yakin ingin menyinkronkan 30 hari data historis dari PIHPS? Proses ini membutuhkan waktu beberapa detik.')) {
+      return
+    }
+
+    setSyncingBackfill(true)
+    setSuccessMessage(null)
+    setErrorMessage(null)
+
+    try {
+      const res = await fetch('/api/market/sync-pihps', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mode: 'backfill', days: 30 }),
+      })
+
+      const json = await res.json()
+
+      if (!res.ok || json.error) {
+        setErrorMessage(json.error?.message || 'Gagal backfill data PIHPS.')
+        return
+      }
+
+      setSuccessMessage(
+        `Berhasil menyinkronkan ${json.data?.synced_count || 0} hari data historis dari PIHPS dan memperbarui prediksi XGBoost!`
+      )
+      await fetchPriceHistory()
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Kesalahan jaringan'
+      setErrorMessage(msg)
+    } finally {
+      setSyncingBackfill(false)
+    }
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#FBF4EE]">
@@ -163,7 +246,7 @@ export default function AdminMarketInputPage() {
                 SIMANTRI Admin
               </span>
               <span className="text-[11px] text-[#8A8580] tracking-wider uppercase font-medium">
-                Input Harga Pasar Harian
+                Pusat Integrasi Harga Pasar & Scraper
               </span>
             </div>
           </div>
@@ -179,41 +262,98 @@ export default function AdminMarketInputPage() {
 
       {/* Main Content */}
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        {/* Global Notifications */}
+        {errorMessage && (
+          <div className="mb-6 p-4 rounded-xl bg-[#8C3A3A]/10 border border-[#8C3A3A]/20 flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-[#8C3A3A] shrink-0 mt-0.5" />
+            <p className="text-xs sm:text-sm text-[#8C3A3A] font-medium leading-relaxed">
+              {errorMessage}
+            </p>
+          </div>
+        )}
+
+        {successMessage && (
+          <div className="mb-6 p-4 rounded-xl bg-[#3A5A40]/10 border border-[#3A5A40]/20 flex items-start gap-3">
+            <CheckCircle2 className="w-5 h-5 text-[#3A5A40] shrink-0 mt-0.5" />
+            <p className="text-xs sm:text-sm text-[#3A5A40] font-medium leading-relaxed">
+              {successMessage}
+            </p>
+          </div>
+        )}
+
+        {/* TOP BANNER: AUTOMATED SCRAPER & XGBOOST PIPELINE */}
+        <div className="mb-8 p-6 rounded-2xl bg-gradient-to-r from-[#4A1F2B] to-[#2D131B] text-white shadow-md border border-[#E5DFD6]">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+            <div className="space-y-1.5 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#3A5A40] text-emerald-100 mb-1">
+                <Radio className="w-3 h-3 text-emerald-300 animate-pulse" />
+                Pipeline Scraper PIHPS Bank Indonesia Aktif
+              </div>
+              <h2 className="text-lg sm:text-xl font-serif font-bold text-[#FBF4EE]">
+                Sinkronisasi Otomatis & XGBoost Forecasting
+              </h2>
+              <p className="text-xs text-white/80 leading-relaxed">
+                Sistem secara otomatis mengambil harga Bawang Merah Produsen dari PIHPS BI setiap pukul 00:00 WIB, mencatat data cuaca Open-Meteo, dan memicu kalkulasi 23 fitur XGBoost untuk memprediksi harga besok.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 shrink-0">
+              <button
+                type="button"
+                onClick={handleSyncToday}
+                disabled={syncingToday || syncingBackfill}
+                className="px-4 py-2.5 rounded-xl bg-[#E6A15C] text-[#0E080A] hover:bg-[#d69049] transition-all text-xs sm:text-sm font-bold flex items-center gap-2 shadow-sm disabled:opacity-50"
+              >
+                {syncingToday ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Sinkronisasi...</span>
+                  </>
+                ) : (
+                  <>
+                    <RefreshCw className="w-4 h-4" />
+                    <span>Scrape PIHPS Hari Ini</span>
+                  </>
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={handleSyncBackfill}
+                disabled={syncingToday || syncingBackfill}
+                className="px-4 py-2.5 rounded-xl bg-white/10 text-white hover:bg-white/20 border border-white/20 transition-all text-xs sm:text-sm font-medium flex items-center gap-2 disabled:opacity-50"
+              >
+                {syncingBackfill ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Backfill 30 Hari...</span>
+                  </>
+                ) : (
+                  <>
+                    <Database className="w-4 h-4 text-[#E6A15C]" />
+                    <span>Backfill 30 Hari</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Form Input Section */}
-          <div className="lg:col-span-1">
+          {/* Manual Input Fallback */}
+          <div className="lg:col-span-1 space-y-6">
             <div className="card-standard p-6 sm:p-7 shadow-sm border border-[#E5DFD6]">
               <div className="flex items-center gap-2.5 mb-2">
                 <div className="w-8 h-8 rounded-lg bg-[#C4487A]/15 text-[#C4487A] flex items-center justify-center">
                   <TrendingUp className="w-4 h-4" />
                 </div>
-                <h2 className="text-lg font-serif font-bold text-[#0E080A]">
-                  Input Harga Bawang
-                </h2>
+                <h3 className="text-base font-serif font-bold text-[#0E080A]">
+                  Override / Input Manual
+                </h3>
               </div>
-              <p className="text-xs text-[#4A3A32] leading-relaxed mb-6">
-                Data harga harian manual ini akan menjadi bahan baku fitur
-                Lag/MA pada model Machine Learning XGBoost untuk menghasilkan
-                prakiraan harga.
+              <p className="text-xs text-[#4A3A32] leading-relaxed mb-5">
+                Gunakan form ini hanya jika ada koreksi manual atau data pasar lokal khusus yang ingin diinput oleh Admin.
               </p>
-
-              {errorMessage && (
-                <div className="mb-5 p-3.5 rounded-lg bg-[#8C3A3A]/10 border border-[#8C3A3A]/20 flex items-start gap-2.5">
-                  <AlertCircle className="w-4 h-4 text-[#8C3A3A] shrink-0 mt-0.5" />
-                  <p className="text-xs text-[#8C3A3A] font-medium leading-relaxed">
-                    {errorMessage}
-                  </p>
-                </div>
-              )}
-
-              {successMessage && (
-                <div className="mb-5 p-3.5 rounded-lg bg-[#3A5A40]/10 border border-[#3A5A40]/20 flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#3A5A40] shrink-0 mt-0.5" />
-                  <p className="text-xs text-[#3A5A40] font-medium leading-relaxed">
-                    {successMessage}
-                  </p>
-                </div>
-              )}
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -232,9 +372,6 @@ export default function AdminMarketInputPage() {
                     onChange={(e) => setTanggal(e.target.value)}
                     className="w-full input-standard text-sm bg-white"
                   />
-                  <span className="text-[11px] text-[#8A8580] mt-1 block">
-                    *Jika tanggal sudah ada, data akan di-overwrite otomatis.
-                  </span>
                 </div>
 
                 <div>
@@ -243,7 +380,7 @@ export default function AdminMarketInputPage() {
                     className="block text-xs font-semibold text-[#4A3A32] uppercase tracking-wider mb-1.5 flex items-center gap-1.5"
                   >
                     <DollarSign className="w-3.5 h-3.5 text-[#C4487A]" />
-                    Harga Bawang Merah (IDR / Kg)
+                    Harga Produsen (IDR / Kg)
                   </label>
                   <div className="relative">
                     <span className="absolute left-3 top-2.5 text-sm font-semibold text-[#8A8580]">
@@ -257,7 +394,7 @@ export default function AdminMarketInputPage() {
                       step={100}
                       value={harga}
                       onChange={(e) => setHarga(e.target.value)}
-                      placeholder="Contoh: 28500"
+                      placeholder="Contoh: 15700"
                       className="w-full input-standard pl-10 text-sm font-medium"
                     />
                   </div>
@@ -272,17 +409,43 @@ export default function AdminMarketInputPage() {
                     {submitting ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Menyimpan & Fetch Cuaca...</span>
+                        <span>Menyimpan...</span>
                       </>
                     ) : (
                       <>
                         <CloudSun className="w-4 h-4 text-[#E6A15C]" />
-                        <span>Simpan Harga & Cuaca</span>
+                        <span>Simpan Manual</span>
                       </>
                     )}
                   </button>
                 </div>
               </form>
+            </div>
+
+            {/* Pipeline Info Card */}
+            <div className="card-standard p-5 border border-[#E5DFD6] space-y-3 bg-white/70">
+              <h4 className="text-xs font-bold text-[#0E080A] uppercase tracking-wider flex items-center gap-1.5">
+                <Cpu className="w-4 h-4 text-[#C4487A]" />
+                Parameter Ingestion PIHPS
+              </h4>
+              <div className="space-y-1.5 text-xs text-[#4A3A32]">
+                <div className="flex justify-between py-1 border-b border-[#E5DFD6]">
+                  <span className="text-[#8A8580]">Komoditas</span>
+                  <span className="font-medium">Bawang Merah Sedang (5_11)</span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-[#E5DFD6]">
+                  <span className="text-[#8A8580]">Tipe Pasar</span>
+                  <span className="font-medium">Produsen (Type 4)</span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-[#E5DFD6]">
+                  <span className="text-[#8A8580]">Basis Prediksi</span>
+                  <span className="font-medium">Jawa Timur & Nganjuk</span>
+                </div>
+                <div className="flex justify-between py-1">
+                  <span className="text-[#8A8580]">Engine Prediksi</span>
+                  <span className="font-medium text-[#C4487A]">XGBoost v1 (MAPE 3.0%)</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -295,11 +458,11 @@ export default function AdminMarketInputPage() {
                     <History className="w-4 h-4" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-serif font-bold text-[#0E080A]">
-                      Riwayat Harga Pasar (30 Hari Terakhir)
-                    </h2>
+                    <h3 className="text-base font-serif font-bold text-[#0E080A]">
+                      Riwayat Harga Pasar di Database
+                    </h3>
                     <p className="text-xs text-[#8A8580]">
-                      Tersimpan di tabel database <code className="font-mono">market_price</code>
+                      Tabel <code className="font-mono">market_price</code> & integrasi otomatis PIHPS
                     </p>
                   </div>
                 </div>
@@ -311,7 +474,7 @@ export default function AdminMarketInputPage() {
 
               {prices.length === 0 ? (
                 <div className="text-center py-12 text-[#8A8580] bg-[#FBF4EE] rounded-xl border border-dashed border-[#E5DFD6]">
-                  Belum ada data harga yang diinput.
+                  Belum ada data harga yang tersimpan. Klik tombol Scrape PIHPS di atas untuk mulai sinkronisasi.
                 </div>
               ) : (
                 <div className="overflow-x-auto">
@@ -320,8 +483,8 @@ export default function AdminMarketInputPage() {
                       <tr className="border-b border-[#E5DFD6] text-[#8A8580] uppercase tracking-wider text-[11px] bg-[#FBF4EE]">
                         <th className="py-3 px-4 rounded-l-lg">Tanggal</th>
                         <th className="py-3 px-4">Harga / Kg</th>
-                        <th className="py-3 px-4">Sumber</th>
-                        <th className="py-3 px-4 rounded-r-lg">Waktu Input</th>
+                        <th className="py-3 px-4">Metode Sumber</th>
+                        <th className="py-3 px-4 rounded-r-lg">Waktu Sync</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-[#E5DFD6]">
@@ -339,9 +502,16 @@ export default function AdminMarketInputPage() {
                             Rp {Number(p.harga).toLocaleString('id-ID')}
                           </td>
                           <td className="py-3 px-4">
-                            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-[#3A5A40]/10 text-[#3A5A40]">
-                              {p.source}
-                            </span>
+                            {p.source === 'scraping' ? (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-[#2A5A70]/10 text-[#2A5A70]">
+                                <Globe className="w-3 h-3" />
+                                Scraper PIHPS
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-[#3A5A40]/10 text-[#3A5A40]">
+                                Manual Admin
+                              </span>
+                            )}
                           </td>
                           <td className="py-3 px-4 text-[#8A8580] text-xs">
                             {new Date(p.created_at).toLocaleDateString('id-ID', {

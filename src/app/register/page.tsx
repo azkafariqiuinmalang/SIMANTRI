@@ -17,6 +17,8 @@ import {
   Upload,
   X,
   BadgeCheck,
+  Eye,
+  EyeOff,
 } from 'lucide-react'
 
 const NGANJUK_VILLAGES = [
@@ -66,6 +68,7 @@ export default function RegisterPage() {
   const [docBase64, setDocBase64] = useState<string | null>(null)
   const [docFileName, setDocFileName] = useState<string | null>(null)
 
+  const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
@@ -104,10 +107,12 @@ export default function RegisterPage() {
       return
     }
 
+    const cleanEmail = email.trim().toLowerCase()
+
     try {
       const supabase = createClient()
       const { data, error } = await supabase.auth.signUp({
-        email,
+        email: cleanEmail,
         password,
         options: {
           data: {
@@ -257,15 +262,25 @@ export default function RegisterPage() {
               >
                 Kata Sandi
               </label>
-              <input
-                id="password"
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Minimal 6 karakter"
-                className="w-full input-standard text-xs sm:text-sm placeholder-[#8A8580]"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Minimal 6 karakter"
+                  className="w-full input-standard text-xs sm:text-sm placeholder-[#8A8580] pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8A8580] hover:text-[#4A3A32] focus:outline-none transition-colors"
+                  title={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
