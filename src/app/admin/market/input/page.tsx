@@ -227,41 +227,41 @@ export default function AdminMarketInputPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FBF4EE] flex flex-col">
-      {/* Header */}
-      <header className="bg-white sticky top-0 z-40 border-b border-[#E5DFD6]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <div className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto text-[#0E080A]">
+      {/* Header Card */}
+      <div className="card-standard p-4 sm:p-6 bg-gradient-to-r from-white via-white to-[#FBF4EE] border border-[#E5DFD6] shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <Link
-              href="/dashboard"
-              className="p-2 rounded-lg text-[#4A3A32] hover:bg-[#FBF4EE] transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </Link>
-            <div className="w-9 h-9 rounded-lg bg-[#4A1F2B] text-[#FBF4EE] flex items-center justify-center shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-[#4A1F2B] text-white flex items-center justify-center shadow-md shrink-0">
               <Sprout className="w-5 h-5 text-[#E6A15C]" />
             </div>
             <div>
-              <span className="font-serif font-bold text-lg text-[#0E080A] tracking-tight block leading-none">
-                SIMANTRI Admin
-              </span>
-              <span className="text-[11px] text-[#8A8580] tracking-wider uppercase font-medium">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-mono font-semibold uppercase text-[#C4487A] tracking-wider">
+                  Admin Integrator
+                </span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#E6A15C]/20 text-[#0E080A] font-semibold">
+                  PIHPS & XGBoost
+                </span>
+              </div>
+              <h1 className="text-xl sm:text-2xl font-serif font-bold text-[#0E080A]">
                 Pusat Integrasi Harga Pasar & Scraper
-              </span>
+              </h1>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#E6A15C] text-[#0E080A]">
-              <ShieldAlert className="w-3.5 h-3.5" />
-              Role: Admin ({profile?.full_name})
-            </span>
+          <div className="flex items-center gap-2 self-start sm:self-auto">
+            <button
+              onClick={fetchPriceHistory}
+              disabled={loading}
+              className="p-2 text-xs font-semibold text-[#4A3A32] bg-[#FBF4EE] border border-[#E5DFD6] hover:bg-[#E5DFD6] rounded-xl flex items-center gap-1.5 shadow-sm transition-colors"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              <span>Segarkan Data</span>
+            </button>
           </div>
         </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+      </div>
         {/* Global Notifications */}
         {errorMessage && (
           <div className="mb-6 p-4 rounded-xl bg-[#8C3A3A]/10 border border-[#8C3A3A]/20 flex items-start gap-3">
@@ -528,10 +528,9 @@ export default function AdminMarketInputPage() {
                   </table>
                 </div>
               )}
-            </div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   )
 }
