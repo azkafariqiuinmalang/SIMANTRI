@@ -259,7 +259,7 @@ export default function FloatingAssistant() {
               </div>
 
               {/* Speech Bubble Triangular Pointer toward SIMA Mascot */}
-              <div className="absolute -bottom-[10px] right-6 sm:right-7 w-4 h-3 pointer-events-none overflow-hidden">
+              <div className="absolute -bottom-[10px] right-7 sm:right-9 w-4 h-3 pointer-events-none overflow-hidden">
                 <svg
                   className="w-4 h-3"
                   viewBox="0 0 16 12"
@@ -299,13 +299,13 @@ export default function FloatingAssistant() {
             {/* Mascot Visual with Blinking Idle Animation */}
             <div className="relative">
               <SimaMascot
-                size={70}
+                size={86}
                 className="hidden sm:block hover:brightness-105 transition-all"
                 animated={true}
                 enableBreathing={true}
               />
               <SimaMascot
-                size={58}
+                size={68}
                 className="sm:hidden hover:brightness-105 transition-all"
                 animated={true}
                 enableBreathing={true}
