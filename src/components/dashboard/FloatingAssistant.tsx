@@ -296,17 +296,11 @@ export default function FloatingAssistant() {
             aria-label="Buka Asisten SIMA (Klik untuk berdiskusi)"
             title={isBubbleDismissed ? 'Tanya SIMA (Klik untuk membuka)' : 'Asisten SIMA'}
           >
-            {/* Mascot Visual with Blinking Idle Animation */}
+            {/* Mascot Visual with Blinking Idle Animation - Single prominent large instance */}
             <div className="relative">
               <SimaMascot
                 size={86}
-                className="hidden sm:block hover:brightness-105 transition-all"
-                animated={true}
-                enableBreathing={true}
-              />
-              <SimaMascot
-                size={68}
-                className="sm:hidden hover:brightness-105 transition-all"
+                className="hover:brightness-105 transition-all"
                 animated={true}
                 enableBreathing={true}
               />
