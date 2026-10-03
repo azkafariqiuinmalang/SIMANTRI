@@ -1,38 +1,25 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import {
-  BookOpen,
-  ChevronRight,
-  HelpCircle,
   RefreshCw,
   Send,
-  ShieldCheck,
   Sparkles,
   Sprout,
   ThumbsDown,
   ThumbsUp,
-  TrendingUp,
-  User,
   Lightbulb,
   Copy,
   Check,
-  Share2,
-  Paperclip,
-  Mic,
-  Bot,
   Info,
-  MapPin,
-  Calendar,
-  CloudSun,
   AlertTriangle,
   Flame,
   PhoneCall,
   X,
-  Camera,
 } from 'lucide-react'
+import { Toast, useChatScroll, useOverlayFocus } from '@/components/ui/Experience'
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer'
 import { createClient } from '@/lib/supabase/client'
 import type { Profile } from '@/types/database'
@@ -120,9 +107,19 @@ export default function ChatAssistantPage() {
   const [inputMessage, setInputMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const [feedbackSending, setFeedbackSending] = useState<string | null>(null)
+  const [feedbackNotice, setFeedbackNotice] = useState('')
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [isGuideOpen, setIsGuideOpen] = useState(false)
+  const { scrollRef, onScroll, scrollToLatest } = useChatScroll()
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const closeGuide = useCallback(() => setIsGuideOpen(false), [])
+  const guideRef = useOverlayFocus(isGuideOpen, closeGuide)
+  useEffect(() => {
+    if (!isGuideOpen) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = previousOverflow }
+  }, [isGuideOpen])
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
@@ -146,7 +143,9 @@ export default function ChatAssistantPage() {
   }, [router])
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    scrollToLatest()
+    // Follow only while the reader remains near the latest message.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages, loading])
 
   const handleSendMessage = async (customText?: string) => {
@@ -178,6 +177,8 @@ export default function ChatAssistantPage() {
         result.reply || result.response || result.data?.response || result.data?.reply ||
         result.data?.message || result.message || 'Jawaban tidak dapat dimuat.'
       const simaMsg: Message = {
+        // This fallback runs after an asynchronous user submission, never during render.
+        // eslint-disable-next-line react-hooks/purity
         id: result.chat_id || result.data?.id || `msg-${Date.now()}`,
         sender: 'sima',
         text: replyText,
@@ -210,11 +211,12 @@ export default function ChatAssistantPage() {
     )
 
     try {
-      await fetch(`/api/chat/${chatId}/feedback`, {
+      const response = await fetch(`/api/chat/${chatId}/feedback`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ feedback: feedbackType }),
       })
+      if (response.ok) setFeedbackNotice('Terima kasih, masukan Anda sudah tercatat.')
     } catch (error) {
       console.error('Failed to submit feedback:', error)
     } finally {
@@ -253,6 +255,7 @@ export default function ChatAssistantPage() {
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto font-jakarta">
+      {feedbackNotice && <Toast message={feedbackNotice} onDismiss={() => setFeedbackNotice('')} />}
       {/* TOP PAGE HEADER BAR */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-simantri-900 via-simantri-800 to-slate-900 p-6 sm:p-7 text-white shadow-xl">
         <div className="absolute right-0 top-0 -mt-10 -mr-10 h-64 w-64 rounded-full bg-simantri-500/10 blur-3xl pointer-events-none" />
@@ -295,7 +298,7 @@ export default function ChatAssistantPage() {
             <button
               type="button"
               onClick={() => setMessages([])}
-              className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-bold text-white transition backdrop-blur-md active:scale-95"
+              className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-bold text-white transition backdrop-blur-md active:translate-y-0"
               title="Reset sesi percakapan"
             >
               <RefreshCw className="w-3.5 h-3.5" />
@@ -304,7 +307,7 @@ export default function ChatAssistantPage() {
             <button
               type="button"
               onClick={() => setIsGuideOpen(true)}
-              className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-simantri-500 hover:bg-simantri-600 border border-emerald-400/30 text-xs font-bold text-white transition shadow-sm active:scale-95"
+              className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-simantri-500 hover:bg-simantri-600 border border-emerald-400/30 text-xs font-bold text-white transition shadow-sm active:translate-y-0"
             >
               <Lightbulb className="w-3.5 h-3.5" />
               <span>Panduan Tanya</span>
@@ -318,7 +321,7 @@ export default function ChatAssistantPage() {
         {/* LEFT CONVERSATION WORKSPACE (8 COLS) */}
         <div className="lg:col-span-8 flex flex-col h-[calc(100vh-210px)] min-h-[640px] bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
           {/* Scrollable Message Stream */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 custom-scrollbar bg-slate-50/40">
+          <div ref={scrollRef} onScroll={onScroll} className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 custom-scrollbar bg-slate-50/40">
             {/* Assistant Greeting Banner Card */}
             {messages.length === 0 ? (
               <div className="space-y-6 py-2">
@@ -382,7 +385,7 @@ export default function ChatAssistantPage() {
               messages.map((message, index) => (
                 <div
                   key={`${message.timestamp}-${index}`}
-                  className={`flex gap-3 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                  className={`sim-message flex gap-3 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   {message.sender === 'sima' && (
                     <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-white p-0.5 border border-emerald-200 shadow-xs flex items-center justify-center shrink-0 mt-1 overflow-hidden">
@@ -437,6 +440,8 @@ export default function ChatAssistantPage() {
                           <button
                             type="button"
                             onClick={() => handleFeedback(message.id!, 'helpful')}
+                            aria-pressed={message.feedback === 'helpful'}
+                            aria-busy={feedbackSending === message.id}
                             disabled={feedbackSending === message.id}
                             className={`p-1.5 rounded-xl border transition ${
                               message.feedback === 'helpful'
@@ -450,6 +455,8 @@ export default function ChatAssistantPage() {
                           <button
                             type="button"
                             onClick={() => handleFeedback(message.id!, 'not_helpful')}
+                            aria-pressed={message.feedback === 'not_helpful'}
+                            aria-busy={feedbackSending === message.id}
                             disabled={feedbackSending === message.id}
                             className={`p-1.5 rounded-xl border transition ${
                               message.feedback === 'not_helpful'
@@ -502,9 +509,9 @@ export default function ChatAssistantPage() {
                 </div>
                 <div className="p-4 rounded-3xl rounded-tl-md bg-white border border-slate-200 shadow-xs flex items-center gap-2">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-simantri-600 animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-2 h-2 rounded-full bg-simantri-600 animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-2 h-2 rounded-full bg-simantri-600 animate-bounce" style={{ animationDelay: '300ms' }} />
+                    <span className="w-2 h-2 rounded-full bg-simantri-600 sim-typing-dot" style={{ animationDelay: '0ms' }} />
+                    <span className="w-2 h-2 rounded-full bg-simantri-600 sim-typing-dot" style={{ animationDelay: '150ms' }} />
+                    <span className="w-2 h-2 rounded-full bg-simantri-600 sim-typing-dot" style={{ animationDelay: '300ms' }} />
                   </div>
                   <span className="text-xs font-semibold text-slate-500 ml-2">
                     SIMA sedang merangkai rekomendasi agronomi...
@@ -525,6 +532,7 @@ export default function ChatAssistantPage() {
               className="relative flex items-center gap-2 bg-slate-50 rounded-2xl p-2 border border-slate-200/80 focus-within:border-simantri-600 focus-within:ring-2 focus-within:ring-simantri-600/15 focus-within:bg-white transition-all"
             >
               <textarea
+                aria-label="Pertanyaan untuk SIMA"
                 ref={textareaRef}
                 rows={1}
                 value={inputMessage}
@@ -538,7 +546,7 @@ export default function ChatAssistantPage() {
               <button
                 type="submit"
                 disabled={!inputMessage.trim() || loading}
-                className="h-10 px-4 rounded-xl bg-simantri-700 hover:bg-simantri-800 active:bg-simantri-900 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+                className="h-10 px-4 rounded-xl bg-simantri-700 hover:bg-simantri-800 active:bg-simantri-900 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm active:translate-y-0 disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
               >
                 <span>Kirim</span>
                 <Send className="w-3.5 h-3.5" />
@@ -659,7 +667,7 @@ export default function ChatAssistantPage() {
             <button
               type="button"
               onClick={() => handleSendMessage(`Saya membutuhkan rekomendasi langkah untuk mengundang PPL atau Mantri Pertanian ke lahan saya di ${userVillage}.`)}
-              className="w-full py-2.5 px-4 rounded-2xl bg-white text-simantri-900 hover:bg-emerald-50 text-xs font-extrabold transition shadow-sm active:scale-95 text-center"
+              className="w-full py-2.5 px-4 rounded-2xl bg-white text-simantri-900 hover:bg-emerald-50 text-xs font-extrabold transition shadow-sm active:translate-y-0 text-center"
             >
               Hubungi Penyuluh Lapangan
             </button>
@@ -674,7 +682,11 @@ export default function ChatAssistantPage() {
           onClick={() => setIsGuideOpen(false)}
         >
           <div
-            className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-100 space-y-5"
+            ref={guideRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Panduan bertanya pada SIMA"
+            className="sim-result bg-white rounded-3xl max-w-lg w-full max-h-[85dvh] overflow-y-auto p-6 sm:p-7 shadow-2xl border border-slate-100 space-y-5"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between">

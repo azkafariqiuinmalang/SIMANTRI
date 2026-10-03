@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import Link from 'next/link'
+import { Skeleton, Toast } from '@/components/ui/Experience'
 import { createClient } from '@/lib/supabase/client'
 import type { Profile } from '@/types/database'
 import {
@@ -12,11 +12,8 @@ import {
   XCircle,
   AlertCircle,
   BookOpen,
-  Sparkles,
   RefreshCw,
   Loader2,
-  Info,
-  ChevronRight,
   ShieldCheck,
 } from 'lucide-react'
 
@@ -105,7 +102,8 @@ export default function UsulanPage() {
   }, [])
 
   useEffect(() => {
-    loadData()
+    const timer = window.setTimeout(() => { void loadData() }, 0)
+    return () => window.clearTimeout(timer)
   }, [loadData])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -229,22 +227,12 @@ export default function UsulanPage() {
               </div>
             </div>
 
-            {submitSuccess && (
-              <div className="p-3.5 rounded-xl bg-[#3A5A40]/10 border border-[#3A5A40]/30 text-[#3A5A40] text-xs flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
-                <div>
-                  <p className="font-bold">Usulan Berhasil Dikirim!</p>
-                  <p className="mt-0.5 text-[11px] leading-relaxed">
-                    Terima kasih atas kontribusi Anda. Usulan Anda sekarang tercatat dan menunggu tinjauan dari Admin.
-                  </p>
-                </div>
-              </div>
-            )}
+            {submitSuccess && <Toast message="Usulan Anda berhasil dikirim." onDismiss={() => setSubmitSuccess(false)} />}
 
             {errorMessage && (
-              <div className="p-3.5 rounded-xl bg-[#8C3A3A]/10 border border-[#8C3A3A]/30 text-[#8C3A3A] text-xs flex items-start gap-2">
+              <div role="alert" className="p-3.5 rounded-xl bg-[#8C3A3A]/10 border border-[#8C3A3A]/30 text-[#8C3A3A] text-xs flex items-start gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                <p>{errorMessage}</p>
+                <p>Usulan belum terkirim. Pastikan isi usulan sudah diisi dan koneksi tersedia, lalu coba kembali.</p>
               </div>
             )}
 
@@ -286,6 +274,7 @@ export default function UsulanPage() {
                   Rujukan Dokumen Knowledge Base (Opsional)
                 </label>
                 <select
+                  aria-label="Rujukan dokumen knowledge base"
                   value={relatedEntryId}
                   onChange={(e) => setRelatedEntryId(e.target.value)}
                   className="w-full py-2 px-3 text-xs rounded-lg border border-[#E5DFD6] bg-white focus:outline-none focus:border-[#C4487A] text-[#0E080A]"
@@ -308,6 +297,9 @@ export default function UsulanPage() {
                   Catatan Usulan / Penjelasan <span className="text-[#8C3A3A]">*</span>
                 </label>
                 <textarea
+                  aria-label="Catatan usulan atau penjelasan"
+                  aria-required="true"
+                  aria-invalid={Boolean(errorMessage) && !contentNote.trim()}
                   rows={5}
                   value={contentNote}
                   onChange={(e) => setContentNote(e.target.value)}
@@ -349,9 +341,8 @@ export default function UsulanPage() {
           </div>
 
           {loadingList ? (
-            <div className="card-standard p-8 text-center bg-white border border-[#E5DFD6]">
-              <Loader2 className="w-6 h-6 animate-spin text-[#C4487A] mx-auto mb-2" />
-              <p className="text-xs text-[#8A8580]">Memuat daftar usulan...</p>
+            <div className="card-standard p-8 space-y-3 bg-white border border-[#E5DFD6]" role="status" aria-label="Memuat daftar usulan">
+              <Skeleton className="h-6 w-2/3" /><Skeleton className="h-16" /><Skeleton className="h-6 w-1/3" />
             </div>
           ) : suggestions.length === 0 ? (
             <div className="card-standard p-8 text-center bg-white border border-[#E5DFD6] space-y-3">

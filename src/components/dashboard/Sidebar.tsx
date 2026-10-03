@@ -22,6 +22,7 @@ import {
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { Profile } from '@/types/database'
+import { useOverlayFocus } from '@/components/ui/Experience'
 
 interface SidebarProps {
   profile: Profile | null
@@ -45,6 +46,7 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
   const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const panelRef = useOverlayFocus(isOpen, onClose)
   const role = profile?.role || 'petani'
 
   // Navigation Groups based on Role
@@ -119,7 +121,7 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
                 alt="Logo SIMANTRI"
                 width={40}
                 height={40}
-                className="object-contain group-hover:scale-105 transition-transform"
+                className="object-contain group-hover:scale-[1.02] transition-transform"
                 priority
               />
             </div>
@@ -161,14 +163,14 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
                         href={item.href}
                         onClick={onClose}
                         aria-current={active ? 'page' : undefined}
-                        className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+                        className={`group flex min-h-11 items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors duration-200 ${
                           active
                             ? 'bg-simantri-500 text-white shadow-sm shadow-simantri-500/25'
                             : 'text-slate-600 hover:bg-simantri-50/70 hover:text-simantri-700'
                         }`}
                       >
                         <Icon
-                          className={`h-4 w-4 shrink-0 ${active ? 'text-white' : 'text-slate-500'}`}
+                          className={`h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 ${active ? 'text-white' : 'text-slate-500'}`}
                         />
                         <span>{item.label}</span>
                       </Link>
@@ -235,6 +237,8 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
         role="presentation"
       >
         <aside
+          ref={panelRef}
+          inert={!isOpen}
           role="dialog"
           aria-modal="true"
           aria-label="Menu navigasi"

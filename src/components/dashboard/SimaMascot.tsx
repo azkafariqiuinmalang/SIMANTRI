@@ -15,7 +15,7 @@ export function SimaMascot({
   size = 72,
   className = '',
   animated = true,
-  enableBreathing = true,
+  enableBreathing = false,
   onClick,
   ariaLabel = 'SIMA Mascot Asisten Pertanian',
 }: SimaMascotProps) {
@@ -24,65 +24,35 @@ export function SimaMascot({
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const doubleBlinkRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Listen to prefers-reduced-motion
+  // One cancellable timer chain: no blinking while reduced motion is enabled.
   useEffect(() => {
-    if (typeof window === 'undefined') return
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setPrefersReducedMotion(mediaQuery.matches)
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches)
-    }
-
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', handleChange)
-      return () => mediaQuery.removeEventListener('change', handleChange)
-    }
-  }, [])
-
-  // Natural varying blink loop (4s - 8s interval)
-  useEffect(() => {
-    if (!animated || prefersReducedMotion) {
-      setIsBlinking(false)
-      return
-    }
-
-    const scheduleNextBlink = () => {
-      // Random interval between 4.2s and 7.8s
-      const nextDelay = 4200 + Math.random() * 3600
-
-      timeoutRef.current = setTimeout(() => {
-        // Trigger first blink (140ms duration)
-        setIsBlinking(true)
-
-        const closeDuration = 140 + Math.random() * 40 // 140 - 180ms
-        setTimeout(() => {
-          setIsBlinking(false)
-
-          // 15% chance of an occasional natural double-blink
-          const shouldDoubleBlink = Math.random() < 0.15
-          if (shouldDoubleBlink) {
-            doubleBlinkRef.current = setTimeout(() => {
-              setIsBlinking(true)
-              setTimeout(() => {
-                setIsBlinking(false)
-                scheduleNextBlink()
-              }, 120)
-            }, 120)
-          } else {
-            scheduleNextBlink()
-          }
-        }, closeDuration)
-      }, nextDelay)
-    }
-
-    scheduleNextBlink()
-
-    return () => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const syncMotion = () => {
+      setPrefersReducedMotion(media.matches)
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
       if (doubleBlinkRef.current) clearTimeout(doubleBlinkRef.current)
+      setIsBlinking(false)
+      if (!animated || media.matches) return
+      const schedule = () => {
+        timeoutRef.current = setTimeout(() => {
+          setIsBlinking(true)
+          doubleBlinkRef.current = setTimeout(() => {
+            setIsBlinking(false)
+            schedule()
+          }, 150)
+        }, 4000 + Math.random() * 4000)
+      }
+      schedule()
     }
-  }, [animated, prefersReducedMotion])
+    const initial = window.setTimeout(syncMotion, 0)
+    media.addEventListener('change', syncMotion)
+    return () => {
+      window.clearTimeout(initial)
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+      if (doubleBlinkRef.current) clearTimeout(doubleBlinkRef.current)
+      media.removeEventListener('change', syncMotion)
+    }
+  }, [animated])
 
   // Optional subtle breathing scale (1.00 -> 1.004 -> 1.00)
   const shouldBreathe = enableBreathing && !prefersReducedMotion

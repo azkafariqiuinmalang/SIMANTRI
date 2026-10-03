@@ -23,6 +23,7 @@ import {
   ArrowDownRight,
 } from 'lucide-react'
 import { openSimaAssistant } from '@/components/dashboard/FloatingAssistant'
+import { Skeleton } from '@/components/ui/Experience'
 import { createClient } from '@/lib/supabase/client'
 import type { Profile } from '@/types/database'
 
@@ -297,8 +298,12 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center font-jakarta">
-        <Loader2 className="h-8 w-8 animate-spin text-simantri-600" aria-label="Memuat dashboard" />
+      <div className="min-h-[60vh] space-y-6 font-jakarta" role="status" aria-label="Memuat dashboard">
+        <Skeleton className="h-24 rounded-2xl" />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {[0, 1, 2, 3].map((item) => <Skeleton key={item} className="h-36 rounded-2xl" />)}
+        </div>
+        <Skeleton className="h-72 rounded-2xl" />
       </div>
     )
   }
@@ -419,7 +424,7 @@ export default function DashboardPage() {
       {/* Four KPI Metric Cards */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" aria-label="Ringkasan Utama">
         {/* Card 1: Harga Bawang Hari Ini */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+        <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between transition-shadow">
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
@@ -457,7 +462,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Card 2: Prediksi Harga H+3 */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+        <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between transition-shadow">
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-shallot-50 text-shallot-600 font-bold text-[10px] border border-shallot-200">
@@ -489,7 +494,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Card 3: Total Deteksi Tanaman */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+        <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between transition-shadow">
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
@@ -522,7 +527,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Card 4: Knowledge Base SIMA */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+        <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between transition-shadow">
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">

@@ -8,7 +8,6 @@ import {
   TrendingUp,
   TrendingDown,
   Sparkles,
-  Search,
   CheckCircle2,
   Menu,
   X,
@@ -25,7 +24,6 @@ import {
   Lock,
   ChevronRight,
   PhoneCall,
-  ExternalLink,
 } from 'lucide-react'
 
 interface SimaScenario {
@@ -208,6 +206,7 @@ export default function LandingPage() {
   useEffect(() => {
     const sectionIds = ['beranda', 'masalah', 'solusi-section', 'cara-kerja', 'untuk-siapa']
 
+    let frame = 0
     const handleScroll = () => {
       if (isClickScrollingRef.current) return
 
@@ -245,10 +244,11 @@ export default function LandingPage() {
       setActiveSection(currentActive)
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
+    const scheduleScroll = () => { if (!frame) frame = window.requestAnimationFrame(() => { frame = 0; handleScroll() }) }
+    window.addEventListener('scroll', scheduleScroll, { passive: true })
     handleScroll()
 
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => { window.removeEventListener('scroll', scheduleScroll); window.cancelAnimationFrame(frame) }
   }, [])
 
   // Smooth scroll handler for anchor links
@@ -268,12 +268,39 @@ export default function LandingPage() {
       const offsetPosition = elementPosition + window.pageYOffset - navbarHeight
       window.scrollTo({
         top: id === 'beranda' ? 0 : Math.max(0, offsetPosition),
-        behavior: 'smooth',
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
       })
       window.history.pushState(null, '', href)
     }
     setMobileMenuOpen(false)
   }
+
+  // Reveal only the major heading/content groups once, with an accessible fallback.
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (media.matches) return
+    const groups = Array.from(document.querySelectorAll<HTMLElement>('main > section > div > .text-center'))
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue
+        entry.target.classList.remove('sim-reveal-pending')
+        entry.target.classList.add('sim-reveal-visible')
+        observer.unobserve(entry.target)
+      }
+    }, { threshold: 0.12 })
+    groups.forEach((group) => { group.classList.add('sim-reveal-pending'); observer.observe(group) })
+    const revealAll = () => groups.forEach((group) => group.classList.remove('sim-reveal-pending'))
+    media.addEventListener('change', revealAll)
+    return () => { observer.disconnect(); revealAll(); media.removeEventListener('change', revealAll) }
+  }, [])
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return
+    const trigger = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') setMobileMenuOpen(false) }
+    window.addEventListener('keydown', onKey)
+    return () => { window.removeEventListener('keydown', onKey); trigger?.focus() }
+  }, [mobileMenuOpen])
 
   // Trigger scenario switch
   const selectScenario = (idx: number, isManual = false) => {
@@ -329,6 +356,7 @@ export default function LandingPage() {
 
   // Auto-rotate demo scenarios
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     autoRotateRef.current = setInterval(() => {
       setActiveScenarioIdx((prev) => {
         const next = (prev + 1) % SIMA_SCENARIOS.length
@@ -352,14 +380,14 @@ export default function LandingPage() {
     <div className="bg-[#FAF7F2] text-[#1A221D] font-manrope antialiased min-h-screen selection:bg-[#b5ecc6] selection:text-[#002110]">
       {/* TOP FLOATING CAPSULE NAVIGATION */}
       <header className="fixed top-4 xl:top-6 left-0 right-0 z-50 px-4 pointer-events-none">
-        <div className="max-w-6xl mx-auto h-16 bg-white/90 backdrop-blur-md border border-[#173e2d]/10 rounded-full px-4 sm:px-6 shadow-[0_8px_30px_rgba(20,35,28,0.06)] flex items-center justify-between pointer-events-auto transition-all duration-300 hover:border-[#173e2d]/25 hover:shadow-[0_12px_35px_rgba(20,35,28,0.1)]">
+        <div className="max-w-6xl mx-auto h-16 bg-white/90 backdrop-blur-md border border-[#173e2d]/10 rounded-full px-3 sm:px-6 shadow-[0_8px_30px_rgba(20,35,28,0.06)] flex items-center justify-between pointer-events-auto transition-all duration-300 hover:border-[#173e2d]/25 hover:shadow-[0_12px_35px_rgba(20,35,28,0.1)]">
           {/* Brand - Official SIMANTRI Logo */}
           <Link
             href="#beranda"
             onClick={(e) => handleNavClick(e, 'beranda', '#beranda')}
-            className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] focus-visible:ring-offset-2 rounded-full pr-2"
+            className="flex shrink-0 items-center gap-2 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] focus-visible:ring-offset-2 rounded-full sm:pr-2"
           >
-            <div className="relative h-10 w-10 flex items-center justify-center rounded-full bg-[#173e2d]/5 group-hover:bg-[#173e2d]/10 transition-colors duration-200 p-1">
+            <div className="relative h-8 w-8 sm:h-10 sm:w-10 flex items-center justify-center rounded-full bg-[#173e2d]/5 group-hover:bg-[#173e2d]/10 transition-colors duration-200 p-1">
               <Image
                 src="/UIUX BARU/logo_simantri.png"
                 alt="Logo SIMANTRI"
@@ -380,7 +408,7 @@ export default function LandingPage() {
           </Link>
 
           {/* Desktop Nav Links with Sliding Indicator */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden xl:flex items-center gap-1">
             <nav
               ref={navContainerRef}
               role="navigation"
@@ -390,7 +418,7 @@ export default function LandingPage() {
               {/* Sliding Active Pill Background Indicator with Perfect Centering */}
               <div
                 aria-hidden="true"
-                className="absolute rounded-full bg-[#173e2d]/10 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none"
+                className="absolute rounded-full bg-[#173e2d]/10 pointer-events-none transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
                 style={{
                   transform: `translate3d(${indicatorStyle.left}px, ${indicatorStyle.top}px, 0)`,
                   width: `${indicatorStyle.width}px`,
@@ -436,16 +464,16 @@ export default function LandingPage() {
           </div>
 
           {/* Right Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1 sm:gap-3">
             <Link
               href="/login"
-              className="text-[14px] font-semibold text-[#5E665F] hover:text-[#173e2d] hover:bg-[#173e2d]/8 px-4 py-1.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] focus-visible:ring-offset-1 transition-colors duration-200"
+              className="inline-flex min-h-11 items-center text-[14px] font-semibold text-[#5E665F] hover:text-[#173e2d] hover:bg-[#173e2d]/8 px-2 sm:px-4 py-1.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] focus-visible:ring-offset-1 transition-colors duration-200"
             >
               Masuk
             </Link>
             <Link
               href="/register"
-              className="inline-flex items-center justify-center bg-[#173e2d] text-[#F8F4EC] text-[13.5px] font-semibold px-5 py-2 rounded-full hover:bg-[#275a3d] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] focus-visible:ring-offset-2 transition-all duration-200 shadow-sm"
+              className="inline-flex min-h-11 items-center justify-center bg-[#173e2d] text-[#F8F4EC] text-[13.5px] font-semibold px-3 sm:px-5 py-2 rounded-full hover:bg-[#275a3d] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] focus-visible:ring-offset-2 transition-all duration-200 shadow-sm"
             >
               Daftar
             </Link>
@@ -455,7 +483,7 @@ export default function LandingPage() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
-              className="lg:hidden p-2 rounded-full text-[#173e2d] hover:bg-[#173e2d]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] transition-colors duration-200"
+              className="xl:hidden p-2 rounded-full text-[#173e2d] hover:bg-[#173e2d]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] transition-colors duration-200"
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -463,8 +491,8 @@ export default function LandingPage() {
         </div>
 
         {/* Mobile Dropdown Menu */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden max-w-6xl mx-auto mt-2 bg-white/95 backdrop-blur-md border border-[#173e2d]/10 rounded-2xl p-4 shadow-xl pointer-events-auto animate-in fade-in slide-in-from-top-2 duration-200">
+        {(
+          <div inert={!mobileMenuOpen} aria-hidden={!mobileMenuOpen} style={{ opacity: mobileMenuOpen ? 1 : 0, visibility: mobileMenuOpen ? 'visible' : 'hidden', transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-8px)', transition: `opacity 220ms ease-out, transform 220ms ease-out, visibility 0s ${mobileMenuOpen ? '0s' : '220ms'}` }} className="absolute left-4 right-4 top-full xl:hidden max-w-6xl mx-auto mt-2 bg-white/95 backdrop-blur-md border border-[#173e2d]/10 rounded-2xl p-4 shadow-xl pointer-events-auto">
             <nav className="flex flex-col gap-1.5 text-[14px]" role="navigation" aria-label="Navigasi Mobile">
               {LANDING_NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.id
@@ -602,17 +630,17 @@ export default function LandingPage() {
                     {/* Scanner overlay if card is detection */}
                     {card.hasScanner && (
                       <div className="absolute inset-5 border border-white/30 rounded-xl pointer-events-none flex items-center justify-center group-hover:border-[#b8efc9]/60 transition-colors">
-                        <div className="w-4 h-4 border-t-2 border-l-2 border-[#b8efc9] absolute top-2 left-2 group-hover:scale-110 transition-transform"></div>
-                        <div className="w-4 h-4 border-t-2 border-r-2 border-[#b8efc9] absolute top-2 right-2 group-hover:scale-110 transition-transform"></div>
-                        <div className="w-4 h-4 border-b-2 border-l-2 border-[#b8efc9] absolute bottom-2 left-2 group-hover:scale-110 transition-transform"></div>
-                        <div className="w-4 h-4 border-b-2 border-r-2 border-[#b8efc9] absolute bottom-2 right-2 group-hover:scale-110 transition-transform"></div>
+                        <div className="w-4 h-4 border-t-2 border-l-2 border-[#b8efc9] absolute top-2 left-2 group-hover:scale-[1.02] transition-transform"></div>
+                        <div className="w-4 h-4 border-t-2 border-r-2 border-[#b8efc9] absolute top-2 right-2 group-hover:scale-[1.02] transition-transform"></div>
+                        <div className="w-4 h-4 border-b-2 border-l-2 border-[#b8efc9] absolute bottom-2 left-2 group-hover:scale-[1.02] transition-transform"></div>
+                        <div className="w-4 h-4 border-b-2 border-r-2 border-[#b8efc9] absolute bottom-2 right-2 group-hover:scale-[1.02] transition-transform"></div>
                       </div>
                     )}
 
                     {/* Top Tag */}
                     <div className="absolute top-3.5 left-3.5 pointer-events-none">
                       <span
-                        className={`inline-flex items-center text-[10.5px] font-mono uppercase px-2.5 py-1 rounded-full font-bold shadow-xs transition-transform duration-300 group-hover:scale-105 ${card.badgeBg}`}
+                        className={`inline-flex items-center text-[10.5px] font-mono uppercase px-2.5 py-1 rounded-full font-bold shadow-xs transition-transform duration-300 group-hover:scale-[1.02] ${card.badgeBg}`}
                       >
                         {card.badge}
                       </span>
@@ -653,16 +681,16 @@ export default function LandingPage() {
 
                     {card.hasScanner && (
                       <div className="absolute inset-5 border border-white/30 rounded-xl pointer-events-none flex items-center justify-center group-hover:border-[#b8efc9]/60 transition-colors">
-                        <div className="w-4 h-4 border-t-2 border-l-2 border-[#b8efc9] absolute top-2 left-2 group-hover:scale-110 transition-transform"></div>
-                        <div className="w-4 h-4 border-t-2 border-r-2 border-[#b8efc9] absolute top-2 right-2 group-hover:scale-110 transition-transform"></div>
-                        <div className="w-4 h-4 border-b-2 border-l-2 border-[#b8efc9] absolute bottom-2 left-2 group-hover:scale-110 transition-transform"></div>
-                        <div className="w-4 h-4 border-b-2 border-r-2 border-[#b8efc9] absolute bottom-2 right-2 group-hover:scale-110 transition-transform"></div>
+                        <div className="w-4 h-4 border-t-2 border-l-2 border-[#b8efc9] absolute top-2 left-2 group-hover:scale-[1.02] transition-transform"></div>
+                        <div className="w-4 h-4 border-t-2 border-r-2 border-[#b8efc9] absolute top-2 right-2 group-hover:scale-[1.02] transition-transform"></div>
+                        <div className="w-4 h-4 border-b-2 border-l-2 border-[#b8efc9] absolute bottom-2 left-2 group-hover:scale-[1.02] transition-transform"></div>
+                        <div className="w-4 h-4 border-b-2 border-r-2 border-[#b8efc9] absolute bottom-2 right-2 group-hover:scale-[1.02] transition-transform"></div>
                       </div>
                     )}
 
                     <div className="absolute top-3.5 left-3.5 pointer-events-none">
                       <span
-                        className={`inline-flex items-center text-[10.5px] font-mono uppercase px-2.5 py-1 rounded-full font-bold shadow-xs transition-transform duration-300 group-hover:scale-105 ${card.badgeBg}`}
+                        className={`inline-flex items-center text-[10.5px] font-mono uppercase px-2.5 py-1 rounded-full font-bold shadow-xs transition-transform duration-300 group-hover:scale-[1.02] ${card.badgeBg}`}
                       >
                         {card.badge}
                       </span>
@@ -691,7 +719,7 @@ export default function LandingPage() {
           <div className="relative max-w-md mx-auto mt-6 sm:mt-8 flex flex-col items-center justify-center">
             <Link
               href="/register"
-              className="relative inline-flex items-center justify-center bg-[#E25C58] hover:bg-[#d04b47] text-white font-semibold text-[15px] sm:text-[16px] px-9 py-3.5 sm:py-4 rounded-full shadow-lg shadow-[#E25C58]/25 hover:shadow-2xl hover:shadow-[#E25C58]/40 hover:scale-108 active:scale-95 transition-all duration-300 cursor-pointer"
+              className="relative inline-flex items-center justify-center bg-[#E25C58] hover:bg-[#d04b47] text-white font-semibold text-[15px] sm:text-[16px] px-9 py-3.5 sm:py-4 rounded-full shadow-lg shadow-[#E25C58]/25 hover:shadow-2xl hover:shadow-[#E25C58]/40 hover:-translate-y-px active:translate-y-0 transition-all duration-300 cursor-pointer"
             >
               Mulai Gunakan SIMANTRI
             </Link>
@@ -728,7 +756,7 @@ export default function LandingPage() {
                     src="/foto_bawang_merah.jpg"
                     alt="Bawang Merah Nganjuk Berkualitas"
                     fill
-                    className="object-cover transition-transform duration-500 hover:scale-110"
+                    className="object-cover transition-transform duration-500 hover:scale-[1.02]"
                   />
                 </div>
                 <div className="bg-white p-6 rounded-[24px] shadow-xs flex flex-col justify-between border border-[#173e2d]/10 hover-card-lift hover:bg-[#FAF7F2]">
@@ -759,7 +787,7 @@ export default function LandingPage() {
                     src="/bg_tugu_bawang.jpg"
                     alt="Lahan Sentra Nganjuk"
                     fill
-                    className="object-cover transition-transform duration-500 hover:scale-110"
+                    className="object-cover transition-transform duration-500 hover:scale-[1.02]"
                   />
                 </div>
               </div>
@@ -820,7 +848,7 @@ export default function LandingPage() {
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <span className="font-editorial text-[24px] font-bold text-[#275a3d]">01</span>
-                    <div className="w-10 h-10 rounded-full bg-[#EAC6D2]/50 flex items-center justify-center text-[#ba1a1a] transition-transform duration-300 group-hover:scale-110">
+                    <div className="w-10 h-10 rounded-full bg-[#EAC6D2]/50 flex items-center justify-center text-[#ba1a1a] transition-transform duration-300 group-hover:scale-[1.02]">
                       <TrendingDown size={20} />
                     </div>
                   </div>
@@ -842,7 +870,7 @@ export default function LandingPage() {
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <span className="font-editorial text-[24px] font-bold text-[#275a3d]">02</span>
-                    <div className="w-10 h-10 rounded-full bg-[#EAC6D2]/50 flex items-center justify-center text-[#ba1a1a] transition-transform duration-300 group-hover:scale-110">
+                    <div className="w-10 h-10 rounded-full bg-[#EAC6D2]/50 flex items-center justify-center text-[#ba1a1a] transition-transform duration-300 group-hover:scale-[1.02]">
                       <Microscope size={20} />
                     </div>
                   </div>
@@ -864,7 +892,7 @@ export default function LandingPage() {
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <span className="font-editorial text-[24px] font-bold text-[#275a3d]">03</span>
-                    <div className="w-10 h-10 rounded-full bg-[#DDE8D8] flex items-center justify-center text-[#275a3d] transition-transform duration-300 group-hover:scale-110">
+                    <div className="w-10 h-10 rounded-full bg-[#DDE8D8] flex items-center justify-center text-[#275a3d] transition-transform duration-300 group-hover:scale-[1.02]">
                       <BookOpen size={20} />
                     </div>
                   </div>
@@ -908,7 +936,7 @@ export default function LandingPage() {
                   src="/bg_tugu_bawang.jpg"
                   alt="Pasar Sukomoro"
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="object-cover group-hover:scale-[1.02] transition-transform duration-[420ms]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
@@ -937,7 +965,7 @@ export default function LandingPage() {
                   src="/penyakit_bercak_ungu.jpg"
                   alt="Deteksi Penyakit Daun"
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="object-cover group-hover:scale-[1.02] transition-transform duration-[420ms]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
@@ -966,7 +994,7 @@ export default function LandingPage() {
                   src="/petani_bawang_merah.jpg"
                   alt="SIMA Asisten Tani"
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="object-cover group-hover:scale-[1.02] transition-transform duration-[420ms]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
@@ -995,7 +1023,7 @@ export default function LandingPage() {
                   src="/varietas_tajuk.jpg"
                   alt="Dunia Brambang"
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="object-cover group-hover:scale-[1.02] transition-transform duration-[420ms]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
@@ -1039,7 +1067,7 @@ export default function LandingPage() {
 
               <div className="space-y-4 mb-9">
                 <div className="flex items-center gap-3.5 p-2 rounded-2xl hover:bg-[#F7F2EA] transition-colors cursor-pointer">
-                  <div className="w-10 h-10 rounded-full bg-[#DDE8D8] flex items-center justify-center shrink-0 text-[#173e2d] transition-transform duration-300 hover:scale-110">
+                  <div className="w-10 h-10 rounded-full bg-[#DDE8D8] flex items-center justify-center shrink-0 text-[#173e2d] transition-transform duration-300 hover:scale-[1.02]">
                     <Microscope size={19} />
                   </div>
                   <div>
@@ -1049,7 +1077,7 @@ export default function LandingPage() {
                 </div>
 
                 <div className="flex items-center gap-3.5 p-2 rounded-2xl hover:bg-[#F7F2EA] transition-colors cursor-pointer">
-                  <div className="w-10 h-10 rounded-full bg-[#DDE8D8] flex items-center justify-center shrink-0 text-[#173e2d] transition-transform duration-300 hover:scale-110">
+                  <div className="w-10 h-10 rounded-full bg-[#DDE8D8] flex items-center justify-center shrink-0 text-[#173e2d] transition-transform duration-300 hover:scale-[1.02]">
                     <Calendar size={19} />
                   </div>
                   <div>
@@ -1059,7 +1087,7 @@ export default function LandingPage() {
                 </div>
 
                 <div className="flex items-center gap-3.5 p-2 rounded-2xl hover:bg-[#F7F2EA] transition-colors cursor-pointer">
-                  <div className="w-10 h-10 rounded-full bg-[#DDE8D8] flex items-center justify-center shrink-0 text-[#173e2d] transition-transform duration-300 hover:scale-110">
+                  <div className="w-10 h-10 rounded-full bg-[#DDE8D8] flex items-center justify-center shrink-0 text-[#173e2d] transition-transform duration-300 hover:scale-[1.02]">
                     <TrendingUp size={19} />
                   </div>
                   <div>
@@ -1087,7 +1115,7 @@ export default function LandingPage() {
                 <div className="px-6 py-4 border-b border-[#173e2d]/10 flex items-center justify-between bg-[#FDFBF7]">
                   <div className="flex items-center gap-3">
                     <div className="relative">
-                      <div className="w-11 h-11 rounded-full bg-[#173E2D] text-[#b8efc9] flex items-center justify-center font-bold shadow-xs transition-transform hover:scale-110">
+                      <div className="w-11 h-11 rounded-full bg-[#173E2D] text-[#b8efc9] flex items-center justify-center font-bold shadow-xs transition-transform hover:scale-[1.02]">
                         <Sparkles size={20} />
                       </div>
                       <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#36684a] border-2 border-white"></span>
@@ -1146,9 +1174,9 @@ export default function LandingPage() {
                     {isTyping && (
                       <div className="flex items-center gap-2 text-[#5E665F] text-[12px] pl-3 py-1">
                         <div className="flex gap-1">
-                          <span className="w-2 h-2 rounded-full bg-[#36684a] animate-bounce"></span>
-                          <span className="w-2 h-2 rounded-full bg-[#36684a] animate-bounce [animation-delay:0.2s]"></span>
-                          <span className="w-2 h-2 rounded-full bg-[#36684a] animate-bounce [animation-delay:0.4s]"></span>
+                          <span className="w-2 h-2 rounded-full bg-[#36684a] sim-typing-dot"></span>
+                          <span className="w-2 h-2 rounded-full bg-[#36684a] sim-typing-dot [animation-delay:0.2s]"></span>
+                          <span className="w-2 h-2 rounded-full bg-[#36684a] sim-typing-dot [animation-delay:0.4s]"></span>
                         </div>
                         <span className="font-medium text-[12px]">{typingText}</span>
                       </div>
@@ -1266,7 +1294,7 @@ export default function LandingPage() {
               {/* Step 1 */}
               <div className="hover-card-lift bg-white p-6 rounded-[20px] border border-[#173e2d]/10 hover:border-[#173e2d]/25 flex flex-col justify-between shadow-xs">
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-[#b5ecc6] text-[#002110] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-110">
+                  <div className="w-10 h-10 rounded-full bg-[#b5ecc6] text-[#002110] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     1
                   </div>
                   <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">Persiapan</h4>
@@ -1282,7 +1310,7 @@ export default function LandingPage() {
               {/* Step 2 */}
               <div className="hover-card-lift bg-white p-6 rounded-[20px] border border-[#173e2d]/10 hover:border-[#173e2d]/25 flex flex-col justify-between shadow-xs">
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-[#f1eae0] text-[#173e2d] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-110">
+                  <div className="w-10 h-10 rounded-full bg-[#f1eae0] text-[#173e2d] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     2
                   </div>
                   <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">Tanam</h4>
@@ -1301,7 +1329,7 @@ export default function LandingPage() {
                   Kritis
                 </div>
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-[#36684a] text-white font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-110">
+                  <div className="w-10 h-10 rounded-full bg-[#36684a] text-white font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     3
                   </div>
                   <h4 className="font-editorial text-[18px] font-semibold text-white mb-2">Rawat</h4>
@@ -1317,7 +1345,7 @@ export default function LandingPage() {
               {/* Step 4 */}
               <div className="hover-card-lift bg-white p-6 rounded-[20px] border border-[#173e2d]/10 hover:border-[#173e2d]/25 flex flex-col justify-between shadow-xs">
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-[#f1eae0] text-[#173e2d] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-110">
+                  <div className="w-10 h-10 rounded-full bg-[#f1eae0] text-[#173e2d] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     4
                   </div>
                   <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">Panen</h4>
@@ -1333,7 +1361,7 @@ export default function LandingPage() {
               {/* Step 5 */}
               <div className="hover-card-lift bg-white p-6 rounded-[20px] border border-[#173e2d]/10 hover:border-[#173e2d]/25 flex flex-col justify-between shadow-xs">
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-[#EAC6D2] text-[#6b1434] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-110">
+                  <div className="w-10 h-10 rounded-full bg-[#EAC6D2] text-[#6b1434] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     5
                   </div>
                   <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">Jual</h4>
@@ -1518,7 +1546,7 @@ export default function LandingPage() {
                     src="/petani_bawang_merah.jpg"
                     alt="Petani Nganjuk"
                     fill
-                    className="object-cover transition-transform duration-500 hover:scale-110"
+                    className="object-cover transition-transform duration-500 hover:scale-[1.02]"
                   />
                 </div>
                 <div className="p-7 flex-1 flex flex-col justify-between">
@@ -1551,7 +1579,7 @@ export default function LandingPage() {
                     src="/jayastamba.jpg"
                     alt="PPL Pertanian Nganjuk"
                     fill
-                    className="object-cover transition-transform duration-500 hover:scale-110"
+                    className="object-cover transition-transform duration-500 hover:scale-[1.02]"
                   />
                 </div>
                 <div className="p-7 flex-1 flex flex-col justify-between">
@@ -1584,7 +1612,7 @@ export default function LandingPage() {
                     src="/bg_tugu_bawang.jpg"
                     alt="Dinas Pertanian Nganjuk"
                     fill
-                    className="object-cover transition-transform duration-500 hover:scale-110"
+                    className="object-cover transition-transform duration-500 hover:scale-[1.02]"
                   />
                 </div>
                 <div className="p-7 flex-1 flex flex-col justify-between">
@@ -1630,7 +1658,7 @@ export default function LandingPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="hover-card-lift flex flex-col bg-white p-6 rounded-2xl border border-[#173e2d]/10 hover:border-[#173e2d]/30 shadow-xs">
-                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] text-[#002819] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-110">
+                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] text-[#002819] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                   <Database size={24} />
                 </div>
                 <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">
@@ -1642,7 +1670,7 @@ export default function LandingPage() {
               </div>
 
               <div className="hover-card-lift flex flex-col bg-white p-6 rounded-2xl border border-[#173e2d]/10 hover:border-[#173e2d]/30 shadow-xs">
-                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] text-[#002819] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-110">
+                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] text-[#002819] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                   <Percent size={24} />
                 </div>
                 <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">
@@ -1654,7 +1682,7 @@ export default function LandingPage() {
               </div>
 
               <div className="hover-card-lift flex flex-col bg-white p-6 rounded-2xl border border-[#173e2d]/10 hover:border-[#173e2d]/30 shadow-xs">
-                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] text-[#002819] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-110">
+                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] text-[#002819] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                   <ShieldCheck size={24} />
                 </div>
                 <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">
@@ -1666,7 +1694,7 @@ export default function LandingPage() {
               </div>
 
               <div className="hover-card-lift flex flex-col bg-white p-6 rounded-2xl border border-[#173e2d]/10 hover:border-[#173e2d]/30 shadow-xs">
-                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] text-[#002819] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-110">
+                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] text-[#002819] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                   <Lock size={24} />
                 </div>
                 <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">

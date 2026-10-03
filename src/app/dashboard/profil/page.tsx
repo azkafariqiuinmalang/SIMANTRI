@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Toast } from '@/components/ui/Experience'
 import { createClient } from '@/lib/supabase/client'
 import type { Profile } from '@/types/database'
 import {
@@ -11,23 +12,16 @@ import {
   ShieldCheck,
   MapPin,
   Save,
-  CheckCircle2,
   AlertCircle,
   Loader2,
-  Calendar,
   Sparkles,
   Sprout,
   Mail,
   Shield,
   Lock,
-  Camera,
-  BookOpen,
   LogOut,
   KeyRound,
-  Building,
-  Check,
   X,
-  RefreshCw,
 } from 'lucide-react'
 
 const NGANJUK_KECAMATAN = [
@@ -126,9 +120,8 @@ export default function ProfilPage() {
       } else {
         setProfile({ ...profile, full_name: fullName.trim(), village: village.trim() })
         setSuccessMessage('Data profil dan lokasi budidaya Anda berhasil diperbarui!')
-        setTimeout(() => setSuccessMessage(null), 4000)
       }
-    } catch (err: unknown) {
+    } catch {
       setErrorMessage('Terjadi kesalahan koneksi saat menyimpan profil.')
     } finally {
       setSaving(false)
@@ -218,26 +211,13 @@ export default function ProfilPage() {
       </div>
 
       {/* SUCCESS / ERROR TOASTS */}
-      {successMessage && (
-        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs sm:text-sm flex items-center justify-between gap-3 shadow-xs animate-in fade-in">
-          <div className="flex items-center gap-2.5 font-bold">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span>{successMessage}</span>
-          </div>
-          <button
-            onClick={() => setSuccessMessage(null)}
-            className="p-1 text-emerald-700 hover:bg-emerald-100 rounded-lg transition"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-      )}
+      {successMessage && <Toast message={successMessage} onDismiss={() => setSuccessMessage(null)} />}
 
       {errorMessage && (
-        <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 text-xs sm:text-sm flex items-center justify-between gap-3 shadow-xs animate-in fade-in">
+        <div role="alert" className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 text-xs sm:text-sm flex items-center justify-between gap-3 shadow-xs animate-in fade-in">
           <div className="flex items-center gap-2.5 font-bold">
             <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
-            <span>{errorMessage}</span>
+            <span>Tindakan belum berhasil. Periksa isian dan koneksi, lalu coba kembali.</span>
           </div>
           <button
             onClick={() => setErrorMessage(null)}
@@ -364,6 +344,7 @@ export default function ProfilPage() {
                     type="text"
                     required
                     value={fullName}
+                    aria-label="Nama lengkap"
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Contoh: Pak Sutrisno"
                     className="w-full h-11 pl-10 pr-4 text-xs rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-hidden focus:border-simantri-600 focus:ring-2 focus:ring-simantri-600/10 text-slate-900 transition font-medium"
@@ -385,6 +366,7 @@ export default function ProfilPage() {
                     type="email"
                     disabled
                     value={email}
+                    aria-label="Alamat email akun"
                     className="w-full h-11 pl-10 pr-4 text-xs rounded-2xl border border-slate-200 bg-slate-100/80 text-slate-500 font-mono cursor-not-allowed"
                   />
                 </div>
@@ -404,6 +386,7 @@ export default function ProfilPage() {
                     type="text"
                     disabled
                     value={roleLabel}
+                    aria-label="Peran aktor sistem"
                     className="w-full h-11 pl-10 pr-4 text-xs rounded-2xl border border-slate-200 bg-slate-100/80 text-slate-700 font-bold cursor-not-allowed"
                   />
                 </div>
@@ -416,6 +399,7 @@ export default function ProfilPage() {
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <select
+                    aria-label="Kecamatan budidaya"
                     value={
                       NGANJUK_KECAMATAN.find((k) =>
                         village.toLowerCase().includes(k.toLowerCase())
@@ -438,6 +422,7 @@ export default function ProfilPage() {
                   <input
                     type="text"
                     value={village}
+                    aria-label="Desa atau hamparan budidaya"
                     onChange={(e) => setVillage(e.target.value)}
                     placeholder="Atau tulis nama Desa / Hamparan..."
                     className="h-11 px-3.5 text-xs rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-hidden focus:border-simantri-600 text-slate-900 transition font-medium"

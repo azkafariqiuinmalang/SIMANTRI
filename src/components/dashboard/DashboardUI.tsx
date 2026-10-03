@@ -77,7 +77,7 @@ export function MetricCard({
   )
 
   return href ? (
-    <Link href={href} className="sim-focus block h-full rounded-[var(--sim-radius-card)]">
+    <Link href={href} className="sim-focus sim-interactive-card block h-full rounded-[var(--sim-radius-card)]">
       {content}
     </Link>
   ) : (
@@ -136,7 +136,7 @@ export function PriceLineChart({
 
   return (
     <div className="relative w-full overflow-x-auto pb-1" aria-label="Grafik tren harga bawang merah">
-      <svg viewBox={`0 0 ${geometry.width} ${height}`} className="min-w-[620px] w-full" role="img">
+      <svg viewBox={`0 0 ${geometry.width} ${height}`} className="min-w-[620px] w-full" role="group" aria-label="Tren harga; pilih titik untuk detail">
         <title>Tren harga bawang merah</title>
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
@@ -163,7 +163,7 @@ export function PriceLineChart({
             <circle
               cx={point.x}
               cy={point.y}
-              r="12"
+              r="30"
               fill="transparent"
               className="cursor-pointer"
               tabIndex={0}
@@ -173,8 +173,13 @@ export function PriceLineChart({
               onMouseLeave={() => setActiveIndex(null)}
               onFocus={() => setActiveIndex(index)}
               onBlur={() => setActiveIndex(null)}
+              onClick={() => setActiveIndex(index)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setActiveIndex(index) }
+                if (event.key === 'Escape') setActiveIndex(null)
+              }}
             />
-            <circle cx={point.x} cy={point.y} r={index === geometry.plotted.length - 1 ? 5 : 3.5} fill="var(--sim-green-600)" stroke="#fff" strokeWidth="2" pointerEvents="none" />
+            <circle cx={point.x} cy={point.y} r={activeIndex === index ? 7 : index === geometry.plotted.length - 1 ? 5 : 3.5} fill="var(--sim-green-600)" stroke="#fff" strokeWidth="2" pointerEvents="none" />
           </g>
         ))}
         {tickIndexes.map((index) => {
@@ -182,8 +187,8 @@ export function PriceLineChart({
           return <text key={index} x={point.x} y={height - 12} textAnchor="middle" fill="var(--sim-color-muted)" fontSize="11">{point.label}</text>
         })}
       </svg>
-      {activeIndex !== null && (
-        <div className="pointer-events-none absolute right-3 top-3 rounded-xl bg-[var(--sim-green-900)] px-3 py-2 text-xs text-white shadow-lg" aria-live="polite">
+      {activeIndex !== null && points[activeIndex] && (
+        <div className="sim-tooltip pointer-events-none absolute right-3 top-3 rounded-xl bg-[var(--sim-green-900)] px-3 py-2 text-xs text-white shadow-lg" aria-live="polite">
           <p className="font-bold">Rp {points[activeIndex].value.toLocaleString('id-ID')}/kg</p>
           <p className="mt-0.5 text-white/75">{points[activeIndex].label}</p>
         </div>

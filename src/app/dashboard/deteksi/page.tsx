@@ -23,6 +23,7 @@ import {
   Leaf,
 } from 'lucide-react'
 import { openSimaAssistant } from '@/components/dashboard/FloatingAssistant'
+import { Toast, Skeleton } from '@/components/ui/Experience'
 import { PageHeading } from '@/components/dashboard/DashboardUI'
 
 interface DetectionDisplayResult {
@@ -80,6 +81,8 @@ export default function DiseaseDetectionPage() {
   const [analyzing, setAnalyzing] = useState(false)
   const [analysisResult, setAnalysisResult] = useState<DetectionResponseData | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [dragActive, setDragActive] = useState(false)
+  const [feedbackNotice, setFeedbackNotice] = useState('')
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Feedback State
@@ -173,6 +176,7 @@ export default function DiseaseDetectionPage() {
   // Handle Drag & Drop
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
+    setDragActive(false)
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleFileSelect(e.dataTransfer.files[0])
     }
@@ -196,7 +200,7 @@ export default function DiseaseDetectionPage() {
 
       const json = await res.json()
       if (json.error) {
-        setErrorMessage(json.error.message || 'Gagal menganalisis foto tanaman.')
+        setErrorMessage('Foto belum berhasil dianalisis. Periksa koneksi dan coba kembali.')
       } else if (json.data) {
         setAnalysisResult(json.data as DetectionResponseData)
         loadHistory() // Refresh recent history
@@ -240,7 +244,8 @@ export default function DiseaseDetectionPage() {
       })
 
       const json = await res.json()
-      if (!json.error) {
+      if (!json.error && res.ok) {
+        setFeedbackNotice('Terima kasih, feedback Anda sudah tercatat.')
         setActiveCorrectionId(null)
         setCorrectionNote('')
         loadHistory()
@@ -265,6 +270,7 @@ export default function DiseaseDetectionPage() {
 
   return (
     <main className="sim-page mx-auto w-full max-w-[1440px] space-y-6">
+      {feedbackNotice && <Toast message={feedbackNotice} onDismiss={() => setFeedbackNotice('')} />}
       <PageHeading title="Deteksi Penyakit" description="Unggah foto tanaman bawang merah untuk mengidentifikasi penyakit dan mendapatkan rekomendasi penanganan." icon={Leaf} action={<Link href="/dashboard/chat" className="sim-button-secondary"><Sparkles className="h-4 w-4 text-[var(--sim-color-primary)]" aria-hidden="true" />Konsultasi SIMA</Link>} />
 
       <div className="grid gap-3 md:grid-cols-3">
@@ -297,7 +303,7 @@ export default function DiseaseDetectionPage() {
                     <img
                       src={previewUrl}
                       alt="Preview tanaman"
-                      className="w-full h-full object-contain"
+                      className="sim-result w-full h-full object-contain"
                     />
                     <button
                       onClick={() => {
@@ -318,12 +324,17 @@ export default function DiseaseDetectionPage() {
                 </div>
               ) : (
                 <div
-                  onDragOver={(e) => e.preventDefault()}
+                  onDragOver={(e) => { e.preventDefault(); setDragActive(true) }}
+                  onDragLeave={(event) => { if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) setDragActive(false) }}
                   onDrop={handleDrop}
                   onClick={() => fileInputRef.current?.click()}
-                  className="cursor-pointer py-10 px-4 w-full flex flex-col items-center justify-center space-y-3 group"
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Pilih foto tanaman"
+                  onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); fileInputRef.current?.click() } }}
+                  className={`cursor-pointer rounded-2xl border-2 py-10 px-4 w-full flex flex-col items-center justify-center space-y-3 group transition-colors ${dragActive ? 'border-simantri-500 bg-simantri-50' : 'border-transparent'}`}
                 >
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--sim-green-50)] text-[var(--sim-color-primary)] shadow-sm transition-all group-hover:scale-110 group-hover:bg-[var(--sim-green-100)]">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--sim-green-50)] text-[var(--sim-color-primary)] shadow-sm transition-colors group-hover:bg-[var(--sim-green-100)]">
                     <Upload className="w-7 h-7" />
                   </div>
                   <div>
@@ -343,7 +354,7 @@ export default function DiseaseDetectionPage() {
 
             {/* ERROR ALERT */}
             {errorMessage && (
-              <div className="p-4 rounded-xl bg-[#8C3A3A]/10 border border-[#8C3A3A]/25 text-[#8C3A3A] text-xs flex items-start gap-2.5">
+              <div role="alert" className="p-4 rounded-xl bg-[#8C3A3A]/10 border border-[#8C3A3A]/25 text-[#8C3A3A] text-xs flex items-start gap-2.5">
                 <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
                 <div className="leading-relaxed">{errorMessage}</div>
               </div>
@@ -358,7 +369,7 @@ export default function DiseaseDetectionPage() {
               {analyzing ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin text-white" />
-                  <span>SIMA sedang menganalisis foto...</span>
+                  <span>Sedang Menganalisis...</span>
                 </>
               ) : (
                 <>
@@ -389,7 +400,7 @@ export default function DiseaseDetectionPage() {
               </div>
             ) : analysisResult ? (
               /* RESULTS PRESENTATION */
-              <div className="space-y-6">
+              <div key={analysisResult.detection_id} className="sim-result space-y-6">
                 {/* 1. MANDATORY DISCLAIMER BOX */}
                 <div className="p-4 rounded-xl bg-[#FBF4EE] border-l-4 border-l-[#E6A15C] border border-[#E5DFD6] text-xs text-[#4A3A32] space-y-1 shadow-sm">
                   <div className="flex items-center gap-1.5 font-bold text-[#0E080A]">
@@ -501,8 +512,8 @@ export default function DiseaseDetectionPage() {
                           {/* Progress Bar */}
                           <div className="w-full h-2 rounded-full bg-[#FBF4EE] overflow-hidden">
                             <div
-                              className={`h-full ${progressColor} transition-all duration-700`}
-                              style={{ width: `${Math.min(100, Math.max(5, conf))}%` }}
+                              className={`sim-confidence h-full ${progressColor}`}
+                              style={{ width: `${Math.min(100, Math.max(0, conf))}%`, animationDelay: '80ms' }}
                             />
                           </div>
 
@@ -530,7 +541,7 @@ export default function DiseaseDetectionPage() {
                                   autoSend: true,
                                 })
                               }}
-                              className="px-2.5 py-1.5 rounded-lg bg-[#C4487A] hover:bg-[#A83A68] text-white text-[11px] font-semibold transition-all inline-flex items-center gap-1.5 shadow-xs active:scale-95 shrink-0"
+                              className="px-2.5 py-1.5 rounded-lg bg-[#C4487A] hover:bg-[#A83A68] text-white text-[11px] font-semibold transition-all inline-flex items-center gap-1.5 shadow-xs active:translate-y-0 shrink-0"
                             >
                               <Sparkles className="w-3 h-3 text-[#E6A15C]" />
                               Tanya Solusi ke SIMA
@@ -544,9 +555,11 @@ export default function DiseaseDetectionPage() {
                             </span>
                             <div className="flex items-center gap-2">
                               <button
+                                aria-pressed={item.farmer_feedback === 'sesuai'}
                                 onClick={() => handleSendFeedback(item.result_id, 'sesuai')}
+                                aria-busy={feedbackSending === item.result_id}
                                 disabled={feedbackSending === item.result_id}
-                                className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition-all inline-flex items-center gap-1 ${
+                                className={`min-h-11 px-2.5 py-1 rounded-lg text-xs font-medium border transition-all inline-flex items-center gap-1 ${
                                   item.farmer_feedback === 'sesuai'
                                     ? 'bg-[#3A5A40] text-white border-[#3A5A40]'
                                     : 'border-[#3A5A40] text-[#3A5A40] hover:bg-[#3A5A40]/10'
@@ -557,6 +570,7 @@ export default function DiseaseDetectionPage() {
                               </button>
 
                               <button
+                                aria-pressed={item.farmer_feedback === 'tidak_sesuai'}
                                 onClick={() => {
                                   if (activeCorrectionId === item.result_id) {
                                     setActiveCorrectionId(null)
@@ -585,6 +599,7 @@ export default function DiseaseDetectionPage() {
                                 Catatan Koreksi Anda (Opsional):
                               </label>
                               <textarea
+                                aria-label="Catatan koreksi hasil deteksi"
                                 rows={2}
                                 value={correctionNote}
                                 onChange={(e) => setCorrectionNote(e.target.value)}
@@ -703,7 +718,7 @@ export default function DiseaseDetectionPage() {
 
           {historyLoading ? (
             <div className="p-8 text-center bg-white rounded-2xl border border-[#E5DFD6]">
-              <Loader2 className="w-6 h-6 animate-spin text-[#C4487A] mx-auto mb-2" />
+              <Skeleton className="mx-auto mb-3 h-20 w-full" />
               <p className="text-xs text-[#8A8580]">Memuat riwayat deteksi...</p>
             </div>
           ) : history.length === 0 ? (
@@ -724,7 +739,7 @@ export default function DiseaseDetectionPage() {
                 return (
                   <div
                     key={hist.id}
-                    className="card-standard p-3 bg-white border border-[#E5DFD6] space-y-2 hover:shadow-md transition-shadow"
+                    className="card-standard p-3 bg-white border border-[#E5DFD6] space-y-2 transition-shadow"
                   >
                     <div className="relative w-full h-28 rounded-lg overflow-hidden bg-[#FBF4EE] border border-[#E5DFD6]">
                       {/* eslint-disable-next-line @next/next/no-img-element */}

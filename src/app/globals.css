@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+/* Experience tokens: shared timing, no change to the approved visual palette. */
+:root {
+  --motion-fast: 140ms;
+  --motion-normal: 220ms;
+  --motion-medium: 320ms;
+  --motion-reveal: 420ms;
+  --motion-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-control: var(--motion-normal);
+  --motion-overlay: var(--motion-medium);
+}
+
 @theme {
   --font-jakarta: var(--font-plus-jakarta-sans), sans-serif;
   --font-editorial: var(--font-newsreader), Georgia, serif;
@@ -48,6 +60,57 @@
   font-family: var(--font-caveat), cursive;
 }
 
+button, a, input, select, textarea {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition-duration: var(--motion-control);
+  transition-timing-function: var(--motion-standard);
+}
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [role="button"]:focus-visible {
+  outline: 2px solid var(--color-simantri-500);
+  outline-offset: 3px;
+}
+button:disabled { cursor: not-allowed; }
+button, a[role="button"] { min-height: 44px; min-width: 44px; }
+input:not([type="checkbox"]):not([type="radio"]), select, textarea {
+  transition: border-color var(--motion-control), background-color var(--motion-control), box-shadow var(--motion-control);
+}
+.sim-interactive-card { transition: transform 260ms var(--motion-out), border-color var(--motion-normal); }
+.sim-message, .sim-result, .sim-toast, [role="alert"] { animation: sim-experience-enter var(--motion-medium) var(--motion-out) both; }
+.sim-typing-dot { animation: sim-typing 1200ms ease-in-out infinite; }
+.sim-confidence { transform-origin: left; animation: sim-confidence var(--motion-reveal) var(--motion-out) both; }
+.sim-skeleton { border-radius: 12px; background: var(--color-simantri-100); animation: sim-skeleton 1800ms ease-in-out infinite; }
+.sim-toast { position: fixed; z-index: 80; right: 24px; top: 96px; display: flex; align-items: center; gap: 12px; max-width: min(420px, calc(100vw - 32px)); padding: 12px 16px; border: 1px solid var(--color-simantri-200); border-radius: 16px; background: white; color: var(--color-simantri-900); box-shadow: 0 6px 24px #07321f15; font-size: 14px; }
+.sim-toast button { display: flex; align-items: center; justify-content: center; min-width: 44px; }
+.sim-toast.sim-toast-closing { animation: sim-toast-exit 220ms var(--motion-standard) forwards; }
+@keyframes sim-toast-exit { from { opacity: 1; } to { opacity: 0; } }
+.sim-reveal-pending { opacity: 0; transform: translateY(16px); }
+.sim-reveal-visible { animation: sim-section-enter var(--motion-reveal) var(--motion-out) both; }
+.sim-tooltip { animation: sim-experience-enter var(--motion-fast) var(--motion-out) both; }
+@keyframes sim-experience-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes sim-section-enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes sim-typing { 0%, 100% { opacity: .4; } 50% { opacity: 1; } }
+@keyframes sim-confidence { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes sim-skeleton { 0%, 100% { opacity: .55; } 50% { opacity: .85; } }
+@media (hover: hover) {
+  .sim-interactive-card:hover { transform: translateY(-2px); border-color: var(--color-simantri-200); }
+  .sim-button-primary:hover:not(:disabled) { transform: translateY(-1px); }
+  a:hover > .lucide-arrow-right, a:hover > .lucide-chevron-right { transform: translateX(3px); }
+  a > .lucide-arrow-right, a > .lucide-chevron-right { transition: transform var(--motion-normal) var(--motion-out); }
+}
+.sim-button-primary:active:not(:disabled), .hover-btn-scale:active, .hover-btn-coral:active { transform: translateY(0) !important; }
+.carousel-container:focus-within .carousel-track { animation-play-state: paused; }
+@media (max-width: 639px) {
+  .sim-toast { left: 16px; right: 16px; top: 88px; max-width: none; }
+  input:not([type="checkbox"]):not([type="radio"]), select, textarea { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .sim-reveal-pending { opacity: 1; transform: none; }
+  .sim-interactive-card:hover, .hover-btn-scale:hover, .hover-btn-coral:hover { transform: none !important; }
+}
+
 @keyframes scrollCards {
   0% {
     transform: translate3d(0, 0, 0);
@@ -83,58 +146,56 @@
 }
 
 .carousel-card:hover {
-  transform: translateY(-16px) scale(1.10) translateZ(0) !important;
+  transform: none !important;
   z-index: 50 !important;
-  box-shadow: 0 25px 50px -12px rgba(23, 62, 45, 0.45) !important;
-  border-color: rgba(23, 62, 45, 0.35) !important;
 }
+.carousel-card { cursor: default !important; }
 
 .carousel-card-img {
   transition: transform 0.6s ease-out !important;
 }
 
 .carousel-card:hover .carousel-card-img {
-  transform: scale(1.15) !important;
+  transform: none !important;
 }
 
 /* Enhanced Interactive Hover Effects for Buttons & Cards */
 .hover-btn-scale {
-  transition: all 0.25s cubic-bezier(0.34, 1.4, 0.64, 1) !important;
+  transition: transform var(--motion-normal) var(--motion-standard), background-color var(--motion-normal) var(--motion-standard) !important;
   cursor: pointer;
 }
 
 .hover-btn-scale:hover {
-  transform: translateY(-3px) scale(1.05) !important;
-  box-shadow: 0 12px 28px -4px rgba(23, 62, 45, 0.25) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 10px -4px rgba(23, 62, 45, 0.2) !important;
 }
 
 .hover-btn-scale:active {
-  transform: translateY(0px) scale(0.97) !important;
+  transform: translateY(0) !important;
 }
 
 .hover-btn-coral {
-  transition: all 0.25s cubic-bezier(0.34, 1.4, 0.64, 1) !important;
+  transition: transform var(--motion-normal) var(--motion-standard), background-color var(--motion-normal) var(--motion-standard) !important;
   cursor: pointer;
 }
 
 .hover-btn-coral:hover {
-  transform: translateY(-3px) scale(1.06) !important;
+  transform: translateY(-1px) !important;
   background-color: #d04b47 !important;
-  box-shadow: 0 14px 30px -4px rgba(226, 92, 88, 0.45) !important;
+  box-shadow: 0 4px 10px -4px rgba(226, 92, 88, 0.2) !important;
 }
 
 .hover-btn-coral:active {
-  transform: translateY(0px) scale(0.97) !important;
+  transform: translateY(0) !important;
 }
 
 .hover-card-lift {
-  transition: transform 0.3s cubic-bezier(0.34, 1.3, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease !important;
-  cursor: pointer;
+  transition: border-color var(--motion-normal) var(--motion-standard) !important;
 }
 
 .hover-card-lift:hover {
-  transform: translateY(-6px) scale(1.03) !important;
-  box-shadow: 0 20px 35px -8px rgba(23, 62, 45, 0.14) !important;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 @keyframes sim-float {

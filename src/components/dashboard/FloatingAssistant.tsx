@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import {
@@ -16,6 +16,7 @@ import {
   ArrowRight,
 } from 'lucide-react'
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer'
+import { Toast, useChatScroll } from '@/components/ui/Experience'
 import { SimaMascot } from '@/components/dashboard/SimaMascot'
 
 interface Message {
@@ -50,6 +51,8 @@ export default function FloatingAssistant() {
   const [inputMessage, setInputMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const [feedbackSending, setFeedbackSending] = useState<string | null>(null)
+  const [feedbackNotice, setFeedbackNotice] = useState('')
+  const { scrollRef, onScroll, scrollToLatest } = useChatScroll()
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
@@ -59,47 +62,29 @@ export default function FloatingAssistant() {
   // Scroll to bottom when messages update
   useEffect(() => {
     if (isOpen && !isMinimized) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+      scrollToLatest()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages, loading, isOpen, isMinimized])
+
+  useEffect(() => {
+    if (!isOpen) return
+    const trigger = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') { event.preventDefault(); setIsOpen(false) } }
+    window.addEventListener('keydown', onKey)
+    return () => { window.removeEventListener('keydown', onKey); trigger?.focus() }
+  }, [isOpen])
 
   // Focus textarea when opened
   useEffect(() => {
     if (isOpen && !isMinimized) {
-      setTimeout(() => {
-        textareaRef.current?.focus()
-      }, 200)
+      const timer = window.setTimeout(() => textareaRef.current?.focus(), 200)
+      return () => window.clearTimeout(timer)
     }
   }, [isOpen, isMinimized])
 
-  // Handle global event listener for cross-page trigger
-  useEffect(() => {
-    const handleOpenEvent = (event: Event) => {
-      const customEvent = event as CustomEvent<{ prompt?: string; autoSend?: boolean }>
-      setIsOpen(true)
-      setIsMinimized(false)
-
-      if (customEvent.detail?.prompt) {
-        const text = customEvent.detail.prompt
-        if (customEvent.detail.autoSend) {
-          handleSendMessage(text)
-        } else {
-          setInputMessage(text)
-          setTimeout(() => {
-            textareaRef.current?.focus()
-          }, 250)
-        }
-      }
-    }
-
-    window.addEventListener('open-sima-assistant', handleOpenEvent)
-    return () => {
-      window.removeEventListener('open-sima-assistant', handleOpenEvent)
-    }
-  }, [messages])
-
   // Send message
-  const handleSendMessage = async (customText?: string) => {
+  const handleSendMessage = useCallback(async (customText?: string) => {
     const textToSend = (customText || inputMessage).trim()
     if (!textToSend || loading) return
 
@@ -160,7 +145,26 @@ export default function FloatingAssistant() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [inputMessage, loading, messages])
+
+  // Handle global event listener for cross-page trigger
+  useEffect(() => {
+    let focusTimer: ReturnType<typeof setTimeout> | undefined
+    const handleOpenEvent = (event: Event) => {
+      const detail = (event as CustomEvent<{ prompt?: string; autoSend?: boolean }>).detail
+      setIsOpen(true)
+      setIsMinimized(false)
+      if (detail?.prompt) {
+        if (detail.autoSend) void handleSendMessage(detail.prompt)
+        else {
+          setInputMessage(detail.prompt)
+          focusTimer = setTimeout(() => textareaRef.current?.focus(), 250)
+        }
+      }
+    }
+    window.addEventListener('open-sima-assistant', handleOpenEvent)
+    return () => { window.removeEventListener('open-sima-assistant', handleOpenEvent); if (focusTimer) clearTimeout(focusTimer) }
+  }, [handleSendMessage])
 
   // Handle feedback
   const handleFeedback = async (chatId: string, feedbackType: 'helpful' | 'not_helpful') => {
@@ -171,11 +175,12 @@ export default function FloatingAssistant() {
     )
 
     try {
-      await fetch(`/api/chat/${chatId}/feedback`, {
+      const response = await fetch(`/api/chat/${chatId}/feedback`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ feedback: feedbackType }),
       })
+      if (response.ok) setFeedbackNotice('Terima kasih, masukan Anda sudah tercatat.')
     } catch (err) {
       console.error('Failed to submit feedback:', err)
     } finally {
@@ -196,27 +201,23 @@ export default function FloatingAssistant() {
 
   return (
     <>
+      {feedbackNotice && <Toast message={feedbackNotice} onDismiss={() => setFeedbackNotice('')} />}
       {/* FLOATING SIMA MASCOT + SPEECH BUBBLE WIDGET */}
       {!isOpen && (
         <div className="fixed bottom-20 lg:bottom-6 right-3 sm:right-6 z-40 flex flex-col items-end pointer-events-auto font-jakarta select-none">
           {/* SPEECH BUBBLE (Above Mascot) */}
-          {!isBubbleDismissed && (
+          {(
             <div
+              inert={isBubbleDismissed}
+              aria-hidden={isBubbleDismissed}
+              style={{ opacity: isBubbleDismissed ? 0 : 1, visibility: isBubbleDismissed ? 'hidden' : 'visible', transform: isBubbleDismissed ? 'translateY(4px)' : 'none', transition: `opacity 220ms ease-out, transform 220ms ease-out, visibility 0s ${isBubbleDismissed ? '220ms' : '0s'}` }}
               onClick={() => {
                 setIsOpen(true)
                 setIsMinimized(false)
               }}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault()
-                  setIsOpen(true)
-                  setIsMinimized(false)
-                }
-              }}
               className="group relative cursor-pointer mb-2 mr-2 sm:mr-3 bg-white border border-[#DCE8E1] hover:border-[#167A4A]/40 rounded-[22px] sm:rounded-[26px] p-3.5 sm:p-4 shadow-lg shadow-emerald-950/8 hover:shadow-xl hover:shadow-emerald-950/12 transition-all duration-200 max-w-[260px] sm:max-w-[310px] text-left"
             >
+              <button type="button" className="absolute inset-0 rounded-[22px] sm:rounded-[26px]" aria-label="Tanya SIMA: buka percakapan" />
               {/* Header row with Title and Close Button */}
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-1.5">
@@ -233,7 +234,7 @@ export default function FloatingAssistant() {
                     e.stopPropagation()
                     setIsBubbleDismissed(true)
                   }}
-                  className="text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full p-1 transition-colors shrink-0 -mr-1 -mt-1 cursor-pointer"
+                  className="relative z-10 min-w-11 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full p-1 transition-colors shrink-0 -mr-1 -mt-1 cursor-pointer"
                   aria-label="Tutup percakapan sapaan"
                   title="Tutup gelembung"
                 >
@@ -280,8 +281,7 @@ export default function FloatingAssistant() {
             onClick={() => {
               if (isBubbleDismissed) {
                 // If bubble was closed, clicking mascot toggles speech bubble or opens assistant
-                setIsOpen(true)
-                setIsMinimized(false)
+                setIsBubbleDismissed(false)
               } else {
                 setIsOpen(true)
                 setIsMinimized(false)
@@ -292,7 +292,7 @@ export default function FloatingAssistant() {
               e.preventDefault()
               setIsBubbleDismissed(!isBubbleDismissed)
             }}
-            className="group relative cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#167A4A] focus-visible:ring-offset-2 rounded-full p-1 transition-transform active:scale-95"
+            className="group relative cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#167A4A] focus-visible:ring-offset-2 rounded-full p-1 transition-transform active:translate-y-0"
             aria-label="Buka Asisten SIMA (Klik untuk berdiskusi)"
             title={isBubbleDismissed ? 'Tanya SIMA (Klik untuk membuka)' : 'Asisten SIMA'}
           >
@@ -302,7 +302,7 @@ export default function FloatingAssistant() {
                 size={86}
                 className="hover:brightness-105 transition-all"
                 animated={true}
-                enableBreathing={true}
+                enableBreathing={false}
               />
             </div>
           </button>
@@ -312,7 +312,9 @@ export default function FloatingAssistant() {
       {/* FLOATING CHAT PANEL */}
       {isOpen && (
         <div
-          className={`fixed z-50 transition-all duration-300 ease-out font-jakarta ${
+          role="dialog"
+          aria-label="Percakapan SIMA"
+          className={`sim-result fixed z-50 transition-all duration-300 ease-out font-jakarta ${
             isMinimized
               ? 'bottom-20 lg:bottom-6 right-4 sm:right-6 w-[280px] sm:w-[320px] h-auto rounded-3xl shadow-xl border border-slate-200'
               : 'bottom-20 lg:bottom-6 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[440px] h-[580px] max-h-[85vh] rounded-3xl shadow-2xl border border-slate-200'
@@ -397,7 +399,7 @@ export default function FloatingAssistant() {
           {!isMinimized && (
             <>
               {/* MESSAGES SCROLL */}
-              <div className="flex-1 overflow-y-auto p-3.5 space-y-3.5 bg-slate-50/50 custom-scrollbar">
+              <div ref={scrollRef} onScroll={onScroll} className="flex-1 overflow-y-auto p-3.5 space-y-3.5 bg-slate-50/50 custom-scrollbar">
                 {messages.length === 0 ? (
                   <div className="py-6 px-3 text-center flex flex-col items-center justify-center">
                     <div className="w-16 h-16 rounded-2xl bg-white p-1 shadow-md border border-[#DFF3E8] flex items-center justify-center mb-2.5 overflow-hidden">
@@ -431,7 +433,7 @@ export default function FloatingAssistant() {
                   messages.map((msg, idx) => (
                     <div
                       key={idx}
-                      className={`flex gap-2.5 ${
+                      className={`sim-message flex gap-2.5 ${
                         msg.sender === 'user' ? 'justify-end' : 'justify-start'
                       }`}
                     >
@@ -472,6 +474,7 @@ export default function FloatingAssistant() {
                           <div className="flex items-center justify-end gap-1 px-1 text-slate-400">
                             <button
                               onClick={() => handleFeedback(msg.id!, 'helpful')}
+                              aria-pressed={msg.feedback === 'helpful'}
                               disabled={feedbackSending === msg.id}
                               className={`p-1 rounded-lg transition-all ${
                                 msg.feedback === 'helpful'
@@ -484,6 +487,7 @@ export default function FloatingAssistant() {
                             </button>
                             <button
                               onClick={() => handleFeedback(msg.id!, 'not_helpful')}
+                              aria-pressed={msg.feedback === 'not_helpful'}
                               disabled={feedbackSending === msg.id}
                               className={`p-1 rounded-lg transition-all ${
                                 msg.feedback === 'not_helpful'
@@ -508,9 +512,9 @@ export default function FloatingAssistant() {
                       <SimaMascot size={26} animated={false} enableBreathing={false} />
                     </div>
                     <div className="p-3 rounded-2xl rounded-tl-none bg-white border border-slate-200 shadow-xs flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#167A4A] animate-bounce" style={{ animationDelay: '0ms' }} />
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#167A4A] animate-bounce" style={{ animationDelay: '150ms' }} />
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#167A4A] animate-bounce" style={{ animationDelay: '300ms' }} />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#167A4A] sim-typing-dot" style={{ animationDelay: '0ms' }} />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#167A4A] sim-typing-dot" style={{ animationDelay: '150ms' }} />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#167A4A] sim-typing-dot" style={{ animationDelay: '300ms' }} />
                       <span className="text-[10px] text-slate-500 ml-1.5 font-medium">SIMA sedang merangkai jawaban...</span>
                     </div>
                   </div>
@@ -528,6 +532,7 @@ export default function FloatingAssistant() {
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
                     onKeyDown={handleKeyDown}
+                    aria-label="Pertanyaan untuk SIMA"
                     placeholder="Tanya SIMA apa saja..."
                     disabled={loading}
                     className="flex-1 max-h-24 min-h-[36px] p-2 text-xs text-slate-900 placeholder:text-slate-400 bg-transparent border-0 outline-none resize-none leading-relaxed"
@@ -535,7 +540,7 @@ export default function FloatingAssistant() {
                   <button
                     onClick={() => handleSendMessage()}
                     disabled={!inputMessage.trim() || loading}
-                    className="h-9 w-9 rounded-xl bg-[#167A4A] text-white flex items-center justify-center transition-all hover:bg-[#115E39] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed shrink-0 cursor-pointer"
+                    className="h-11 w-11 rounded-xl bg-[#167A4A] text-white flex items-center justify-center transition-all hover:bg-[#115E39] active:translate-y-0 disabled:opacity-40 disabled:cursor-not-allowed shrink-0 cursor-pointer"
                     title="Kirim Pesan"
                   >
                     <Send className="w-3.5 h-3.5" />
