@@ -179,6 +179,26 @@
   }
 }
 
+@keyframes sima-subtle-breathe {
+  0%, 100% {
+    transform: scale(1.00);
+  }
+  50% {
+    transform: scale(1.005);
+  }
+}
+
+.animate-sima-subtle-breathe {
+  animation: sima-subtle-breathe 4s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-sima-subtle-breathe {
+    animation: none !important;
+  }
+}
+
 @keyframes sim-spin-slow {
   to {
     transform: rotate(360deg);
