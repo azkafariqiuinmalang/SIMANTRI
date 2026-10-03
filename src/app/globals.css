@@ -1,5 +1,142 @@
 @import "tailwindcss";
 
+@theme {
+  --font-jakarta: var(--font-plus-jakarta-sans), sans-serif;
+  --font-editorial: var(--font-newsreader), Georgia, serif;
+  --font-manrope: var(--font-manrope), sans-serif;
+  --font-handwriting: var(--font-caveat), cursive;
+  --font-serif: var(--font-serif), Georgia, serif;
+
+  --color-simantri-50: #eef8f2;
+  --color-simantri-100: #d8f0e2;
+  --color-simantri-200: #b4e2c8;
+  --color-simantri-300: #7ed9a0;
+  --color-simantri-400: #34b36d;
+  --color-simantri-500: #167a4a;
+  --color-simantri-600: #12683e;
+  --color-simantri-700: #0e5b38;
+  --color-simantri-800: #0b472c;
+  --color-simantri-900: #07321f;
+
+  --color-shallot-50: #fdf2f4;
+  --color-shallot-100: #fbe6eb;
+  --color-shallot-200: #f7ced8;
+  --color-shallot-300: #f29db4;
+  --color-shallot-400: #e4668b;
+  --color-shallot-500: #a63c5d;
+  --color-shallot-600: #8c2e4c;
+  --color-shallot-700: #74233e;
+  --color-shallot-800: #601e34;
+  --color-shallot-900: #3f1021;
+}
+
+.hero-mask {
+  background: linear-gradient(180deg, rgba(7, 50, 31, 0.45) 0%, rgba(11, 71, 44, 0.6) 45%, rgba(6, 31, 20, 0.94) 100%);
+}
+
+.font-jakarta {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+}
+
+.font-editorial {
+  font-family: var(--font-newsreader), Georgia, serif;
+}
+.font-manrope {
+  font-family: var(--font-manrope), sans-serif;
+}
+.font-handwriting {
+  font-family: var(--font-caveat), cursive;
+}
+
+@keyframes scrollCards {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.carousel-container {
+  overflow: hidden;
+  padding-top: 2rem;
+  padding-bottom: 2.5rem;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  width: max-content;
+  animation: scrollCards 38s linear infinite;
+  will-change: transform;
+}
+
+.carousel-container:hover .carousel-track {
+  animation-play-state: paused;
+}
+
+.carousel-card {
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.34, 1.3, 0.64, 1), box-shadow 0.35s ease, border-color 0.35s ease !important;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.carousel-card:hover {
+  transform: translateY(-16px) scale(1.10) translateZ(0) !important;
+  z-index: 50 !important;
+  box-shadow: 0 25px 50px -12px rgba(23, 62, 45, 0.45) !important;
+  border-color: rgba(23, 62, 45, 0.35) !important;
+}
+
+.carousel-card-img {
+  transition: transform 0.6s ease-out !important;
+}
+
+.carousel-card:hover .carousel-card-img {
+  transform: scale(1.15) !important;
+}
+
+/* Enhanced Interactive Hover Effects for Buttons & Cards */
+.hover-btn-scale {
+  transition: all 0.25s cubic-bezier(0.34, 1.4, 0.64, 1) !important;
+  cursor: pointer;
+}
+
+.hover-btn-scale:hover {
+  transform: translateY(-3px) scale(1.05) !important;
+  box-shadow: 0 12px 28px -4px rgba(23, 62, 45, 0.25) !important;
+}
+
+.hover-btn-scale:active {
+  transform: translateY(0px) scale(0.97) !important;
+}
+
+.hover-btn-coral {
+  transition: all 0.25s cubic-bezier(0.34, 1.4, 0.64, 1) !important;
+  cursor: pointer;
+}
+
+.hover-btn-coral:hover {
+  transform: translateY(-3px) scale(1.06) !important;
+  background-color: #d04b47 !important;
+  box-shadow: 0 14px 30px -4px rgba(226, 92, 88, 0.45) !important;
+}
+
+.hover-btn-coral:active {
+  transform: translateY(0px) scale(0.97) !important;
+}
+
+.hover-card-lift {
+  transition: transform 0.3s cubic-bezier(0.34, 1.3, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease !important;
+  cursor: pointer;
+}
+
+.hover-card-lift:hover {
+  transform: translateY(-6px) scale(1.03) !important;
+  box-shadow: 0 20px 35px -8px rgba(23, 62, 45, 0.14) !important;
+}
+
 @keyframes sim-float {
   0%, 100% {
     transform: translateY(0) rotate(0deg);
@@ -132,6 +269,159 @@ html {
     --color-light-tan: #E5DFD6;
     --color-muted-gray: #8A8580;
     --color-error: #8C3A3A;
+
+    /* SIMANTRI application primitives */
+    --sim-green-50: #F2F8F3;
+    --sim-green-100: #E5F2E8;
+    --sim-green-200: #CDE6D3;
+    --sim-green-500: #26934A;
+    --sim-green-600: #157A3A;
+    --sim-green-700: #0E6330;
+    --sim-green-900: #083F25;
+    --sim-ink: #101828;
+    --sim-text: #344054;
+    --sim-muted: #667085;
+    --sim-line: #E4E9E5;
+    --sim-canvas: #F6F8F5;
+    --sim-surface: #FFFFFF;
+    --sim-rose-50: #FFF1F4;
+    --sim-rose-500: #C4487A;
+    --sim-amber-50: #FFF8E8;
+    --sim-amber-500: #C98216;
+    --sim-blue-50: #EFF7FF;
+    --sim-blue-600: #1769AA;
+
+    /* SIMANTRI semantic tokens */
+    --sim-color-primary: var(--sim-green-600);
+    --sim-color-primary-hover: var(--sim-green-700);
+    --sim-color-primary-soft: var(--sim-green-50);
+    --sim-color-background: var(--sim-canvas);
+    --sim-color-surface: var(--sim-surface);
+    --sim-color-foreground: var(--sim-ink);
+    --sim-color-body: var(--sim-text);
+    --sim-color-muted: var(--sim-muted);
+    --sim-color-border: var(--sim-line);
+    --sim-radius-control: 1rem;
+    --sim-radius-card: 1.5rem;
+    --sim-radius-panel: 2rem;
+    --sim-shadow-card: 0 10px 35px -24px rgba(13, 60, 36, 0.28);
+    --sim-shadow-float: 0 24px 70px -28px rgba(5, 42, 23, 0.42);
+  }
+}
+
+@layer components {
+  .sim-app {
+    background: var(--sim-color-background);
+    color: var(--sim-color-foreground);
+  }
+
+  .sim-page {
+    width: 100%;
+    max-width: 96rem;
+    margin-inline: auto;
+    padding: 1.25rem;
+  }
+
+  .sim-card {
+    border: 1px solid var(--sim-color-border);
+    border-radius: var(--sim-radius-card);
+    background: var(--sim-color-surface);
+    box-shadow: var(--sim-shadow-card);
+  }
+
+  .sim-card-flat {
+    border: 1px solid var(--sim-color-border);
+    border-radius: var(--sim-radius-card);
+    background: var(--sim-color-surface);
+  }
+
+  .sim-icon-tile {
+    display: inline-flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.875rem;
+    background: var(--sim-color-primary-soft);
+    color: var(--sim-color-primary);
+  }
+
+  .sim-button-primary {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--sim-radius-control);
+    background: var(--sim-color-primary);
+    padding: 0.7rem 1rem;
+    color: #fff;
+    font-weight: 700;
+    transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  }
+
+  .sim-button-primary:hover:not(:disabled) {
+    background: var(--sim-color-primary-hover);
+    box-shadow: 0 10px 24px -14px rgba(14, 99, 48, 0.75);
+  }
+
+  .sim-button-primary:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  .sim-button-primary:disabled {
+    cursor: not-allowed;
+    opacity: 0.48;
+  }
+
+  .sim-button-secondary {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid var(--sim-color-border);
+    border-radius: var(--sim-radius-control);
+    background: #fff;
+    padding: 0.7rem 1rem;
+    color: var(--sim-color-body);
+    font-weight: 650;
+    transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+  }
+
+  .sim-button-secondary:hover:not(:disabled) {
+    border-color: var(--sim-green-200);
+    background: var(--sim-green-50);
+    color: var(--sim-color-primary-hover);
+  }
+
+  .sim-focus {
+    outline: none;
+  }
+
+  .sim-focus:focus-visible {
+    box-shadow: 0 0 0 3px #fff, 0 0 0 6px rgba(21, 122, 58, 0.48);
+  }
+
+  .sim-muted {
+    color: var(--sim-color-muted);
+  }
+
+  .sim-tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (min-width: 640px) {
+    .sim-page {
+      padding: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .sim-page {
+      padding: 2rem;
+    }
   }
 }
 

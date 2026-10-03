@@ -59,5 +59,6 @@ env/
 *.pt
 .agents/
 skills-lock.json
+scratch/
 
 

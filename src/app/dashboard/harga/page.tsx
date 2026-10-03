@@ -1,28 +1,28 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
+import {
+  Activity,
+  ArrowDownRight,
+  ArrowUpRight,
+  Award,
+  BarChart3,
+  Calendar,
+  CheckCircle2,
+  Globe2,
+  Info,
+  Loader2,
+  MapPin,
+  Minus,
+  RefreshCw,
+  ShieldCheck,
+  Sparkles,
+  TrendingUp,
+} from 'lucide-react'
+import { MetricCard, PageHeading, PriceLineChart } from '@/components/dashboard/DashboardUI'
 import { createClient } from '@/lib/supabase/client'
 import type { MarketPrice } from '@/types/database'
-import {
-  TrendingUp,
-  Award,
-  ShieldCheck,
-  Calendar,
-  Loader2,
-  RefreshCw,
-  Info,
-  Bot,
-  Globe,
-  ArrowUpRight,
-  ArrowDownRight,
-  Minus,
-  Sparkles,
-  MapPin,
-  CheckCircle2,
-  Activity,
-  Layers,
-} from 'lucide-react'
 
 interface RegionalPriceItem {
   id: string
@@ -36,6 +36,14 @@ interface RegionalPriceItem {
   percentage: number
 }
 
+interface Forecast {
+  prediction_date: string
+  predicted_price: number
+  latest_market_price: number
+  mape_at_training: number
+  model_version: string
+}
+
 export default function PriceForecastPage() {
   const [loading, setLoading] = useState(true)
   const [predicting, setPredicting] = useState(false)
@@ -44,50 +52,29 @@ export default function PriceForecastPage() {
   const [history, setHistory] = useState<MarketPrice[]>([])
   const [regionalPrices, setRegionalPrices] = useState<RegionalPriceItem[]>([])
   const [loadingRegional, setLoadingRegional] = useState(false)
-  const [hoveredPoint, setHoveredPoint] = useState<{
-    x: number
-    y: number
-    tanggal: string
-    harga: number
-    source: string
-  } | null>(null)
-
-  const [forecast, setForecast] = useState<{
-    prediction_date: string
-    predicted_price: number
-    latest_market_price: number
-    mape_at_training: number
-    model_version: string
-  } | null>(null)
+  const [forecast, setForecast] = useState<Forecast | null>(null)
 
   const loadData = useCallback(async () => {
     setLoading(true)
     const supabase = createClient()
-
-    // 1. Fetch 30 hari riwayat harga TERBARU (Urutkan Descending lalu Reverse)
-    const { data: priceData, error } = await supabase
+    const { data, error } = await supabase
       .from('market_price')
       .select('id, tanggal, harga, source, created_at')
       .order('tanggal', { ascending: false })
       .limit(30)
 
-    if (!error && priceData && priceData.length > 0) {
-      setHistory([...priceData].reverse() as MarketPrice[])
-    }
-
+    if (!error && data) setHistory([...data].reverse() as MarketPrice[])
     setLoading(false)
   }, [])
 
   const loadRegionalPrices = useCallback(async () => {
     setLoadingRegional(true)
     try {
-      const res = await fetch('/api/market/regional')
-      const json = await res.json()
-      if (json.data) {
-        setRegionalPrices(json.data)
-      }
-    } catch (e) {
-      console.error('Error fetching regional prices:', e)
+      const response = await fetch('/api/market/regional')
+      const json = await response.json()
+      if (json.data) setRegionalPrices(json.data)
+    } catch (error) {
+      console.error('Error fetching regional prices:', error)
     } finally {
       setLoadingRegional(false)
     }
@@ -97,586 +84,97 @@ export default function PriceForecastPage() {
     setSelectedHorizon(daysAhead)
     setPredicting(true)
     try {
-      const targetDate = new Date(Date.now() + daysAhead * 86400000)
-        .toISOString()
-        .split('T')[0]
-
-      const res = await fetch('/api/predict-price', {
+      const targetDate = new Date(Date.now() + daysAhead * 86400000).toISOString().split('T')[0]
+      const response = await fetch('/api/predict-price', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ target_date: targetDate }),
       })
-
-      const json = await res.json()
-      if (json.data) {
-        setForecast(json.data)
-      }
-    } catch (e) {
-      console.error('Error generating forecast:', e)
+      const json = await response.json()
+      if (json.data) setForecast(json.data)
+    } catch (error) {
+      console.error('Error generating forecast:', error)
     } finally {
       setPredicting(false)
     }
   }
 
   useEffect(() => {
-    loadData().then(() => {
-      handlePredict(1)
-    })
-    loadRegionalPrices()
+    void (async () => {
+      await loadData()
+      await handlePredict(1)
+      await loadRegionalPrices()
+    })()
   }, [loadData, loadRegionalPrices])
 
-  // Hitung Statistik 30 Hari
-  const prices = history.map((h) => Number(h.harga))
-  const latestItem = history.length > 0 ? history[history.length - 1] : null
-  const latestPrice = latestItem ? Number(latestItem.harga) : 15700
-  const avgPrice = prices.length > 0 ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 15300
-  const minPriceVal = prices.length > 0 ? Math.min(...prices) : 15000
-  const maxPriceVal = prices.length > 0 ? Math.max(...prices) : 16000
+  const latestPrice = history.at(-1)?.harga ? Number(history.at(-1)?.harga) : forecast?.latest_market_price ?? null
+  const pricePoints = useMemo(() => history.map((item) => ({
+    label: new Date(item.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }),
+    value: Number(item.harga),
+    source: item.source,
+  })), [history])
+  const stats = useMemo(() => {
+    const prices = history.map((item) => Number(item.harga))
+    if (prices.length === 0) return null
+    return { min: Math.min(...prices), max: Math.max(...prices), average: Math.round(prices.reduce((sum, value) => sum + value, 0) / prices.length) }
+  }, [history])
+  const change = latestPrice && forecast ? ((forecast.predicted_price - latestPrice) / latestPrice) * 100 : null
 
-  // SVG Line Chart Visualizer
-  const renderChart = () => {
-    if (history.length < 2) {
-      return (
-        <div className="py-16 text-center text-[#8A8580] bg-[#FBF4EE] rounded-2xl border border-dashed border-[#E5DFD6]">
-          <Info className="w-8 h-8 mx-auto mb-2 text-[#8A8580]" />
-          <p className="text-xs sm:text-sm font-medium text-[#4A3A32]">
-            Data harga historis belum mencukupi untuk grafik tren.
-          </p>
-          <p className="text-[11px] text-[#8A8580] mt-1">
-            Data akan terisi secara otomatis melalui integrasi scraper harian PIHPS.
-          </p>
-        </div>
-      )
-    }
-
-    const minPrice = Math.min(...prices) * 0.96
-    const maxPrice = Math.max(...prices) * 1.04
-    const height = 240
-    const width = 720
-    const paddingLeft = 50
-    const paddingRight = 30
-    const paddingTop = 30
-    const paddingBottom = 40
-
-    const chartWidth = width - paddingLeft - paddingRight
-    const chartHeight = height - paddingTop - paddingBottom
-
-    const points = history.map((h, i) => {
-      const x = paddingLeft + (i / (history.length - 1)) * chartWidth
-      const y =
-        paddingTop +
-        chartHeight -
-        ((Number(h.harga) - minPrice) / (maxPrice - minPrice || 1)) * chartHeight
-      return { x, y, data: h }
-    })
-
-    const pathData = `M ${points.map((p) => `${p.x},${p.y}`).join(' L ')}`
-    const areaData = `${pathData} L ${points[points.length - 1].x},${height - paddingBottom} L ${points[0].x},${height - paddingBottom} Z`
-
-    return (
-      <div className="relative w-full">
-        {/* Tooltip Popup on Hover */}
-        {hoveredPoint && (
-          <div
-            className="absolute z-30 pointer-events-none -translate-x-1/2 -translate-y-full px-3 py-2 bg-[#0E080A] text-white rounded-xl shadow-xl text-xs space-y-0.5 border border-white/20 transition-all duration-150 animate-fadeIn"
-            style={{
-              left: `${(hoveredPoint.x / width) * 100}%`,
-              top: `${(hoveredPoint.y / height) * 100 - 12}%`,
-            }}
-          >
-            <p className="text-[10px] text-[#E6A15C] font-mono font-semibold">
-              {new Date(hoveredPoint.tanggal).toLocaleDateString('id-ID', {
-                weekday: 'short',
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric',
-              })}
-            </p>
-            <p className="font-bold text-sm">
-              Rp {Number(hoveredPoint.harga).toLocaleString('id-ID')}
-              <span className="text-[10px] text-white/70 font-normal">/kg</span>
-            </p>
-            <p className="text-[9px] text-white/60">
-              Sumber: {hoveredPoint.source === 'scraping' ? 'PIHPS BI' : 'Input Admin'}
-            </p>
-          </div>
-        )}
-
-        <div className="w-full overflow-x-auto custom-scrollbar pb-1">
-          <div className="min-w-[600px]">
-            <svg
-              viewBox={`0 0 ${width} ${height}`}
-              className="w-full h-56 sm:h-64"
-              onMouseLeave={() => setHoveredPoint(null)}
-            >
-              {/* Grid Lines */}
-              {[0, 0.33, 0.66, 1].map((ratio, idx) => {
-                const y = paddingTop + chartHeight * ratio
-                const val = maxPrice - (maxPrice - minPrice) * ratio
-                return (
-                  <g key={idx}>
-                    <line
-                      x1={paddingLeft}
-                      y1={y}
-                      x2={width - paddingRight}
-                      y2={y}
-                      stroke="#E5DFD6"
-                      strokeDasharray={idx === 3 ? '0' : '4'}
-                      strokeWidth="1"
-                    />
-                    <text
-                      x={paddingLeft - 8}
-                      y={y + 3}
-                      textAnchor="end"
-                      className="text-[10px] fill-[#8A8580] font-mono"
-                    >
-                      {Math.round(val / 100) * 100}
-                    </text>
-                  </g>
-                )
-              })}
-
-              {/* Area Gradient */}
-              <defs>
-                <linearGradient id="priceGlowGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#C4487A" stopOpacity="0.35" />
-                  <stop offset="60%" stopColor="#C4487A" stopOpacity="0.1" />
-                  <stop offset="100%" stopColor="#C4487A" stopOpacity="0.0" />
-                </linearGradient>
-              </defs>
-
-              {/* Area Fill */}
-              <path d={areaData} fill="url(#priceGlowGradient)" />
-
-              {/* Trend Line */}
-              <path
-                d={pathData}
-                fill="none"
-                stroke="#C4487A"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-
-              {/* Interactive Data Points */}
-              {points.map((p, i) => {
-                const isLast = i === points.length - 1
-                return (
-                  <g
-                    key={p.data.id || i}
-                    className="cursor-pointer transition-transform"
-                    onMouseEnter={() =>
-                      setHoveredPoint({
-                        x: p.x,
-                        y: p.y,
-                        tanggal: p.data.tanggal,
-                        harga: Number(p.data.harga),
-                        source: p.data.source,
-                      })
-                    }
-                  >
-                    {/* Outer pulse for latest item */}
-                    {isLast && (
-                      <circle
-                        cx={p.x}
-                        cy={p.y}
-                        r="8"
-                        fill="#C4487A"
-                        fillOpacity="0.25"
-                        className="animate-ping"
-                      />
-                    )}
-                    <circle
-                      cx={p.x}
-                      cy={p.y}
-                      r={isLast ? '5.5' : '3.5'}
-                      fill={isLast ? '#C4487A' : '#FFFFFF'}
-                      stroke={isLast ? '#FFFFFF' : '#4A1F2B'}
-                      strokeWidth="2"
-                    />
-                  </g>
-                )
-              })}
-            </svg>
-
-            {/* Bottom Dates and Statistics Bar */}
-            <div className="flex justify-between items-center text-[11px] text-[#8A8580] px-3 pt-2 border-t border-[#E5DFD6]">
-              <span className="font-semibold text-[#4A3A32]">
-                {history[0]?.tanggal
-                  ? new Date(history[0].tanggal).toLocaleDateString('id-ID', {
-                      day: 'numeric',
-                      month: 'short',
-                      year: 'numeric',
-                    })
-                  : ''}
-              </span>
-              <div className="flex items-center gap-4 text-xs">
-                <span>
-                  Min: <strong className="text-[#3A5A40]">Rp {minPriceVal.toLocaleString('id-ID')}</strong>
-                </span>
-                <span>
-                  Rata-rata: <strong className="text-[#4A3A32]">Rp {avgPrice.toLocaleString('id-ID')}</strong>
-                </span>
-                <span>
-                  Max: <strong className="text-[#C4487A]">Rp {maxPriceVal.toLocaleString('id-ID')}</strong>
-                </span>
-              </div>
-              <span className="font-bold text-[#C4487A] flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-[#C4487A] animate-pulse"></span>
-                Hari Ini:{' '}
-                {history[history.length - 1]?.tanggal
-                  ? new Date(history[history.length - 1].tanggal).toLocaleDateString('id-ID', {
-                      day: 'numeric',
-                      month: 'short',
-                      year: 'numeric',
-                    })
-                  : ''}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
+  const refreshAll = () => {
+    void loadData()
+    void loadRegionalPrices()
+    void handlePredict(selectedHorizon)
   }
 
   return (
-    <div className="flex-1 p-3 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto text-[#0E080A]">
-      {/* HEADER ACTION BAR */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl border border-[#E5DFD6] shadow-sm">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-mono font-semibold uppercase text-[#C4487A] tracking-wider">
-              Market Intelligence
-            </span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#3A5A40]/10 text-[#3A5A40] font-mono font-semibold flex items-center gap-1">
-              <Globe className="w-3 h-3" />
-              Live PIHPS BI
-            </span>
-          </div>
-          <h1 className="text-xl sm:text-2xl font-serif font-bold text-[#0E080A] mt-0.5">
-            Prakiraan & Radar Harga Bawang Merah
-          </h1>
-          <p className="text-xs text-[#8A8580] mt-1">
-            Data harga produsen PIHPS Bank Indonesia + Sinyal cuaca harian Nganjuk + Model XGBoost.
-          </p>
-        </div>
+    <main className="sim-page mx-auto w-full max-w-[1440px] space-y-6">
+      <PageHeading
+        title="Prediksi Harga"
+        description="Pantau tren harga bawang merah dan jalankan prakiraan pada target tanggal yang tersedia."
+        icon={TrendingUp}
+        action={<div className="flex flex-wrap gap-2"><Link href="/dashboard/chat" className="sim-button-secondary"><Sparkles className="h-4 w-4" aria-hidden="true" />Tanya SIMA</Link><button type="button" onClick={refreshAll} disabled={loading || predicting} className="sim-button-secondary"><RefreshCw className={`h-4 w-4 ${loading || predicting ? 'animate-spin' : ''}`} aria-hidden="true" />Segarkan</button></div>}
+      />
 
-        <div className="flex items-center gap-2 self-start sm:self-auto">
-          <Link
-            href="/dashboard/chat"
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#C4487A] bg-[#C4487A]/10 hover:bg-[#C4487A]/20 rounded-xl border border-[#C4487A]/25 transition-colors"
-          >
-            <Bot className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Tanya SIMA AI</span>
-          </Link>
-          <button
-            onClick={() => {
-              loadData()
-              loadRegionalPrices()
-              handlePredict(selectedHorizon)
-            }}
-            disabled={loading || predicting}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-[#4A3A32] bg-[#FBF4EE] hover:bg-[#E5DFD6] rounded-xl border border-[#E5DFD6] transition-colors"
-          >
-            <RefreshCw
-              className={`w-3.5 h-3.5 ${loading || predicting ? 'animate-spin' : ''}`}
-            />
-            <span>Segarkan</span>
-          </button>
-        </div>
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <MetricCard label="Harga terbaru" value={latestPrice ? `Rp ${latestPrice.toLocaleString('id-ID')}/kg` : 'Belum tersedia'} hint="Catatan pasar terbaru yang tersedia" icon={BarChart3} tone="green" />
+        <MetricCard label={`Prediksi H+${selectedHorizon}`} value={forecast ? `Rp ${forecast.predicted_price.toLocaleString('id-ID')}/kg` : 'Belum tersedia'} hint={forecast ? new Date(forecast.prediction_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Jalankan prediksi'} icon={Calendar} tone="green" />
+        <MetricCard label="Perubahan target" value={change === null ? '—' : `${change >= 0 ? '+' : ''}${change.toFixed(1)}%`} hint="Dibanding harga terbaru" icon={change !== null && change < 0 ? ArrowDownRight : ArrowUpRight} tone={change !== null && change < 0 ? 'rose' : 'green'} />
+        <MetricCard label="MAPE saat training" value={forecast && Number.isFinite(forecast.mape_at_training) ? `${forecast.mape_at_training.toFixed(1)}%` : '—'} hint={forecast?.model_version ? `Model ${forecast.model_version}` : 'Dikirim oleh endpoint prediksi'} icon={Award} tone="amber" />
       </div>
 
-      {/* TABS & TRANSPARENCY PILLS */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        {/* Navigation Tabs */}
-        <div className="flex items-center gap-1 p-1 bg-white rounded-xl border border-[#E5DFD6] w-fit shadow-sm">
-          <button
-            onClick={() => setActiveTab('forecast')}
-            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 ${
-              activeTab === 'forecast'
-                ? 'bg-[#C4487A] text-white shadow-sm'
-                : 'text-[#4A3A32] hover:bg-[#FBF4EE]'
-            }`}
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Prediksi Harga Nganjuk</span>
-          </button>
-          <button
-            onClick={() => setActiveTab('radar')}
-            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 ${
-              activeTab === 'radar'
-                ? 'bg-[#2A5A70] text-white shadow-sm'
-                : 'text-[#4A3A32] hover:bg-[#FBF4EE]'
-            }`}
-          >
-            <Globe className="w-3.5 h-3.5" />
-            <span>Radar Pasar Nasional ({regionalPrices.length} Wilayah)</span>
-          </button>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex rounded-2xl border border-[var(--sim-color-border)] bg-white p-1 shadow-sm" role="tablist" aria-label="Tampilan harga">
+          <button type="button" role="tab" aria-selected={activeTab === 'forecast'} onClick={() => setActiveTab('forecast')} className={`min-h-11 rounded-xl px-4 text-sm font-semibold transition ${activeTab === 'forecast' ? 'bg-[var(--sim-color-primary)] text-white' : 'text-[var(--sim-color-body)] hover:bg-[var(--sim-green-50)]'}`}><Sparkles className="mr-2 inline h-4 w-4" aria-hidden="true" />Prediksi Nganjuk</button>
+          <button type="button" role="tab" aria-selected={activeTab === 'radar'} onClick={() => setActiveTab('radar')} className={`min-h-11 rounded-xl px-4 text-sm font-semibold transition ${activeTab === 'radar' ? 'bg-[var(--sim-green-900)] text-white' : 'text-[var(--sim-color-body)] hover:bg-[var(--sim-green-50)]'}`}><Globe2 className="mr-2 inline h-4 w-4" aria-hidden="true" />Radar wilayah</button>
         </div>
-
-        {/* Transparency Badges */}
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-[#3A5A40]/10 text-[#3A5A40] border border-[#3A5A40]/20">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            Produsen PIHPS + Open-Meteo
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-[#E6A15C]/15 text-[#3D261A] border border-[#E6A15C]/30">
-            <Award className="w-3.5 h-3.5 text-[#E6A15C]" />
-            Akurasi Model: MAPE ~3.0%
-          </span>
-        </div>
+        <div className="flex flex-wrap gap-2 text-xs text-[var(--sim-color-muted)]"><span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--sim-green-100)] bg-[var(--sim-green-50)] px-3 py-1.5"><ShieldCheck className="h-3.5 w-3.5 text-[var(--sim-color-primary)]" aria-hidden="true" />Data produsen PIHPS</span><span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--sim-amber-500)]/30 bg-[var(--sim-amber-50)] px-3 py-1.5"><Info className="h-3.5 w-3.5 text-[var(--sim-amber-500)]" aria-hidden="true" />Prediksi satu target tanggal</span></div>
       </div>
 
-      {/* TAB 1: FORECAST & LOCAL TREND */}
-      {activeTab === 'forecast' && (
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Forecast Card */}
-            <div className="lg:col-span-1">
-              <div className="card-standard p-5 sm:p-6 shadow-sm border-2 border-[#C4487A]/30 bg-gradient-to-b from-white to-[#FBF4EE]/50 flex flex-col justify-between h-full">
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-bold tracking-wider text-[#C4487A] uppercase font-mono">
-                      Estimasi Harga Panen Nganjuk
-                    </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-[#3A5A40]/15 text-[#3A5A40] font-semibold">
-                      XGBoost v1
-                    </span>
-                  </div>
+      {activeTab === 'forecast' ? (
+        <div className="grid gap-4 xl:grid-cols-[300px_minmax(0,1fr)]">
+          <section className="sim-card p-5 sm:p-6" aria-labelledby="forecast-settings">
+            <div className="flex items-center gap-3"><div className="sim-icon-tile"><Activity className="h-5 w-5" aria-hidden="true" /></div><div><h2 id="forecast-settings" className="font-bold text-[var(--sim-color-foreground)]">Pengaturan prediksi</h2><p className="text-xs text-[var(--sim-color-muted)]">Pilih satu target yang ingin dihitung.</p></div></div>
+            <div className="mt-6 space-y-3"><p className="text-sm font-semibold text-[var(--sim-color-body)]">Target periode</p><div className="grid gap-2">{[1, 3, 7].map((days) => <button key={days} type="button" onClick={() => handlePredict(days)} disabled={predicting} className={`flex min-h-12 items-center justify-between rounded-xl border px-4 text-sm font-semibold transition ${selectedHorizon === days ? 'border-[var(--sim-color-primary)] bg-[var(--sim-green-50)] text-[var(--sim-color-primary)]' : 'border-[var(--sim-color-border)] text-[var(--sim-color-body)] hover:bg-[var(--sim-canvas)]'}`}><span>H+{days}</span><span className="text-xs font-normal text-[var(--sim-color-muted)]">{days === 1 ? 'Besok' : `${days} hari`}</span></button>)}</div></div>
+            {predicting && <div className="mt-5 flex items-center gap-2 rounded-xl bg-[var(--sim-green-50)] p-3 text-xs text-[var(--sim-color-body)]" role="status"><Loader2 className="h-4 w-4 animate-spin text-[var(--sim-color-primary)]" aria-hidden="true" />Menghitung prediksi...</div>}
+            <div className="mt-6 rounded-xl border border-[var(--sim-color-border)] bg-[var(--sim-canvas)] p-4 text-xs leading-5 text-[var(--sim-color-muted)]"><p className="font-semibold text-[var(--sim-color-body)]">Catatan kemampuan</p><p className="mt-1">Endpoint saat ini mengembalikan satu target tanggal per permintaan. Tidak ada seri 30/90 hari yang dibuat di frontend.</p></div>
+          </section>
 
-                  {predicting ? (
-                    <div className="py-12 text-center">
-                      <Loader2 className="w-8 h-8 animate-spin text-[#C4487A] mx-auto mb-2" />
-                      <p className="text-xs text-[#4A3A32]">
-                        Menghitung inferensi 23 fitur XGBoost...
-                      </p>
-                    </div>
-                  ) : forecast ? (
-                    <div>
-                      <div className="text-xs text-[#8A8580] flex items-center gap-1.5 mb-2">
-                        <Calendar className="w-3.5 h-3.5 text-[#C4487A]" />
-                        <span>Target Ramalan:</span>
-                        <strong className="text-[#0E080A]">
-                          {new Date(forecast.prediction_date).toLocaleDateString('id-ID', {
-                            weekday: 'short',
-                            day: 'numeric',
-                            month: 'short',
-                            year: 'numeric',
-                          })}
-                        </strong>
-                      </div>
+          <section className="sim-card min-w-0 p-5 sm:p-6" aria-labelledby="price-trend">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"><div><h2 id="price-trend" className="flex items-center gap-2 text-lg font-bold text-[var(--sim-color-foreground)]"><TrendingUp className="h-5 w-5 text-[var(--sim-color-primary)]" aria-hidden="true" />Tren harga historis</h2><p className="mt-1 text-sm text-[var(--sim-color-muted)]">Harga riil yang tersedia dari 30 catatan terakhir.</p></div><span className="rounded-full bg-[var(--sim-green-50)] px-3 py-1.5 text-xs font-semibold text-[var(--sim-color-primary)]">{history.length} catatan</span></div>
+            <div className="mt-5"><PriceLineChart points={pricePoints} height={280} /></div>
+            {stats && <div className="mt-4 grid grid-cols-3 gap-2 border-t border-[var(--sim-color-border)] pt-4 text-center text-xs"><div><p className="text-[var(--sim-color-muted)]">Terendah</p><p className="mt-1 font-bold text-[var(--sim-color-foreground)]">Rp {stats.min.toLocaleString('id-ID')}</p></div><div><p className="text-[var(--sim-color-muted)]">Rata-rata</p><p className="mt-1 font-bold text-[var(--sim-color-foreground)]">Rp {stats.average.toLocaleString('id-ID')}</p></div><div><p className="text-[var(--sim-color-muted)]">Tertinggi</p><p className="mt-1 font-bold text-[var(--sim-color-foreground)]">Rp {stats.max.toLocaleString('id-ID')}</p></div></div>}
+          </section>
 
-                      <div className="my-3">
-                        <div className="text-3xl sm:text-4xl font-serif font-bold text-[#0E080A]">
-                          Rp {forecast.predicted_price.toLocaleString('id-ID')}
-                          <span className="text-xs font-sans font-normal text-[#8A8580] ml-1">
-                            / Kg
-                          </span>
-                        </div>
-
-                        <div className="mt-4 p-3.5 rounded-xl bg-white/90 border border-[#E5DFD6] space-y-2 text-xs shadow-sm">
-                          <div className="flex justify-between items-center text-[#4A3A32]">
-                            <span className="text-[#8A8580]">Harga Produsen Hari Ini:</span>
-                            <strong className="text-[#0E080A] font-bold">
-                              Rp {latestPrice.toLocaleString('id-ID')}
-                            </strong>
-                          </div>
-                          <div className="flex justify-between items-center text-[#4A3A32]">
-                            <span className="text-[#8A8580]">Ekspektasi Perubahan:</span>
-                            <span
-                              className={`font-bold flex items-center gap-1 ${
-                                forecast.predicted_price >= latestPrice
-                                  ? 'text-[#3A5A40]'
-                                  : 'text-[#8C3A3A]'
-                              }`}
-                            >
-                              {forecast.predicted_price >= latestPrice ? (
-                                <ArrowUpRight className="w-3.5 h-3.5" />
-                              ) : (
-                                <ArrowDownRight className="w-3.5 h-3.5" />
-                              )}
-                              {forecast.predicted_price >= latestPrice ? '+' : ''}
-                              Rp {(forecast.predicted_price - latestPrice).toLocaleString('id-ID')}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="py-8 text-center text-xs text-[#8A8580]">
-                      Belum ada prakiraan yang dimuat.
-                    </div>
-                  )}
-                </div>
-
-                {/* Target Horizon Buttons */}
-                <div className="pt-4 border-t border-[#E5DFD6] space-y-2 mt-4">
-                  <label className="text-xs font-semibold text-[#4A3A32] block">
-                    Pilih Target Periode Hari:
-                  </label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {[
-                      { label: 'Besok (H+1)', days: 1 },
-                      { label: '+3 Hari', days: 3 },
-                      { label: '+7 Hari', days: 7 },
-                    ].map((item) => (
-                      <button
-                        key={item.days}
-                        onClick={() => handlePredict(item.days)}
-                        className={`py-2 px-2 text-xs font-semibold rounded-xl border transition-all ${
-                          selectedHorizon === item.days
-                            ? 'bg-[#C4487A] text-white border-[#C4487A] shadow-sm'
-                            : 'bg-white hover:bg-[#FBF4EE] text-[#4A3A32] border-[#E5DFD6]'
-                        }`}
-                      >
-                        {item.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Trend Chart Card */}
-            <div className="lg:col-span-2">
-              <div className="card-standard p-5 sm:p-6 shadow-sm border border-[#E5DFD6] bg-white flex flex-col justify-between">
-                <div>
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-lg bg-[#C4487A]/15 text-[#C4487A] flex items-center justify-center">
-                        <TrendingUp className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <h2 className="text-base sm:text-lg font-serif font-bold text-[#0E080A]">
-                          Grafik Tren Harga Historis (Jawa Timur / Nganjuk)
-                        </h2>
-                        <p className="text-[11px] text-[#8A8580]">
-                          Data riil 30 hari terakhir dari PIHPS Bank Indonesia (Produsen Sedang)
-                        </p>
-                      </div>
-                    </div>
-                    <span className="text-xs font-mono font-semibold text-[#C4487A] bg-[#C4487A]/10 px-2.5 py-1 rounded-lg border border-[#C4487A]/20 self-start sm:self-auto">
-                      30 Hari Terakhir
-                    </span>
-                  </div>
-
-                  {renderChart()}
-                </div>
-              </div>
-            </div>
-          </div>
+          <section className="sim-card p-5 sm:p-6 xl:col-span-2" aria-labelledby="forecast-summary"><div className="flex items-center gap-3"><div className="sim-icon-tile"><Calendar className="h-5 w-5" aria-hidden="true" /></div><div><h2 id="forecast-summary" className="font-bold text-[var(--sim-color-foreground)]">Ringkasan target</h2><p className="text-xs text-[var(--sim-color-muted)]">Hasil dari permintaan prediksi terakhir.</p></div></div><div className="mt-5 grid gap-4 md:grid-cols-3">{[['Harga terbaru', latestPrice ? `Rp ${latestPrice.toLocaleString('id-ID')}/kg` : 'Belum tersedia'], ['Target tanggal', forecast ? new Date(forecast.prediction_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Belum tersedia'], ['Harga target', forecast ? `Rp ${forecast.predicted_price.toLocaleString('id-ID')}/kg` : 'Belum tersedia']].map(([label, value]) => <div key={label} className="rounded-2xl bg-[var(--sim-canvas)] p-4"><p className="text-xs text-[var(--sim-color-muted)]">{label}</p><p className="mt-1 text-lg font-bold text-[var(--sim-color-foreground)]">{value}</p></div>)}</div></section>
         </div>
+      ) : (
+        <section className="space-y-4" aria-labelledby="regional-title">
+          <div className="sim-card flex flex-col gap-3 bg-[var(--sim-green-50)] p-5 sm:flex-row sm:items-center sm:justify-between"><div><h2 id="regional-title" className="flex items-center gap-2 font-bold text-[var(--sim-green-900)]"><Globe2 className="h-5 w-5" aria-hidden="true" />Radar harga wilayah</h2><p className="mt-1 text-sm text-[var(--sim-color-body)]">Bandingkan data produsen wilayah yang dikembalikan endpoint regional.</p></div>{latestPrice && <span className="rounded-full bg-white px-3 py-2 text-xs font-bold text-[var(--sim-color-primary)]">Basis Nganjuk: Rp {latestPrice.toLocaleString('id-ID')}/kg</span>}</div>
+          {loadingRegional ? <div className="sim-card flex min-h-56 items-center justify-center"><Loader2 className="h-7 w-7 animate-spin text-[var(--sim-color-primary)]" aria-label="Memuat radar" /></div> : regionalPrices.length === 0 ? <div className="sim-card flex min-h-56 flex-col items-center justify-center text-center"><Info className="h-7 w-7 text-[var(--sim-color-muted)]" aria-hidden="true" /><p className="mt-2 text-sm font-semibold text-[var(--sim-color-body)]">Data harga regional belum tersedia.</p></div> : <div className="sim-card overflow-hidden p-0"><div className="overflow-x-auto"><table className="min-w-[720px] w-full text-left text-sm"><thead className="bg-[var(--sim-canvas)] text-xs uppercase tracking-wide text-[var(--sim-color-muted)]"><tr><th className="px-5 py-4">Provinsi / wilayah</th><th className="px-5 py-4">Harga produsen</th><th className="px-5 py-4">Selisih vs Nganjuk</th><th className="px-5 py-4">Perubahan</th><th className="px-5 py-4">Observasi</th></tr></thead><tbody className="divide-y divide-[var(--sim-color-border)]">{regionalPrices.map((item) => { const diff = Number(item.harga) - (latestPrice ?? 0); const isJatim = item.prov_id === 16 || item.provinsi.toLowerCase().includes('jawa timur'); return <tr key={item.id} className="transition hover:bg-[var(--sim-green-50)]/50"><td className="px-5 py-4 font-semibold text-[var(--sim-color-foreground)]"><span className="inline-flex items-center gap-2"><MapPin className={`h-4 w-4 ${isJatim ? 'text-[var(--sim-color-primary)]' : 'text-[var(--sim-color-muted)]'}`} aria-hidden="true" />{item.provinsi}{isJatim && <span className="rounded-full bg-[var(--sim-green-100)] px-2 py-0.5 text-[10px] text-[var(--sim-color-primary)]">Basis</span>}</span></td><td className="px-5 py-4 font-bold text-[var(--sim-color-foreground)]">Rp {Number(item.harga).toLocaleString('id-ID')}</td><td className="px-5 py-4 text-xs">{isJatim ? <span className="text-[var(--sim-color-muted)]">—</span> : diff > 0 ? <span className="inline-flex items-center gap-1 font-semibold text-[var(--sim-color-primary)]"><ArrowUpRight className="h-4 w-4" aria-hidden="true" />+Rp {diff.toLocaleString('id-ID')}</span> : diff < 0 ? <span className="inline-flex items-center gap-1 font-semibold text-red-700"><ArrowDownRight className="h-4 w-4" aria-hidden="true" />-Rp {Math.abs(diff).toLocaleString('id-ID')}</span> : <span className="inline-flex items-center gap-1 text-[var(--sim-color-muted)]"><Minus className="h-4 w-4" aria-hidden="true" />Setara</span>}</td><td className="px-5 py-4 text-xs font-semibold text-[var(--sim-color-body)]">{item.harga_diff || 'Rp0'} ({item.percentage || 0}%)</td><td className="px-5 py-4 text-xs text-[var(--sim-color-muted)]">{new Date(item.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}</td></tr> })}</tbody></table></div></div>}
+        </section>
       )}
 
-      {/* TAB 2: REGIONAL MARKET RADAR (ARBITRASE & KOMPARASI) */}
-      {activeTab === 'radar' && (
-        <div className="space-y-6">
-          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#2A5A70]/10 via-white to-[#2A5A70]/5 border border-[#2A5A70]/25 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
-            <div className="space-y-1">
-              <h3 className="text-sm sm:text-base font-serif font-bold text-[#0E080A] flex items-center gap-2">
-                <Globe className="w-4 h-4 text-[#2A5A70]" />
-                Radar Harga Antar Wilayah & Peluang Distribusi
-              </h3>
-              <p className="text-xs text-[#4A3A32] leading-relaxed">
-                Bandingkan harga Produsen di Jawa Timur (Nganjuk) dengan pasar wilayah lain untuk melihat disparitas harga dan potensi pengiriman panen ke luar daerah.
-              </p>
-            </div>
-            <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-[#2A5A70] text-white shrink-0">
-              Basis Jatim: Rp {latestPrice.toLocaleString('id-ID')}/Kg
-            </span>
-          </div>
-
-          {loadingRegional ? (
-            <div className="py-16 text-center card-standard bg-white">
-              <Loader2 className="w-8 h-8 animate-spin text-[#2A5A70] mx-auto mb-2" />
-              <p className="text-xs text-[#4A3A32]">Memuat data radar harga seluruh provinsi...</p>
-            </div>
-          ) : regionalPrices.length === 0 ? (
-            <div className="py-12 text-center text-[#8A8580] bg-white rounded-2xl border border-dashed border-[#E5DFD6]">
-              <Info className="w-8 h-8 mx-auto mb-2 text-[#8A8580]" />
-              <p className="text-xs sm:text-sm font-medium text-[#4A3A32]">
-                Data harga regional belum tersedia.
-              </p>
-            </div>
-          ) : (
-            <div className="card-standard p-5 sm:p-6 border border-[#E5DFD6] overflow-hidden bg-white shadow-sm">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs sm:text-sm">
-                  <thead>
-                    <tr className="border-b border-[#E5DFD6] text-[#8A8580] uppercase tracking-wider text-[11px] bg-[#FBF4EE]">
-                      <th className="py-3 px-4 rounded-l-lg">Provinsi / Wilayah</th>
-                      <th className="py-3 px-4">Harga Produsen</th>
-                      <th className="py-3 px-4">Selisih vs Jatim (Nganjuk)</th>
-                      <th className="py-3 px-4">Perubahan Harian</th>
-                      <th className="py-3 px-4 rounded-r-lg">Tanggal Observasi</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#E5DFD6]">
-                    {regionalPrices.map((item) => {
-                      const diffWithJatim = Number(item.harga) - latestPrice
-                      const isJatim = item.prov_id === 16 || item.provinsi.toLowerCase().includes('jawa timur')
-
-                      return (
-                        <tr
-                          key={item.id}
-                          className={`hover:bg-[#FBF4EE]/50 transition-colors ${
-                            isJatim ? 'bg-[#C4487A]/5 font-semibold' : ''
-                          }`}
-                        >
-                          <td className="py-3 px-4 font-semibold text-[#0E080A] flex items-center gap-2">
-                            <MapPin className={`w-3.5 h-3.5 ${isJatim ? 'text-[#C4487A]' : 'text-[#8A8580]'}`} />
-                            <span>{item.provinsi}</span>
-                            {isJatim && (
-                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#C4487A] text-white font-bold">
-                                Basis Nganjuk
-                              </span>
-                            )}
-                          </td>
-                          <td className="py-3 px-4 font-bold text-[#0E080A]">
-                            Rp {Number(item.harga).toLocaleString('id-ID')}
-                          </td>
-                          <td className="py-3 px-4">
-                            {isJatim ? (
-                              <span className="text-xs text-[#8A8580] font-medium">-</span>
-                            ) : diffWithJatim > 0 ? (
-                              <span className="inline-flex items-center gap-1 text-xs font-bold text-[#3A5A40]">
-                                <ArrowUpRight className="w-3.5 h-3.5" />
-                                +Rp {diffWithJatim.toLocaleString('id-ID')} (Lebih Tinggi)
-                              </span>
-                            ) : diffWithJatim < 0 ? (
-                              <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#8C3A3A]">
-                                <ArrowDownRight className="w-3.5 h-3.5" />
-                                -Rp {Math.abs(diffWithJatim).toLocaleString('id-ID')}
-                              </span>
-                            ) : (
-                              <span className="inline-flex items-center gap-1 text-xs text-[#8A8580]">
-                                <Minus className="w-3.5 h-3.5" />
-                                Setara
-                              </span>
-                            )}
-                          </td>
-                          <td className="py-3 px-4 text-xs font-medium">
-                            <span className={item.percentage > 0 ? 'text-[#3A5A40]' : item.percentage < 0 ? 'text-[#8C3A3A]' : 'text-[#8A8580]'}>
-                              {item.harga_diff || 'Rp0'} ({item.percentage || 0}%)
-                            </span>
-                          </td>
-                          <td className="py-3 px-4 text-xs text-[#8A8580]">
-                            {new Date(item.tanggal).toLocaleDateString('id-ID', {
-                              day: 'numeric',
-                              month: 'short',
-                              year: 'numeric',
-                            })}
-                          </td>
-                        </tr>
-                      )
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+      <div className="grid gap-4 md:grid-cols-2"><div className="sim-card flex items-start gap-3 bg-[var(--sim-green-50)]"><CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[var(--sim-color-primary)]" aria-hidden="true" /><div><h2 className="font-bold text-[var(--sim-green-900)]">Cara membaca hasil</h2><p className="mt-1 text-sm leading-6 text-[var(--sim-color-body)]">Gunakan harga target dan perubahan sebagai bahan perencanaan. Kondisi pasar, cuaca, dan pasokan dapat mengubah hasil aktual.</p></div></div><div className="sim-card flex items-start gap-3 bg-[var(--sim-blue-50)]"><Info className="mt-0.5 h-5 w-5 shrink-0 text-[var(--sim-blue-600)]" aria-hidden="true" /><div><h2 className="font-bold text-[var(--sim-color-foreground)]">Transparansi model</h2><p className="mt-1 text-sm leading-6 text-[var(--sim-color-body)]">Model dan MAPE hanya ditampilkan ketika dikembalikan oleh endpoint prediksi yang sedang digunakan.</p></div></div></div>
+    </main>
   )
 }

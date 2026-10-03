@@ -5,29 +5,25 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
-import type { Profile } from '@/types/database'
 import {
   Camera,
   Upload,
-  ArrowLeft,
   ShieldAlert,
-  CheckCircle2,
   AlertTriangle,
   HelpCircle,
   Clock,
   Sparkles,
   Check,
   X,
-  MessageSquare,
   RefreshCw,
   Loader2,
   ChevronRight,
   Info,
   Bug,
   Leaf,
-  Bot,
 } from 'lucide-react'
 import { openSimaAssistant } from '@/components/dashboard/FloatingAssistant'
+import { PageHeading } from '@/components/dashboard/DashboardUI'
 
 interface DetectionDisplayResult {
   result_id: string
@@ -76,7 +72,6 @@ const CV_CLASS_MAP: Record<string, { category: string; displayName: string }> = 
 
 export default function DiseaseDetectionPage() {
   const router = useRouter()
-  const [profile, setProfile] = useState<Profile | null>(null)
   const [authLoading, setAuthLoading] = useState(true)
 
   // Upload & Detection State
@@ -109,13 +104,12 @@ export default function DiseaseDetectionPage() {
         return
       }
 
-      const { data: prof } = await supabase
+      await supabase
         .from('profiles')
         .select('*')
         .eq('id', user.id)
         .single()
 
-      if (prof) setProfile(prof as Profile)
       setAuthLoading(false)
     }
 
@@ -152,7 +146,10 @@ export default function DiseaseDetectionPage() {
 
   useEffect(() => {
     if (!authLoading) {
-      loadHistory()
+      const timer = window.setTimeout(() => {
+        void loadHistory()
+      }, 0)
+      return () => window.clearTimeout(timer)
     }
   }, [authLoading, loadHistory])
 
@@ -257,52 +254,30 @@ export default function DiseaseDetectionPage() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FBF4EE]">
+      <div className="min-h-[55vh] flex flex-1 items-center justify-center bg-[var(--sim-canvas)]">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 animate-spin text-[#C4487A]" />
-          <p className="text-sm font-medium text-[#4A3A32]">Memuat modul deteksi...</p>
+          <Loader2 className="w-8 h-8 animate-spin text-[var(--sim-color-primary)]" />
+          <p className="text-sm font-medium text-[var(--sim-color-body)]">Memuat modul deteksi...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="flex-1 p-3 sm:p-6 lg:p-8 space-y-6 max-w-6xl w-full mx-auto text-[#0E080A]">
-      {/* TOP BANNER / INTRO */}
-      <div className="card-standard p-4 sm:p-6 bg-gradient-to-r from-white via-white to-[#FBF4EE] border border-[#E5DFD6] shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-semibold uppercase text-[#C4487A] tracking-wider">
-                Computer Vision
-              </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#C4487A]/10 text-[#C4487A] font-semibold">
-                YOLOv8 Multi-Objek
-              </span>
-            </div>
-            <h1 className="text-xl sm:text-2xl font-serif font-bold text-[#0E080A]">
-              Deteksi Penyakit Tanaman Bawang Merah
-            </h1>
-            <p className="text-xs sm:text-sm text-[#4A3A32] max-w-2xl leading-relaxed">
-              Ambil foto daun atau umbi yang bergejala (Antraknosa, Moler, Trotol). Sistem YOLOv8 akan mendeteksi multi-objek dan menampilkan skor keyakinan serta arahan tindak lanjut.
-            </p>
-          </div>
+    <main className="sim-page mx-auto w-full max-w-[1440px] space-y-6">
+      <PageHeading title="Deteksi Penyakit" description="Unggah foto tanaman bawang merah untuk mengidentifikasi penyakit dan mendapatkan rekomendasi penanganan." icon={Leaf} action={<Link href="/dashboard/chat" className="sim-button-secondary"><Sparkles className="h-4 w-4 text-[var(--sim-color-primary)]" aria-hidden="true" />Konsultasi SIMA</Link>} />
 
-          <Link
-            href="/dashboard/chat"
-            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-[#4A3A32] bg-[#FBF4EE] hover:bg-[#E5DFD6] rounded-xl border border-[#E5DFD6] transition-colors self-start sm:self-auto shrink-0"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-[#C4487A]" />
-            <span>Konsultasi SIMA &rarr;</span>
-          </Link>
-        </div>
+      <div className="grid gap-3 md:grid-cols-3">
+        <div className="sim-card-flat flex items-start gap-3 p-4"><div className="sim-icon-tile"><Upload className="h-5 w-5" aria-hidden="true" /></div><div><h2 className="font-bold text-[var(--sim-color-foreground)]">Unggah cepat</h2><p className="mt-1 text-xs leading-5 text-[var(--sim-color-muted)]">Pilih satu foto daun atau bagian tanaman yang ingin dianalisis.</p></div></div>
+        <div className="sim-card-flat flex items-start gap-3 p-4"><div className="sim-icon-tile"><ShieldAlert className="h-5 w-5" aria-hidden="true" /></div><div><h2 className="font-bold text-[var(--sim-color-foreground)]">Hasil terukur</h2><p className="mt-1 text-xs leading-5 text-[var(--sim-color-muted)]">Model menampilkan objek, kelas, dan confidence dari foto Anda.</p></div></div>
+        <div className="sim-card-flat flex items-start gap-3 bg-[var(--sim-amber-50)] p-4"><div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-[var(--sim-amber-500)]"><Info className="h-5 w-5" aria-hidden="true" /></div><div><h2 className="font-bold text-[var(--sim-color-foreground)]">Panduan tindak lanjut</h2><p className="mt-1 text-xs leading-5 text-[var(--sim-color-muted)]">Gunakan hasil sebagai bahan diskusi dengan penyuluh atau SIMA.</p></div></div>
       </div>
 
         {/* UPLOAD & ANALYSIS SECTION */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
           {/* LEFT: UPLOAD ZONE (5 cols) */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="card-standard p-6 border-2 border-dashed border-[#E5DFD6] hover:border-[#C4487A] transition-colors bg-white text-center flex flex-col items-center justify-center min-h-[340px] relative">
+            <div className="sim-card min-h-[340px] border-2 border-dashed border-[var(--sim-color-border)] bg-white p-6 text-center transition-colors hover:border-[var(--sim-green-500)] relative flex flex-col items-center justify-center">
               <input
                 ref={fileInputRef}
                 type="file"
@@ -348,7 +323,7 @@ export default function DiseaseDetectionPage() {
                   onClick={() => fileInputRef.current?.click()}
                   className="cursor-pointer py-10 px-4 w-full flex flex-col items-center justify-center space-y-3 group"
                 >
-                  <div className="w-16 h-16 rounded-2xl bg-[#C4487A]/10 group-hover:bg-[#C4487A]/20 text-[#C4487A] flex items-center justify-center transition-all group-hover:scale-110 shadow-sm">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--sim-green-50)] text-[var(--sim-color-primary)] shadow-sm transition-all group-hover:scale-110 group-hover:bg-[var(--sim-green-100)]">
                     <Upload className="w-7 h-7" />
                   </div>
                   <div>
@@ -378,7 +353,7 @@ export default function DiseaseDetectionPage() {
             <button
               onClick={handleAnalyze}
               disabled={!selectedFile || analyzing}
-              className="w-full py-3.5 px-6 rounded-xl bg-[#C4487A] hover:bg-[#A83A68] active:scale-[0.99] text-white font-semibold text-sm shadow-md flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              className="sim-button-primary w-full py-3.5 px-6"
             >
               {analyzing ? (
                 <>
@@ -806,6 +781,6 @@ export default function DiseaseDetectionPage() {
             </div>
           )}
         </div>
-    </div>
+    </main>
   )
 }

@@ -24,6 +24,11 @@ import {
   AlertTriangle,
   ArrowLeft,
   Search,
+  Users,
+  Award,
+  ExternalLink,
+  ChevronRight,
+  Filter,
 } from 'lucide-react'
 
 export default function AdminVerifikasiPenyuluhPage() {
@@ -32,8 +37,9 @@ export default function AdminVerifikasiPenyuluhPage() {
   const [loading, setLoading] = useState(true)
   const [penyuluhList, setPenyuluhList] = useState<Profile[]>([])
   const [filterStatus, setFilterStatus] = useState<'pending' | 'verified' | 'rejected' | 'all'>('pending')
+  const [searchQuery, setSearchQuery] = useState('')
   const [actionLoading, setActionLoading] = useState<string | null>(null)
-  const [previewDoc, setPreviewDoc] = useState<{ name: string; url: string } | null>(null)
+  const [previewDoc, setPreviewDoc] = useState<{ name: string; nip?: string | null; institution?: string | null; url: string; id: string } | null>(null)
   const [successToast, setSuccessToast] = useState<string | null>(null)
 
   const loadData = useCallback(async () => {
@@ -120,6 +126,10 @@ export default function AdminVerifikasiPenyuluhPage() {
             : p
         )
       )
+
+      if (previewDoc && previewDoc.id === targetId) {
+        setPreviewDoc(null)
+      }
     } catch (err) {
       console.error('Error updating verification status:', err)
       alert('Gagal memperbarui status verifikasi penyuluh.')
@@ -129,20 +139,34 @@ export default function AdminVerifikasiPenyuluhPage() {
   }
 
   const filteredList = penyuluhList.filter((item) => {
-    if (filterStatus === 'all') return true
-    return (item.verification_status || 'unverified') === filterStatus
+    const status = item.verification_status || 'unverified'
+    const matchesStatus = filterStatus === 'all' ? true : status === filterStatus
+    const matchesSearch =
+      searchQuery.trim() === '' ||
+      item.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.nip?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.institution?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.village?.toLowerCase().includes(searchQuery.toLowerCase())
+
+    return matchesStatus && matchesSearch
   })
 
   const pendingCount = penyuluhList.filter(
     (p) => (p.verification_status || 'unverified') === 'pending'
   ).length
+  const verifiedCount = penyuluhList.filter(
+    (p) => (p.verification_status || 'unverified') === 'verified'
+  ).length
+  const rejectedCount = penyuluhList.filter(
+    (p) => (p.verification_status || 'unverified') === 'rejected'
+  ).length
 
   if (loading) {
     return (
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="flex-1 flex items-center justify-center p-12">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 animate-spin text-[#C4487A]" />
-          <p className="text-xs font-semibold text-[#4A3A32]">
+          <Loader2 className="w-8 h-8 animate-spin text-simantri-600" />
+          <p className="text-sm font-semibold text-slate-600">
             Memuat data verifikasi penyuluh...
           </p>
         </div>
@@ -151,35 +175,34 @@ export default function AdminVerifikasiPenyuluhPage() {
   }
 
   return (
-    <div className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 max-w-6xl w-full mx-auto text-[#0E080A]">
+    <div className="space-y-6 max-w-7xl mx-auto font-jakarta">
       {/* HEADER SECTION */}
-      <div className="card-standard p-4 sm:p-6 bg-gradient-to-r from-white via-white to-[#FBF4EE] border border-[#E5DFD6] shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-semibold uppercase text-[#2A5A70] tracking-wider">
-                Trusted Ecosystem Governance
-              </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#2A5A70]/10 text-[#2A5A70] font-semibold">
-                Admin Panel
-              </span>
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-simantri-900 via-simantri-800 to-slate-900 p-6 sm:p-8 text-white shadow-xl">
+        <div className="absolute right-0 top-0 -mt-12 -mr-12 h-64 w-64 rounded-full bg-simantri-500/10 blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 -mb-12 h-48 w-48 rounded-full bg-shallot-500/15 blur-2xl" />
+
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] font-bold text-simantri-200">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Governance & Credential Authority</span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-serif font-bold text-[#0E080A] mt-0.5">
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
               Verifikasi Kredensial Penyuluh Pertanian
             </h1>
-            <p className="text-xs sm:text-sm text-[#4A3A32] mt-1 max-w-2xl leading-relaxed">
-              Tinjau dokumen bukti SK / KTA Dinas sebelum memberikan hak istimewa validasi rekomendasi penyakit dan moderasi materi budidaya.
+            <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+              Validasi keabsahan dokumen SK Dinas &amp; KTA Petugas Lapangan (PPL) Kabupaten Nganjuk untuk memberikan wewenang kurasi sinyal penyakit &amp; validasi SOP budidaya.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 self-start sm:self-auto">
+          <div className="flex items-center gap-3 self-start md:self-auto">
             <button
               onClick={loadData}
               disabled={loading}
-              className="p-2 text-xs font-semibold text-[#4A3A32] bg-[#FBF4EE] border border-[#E5DFD6] hover:bg-[#E5DFD6] rounded-xl flex items-center gap-1.5 shadow-sm transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-bold text-white transition backdrop-blur-md active:scale-95"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-              <span>Segarkan</span>
+              <span>Sinkronisasi Data</span>
             </button>
           </div>
         </div>
@@ -187,128 +210,188 @@ export default function AdminVerifikasiPenyuluhPage() {
 
       {/* TOAST SUCCESS ALERT */}
       {successToast && (
-        <div className="p-4 rounded-xl bg-[#3A5A40]/10 border border-[#3A5A40]/25 text-[#3A5A40] text-xs flex items-center justify-between gap-3 shadow-sm animate-fadeIn">
-          <div className="flex items-center gap-2 font-medium">
-            <Check className="w-4 h-4 text-[#3A5A40]" />
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-sm flex items-center justify-between gap-3 shadow-xs animate-in fade-in">
+          <div className="flex items-center gap-2.5 font-semibold">
+            <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0">
+              <Check className="w-4 h-4" />
+            </div>
             <span>{successToast}</span>
           </div>
           <button
             onClick={() => setSuccessToast(null)}
-            className="p-1 hover:bg-[#3A5A40]/20 rounded"
+            className="p-1 text-emerald-600 hover:bg-emerald-100 rounded-lg transition"
           >
-            <X className="w-3.5 h-3.5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
       )}
 
-      {/* FILTER TABS */}
-      <div className="flex flex-wrap items-center gap-2">
-        <button
-          onClick={() => setFilterStatus('pending')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold border transition-all flex items-center gap-2 ${
-            filterStatus === 'pending'
-              ? 'bg-[#C4487A] text-white border-[#C4487A] shadow-sm'
-              : 'bg-white border-[#E5DFD6] text-[#4A3A32] hover:bg-[#FBF4EE]'
-          }`}
-        >
-          <span>Menunggu Verifikasi</span>
-          {pendingCount > 0 && (
-            <span
-              className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
-                filterStatus === 'pending'
-                  ? 'bg-white text-[#C4487A]'
-                  : 'bg-[#C4487A] text-white'
-              }`}
-            >
-              {pendingCount}
-            </span>
-          )}
-        </button>
-
-        <button
-          onClick={() => setFilterStatus('verified')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${
-            filterStatus === 'verified'
-              ? 'bg-[#3A5A40] text-white border-[#3A5A40] shadow-sm'
-              : 'bg-white border-[#E5DFD6] text-[#4A3A32] hover:bg-[#FBF4EE]'
-          }`}
-        >
-          Terverifikasi
-        </button>
-
-        <button
-          onClick={() => setFilterStatus('rejected')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${
-            filterStatus === 'rejected'
-              ? 'bg-[#8C3A3A] text-white border-[#8C3A3A] shadow-sm'
-              : 'bg-white border-[#E5DFD6] text-[#4A3A32] hover:bg-[#FBF4EE]'
-          }`}
-        >
-          Ditolak
-        </button>
-
-        <button
-          onClick={() => setFilterStatus('all')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${
-            filterStatus === 'all'
-              ? 'bg-[#0E080A] text-white border-[#0E080A] shadow-sm'
-              : 'bg-white border-[#E5DFD6] text-[#4A3A32] hover:bg-[#FBF4EE]'
-          }`}
-        >
-          Semua ({penyuluhList.length})
-        </button>
-      </div>
-
-      {/* PENYULUH LIST */}
-      {filteredList.length === 0 ? (
-        <div className="card-standard p-12 text-center bg-white border border-[#E5DFD6] space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-[#3A5A40]/10 text-[#3A5A40] flex items-center justify-center mx-auto">
-            <ShieldCheck className="w-6 h-6" />
+      {/* KPI METRIC CARDS */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-xs flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
+            <Users className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="font-serif font-bold text-base text-[#0E080A]">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Penyuluh</p>
+            <p className="text-2xl font-extrabold text-slate-900 mt-0.5">{penyuluhList.length}</p>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-3xl p-5 border border-amber-100 bg-amber-50/20 shadow-xs flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+            <Clock className="w-6 h-6" />
+          </div>
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-amber-800">Menunggu Review</p>
+            <p className="text-2xl font-extrabold text-amber-900 mt-0.5">{pendingCount}</p>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-3xl p-5 border border-emerald-100 bg-emerald-50/20 shadow-xs flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+            <BadgeCheck className="w-6 h-6" />
+          </div>
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-emerald-800">Terverifikasi</p>
+            <p className="text-2xl font-extrabold text-emerald-900 mt-0.5">{verifiedCount}</p>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-3xl p-5 border border-rose-100 bg-rose-50/20 shadow-xs flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
+            <UserX className="w-6 h-6" />
+          </div>
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-rose-800">Kredensial Ditolak</p>
+            <p className="text-2xl font-extrabold text-rose-900 mt-0.5">{rejectedCount}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* CONTROLS & FILTER BAR */}
+      <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-100 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => setFilterStatus('pending')}
+            className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition flex items-center gap-2 ${
+              filterStatus === 'pending'
+                ? 'bg-amber-600 text-white shadow-sm'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            <span>Menunggu Review</span>
+            {pendingCount > 0 && (
+              <span
+                className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold ${
+                  filterStatus === 'pending'
+                    ? 'bg-white text-amber-700'
+                    : 'bg-amber-600 text-white'
+                }`}
+              >
+                {pendingCount}
+              </span>
+            )}
+          </button>
+
+          <button
+            onClick={() => setFilterStatus('verified')}
+            className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition ${
+              filterStatus === 'verified'
+                ? 'bg-simantri-700 text-white shadow-sm'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            Terverifikasi ({verifiedCount})
+          </button>
+
+          <button
+            onClick={() => setFilterStatus('rejected')}
+            className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition ${
+              filterStatus === 'rejected'
+                ? 'bg-rose-600 text-white shadow-sm'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            Ditolak ({rejectedCount})
+          </button>
+
+          <button
+            onClick={() => setFilterStatus('all')}
+            className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition ${
+              filterStatus === 'all'
+                ? 'bg-slate-900 text-white shadow-sm'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            Semua ({penyuluhList.length})
+          </button>
+        </div>
+
+        {/* Search Input */}
+        <div className="relative min-w-[260px] sm:w-72">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Cari nama, NIP, BPP..."
+            className="w-full pl-10 pr-4 py-2 rounded-2xl border border-slate-200 bg-slate-50/50 text-xs text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-simantri-600 focus:bg-white transition"
+          />
+        </div>
+      </div>
+
+      {/* PENYULUH LIST CARDS */}
+      {filteredList.length === 0 ? (
+        <div className="bg-white rounded-3xl p-12 text-center border border-slate-100 shadow-xs space-y-3">
+          <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-simantri-600 flex items-center justify-center mx-auto">
+            <ShieldCheck className="w-7 h-7" />
+          </div>
+          <div>
+            <h3 className="font-extrabold text-base text-slate-900">
               Tidak Ada Antrean Verifikasi
             </h3>
-            <p className="text-xs text-[#8A8580] mt-1 max-w-sm mx-auto">
-              Tidak ada akun penyuluh dalam status filter ini. Semua penyuluh aktif telah ditinjau.
+            <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+              Tidak ditemukan data penyuluh pada filter dan kata kunci ini. Semua kredensial telah terproses.
             </p>
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredList.map((item) => {
             const status = item.verification_status || 'unverified'
 
             return (
               <div
                 key={item.id}
-                className="card-standard p-5 bg-white border border-[#E5DFD6] space-y-4 hover:shadow-md transition-shadow flex flex-col justify-between"
+                className="bg-white rounded-3xl p-5 border border-slate-100 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
               >
-                <div>
-                  {/* Top Bar */}
-                  <div className="flex items-center justify-between pb-3 border-b border-[#E5DFD6]">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#2A5A70] to-[#0E080A] text-white flex items-center justify-center font-bold text-xs shadow-sm">
+                <div className="space-y-4">
+                  {/* Top Bar Card */}
+                  <div className="flex items-start justify-between gap-3 pb-3 border-b border-slate-100">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-simantri-700 to-simantri-900 text-white flex items-center justify-center font-extrabold text-base shadow-xs shrink-0">
                         {item.full_name?.charAt(0).toUpperCase() || 'P'}
                       </div>
-                      <div>
-                        <h3 className="text-sm font-bold text-[#0E080A]">
+                      <div className="min-w-0">
+                        <h3 className="text-sm font-extrabold text-slate-900 truncate">
                           {item.full_name}
                         </h3>
-                        <p className="text-[11px] text-[#8A8580] flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-[#E6A15C]" />
-                          <span>Wilayah: {item.village || 'Kab. Nganjuk'}</span>
+                        <p className="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5">
+                          <MapPin className="w-3 h-3 text-amber-500 shrink-0" />
+                          <span className="truncate">{item.village || 'Kab. Nganjuk'}</span>
                         </p>
                       </div>
                     </div>
 
                     <span
-                      className={`text-[10px] font-mono uppercase px-2.5 py-1 rounded-full font-semibold border ${
+                      className={`text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full shrink-0 border ${
                         status === 'verified'
-                          ? 'bg-[#3A5A40]/10 border-[#3A5A40]/30 text-[#3A5A40]'
+                          ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
                           : status === 'pending'
-                          ? 'bg-[#E6A15C]/15 border-[#E6A15C]/40 text-[#3D261A]'
-                          : 'bg-[#8C3A3A]/10 border-[#8C3A3A]/30 text-[#8C3A3A]'
+                          ? 'bg-amber-50 border-amber-200 text-amber-700'
+                          : 'bg-rose-50 border-rose-200 text-rose-700'
                       }`}
                     >
                       {status === 'verified'
@@ -320,24 +403,24 @@ export default function AdminVerifikasiPenyuluhPage() {
                   </div>
 
                   {/* Details Grid */}
-                  <div className="mt-3 space-y-2 text-xs">
-                    <div className="flex items-center justify-between p-2 rounded-lg bg-[#FBF4EE]/70">
-                      <span className="text-[#8A8580]">NIP / No. KTA:</span>
-                      <strong className="font-mono text-[#0E080A]">
+                  <div className="space-y-2 text-xs">
+                    <div className="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50">
+                      <span className="text-slate-500">NIP / KTA:</span>
+                      <strong className="font-mono text-slate-800 font-bold">
                         {item.nip || 'Belum diisi'}
                       </strong>
                     </div>
 
-                    <div className="flex items-center justify-between p-2 rounded-lg bg-[#FBF4EE]/70">
-                      <span className="text-[#8A8580]">Instansi / BPP:</span>
-                      <strong className="text-[#0E080A] text-right truncate max-w-[200px]">
+                    <div className="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50">
+                      <span className="text-slate-500">Instansi / BPP:</span>
+                      <strong className="text-slate-800 text-right truncate max-w-[170px] font-semibold">
                         {item.institution || 'BPP Nganjuk'}
                       </strong>
                     </div>
 
-                    <div className="flex items-center justify-between p-2 rounded-lg bg-[#FBF4EE]/70">
-                      <span className="text-[#8A8580]">Waktu Daftar:</span>
-                      <span className="text-[#0E080A] font-mono text-[11px]">
+                    <div className="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50">
+                      <span className="text-slate-500">Tanggal Daftar:</span>
+                      <span className="text-slate-700 font-mono text-[11px] font-semibold">
                         {new Date(item.created_at).toLocaleDateString('id-ID', {
                           day: 'numeric',
                           month: 'short',
@@ -346,24 +429,27 @@ export default function AdminVerifikasiPenyuluhPage() {
                       </span>
                     </div>
 
-                    {/* Document Proof Section */}
+                    {/* Document Button */}
                     <div className="pt-1">
                       {item.verification_doc_url ? (
                         <button
                           type="button"
                           onClick={() =>
                             setPreviewDoc({
+                              id: item.id,
                               name: item.full_name,
+                              nip: item.nip,
+                              institution: item.institution,
                               url: item.verification_doc_url!,
                             })
                           }
-                          className="w-full py-2 px-3 rounded-xl border border-[#2A5A70]/30 bg-[#2A5A70]/5 hover:bg-[#2A5A70]/15 text-[#2A5A70] font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors"
+                          className="w-full py-2.5 px-3 rounded-2xl border border-simantri-200 bg-simantri-50 hover:bg-simantri-100 text-simantri-800 font-bold text-xs flex items-center justify-center gap-2 transition active:scale-98"
                         >
-                          <Eye className="w-3.5 h-3.5" />
-                          <span>Lihat Dokumen Bukti (KTA / SK)</span>
+                          <Eye className="w-3.5 h-3.5 text-simantri-700" />
+                          <span>Buka Lampiran KTA / SK</span>
                         </button>
                       ) : (
-                        <div className="py-2 px-3 rounded-xl bg-gray-50 text-gray-400 text-xs text-center border border-dashed border-gray-200">
+                        <div className="py-2.5 px-3 rounded-2xl bg-slate-100 text-slate-400 text-xs text-center border border-dashed border-slate-200 font-medium">
                           Tidak ada lampiran dokumen
                         </div>
                       )}
@@ -371,22 +457,22 @@ export default function AdminVerifikasiPenyuluhPage() {
                   </div>
                 </div>
 
-                {/* Actions Bar */}
-                <div className="pt-3 border-t border-[#E5DFD6] flex items-center gap-2">
+                {/* Actions Footer */}
+                <div className="pt-4 mt-4 border-t border-slate-100 flex items-center gap-2">
                   {status !== 'verified' && (
                     <button
                       onClick={() =>
                         handleUpdateStatus(item.id, 'verified', item.full_name)
                       }
                       disabled={actionLoading === item.id}
-                      className="flex-1 py-2 px-3 rounded-xl bg-[#3A5A40] hover:bg-[#2E4833] text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 disabled:opacity-50"
+                      className="flex-1 py-2.5 px-3 rounded-2xl bg-simantri-700 hover:bg-simantri-800 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition shadow-xs active:scale-95 disabled:opacity-50"
                     >
                       {actionLoading === item.id ? (
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
                       ) : (
                         <Check className="w-3.5 h-3.5" />
                       )}
-                      <span>Setujui & Verifikasi</span>
+                      <span>Setujui</span>
                     </button>
                   )}
 
@@ -396,7 +482,7 @@ export default function AdminVerifikasiPenyuluhPage() {
                         handleUpdateStatus(item.id, 'rejected', item.full_name)
                       }
                       disabled={actionLoading === item.id}
-                      className="py-2 px-3 rounded-xl bg-white border border-[#8C3A3A]/30 text-[#8C3A3A] hover:bg-[#8C3A3A]/10 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-95 disabled:opacity-50"
+                      className="py-2.5 px-3 rounded-2xl bg-white border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-bold flex items-center justify-center gap-1.5 transition active:scale-95 disabled:opacity-50"
                     >
                       <X className="w-3.5 h-3.5" />
                       <span>Tolak</span>
@@ -412,52 +498,79 @@ export default function AdminVerifikasiPenyuluhPage() {
       {/* DOCUMENT PREVIEW LIGHTBOX / MODAL */}
       {previewDoc && (
         <div
-          className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in"
           onClick={() => setPreviewDoc(null)}
         >
           <div
-            className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl flex flex-col"
+            className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl flex flex-col border border-slate-100"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-4 border-b border-[#E5DFD6] flex items-center justify-between bg-[#FBF4EE]">
-              <div>
-                <h3 className="font-serif font-bold text-sm text-[#0E080A]">
-                  Dokumen Kredensial Penyuluh
-                </h3>
-                <p className="text-xs text-[#8A8580]">{previewDoc.name}</p>
+            {/* Modal Header */}
+            <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-simantri-100 text-simantri-700 flex items-center justify-center font-bold">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-extrabold text-sm text-slate-900">
+                    Dokumen Kredensial SK / KTA
+                  </h3>
+                  <p className="text-xs text-slate-500 font-medium">
+                    {previewDoc.name} • {previewDoc.nip ? `NIP: ${previewDoc.nip}` : 'NIP belum ada'}
+                  </p>
+                </div>
               </div>
               <button
                 onClick={() => setPreviewDoc(null)}
-                className="p-1.5 rounded-lg text-[#8A8580] hover:text-[#0E080A] hover:bg-white transition-colors"
+                className="p-2 rounded-xl text-slate-400 hover:text-slate-800 hover:bg-slate-200 transition"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="p-4 overflow-y-auto flex-1 flex items-center justify-center bg-[#0E080A]/5 min-h-[300px]">
+            {/* Document Render Area */}
+            <div className="p-4 overflow-y-auto flex-1 flex items-center justify-center bg-slate-950/5 min-h-[360px]">
               {previewDoc.url.startsWith('data:image') || previewDoc.url.startsWith('http') ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={previewDoc.url}
                   alt="Dokumen KTA"
-                  className="max-h-[60vh] max-w-full rounded-lg object-contain border border-[#E5DFD6] shadow"
+                  className="max-h-[60vh] max-w-full rounded-2xl object-contain border border-slate-200 shadow-md bg-white"
                 />
               ) : (
                 <iframe
                   src={previewDoc.url}
                   title="Preview Dokumen"
-                  className="w-full h-[60vh] border rounded-lg"
+                  className="w-full h-[60vh] border rounded-2xl"
                 />
               )}
             </div>
 
-            <div className="p-3 border-t border-[#E5DFD6] bg-white flex justify-end">
+            {/* Modal Footer with Actions */}
+            <div className="p-4 border-t border-slate-100 bg-white flex items-center justify-between gap-3">
               <button
                 onClick={() => setPreviewDoc(null)}
-                className="py-1.5 px-4 rounded-xl bg-[#241812] text-white text-xs font-semibold"
+                className="py-2.5 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition"
               >
-                Tutup Pratinjau
+                Tutup
               </button>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => handleUpdateStatus(previewDoc.id, 'rejected', previewDoc.name)}
+                  disabled={actionLoading === previewDoc.id}
+                  className="py-2.5 px-4 rounded-2xl border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-bold transition active:scale-95"
+                >
+                  Tolak Kredensial
+                </button>
+                <button
+                  onClick={() => handleUpdateStatus(previewDoc.id, 'verified', previewDoc.name)}
+                  disabled={actionLoading === previewDoc.id}
+                  className="py-2.5 px-4 rounded-2xl bg-simantri-700 hover:bg-simantri-800 text-white text-xs font-bold transition shadow-xs active:scale-95"
+                >
+                  Setujui &amp; Verifikasi
+                </button>
+              </div>
             </div>
           </div>
         </div>

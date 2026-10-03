@@ -11,9 +11,11 @@ import FloatingAssistant, { openSimaAssistant } from '@/components/dashboard/Flo
 import {
   Menu,
   Loader2,
-  Camera,
-  TrendingUp,
-  LayoutDashboard,
+  Calendar,
+  ShieldCheck,
+  Search,
+  Bell,
+  Sparkles,
 } from 'lucide-react'
 
 export default function AdminLayout({
@@ -26,21 +28,18 @@ export default function AdminLayout({
   const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [formattedDate, setFormattedDate] = useState('')
 
-  // Handle responsive default sidebar state on mount & resize
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setIsSidebarOpen(window.innerWidth >= 1024)
-      const handleResize = () => {
-        if (window.innerWidth >= 1024) {
-          setIsSidebarOpen(true)
-        } else {
-          setIsSidebarOpen(false)
-        }
-      }
-      window.addEventListener('resize', handleResize)
-      return () => window.removeEventListener('resize', handleResize)
-    }
+    const today = new Date()
+    setFormattedDate(
+      today.toLocaleDateString('id-ID', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+    )
   }, [])
 
   useEffect(() => {
@@ -76,18 +75,18 @@ export default function AdminLayout({
   }, [router])
 
   const getPageTitle = () => {
-    if (pathname.includes('/market/input')) return 'Input Harga Pasar (PIHPS)'
+    if (pathname.includes('/market/input')) return 'Input & Sinkronisasi Harga Harian'
     if (pathname.includes('/verifikasi-penyuluh')) return 'Verifikasi Kredensial Penyuluh'
-    return 'Panel Admin SIMANTRI'
+    return 'Pusat Operasional & Integritas SIMANTRI'
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FBF4EE]">
+      <div className="min-h-screen flex items-center justify-center bg-[#F6F8F6] font-jakarta">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 animate-spin text-[#C4487A]" />
-          <p className="text-xs font-semibold text-[#4A3A32]">
-            Memuat Panel Admin SIMANTRI...
+          <Loader2 className="w-8 h-8 animate-spin text-simantri-600" />
+          <p className="text-xs font-semibold text-slate-700">
+            Memuat Portal Admin SIMANTRI...
           </p>
         </div>
       </div>
@@ -95,175 +94,87 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[#FBF4EE] flex">
+    <div className="min-h-screen bg-[#F6F8F6] font-jakarta flex overflow-x-clip text-slate-800">
       {/* Dynamic Role Sidebar */}
       <Sidebar
         profile={profile}
         isOpen={isSidebarOpen}
-        onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+        onToggle={() => setIsSidebarOpen((open) => !open)}
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden min-h-screen">
-        {/* TOP PERSISTENT NAVBAR */}
-        <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#E5DFD6] px-4 sm:px-6 py-2.5 flex items-center justify-between shadow-sm">
+      <div className="min-w-0 flex-1 flex flex-col">
+        {/* Top Header */}
+        <header className="sticky top-0 z-30 h-16 sm:h-20 bg-white/85 backdrop-blur-xl border-b border-slate-100 px-4 sm:px-6 lg:px-8 flex items-center justify-between shadow-xs">
           <div className="flex items-center gap-3">
-            {/* Hamburger Toggle Button */}
+            {/* Mobile Toggle */}
             <button
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="p-2 rounded-xl text-[#4A3A32] hover:text-[#C4487A] hover:bg-[#FBF4EE] border border-[#E5DFD6] transition-all shadow-sm flex items-center gap-1.5 active:scale-95"
-              title={isSidebarOpen ? 'Sembunyikan Sidebar' : 'Tampilkan Sidebar'}
-              aria-label="Toggle Sidebar"
+              type="button"
+              onClick={() => setIsSidebarOpen(true)}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 lg:hidden"
+              aria-label="Buka menu navigasi"
             >
-              <Menu className="w-5 h-5" />
-              <span className="text-xs font-semibold hidden md:inline">
-                {isSidebarOpen ? 'Tutup Menu' : 'Menu'}
-              </span>
+              <Menu className="h-5 w-5" />
             </button>
 
-            {/* Mobile / Collapsed Logo Badge */}
-            <Link href="/dashboard" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 rounded-xl bg-white p-1 shadow-sm border border-[#E5DFD6] flex items-center justify-center">
-                <Image
-                  src="/logo_simantri.png"
-                  alt="Logo SIMANTRI"
-                  width={28}
-                  height={28}
-                  className="w-full h-full object-contain"
-                  priority
-                />
-              </div>
-              <span className="font-serif font-bold text-sm sm:text-base text-[#0E080A]">
-                SIMANTRI
+            {/* Mobile Brand */}
+            <Link href="/admin" className="flex items-center gap-2 lg:hidden">
+              <Image
+                src="/logo_simantri.png"
+                alt="SIMANTRI"
+                width={36}
+                height={36}
+                className="h-8 w-8 object-contain"
+                priority
+              />
+              <span className="font-extrabold text-sm tracking-tight text-simantri-700 min-[380px]:block">
+                ADMIN
               </span>
             </Link>
 
-            {/* Page Title / Breadcrumb */}
-            <div className="hidden sm:flex items-center gap-2 pl-2 border-l border-[#E5DFD6]">
-              <span className="text-xs font-semibold text-[#8A8580]">
-                Admin /
-              </span>
-              <span className="text-xs font-bold text-[#0E080A]">
-                {getPageTitle()}
-              </span>
+            {/* Breadcrumb Title (Desktop) */}
+            <div className="hidden lg:flex items-center gap-2 text-xs font-semibold text-slate-500">
+              <span className="text-slate-400">Admin Portal</span>
+              <span>&gt;</span>
+              <span className="text-simantri-700 font-bold">{getPageTitle()}</span>
             </div>
           </div>
 
-          {/* Right Header Badges */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
-            <button
-              onClick={() => openSimaAssistant()}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#C4487A] bg-[#C4487A]/10 hover:bg-[#C4487A]/20 rounded-xl border border-[#C4487A]/25 transition-colors shadow-sm cursor-pointer active:scale-95"
-              title="Buka Asisten SIMA"
-            >
-              <div className="w-4 h-4 rounded-full overflow-hidden shrink-0 flex items-center justify-center">
-                <Image
-                  src="/logo_sima.png"
-                  alt="SIMA"
-                  width={16}
-                  height={16}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <span>Tanya SIMA</span>
-            </button>
+          {/* Right Status Badges & Profile */}
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 text-xs font-semibold text-slate-700">
+              <Calendar className="w-3.5 h-3.5 text-simantri-600" />
+              <span>{formattedDate || 'Selasa, 24 Oktober'}</span>
+            </div>
+
+            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 text-xs font-bold text-simantri-800 border border-emerald-200 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Sistem Optimal</span>
+            </div>
 
             <Link
               href="/dashboard/profil"
-              className="flex items-center gap-2 pl-2 border-l border-[#E5DFD6] group"
+              className="flex items-center gap-2 p-1 rounded-full hover:bg-slate-100 transition"
             >
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#4A1F2B] to-[#C4487A] text-white flex items-center justify-center text-xs font-bold font-serif shadow-sm group-hover:scale-105 transition-transform">
-                {profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : 'A'}
-              </div>
-              <div className="hidden md:block text-left">
-                <p className="text-xs font-bold text-[#0E080A] leading-tight truncate max-w-[120px]">
-                  {profile?.full_name || 'Admin'}
-                </p>
-                <p className="text-[10px] uppercase font-mono text-[#C4487A] font-semibold">
-                  {profile?.role || 'admin'}
-                </p>
-              </div>
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-simantri-700 text-xs font-bold text-white shadow-xs">
+                {profile?.full_name?.charAt(0).toUpperCase() || 'A'}
+              </span>
+              <span className="hidden xl:flex flex-col text-left">
+                <span className="text-xs font-bold text-slate-900 leading-tight">
+                  {profile?.full_name || 'Administrator'}
+                </span>
+                <span className="text-[10px] text-slate-500">Dinas Pertanian</span>
+              </span>
             </Link>
           </div>
         </header>
 
-        {/* Page Content */}
-        <main className="flex-1 flex flex-col pb-20 lg:pb-0 min-h-0">
+        {/* Main Content */}
+        <main id="main-content" className="flex-1 p-4 sm:p-6 lg:p-8 pb-16">
           {children}
         </main>
 
-        {/* GLOBAL FLOATING SIMA ASSISTANT PANEL */}
         <FloatingAssistant />
-
-        {/* MOBILE FLOATING BOTTOM NAVIGATION BAR */}
-        <nav
-          className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-t border-[#E5DFD6] px-3 py-2 flex items-center justify-around shadow-[0_-8px_20px_-8px_rgba(0,0,0,0.1)] lg:hidden"
-          aria-label="Navigasi Bawah Mobile"
-        >
-          <Link
-            href="/dashboard"
-            className={`flex flex-col items-center gap-1 px-2.5 py-1 rounded-xl transition-all ${
-              pathname === '/dashboard'
-                ? 'text-[#C4487A] font-bold scale-105'
-                : 'text-[#8A8580] hover:text-[#4A3A32]'
-            }`}
-          >
-            <LayoutDashboard className="w-5 h-5" />
-            <span className="text-[10px] font-medium leading-none">Beranda</span>
-          </Link>
-
-          <Link
-            href="/dashboard/deteksi"
-            className={`flex flex-col items-center gap-1 px-2.5 py-1 rounded-xl transition-all ${
-              pathname.startsWith('/dashboard/deteksi')
-                ? 'text-[#C4487A] font-bold scale-105'
-                : 'text-[#8A8580] hover:text-[#4A3A32]'
-            }`}
-          >
-            <Camera className="w-5 h-5" />
-            <span className="text-[10px] font-medium leading-none">Deteksi</span>
-          </Link>
-
-          <Link
-            href="/dashboard/chat"
-            className={`relative -top-3 flex flex-col items-center justify-center w-13 h-13 rounded-2xl bg-gradient-to-tr from-[#4A1F2B] to-[#C4487A] text-white shadow-lg shadow-[#C4487A]/30 transition-transform active:scale-95 p-1 ${
-              pathname.startsWith('/dashboard/chat') ? 'ring-2 ring-[#C4487A] ring-offset-2' : ''
-            }`}
-          >
-            <div className="w-6 h-6 rounded-full overflow-hidden flex items-center justify-center bg-white/20 p-0.5">
-              <Image
-                src="/logo_sima.png"
-                alt="SIMA"
-                width={24}
-                height={24}
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <span className="text-[9px] font-bold tracking-tight mt-0.5">SIMA</span>
-          </Link>
-
-          <Link
-            href="/dashboard/harga"
-            className={`flex flex-col items-center gap-1 px-2.5 py-1 rounded-xl transition-all ${
-              pathname.startsWith('/dashboard/harga')
-                ? 'text-[#C4487A] font-bold scale-105'
-                : 'text-[#8A8580] hover:text-[#4A3A32]'
-            }`}
-          >
-            <TrendingUp className="w-5 h-5" />
-            <span className="text-[10px] font-medium leading-none">Harga</span>
-          </Link>
-
-          <button
-            onClick={() => setIsSidebarOpen(true)}
-            className="flex flex-col items-center gap-1 px-2.5 py-1 rounded-xl text-[#8A8580] hover:text-[#4A3A32] active:scale-95"
-            aria-label="Buka Semua Menu"
-          >
-            <Menu className="w-5 h-5" />
-            <span className="text-[10px] font-medium leading-none">Menu</span>
-          </button>
-        </nav>
       </div>
     </div>
   )
