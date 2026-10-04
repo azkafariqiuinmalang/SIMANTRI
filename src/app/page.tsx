@@ -155,7 +155,7 @@ const LANDING_NAV_ITEMS = [
 ]
 
 export default function LandingPage() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('beranda')
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, top: 0, width: 0, height: 0, opacity: 0 })
@@ -173,38 +173,49 @@ export default function LandingPage() {
   const [userCustomQuery, setUserCustomQuery] = useState<string | null>(null)
   const autoRotateRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Update sliding indicator pill position with perfect autolayout alignment
-  const updateIndicatorPosition = (sectionId: string) => {
-    const currentEl = navItemRefs.current[sectionId]
-    const containerEl = navContainerRef.current
-    if (currentEl && containerEl) {
-      const containerRect = containerEl.getBoundingClientRect()
-      const itemRect = currentEl.getBoundingClientRect()
-      setIndicatorStyle({
+  // Keep the pill aligned when labels, font metrics, or responsive layout change.
+  useEffect(() => {
+    const container = navContainerRef.current
+    if (!container) return
+    let frame = 0
+    let disposed = false
+    const measure = () => {
+      frame = 0
+      const item = navItemRefs.current[activeSection]
+      if (!item || disposed) return
+      const containerRect = container.getBoundingClientRect()
+      const itemRect = item.getBoundingClientRect()
+      const next = {
         left: itemRect.left - containerRect.left,
         top: itemRect.top - containerRect.top,
         width: itemRect.width,
         height: itemRect.height,
-        opacity: 1,
-      })
+        opacity: itemRect.width > 0 ? 1 : 0,
+      }
+      setIndicatorStyle(previous =>
+        previous.left === next.left && previous.top === next.top &&
+        previous.width === next.width && previous.height === next.height &&
+        previous.opacity === next.opacity ? previous : next
+      )
     }
-  }
-
-  useEffect(() => {
-    updateIndicatorPosition(activeSection)
-  }, [activeSection])
-
-  useEffect(() => {
-    const handleResize = () => {
-      updateIndicatorPosition(activeSection)
+    const scheduleMeasure = () => {
+      if (!disposed && !frame) frame = window.requestAnimationFrame(measure)
     }
-    window.addEventListener('resize', handleResize)
-    const timer = setTimeout(() => updateIndicatorPosition(activeSection), 150)
+    const observer = new ResizeObserver(scheduleMeasure)
+    observer.observe(container)
+    Object.values(navItemRefs.current).forEach(item => { if (item) observer.observe(item) })
+    window.addEventListener('resize', scheduleMeasure)
+    document.fonts.addEventListener('loadingdone', scheduleMeasure)
+    void document.fonts.ready.then(scheduleMeasure)
+    scheduleMeasure()
     return () => {
-      window.removeEventListener('resize', handleResize)
-      clearTimeout(timer)
+      disposed = true
+      observer.disconnect()
+      window.cancelAnimationFrame(frame)
+      window.removeEventListener('resize', scheduleMeasure)
+      document.fonts.removeEventListener('loadingdone', scheduleMeasure)
     }
-  }, [activeSection])
+  }, [activeSection, language])
 
   // Scrollspy to automatically update active nav item on scroll (Landing Page sections only)
   useEffect(() => {
@@ -421,7 +432,7 @@ export default function LandingPage() {
               {/* Sliding Active Pill Background Indicator with Perfect Centering */}
               <div
                 aria-hidden="true"
-                className="absolute rounded-full bg-[#173e2d]/10 dark:bg-[var(--theme-green-soft)] pointer-events-none transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+                className="absolute left-0 top-0 rounded-full bg-[#173e2d]/10 dark:bg-[var(--theme-green-soft)] pointer-events-none transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
                 style={{
                   transform: `translate3d(${indicatorStyle.left}px, ${indicatorStyle.top}px, 0)`,
                   width: `${indicatorStyle.width}px`,
@@ -447,7 +458,7 @@ export default function LandingPage() {
                     }`}
                     aria-current={isActive ? 'page' : undefined}
                   >
-                    <span className="translate-y-[-0.5px]">{t(item.label)}</span>
+                    <span>{t(item.label)}</span>
                   </a>
                 )
               })}
