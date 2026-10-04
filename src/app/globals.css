@@ -146,18 +146,29 @@ input:not([type="checkbox"]):not([type="radio"]), select, textarea {
   transform: translateZ(0);
 }
 
-.carousel-card:hover {
-  transform: none !important;
-  z-index: 50 !important;
-}
 .carousel-card { cursor: default !important; }
 
 .carousel-card-img {
   transition: transform 0.6s ease-out !important;
+  transform: scale(1);
 }
 
-.carousel-card:hover .carousel-card-img {
-  transform: none !important;
+@media (hover: hover) and (pointer: fine) {
+  .carousel-card:hover {
+    transform: translateY(-6px) scale(1.06);
+    z-index: 50;
+  }
+
+  .carousel-card:hover .carousel-card-img {
+    transform: scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-card:hover,
+  .carousel-card:hover .carousel-card-img {
+    transform: none;
+  }
 }
 
 /* Enhanced Interactive Hover Effects for Buttons & Cards */
