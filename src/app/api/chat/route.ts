@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
+import { chatLanguageInstruction, normalizeLanguage } from '@/lib/i18n'
 import {
   validateUserInput,
   detectPromptInjection,
@@ -20,6 +21,7 @@ interface KnowledgeEntryMatch {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}))
+    const language = normalizeLanguage(body?.language)
 
     // -------------------------------------------------------------------------
     // LAYER 1: INPUT VALIDATION & NORMALIZATION
@@ -193,7 +195,7 @@ export async function POST(req: NextRequest) {
       contextString,
       weatherString,
       injectionAnalysis.riskLevel
-    )
+    ) + chatLanguageInstruction(language)
 
     const isolatedUserPrompt = encapsulateUserPrompt(userMessage)
 
@@ -207,9 +209,11 @@ export async function POST(req: NextRequest) {
       if (dariKb) {
         rawAiResponse = `${
           finalDocs[0]?.summary || finalDocs[0]?.content.slice(0, 400)
-        }\n\nSaran:\n- Silakan pastikan kondisi lahan dan drainase memadai.\n- Konsultasikan dengan penyuluh pertanian setempat.`
+        }${language === 'jv' ? '\n\nRujukan ing basa aslinipun kasebat ing nginggil.\n\nPamrayogi:\n- Mangga dipunpriksa kawontenan sabin saha drainase supados nyekapi.\n- Mangga konsultasi kaliyan penyuluh tetanèn setempat.' : '\n\nSaran:\n- Silakan pastikan kondisi lahan dan drainase memadai.\n- Konsultasikan dengan penyuluh pertanian setempat.'}`
       } else {
-        rawAiResponse = `Halo! Pertanyaan Anda terkait "${userMessage}" saat ini belum tercakup spesifik dalam basis data lokal SIMANTRI. Namun secara umum untuk budidaya bawang merah, disarankan memperhatikan kelembaban tanah, drainase, dan rotasi tanaman.\n\nSaran:\n- Periksa kondisi riil di lahan sawah.\n- Hubungi PPL / Penyuluh pertanian terdekat.`
+        rawAiResponse = language === 'jv'
+          ? `Sugeng rawuh! Pitaken panjenengan bab "${userMessage}" sapunika dereng kacathet kanthi khusus ing basis data lokal SIMANTRI. Kangge budidaya brambang, mangga dipunpriksa kelembapan lemah, drainase, saha rotasi tanduran.\n\nPamrayogi:\n- Priksa kawontenan nyata ing sabin.\n- Hubungi PPL / Penyuluh tetanèn paling caket.`
+          : `Halo! Pertanyaan Anda terkait "${userMessage}" saat ini belum tercakup spesifik dalam basis data lokal SIMANTRI. Namun secara umum untuk budidaya bawang merah, disarankan memperhatikan kelembaban tanah, drainase, dan rotasi tanaman.\n\nSaran:\n- Periksa kondisi riil di lahan sawah.\n- Hubungi PPL / Penyuluh pertanian terdekat.`
       }
     } else {
       const CANDIDATE_MODELS = [
@@ -246,9 +250,11 @@ export async function POST(req: NextRequest) {
         if (dariKb) {
           rawAiResponse = `${
             finalDocs[0]?.summary || finalDocs[0]?.content.slice(0, 500)
-          }\n\nSaran:\n- Sesuaikan pola tanam dengan curah hujan setempat.\n- Konsultasikan dengan penyuluh BPP Nganjuk terdekat.`
+          }${language === 'jv' ? '\n\nRujukan ing basa aslinipun kasebat ing nginggil.\n\nPamrayogi:\n- Selarasaken pola nandur kaliyan curah jawah setempat.\n- Mangga konsultasi kaliyan penyuluh BPP Nganjuk paling caket.' : '\n\nSaran:\n- Sesuaikan pola tanam dengan curah hujan setempat.\n- Konsultasikan dengan penyuluh BPP Nganjuk terdekat.'}`
         } else {
-          rawAiResponse = `Halo! Mengenai "${userMessage}", secara umum dalam budidaya bawang merah Nganjuk, pastikan drainase bedengan dibuat optimal dan perhatikan kondisi cuaca sebelum pemupukan.\n\nSaran:\n- Cek kondisi kelembaban tanah lahan.\n- Hubungi Penyuluh Pertanian Lapangan (PPL) setempat.`
+          rawAiResponse = language === 'jv'
+            ? `Sugeng rawuh! Bab "${userMessage}", ing budidaya brambang Nganjuk, mangga dipunpriksa drainase bedengan supados optimal saha kawontenan cuaca saderengipun pemupukan.\n\nPamrayogi:\n- Priksa kelembapan lemah sabin.\n- Hubungi Penyuluh Pertanian Lapangan (PPL) setempat.`
+            : `Halo! Mengenai "${userMessage}", secara umum dalam budidaya bawang merah Nganjuk, pastikan drainase bedengan dibuat optimal dan perhatikan kondisi cuaca sebelum pemupukan.\n\nSaran:\n- Cek kondisi kelembaban tanah lahan.\n- Hubungi Penyuluh Pertanian Lapangan (PPL) setempat.`
         }
       }
     }

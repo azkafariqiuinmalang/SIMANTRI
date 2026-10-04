@@ -1,5 +1,7 @@
 'use client'
 
+import { useLanguage } from '@/components/ui/LanguageProvider'
+
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -72,6 +74,7 @@ const CV_CLASS_MAP: Record<string, { category: string; displayName: string }> = 
 }
 
 export default function DiseaseDetectionPage() {
+  const { t } = useLanguage()
   const router = useRouter()
   const [authLoading, setAuthLoading] = useState(true)
 
@@ -262,7 +265,7 @@ export default function DiseaseDetectionPage() {
       <div className="min-h-[55vh] flex flex-1 items-center justify-center bg-[var(--sim-canvas)]">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="w-8 h-8 animate-spin text-[var(--sim-color-primary)]" />
-          <p className="text-sm font-medium text-[var(--sim-color-body)]">Memuat modul deteksi...</p>
+          <p className="text-sm font-medium text-[var(--sim-color-body)]">{t("Memuat modul deteksi...")}</p>
         </div>
       </div>
     )
@@ -271,12 +274,12 @@ export default function DiseaseDetectionPage() {
   return (
     <main className="sim-page mx-auto w-full max-w-[1440px] space-y-6">
       {feedbackNotice && <Toast message={feedbackNotice} onDismiss={() => setFeedbackNotice('')} />}
-      <PageHeading title="Deteksi Penyakit" description="Unggah foto tanaman bawang merah untuk mengidentifikasi penyakit dan mendapatkan rekomendasi penanganan." icon={Leaf} action={<Link href="/dashboard/chat" className="sim-button-secondary"><Sparkles className="h-4 w-4 text-[var(--sim-color-primary)]" aria-hidden="true" />Konsultasi SIMA</Link>} />
+      <PageHeading title={t("Deteksi Penyakit")} description={t("Unggah foto tanaman bawang merah untuk mengidentifikasi penyakit dan mendapatkan rekomendasi penanganan.")} icon={Leaf} action={<Link href="/dashboard/chat" className="sim-button-secondary"><Sparkles className="h-4 w-4 text-[var(--sim-color-primary)]" aria-hidden="true" />{t("Konsultasi SIMA")}</Link>} />
 
       <div className="grid gap-3 md:grid-cols-3">
-        <div className="sim-card-flat flex items-start gap-3 p-4"><div className="sim-icon-tile"><Upload className="h-5 w-5" aria-hidden="true" /></div><div><h2 className="font-bold text-[var(--sim-color-foreground)]">Unggah cepat</h2><p className="mt-1 text-xs leading-5 text-[var(--sim-color-muted)]">Pilih satu foto daun atau bagian tanaman yang ingin dianalisis.</p></div></div>
-        <div className="sim-card-flat flex items-start gap-3 p-4"><div className="sim-icon-tile"><ShieldAlert className="h-5 w-5" aria-hidden="true" /></div><div><h2 className="font-bold text-[var(--sim-color-foreground)]">Hasil terukur</h2><p className="mt-1 text-xs leading-5 text-[var(--sim-color-muted)]">Model menampilkan objek, kelas, dan confidence dari foto Anda.</p></div></div>
-        <div className="sim-card-flat flex items-start gap-3 bg-[var(--sim-amber-50)] p-4"><div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-[var(--sim-amber-500)]"><Info className="h-5 w-5" aria-hidden="true" /></div><div><h2 className="font-bold text-[var(--sim-color-foreground)]">Panduan tindak lanjut</h2><p className="mt-1 text-xs leading-5 text-[var(--sim-color-muted)]">Gunakan hasil sebagai bahan diskusi dengan penyuluh atau SIMA.</p></div></div>
+        <div className="sim-card-flat flex items-start gap-3 p-4"><div className="sim-icon-tile"><Upload className="h-5 w-5" aria-hidden="true" /></div><div><h2 className="font-bold text-[var(--sim-color-foreground)]">{t("Unggah cepat")}</h2><p className="mt-1 text-xs leading-5 text-[var(--sim-color-muted)]">{t("Pilih satu foto daun atau bagian tanaman yang ingin dianalisis.")}</p></div></div>
+        <div className="sim-card-flat flex items-start gap-3 p-4"><div className="sim-icon-tile"><ShieldAlert className="h-5 w-5" aria-hidden="true" /></div><div><h2 className="font-bold text-[var(--sim-color-foreground)]">{t("Hasil terukur")}</h2><p className="mt-1 text-xs leading-5 text-[var(--sim-color-muted)]">{t("Model menampilkan objek, kelas, dan confidence dari foto Anda.")}</p></div></div>
+        <div className="sim-card-flat flex items-start gap-3 bg-[var(--sim-amber-50)] p-4"><div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-[var(--sim-amber-500)]"><Info className="h-5 w-5" aria-hidden="true" /></div><div><h2 className="font-bold text-[var(--sim-color-foreground)]">{t("Panduan tindak lanjut")}</h2><p className="mt-1 text-xs leading-5 text-[var(--sim-color-muted)]">{t("Gunakan hasil sebagai bahan diskusi dengan penyuluh atau SIMA.")}</p></div></div>
       </div>
 
         {/* UPLOAD & ANALYSIS SECTION */}
@@ -302,7 +305,7 @@ export default function DiseaseDetectionPage() {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={previewUrl}
-                      alt="Preview tanaman"
+                      alt={t("Preview tanaman")}
                       className="sim-result w-full h-full object-contain"
                     />
                     <button
@@ -312,14 +315,14 @@ export default function DiseaseDetectionPage() {
                         setAnalysisResult(null)
                       }}
                       className="absolute top-2 right-2 p-1.5 bg-black/60 hover:bg-black/80 text-white rounded-full transition-colors shadow"
-                      title="Ganti Foto"
+                      title={t("Ganti Foto")}
                     >
                       <X className="w-4 h-4" />
                     </button>
                   </div>
                   <div className="flex items-center justify-between text-xs text-[#8A8580] px-1">
                     <span className="truncate max-w-[200px]">{selectedFile?.name}</span>
-                    <span>{((selectedFile?.size || 0) / 1024 / 1024).toFixed(2)} MB</span>
+                    <span>{((selectedFile?.size || 0) / 1024 / 1024).toFixed(2)}  {t("MB")}</span>
                   </div>
                 </div>
               ) : (
@@ -330,7 +333,7 @@ export default function DiseaseDetectionPage() {
                   onClick={() => fileInputRef.current?.click()}
                   role="button"
                   tabIndex={0}
-                  aria-label="Pilih foto tanaman"
+                  aria-label={t("Pilih foto tanaman")}
                   onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); fileInputRef.current?.click() } }}
                   className={`cursor-pointer rounded-2xl border-2 py-10 px-4 w-full flex flex-col items-center justify-center space-y-3 group transition-colors ${dragActive ? 'border-simantri-500 bg-simantri-50' : 'border-transparent'}`}
                 >
@@ -339,15 +342,12 @@ export default function DiseaseDetectionPage() {
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-[#0E080A]">
-                      Tarik & Letakkan Foto di Sini
-                    </p>
+                      {t("Tarik & Letakkan Foto di Sini")}</p>
                     <p className="text-xs text-[#8A8580] mt-1">
-                      atau klik untuk memilih file foto dari galeri/kamera
-                    </p>
+                      {t("atau klik untuk memilih file foto dari galeri/kamera")}</p>
                   </div>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono text-[#8A8580] bg-[#FBF4EE] border border-[#E5DFD6]">
-                    Format: JPG, PNG &bull; Maks 10MB
-                  </div>
+                    {t("Format: JPG, PNG • Maks 10MB")}</div>
                 </div>
               )}
             </div>
@@ -356,7 +356,7 @@ export default function DiseaseDetectionPage() {
             {errorMessage && (
               <div role="alert" className="p-4 rounded-xl bg-[#8C3A3A]/10 border border-[#8C3A3A]/25 text-[#8C3A3A] text-xs flex items-start gap-2.5">
                 <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
-                <div className="leading-relaxed">{errorMessage}</div>
+                <div className="leading-relaxed">{t(errorMessage)}</div>
               </div>
             )}
 
@@ -369,12 +369,12 @@ export default function DiseaseDetectionPage() {
               {analyzing ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin text-white" />
-                  <span>Sedang Menganalisis...</span>
+                  <span>{t("Sedang Menganalisis...")}</span>
                 </>
               ) : (
                 <>
                   <Sparkles className="w-4 h-4 text-[#E6A15C]" />
-                  <span>Analisis Foto Tanaman &rarr;</span>
+                  <span>{t("Analisis Foto Tanaman →")}</span>
                 </>
               )}
             </button>
@@ -391,11 +391,9 @@ export default function DiseaseDetectionPage() {
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-base font-serif font-bold text-[#0E080A]">
-                    Mendeteksi Pola Patogen & Kondisi Daun...
-                  </h3>
+                    {t("Mendeteksi Pola Patogen & Kondisi Daun...")}</h3>
                   <p className="text-xs text-[#8A8580] max-w-sm">
-                    Model YOLOv8 sedang mengekstraksi bounding box dan menghitung tingkat kepercayaan diagnosis.
-                  </p>
+                    {t("Model YOLOv8 sedang mengekstraksi bounding box dan menghitung tingkat kepercayaan diagnosis.")}</p>
                 </div>
               </div>
             ) : analysisResult ? (
@@ -405,7 +403,7 @@ export default function DiseaseDetectionPage() {
                 <div className="p-4 rounded-xl bg-[#FBF4EE] border-l-4 border-l-[#E6A15C] border border-[#E5DFD6] text-xs text-[#4A3A32] space-y-1 shadow-sm">
                   <div className="flex items-center gap-1.5 font-bold text-[#0E080A]">
                     <ShieldAlert className="w-4 h-4 text-[#E6A15C]" />
-                    <span>Disclaimer Wajib Sistem AI</span>
+                    <span>{t("Disclaimer Wajib Sistem AI")}</span>
                   </div>
                   <p className="leading-relaxed">
                     {analysisResult.disclaimer}
@@ -439,17 +437,17 @@ export default function DiseaseDetectionPage() {
                     <div>
                       <h3 className="text-base font-serif font-bold text-[#0E080A]">
                         {analysisResult.has_disease
-                          ? 'Terdeteksi Gejala Penyakit'
+                          ? t("Terdeteksi Gejala Penyakit")
                           : analysisResult.all_healthy
-                          ? 'Tanaman Terindikasi Sehat'
-                          : 'Bagian Tanaman Terdeteksi'}
+                          ? t("Tanaman Terindikasi Sehat")
+                          : t("Bagian Tanaman Terdeteksi")}
                       </h3>
                       <p className="text-xs text-[#4A3A32]">
                         {analysisResult.has_disease
-                          ? 'Ditemukan indikasi serangan patogen pada foto yang Anda unggah.'
+                          ? t("Ditemukan indikasi serangan patogen pada foto yang Anda unggah.")
                           : analysisResult.all_healthy
-                          ? 'Tidak ditemukan tanda infeksi jamur atau bakteri yang nyata.'
-                          : 'Foto berisi anatomi daun bawang merah, namun belum menunjukkan indikasi patogen spesifik.'}
+                          ? t("Tidak ditemukan tanda infeksi jamur atau bakteri yang nyata.")
+                          : t("Foto berisi anatomi daun bawang merah, namun belum menunjukkan indikasi patogen spesifik.")}
                       </p>
                     </div>
                   </div>
@@ -459,21 +457,19 @@ export default function DiseaseDetectionPage() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-[#8A8580]">
-                      Hasil Diagnosis Objek ({analysisResult.results_for_display.length}):
+                      {t("Hasil Diagnosis Objek (")}{analysisResult.results_for_display.length}):
                     </h4>
                     <span className="text-[11px] text-[#8A8580]">
-                      Total objek terdeteksi model: {analysisResult.total_detected_objects}
+                      {t("Total objek terdeteksi model:")} {analysisResult.total_detected_objects}
                     </span>
                   </div>
 
                   {analysisResult.results_for_display.length === 0 ? (
                     <div className="p-6 rounded-xl border border-[#E5DFD6] bg-white text-center space-y-2">
                       <p className="text-xs text-[#4A3A32] font-medium">
-                        Foto terdeteksi berisi tanaman bawang merah, namun sistem belum bisa menyimpulkan kondisi kesehatannya secara tegas.
-                      </p>
+                        {t("Foto terdeteksi berisi tanaman bawang merah, namun sistem belum bisa menyimpulkan kondisi kesehatannya secara tegas.")}</p>
                       <p className="text-[11px] text-[#8A8580]">
-                        Saran: Ambil foto yang lebih terang dan fokus pada bercak daun yang dicurigai sakit.
-                      </p>
+                        {t("Saran: Ambil foto yang lebih terang dan fokus pada bercak daun yang dicurigai sakit.")}</p>
                     </div>
                   ) : (
                     analysisResult.results_for_display.map((item, idx) => {
@@ -501,12 +497,11 @@ export default function DiseaseDetectionPage() {
                                 {item.display_name || item.predicted_class}
                               </span>
                               <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-[#FBF4EE] border border-[#E5DFD6] text-[#8A8580]">
-                                {item.category}
+                                {t(item.category)}
                               </span>
                             </div>
                             <span className={`text-xs font-mono font-bold ${textColor}`}>
-                              {conf}% Confidence
-                            </span>
+                              {conf}{t("% Confidence")}</span>
                           </div>
 
                           {/* Progress Bar */}
@@ -530,8 +525,7 @@ export default function DiseaseDetectionPage() {
                                 />
                               </div>
                               <span className="text-[11px] font-medium text-[#0E080A]">
-                                Butuh panduan langkah penanganan penyakit ini?
-                              </span>
+                                {t("Butuh panduan langkah penanganan penyakit ini?")}</span>
                             </div>
                             <button
                               onClick={() => {
@@ -544,15 +538,13 @@ export default function DiseaseDetectionPage() {
                               className="px-2.5 py-1.5 rounded-lg bg-[#C4487A] hover:bg-[#A83A68] text-white text-[11px] font-semibold transition-all inline-flex items-center gap-1.5 shadow-xs active:translate-y-0 shrink-0"
                             >
                               <Sparkles className="w-3 h-3 text-[#E6A15C]" />
-                              Tanya Solusi ke SIMA
-                            </button>
+                              {t("Tanya Solusi ke SIMA")}</button>
                           </div>
 
                           {/* Feedback Section */}
                           <div className="pt-2 border-t border-[#E5DFD6]/60 flex flex-wrap items-center justify-between gap-2">
                             <span className="text-[11px] text-[#8A8580]">
-                              Apakah hasil diagnosis ini sesuai dengan kondisi riil?
-                            </span>
+                              {t("Apakah hasil diagnosis ini sesuai dengan kondisi riil?")}</span>
                             <div className="flex items-center gap-2">
                               <button
                                 aria-pressed={item.farmer_feedback === 'sesuai'}
@@ -566,8 +558,7 @@ export default function DiseaseDetectionPage() {
                                 }`}
                               >
                                 <Check className="w-3.5 h-3.5" />
-                                Sesuai
-                              </button>
+                                {t("Sesuai")}</button>
 
                               <button
                                 aria-pressed={item.farmer_feedback === 'tidak_sesuai'}
@@ -587,8 +578,7 @@ export default function DiseaseDetectionPage() {
                                 }`}
                               >
                                 <X className="w-3.5 h-3.5" />
-                                Tidak Sesuai
-                              </button>
+                                {t("Tidak Sesuai")}</button>
                             </div>
                           </div>
 
@@ -596,14 +586,13 @@ export default function DiseaseDetectionPage() {
                           {activeCorrectionId === item.result_id && (
                             <div className="p-3 rounded-xl bg-[#FBF4EE] border border-[#E5DFD6] space-y-2 mt-2">
                               <label className="text-[11px] font-medium text-[#4A3A32] block">
-                                Catatan Koreksi Anda (Opsional):
-                              </label>
+                                {t("Catatan Koreksi Anda (Opsional):")}</label>
                               <textarea
-                                aria-label="Catatan koreksi hasil deteksi"
+                                aria-label={t("Catatan koreksi hasil deteksi")}
                                 rows={2}
                                 value={correctionNote}
                                 onChange={(e) => setCorrectionNote(e.target.value)}
-                                placeholder="Menurut pengalaman saya di sawah, gejala ini sebenarnya adalah..."
+                                placeholder={t("Menurut pengalaman saya di sawah, gejala ini sebenarnya adalah...")}
                                 className="w-full p-2 text-xs rounded-lg border border-[#E5DFD6] bg-white focus:outline-none focus:border-[#C4487A]"
                               />
                               <div className="flex justify-end gap-2">
@@ -611,8 +600,7 @@ export default function DiseaseDetectionPage() {
                                   onClick={() => setActiveCorrectionId(null)}
                                   className="px-2.5 py-1 rounded text-xs text-[#8A8580] hover:bg-[#E5DFD6]"
                                 >
-                                  Batal
-                                </button>
+                                  {t("Batal")}</button>
                                 <button
                                   onClick={() =>
                                     handleSendFeedback(
@@ -623,8 +611,7 @@ export default function DiseaseDetectionPage() {
                                   }
                                   className="px-3 py-1 rounded bg-[#8C3A3A] text-white text-xs font-medium hover:bg-[#722F2F]"
                                 >
-                                  Kirim Feedback
-                                </button>
+                                  {t("Kirim Feedback")}</button>
                               </div>
                             </div>
                           )}
@@ -639,11 +626,9 @@ export default function DiseaseDetectionPage() {
               <div className="card-standard p-8 border border-[#E5DFD6] bg-white space-y-6">
                 <div>
                   <h3 className="text-lg font-serif font-bold text-[#0E080A]">
-                    Panduan Cepat Deteksi Penyakit
-                  </h3>
+                    {t("Panduan Cepat Deteksi Penyakit")}</h3>
                   <p className="text-xs text-[#8A8580] mt-1">
-                    Ikuti 3 langkah mudah berikut untuk mendapatkan dugaan awal penyakit tanaman Anda:
-                  </p>
+                    {t("Ikuti 3 langkah mudah berikut untuk mendapatkan dugaan awal penyakit tanaman Anda:")}</p>
                 </div>
 
                 <div className="grid sm:grid-cols-3 gap-4">
@@ -651,30 +636,27 @@ export default function DiseaseDetectionPage() {
                     <div className="w-8 h-8 rounded-lg bg-[#C4487A] text-white flex items-center justify-center font-bold text-xs">
                       1
                     </div>
-                    <h4 className="text-xs font-bold text-[#0E080A]">Foto dari Jarak Dekat</h4>
+                    <h4 className="text-xs font-bold text-[#0E080A]">{t("Foto dari Jarak Dekat")}</h4>
                     <p className="text-[11px] text-[#4A3A32] leading-relaxed">
-                      Ambil foto bagian daun atau batang yang terlihat bercak, meliuk, atau layu dengan pencahayaan cukup.
-                    </p>
+                      {t("Ambil foto bagian daun atau batang yang terlihat bercak, meliuk, atau layu dengan pencahayaan cukup.")}</p>
                   </div>
 
                   <div className="p-4 rounded-xl bg-[#FBF4EE] border border-[#E5DFD6] space-y-2">
                     <div className="w-8 h-8 rounded-lg bg-[#E6A15C] text-[#0E080A] flex items-center justify-center font-bold text-xs">
                       2
                     </div>
-                    <h4 className="text-xs font-bold text-[#0E080A]">Upload ke SIMANTRI</h4>
+                    <h4 className="text-xs font-bold text-[#0E080A]">{t("Upload ke SIMANTRI")}</h4>
                     <p className="text-[11px] text-[#4A3A32] leading-relaxed">
-                      Unggah foto ke sistem. Model YOLOv8 akan menganalisis infeksi jamur atau bakteri dalam hitungan detik.
-                    </p>
+                      {t("Unggah foto ke sistem. Model YOLOv8 akan menganalisis infeksi jamur atau bakteri dalam hitungan detik.")}</p>
                   </div>
 
                   <div className="p-4 rounded-xl bg-[#FBF4EE] border border-[#E5DFD6] space-y-2">
                     <div className="w-8 h-8 rounded-lg bg-[#3A5A40] text-white flex items-center justify-center font-bold text-xs">
                       3
                     </div>
-                    <h4 className="text-xs font-bold text-[#0E080A]">Konfirmasi & Tindakan</h4>
+                    <h4 className="text-xs font-bold text-[#0E080A]">{t("Konfirmasi & Tindakan")}</h4>
                     <p className="text-[11px] text-[#4A3A32] leading-relaxed">
-                      Gunakan hasil deteksi sebagai bahan diskusi dengan penyuluh terdekat sebelum memilih pestisida atau fungisida.
-                    </p>
+                      {t("Gunakan hasil deteksi sebagai bahan diskusi dengan penyuluh terdekat sebelum memilih pestisida atau fungisida.")}</p>
                   </div>
                 </div>
 
@@ -682,14 +664,13 @@ export default function DiseaseDetectionPage() {
                   <div className="flex items-center gap-3">
                     <HelpCircle className="w-5 h-5 text-[#C4487A]" />
                     <span className="text-xs text-[#4A3A32]">
-                      Ingin tahu ciri khas penyakit Trotol vs Moler secara tertulis?
-                    </span>
+                      {t("Ingin tahu ciri khas penyakit Trotol vs Moler secara tertulis?")}</span>
                   </div>
                   <Link
                     href="/dashboard/chat"
                     className="text-xs font-semibold text-[#C4487A] hover:underline inline-flex items-center gap-1"
                   >
-                    Tanya SIMA <ChevronRight className="w-3.5 h-3.5" />
+                    {t("Tanya SIMA")} <ChevronRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>
@@ -703,14 +684,13 @@ export default function DiseaseDetectionPage() {
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-[#C4487A]" />
               <h3 className="font-serif font-bold text-base text-[#0E080A]">
-                Riwayat 5 Deteksi Terakhir Anda
-              </h3>
+                {t("Riwayat 5 Deteksi Terakhir Anda")}</h3>
             </div>
             <button
               onClick={loadHistory}
               disabled={historyLoading}
               className="p-1.5 text-xs text-[#8A8580] hover:text-[#0E080A] rounded-lg hover:bg-white transition-colors"
-              title="Segarkan Riwayat"
+              title={t("Segarkan Riwayat")}
             >
               <RefreshCw className={`w-3.5 h-3.5 ${historyLoading ? 'animate-spin' : ''}`} />
             </button>
@@ -719,13 +699,12 @@ export default function DiseaseDetectionPage() {
           {historyLoading ? (
             <div className="p-8 text-center bg-white rounded-2xl border border-[#E5DFD6]">
               <Skeleton className="mx-auto mb-3 h-20 w-full" />
-              <p className="text-xs text-[#8A8580]">Memuat riwayat deteksi...</p>
+              <p className="text-xs text-[#8A8580]">{t("Memuat riwayat deteksi...")}</p>
             </div>
           ) : history.length === 0 ? (
             <div className="p-6 text-center bg-white rounded-2xl border border-[#E5DFD6]">
               <p className="text-xs text-[#8A8580]">
-                Belum ada riwayat deteksi foto tanaman. Mulai upload foto pertama Anda di atas!
-              </p>
+                {t("Belum ada riwayat deteksi foto tanaman. Mulai upload foto pertama Anda di atas!")}</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
@@ -745,7 +724,7 @@ export default function DiseaseDetectionPage() {
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={hist.image_url}
-                        alt="Foto Riwayat"
+                        alt={t("Foto Riwayat")}
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -785,8 +764,7 @@ export default function DiseaseDetectionPage() {
                           })
                         ) : (
                           <span className="text-[10px] text-[#8A8580] italic block">
-                            Anatomi Tanaman
-                          </span>
+                            {t("Anatomi Tanaman")}</span>
                         )}
                       </div>
                     </div>

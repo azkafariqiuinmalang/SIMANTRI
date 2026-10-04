@@ -1,5 +1,7 @@
 'use client'
 
+import { useLanguage } from '@/components/ui/LanguageProvider'
+
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -152,6 +154,7 @@ const LANDING_NAV_ITEMS = [
 ]
 
 export default function LandingPage() {
+  const { t } = useLanguage()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('beranda')
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, top: 0, width: 0, height: 0, opacity: 0 })
@@ -390,7 +393,7 @@ export default function LandingPage() {
             <div className="relative h-8 w-8 sm:h-10 sm:w-10 flex items-center justify-center rounded-full bg-[#173e2d]/5 group-hover:bg-[#173e2d]/10 transition-colors duration-200 p-1">
               <Image
                 src="/UIUX BARU/logo_simantri.png"
-                alt="Logo SIMANTRI"
+                alt={t("Logo SIMANTRI")}
                 width={36}
                 height={36}
                 className="object-contain drop-shadow-xs"
@@ -402,8 +405,7 @@ export default function LandingPage() {
                 SIMANTRI
               </span>
               <span className="text-[9.5px] font-mono uppercase text-[#5E665F] tracking-wider mt-0.5 hidden sm:inline">
-                Nganjuk Agro Hub
-              </span>
+                {t("Nganjuk Agro Hub")}</span>
             </div>
           </Link>
 
@@ -412,7 +414,7 @@ export default function LandingPage() {
             <nav
               ref={navContainerRef}
               role="navigation"
-              aria-label="Navigasi Utama"
+              aria-label={t("Navigasi Utama")}
               className="relative flex items-center p-1 rounded-full"
             >
               {/* Sliding Active Pill Background Indicator with Perfect Centering */}
@@ -444,7 +446,7 @@ export default function LandingPage() {
                     }`}
                     aria-current={isActive ? 'page' : undefined}
                   >
-                    <span className="translate-y-[-0.5px]">{item.label}</span>
+                    <span className="translate-y-[-0.5px]">{t(item.label)}</span>
                   </a>
                 )
               })}
@@ -458,7 +460,7 @@ export default function LandingPage() {
               href="/dunia-brambang"
               className="inline-flex items-center justify-center gap-1.5 h-8 px-3.5 text-[13.5px] font-manrope font-semibold text-[#5E665F] hover:text-[#6b1434] hover:bg-[#EAC6D2]/50 rounded-full transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6b1434] focus-visible:ring-offset-1 leading-none select-none"
             >
-              <span className="translate-y-[-0.5px]">Dunia Brambang</span>
+              <span className="translate-y-[-0.5px]">{t("Dunia Brambang")}</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#E25C58] animate-pulse"></span>
             </Link>
           </div>
@@ -469,19 +471,17 @@ export default function LandingPage() {
               href="/login"
               className="inline-flex min-h-11 items-center text-[14px] font-semibold text-[#5E665F] hover:text-[#173e2d] hover:bg-[#173e2d]/8 px-2 sm:px-4 py-1.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] focus-visible:ring-offset-1 transition-colors duration-200"
             >
-              Masuk
-            </Link>
+              {t("Masuk")}</Link>
             <Link
               href="/register"
               className="inline-flex min-h-11 items-center justify-center bg-[#173e2d] text-[#F8F4EC] text-[13.5px] font-semibold px-3 sm:px-5 py-2 rounded-full hover:bg-[#275a3d] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] focus-visible:ring-offset-2 transition-all duration-200 shadow-sm"
             >
-              Daftar
-            </Link>
+              {t("Daftar")}</Link>
             
             {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle navigation menu"
+              aria-label={t("Toggle navigation menu")}
               aria-expanded={mobileMenuOpen}
               className="xl:hidden p-2 rounded-full text-[#173e2d] hover:bg-[#173e2d]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] transition-colors duration-200"
             >
@@ -493,7 +493,7 @@ export default function LandingPage() {
         {/* Mobile Dropdown Menu */}
         {(
           <div inert={!mobileMenuOpen} aria-hidden={!mobileMenuOpen} style={{ opacity: mobileMenuOpen ? 1 : 0, visibility: mobileMenuOpen ? 'visible' : 'hidden', transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-8px)', transition: `opacity 220ms ease-out, transform 220ms ease-out, visibility 0s ${mobileMenuOpen ? '0s' : '220ms'}` }} className="absolute left-4 right-4 top-full xl:hidden max-w-6xl mx-auto mt-2 bg-white/95 backdrop-blur-md border border-[#173e2d]/10 rounded-2xl p-4 shadow-xl pointer-events-auto">
-            <nav className="flex flex-col gap-1.5 text-[14px]" role="navigation" aria-label="Navigasi Mobile">
+            <nav className="flex flex-col gap-1.5 text-[14px]" role="navigation" aria-label={t("Navigasi Mobile")}>
               {LANDING_NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.id
                 return (
@@ -508,7 +508,7 @@ export default function LandingPage() {
                     }`}
                     aria-current={isActive ? 'page' : undefined}
                   >
-                    <span>{item.label}</span>
+                    <span>{t(item.label)}</span>
                     {isActive && <span className="w-2 h-2 rounded-full bg-[#173e2d]"></span>}
                   </a>
                 )
@@ -519,10 +519,9 @@ export default function LandingPage() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-4 py-2.5 rounded-xl hover:bg-[#EAC6D2]/30 text-[#173e2d] font-semibold flex items-center justify-between transition-colors duration-200"
               >
-                <span>Dunia Brambang (Pustaka Agronomi)</span>
+                <span>{t("Dunia Brambang (Pustaka Agronomi)")}</span>
                 <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-[#EAC6D2] text-[#6b1434]">
-                  Khas Nganjuk
-                </span>
+                  {t("Khas Nganjuk")}</span>
               </Link>
 
               <div className="pt-2 mt-1 border-t border-[#173e2d]/10 flex gap-2">
@@ -530,14 +529,12 @@ export default function LandingPage() {
                   href="/login"
                   className="flex-1 text-center py-2.5 rounded-full border border-[#173e2d]/20 text-[#173e2d] hover:bg-[#173e2d]/5 font-semibold text-[13px] transition-colors"
                 >
-                  Masuk Akun
-                </Link>
+                  {t("Masuk Akun")}</Link>
                 <Link
                   href="/register"
                   className="flex-1 text-center py-2.5 rounded-full bg-[#173e2d] hover:bg-[#275a3d] text-white font-semibold text-[13px] transition-colors"
                 >
-                  Daftar Petani
-                </Link>
+                  {t("Daftar Petani")}</Link>
               </div>
             </nav>
           </div>
@@ -558,8 +555,7 @@ export default function LandingPage() {
               style={{ top: '-18px' }}
             >
               <span className="font-handwriting text-[23px] text-[#275a3d] font-bold tracking-wide">
-                Kawal Panen Anda!
-              </span>
+                {t("Kawal Panen Anda!")}</span>
               <svg
                 className="w-10 h-10 text-[#275a3d] -mt-1 translate-x-3"
                 fill="none"
@@ -591,18 +587,16 @@ export default function LandingPage() {
 
             {/* Main Headline */}
             <h1 className="font-editorial text-[38px] sm:text-[54px] lg:text-[68px] leading-[1.08] text-[#1A221D] tracking-tight max-w-4xl mx-auto mb-4 sm:mb-5 font-semibold">
-              Pertanian Bawang Merah yang Lebih Cerdas,{' '}
+              {t("Pertanian Bawang Merah yang Lebih Cerdas,")}{' '}
               <br className="hidden sm:inline" />
-              dari Lahan hingga{' '}
+              {t("dari Lahan hingga")}{' '}
               <span className="italic font-normal text-[#275a3d]">
-                Keputusan Jual.
-              </span>
+                {t("Keputusan Jual.")}</span>
             </h1>
 
             {/* Subheadline */}
             <p className="text-[16px] sm:text-[18px] text-[#5E665F] max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal">
-              SIMANTRI mendampingi petani Nganjuk membaca dinamika pasar, mendeteksi ancaman penyakit sejak dini, dan mengakses pustaka budidaya terpadu.
-            </p>
+              {t("SIMANTRI mendampingi petani Nganjuk membaca dinamika pasar, mendeteksi ancaman penyakit sejak dini, dan mengakses pustaka budidaya terpadu.")}</p>
           </div>
 
           {/* INFINITE MOVING CAROUSEL TRACK (Right to Left, Pause on Hover with Prominent Card Zoom) */}
@@ -621,7 +615,7 @@ export default function LandingPage() {
                   >
                     <Image
                       src={card.img}
-                      alt={card.title}
+                      alt={t(card.title)}
                       fill
                       className="carousel-card-img object-cover"
                     />
@@ -642,7 +636,7 @@ export default function LandingPage() {
                       <span
                         className={`inline-flex items-center text-[10.5px] font-mono uppercase px-2.5 py-1 rounded-full font-bold shadow-xs transition-transform duration-300 group-hover:scale-[1.02] ${card.badgeBg}`}
                       >
-                        {card.badge}
+                        {t(card.badge)}
                       </span>
                     </div>
 
@@ -651,13 +645,13 @@ export default function LandingPage() {
                       <span
                         className={`inline-block text-[10.5px] font-mono uppercase px-2.5 py-0.5 rounded-full font-bold mb-1.5 shadow-xs ${card.tagBg}`}
                       >
-                        {card.tag}
+                        {t(card.tag)}
                       </span>
                       <h4 className="text-white text-[16px] sm:text-[17px] font-editorial font-semibold leading-snug drop-shadow-sm group-hover:text-[#b8efc9] transition-colors">
-                        {card.title}
+                        {t(card.title)}
                       </h4>
                       <p className="text-white/85 text-[11.5px] mt-0.5 line-clamp-1 font-normal">
-                        {card.subtitle}
+                        {t(card.subtitle)}
                       </p>
                     </div>
                   </div>
@@ -673,7 +667,7 @@ export default function LandingPage() {
                   >
                     <Image
                       src={card.img}
-                      alt={card.title}
+                      alt={t(card.title)}
                       fill
                       className="carousel-card-img object-cover"
                     />
@@ -692,7 +686,7 @@ export default function LandingPage() {
                       <span
                         className={`inline-flex items-center text-[10.5px] font-mono uppercase px-2.5 py-1 rounded-full font-bold shadow-xs transition-transform duration-300 group-hover:scale-[1.02] ${card.badgeBg}`}
                       >
-                        {card.badge}
+                        {t(card.badge)}
                       </span>
                     </div>
 
@@ -700,13 +694,13 @@ export default function LandingPage() {
                       <span
                         className={`inline-block text-[10.5px] font-mono uppercase px-2.5 py-0.5 rounded-full font-bold mb-1.5 shadow-xs ${card.tagBg}`}
                       >
-                        {card.tag}
+                        {t(card.tag)}
                       </span>
                       <h4 className="text-white text-[16px] sm:text-[17px] font-editorial font-semibold leading-snug drop-shadow-sm group-hover:text-[#b8efc9] transition-colors">
-                        {card.title}
+                        {t(card.title)}
                       </h4>
                       <p className="text-white/85 text-[11.5px] mt-0.5 line-clamp-1 font-normal">
-                        {card.subtitle}
+                        {t(card.subtitle)}
                       </p>
                     </div>
                   </div>
@@ -721,8 +715,7 @@ export default function LandingPage() {
               href="/register"
               className="relative inline-flex items-center justify-center bg-[#E25C58] hover:bg-[#d04b47] text-white font-semibold text-[15px] sm:text-[16px] px-9 py-3.5 sm:py-4 rounded-full shadow-lg shadow-[#E25C58]/25 hover:shadow-2xl hover:shadow-[#E25C58]/40 hover:-translate-y-px active:translate-y-0 transition-all duration-300 cursor-pointer"
             >
-              Mulai Gunakan SIMANTRI
-            </Link>
+              {t("Mulai Gunakan SIMANTRI")}</Link>
 
             {/* Hand-drawn Annotation below CTA */}
             <div className="flex items-center gap-2 mt-2.5 text-[#5E665F] select-none">
@@ -739,8 +732,7 @@ export default function LandingPage() {
                 <path d="M8 20 L 12 26 L 18 22"></path>
               </svg>
               <span className="font-handwriting text-[20px] text-[#173e2d] font-bold">
-                Akses Terbuka & Gratis Petani
-              </span>
+                {t("Akses Terbuka & Gratis Petani")}</span>
             </div>
           </div>
         </section>
@@ -754,21 +746,18 @@ export default function LandingPage() {
                 <div className="rounded-[24px] overflow-hidden shadow-sm h-60 sm:h-76 bg-[#f1eae0] relative hover-card-lift">
                   <Image
                     src="/foto_bawang_merah.jpg"
-                    alt="Bawang Merah Nganjuk Berkualitas"
+                    alt={t("Bawang Merah Nganjuk Berkualitas")}
                     fill
                     className="object-cover transition-transform duration-500 hover:scale-[1.02]"
                   />
                 </div>
                 <div className="bg-white p-6 rounded-[24px] shadow-xs flex flex-col justify-between border border-[#173e2d]/10 hover-card-lift hover:bg-[#FAF7F2]">
                   <span className="text-[11px] font-mono uppercase text-[#275a3d] font-bold tracking-widest">
-                    Wilayah Sentra
-                  </span>
+                    {t("Wilayah Sentra")}</span>
                   <p className="font-editorial text-[22px] font-semibold text-[#173e2d] mt-2">
-                    Sukomoro & Bagor
-                  </p>
+                    {t("Sukomoro & Bagor")}</p>
                   <p className="text-[13px] text-[#5E665F] mt-1 leading-relaxed">
-                    Basis penghasil utama varietas Tajuk & Bauji dengan pasokan harian terluas Jawa Timur.
-                  </p>
+                    {t("Basis penghasil utama varietas Tajuk & Bauji dengan pasokan harian terluas Jawa Timur.")}</p>
                 </div>
               </div>
 
@@ -776,16 +765,15 @@ export default function LandingPage() {
                 <div className="bg-[#173e2d] text-[#F8F4EC] p-6 rounded-[24px] shadow-sm hover-card-lift hover:bg-[#275a3d]">
                   <div className="flex items-center gap-2 mb-2 text-[#b8efc9]">
                     <Sparkles size={18} />
-                    <span className="text-[13px] font-semibold">Sains Berbasis Lahan</span>
+                    <span className="text-[13px] font-semibold">{t("Sains Berbasis Lahan")}</span>
                   </div>
                   <p className="text-[13px] text-[#81a993] leading-relaxed">
-                    Menggabungkan catatan empiris puluhan tahun dengan model algoritma analisis prediktif.
-                  </p>
+                    {t("Menggabungkan catatan empiris puluhan tahun dengan model algoritma analisis prediktif.")}</p>
                 </div>
                 <div className="rounded-[24px] overflow-hidden shadow-sm h-60 sm:h-76 bg-[#f1eae0] relative hover-card-lift">
                   <Image
                     src="/bg_tugu_bawang.jpg"
-                    alt="Lahan Sentra Nganjuk"
+                    alt={t("Lahan Sentra Nganjuk")}
                     fill
                     className="object-cover transition-transform duration-500 hover:scale-[1.02]"
                   />
@@ -796,25 +784,21 @@ export default function LandingPage() {
             {/* Right: Narrative */}
             <div className="lg:col-span-6 flex flex-col justify-center">
               <span className="text-[11.5px] font-mono uppercase text-[#275a3d] tracking-[0.2em] font-bold mb-3">
-                Tentang Platform
-              </span>
+                {t("Tentang Platform")}</span>
               <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight mb-6 leading-tight">
-                Dari Nganjuk, untuk keputusan tani yang lebih terukur.
-              </h2>
+                {t("Dari Nganjuk, untuk keputusan tani yang lebih terukur.")}</h2>
               <div className="space-y-4 text-[15px] sm:text-[16px] text-[#5E665F] leading-relaxed">
                 <p>
-                  Bawang merah adalah urat nadi perekonomian Nganjuk. Namun, fluktuasi harga yang tajam dan ancaman serangan hama sering kali memaksa petani mengambil keputusan panen dalam posisi tertekan tanpa pegangan data yang jelas.
-                </p>
+                  {t("Bawang merah adalah urat nadi perekonomian Nganjuk. Namun, fluktuasi harga yang tajam dan ancaman serangan hama sering kali memaksa petani mengambil keputusan panen dalam posisi tertekan tanpa pegangan data yang jelas.")}</p>
                 <p>
-                  SIMANTRI dirancang bukan sekadar alat pencatat angka di atas layar. Ini adalah ruang temu antara data historis pasar yang objektif, analisis agronomi presisi, dan kearifan lokal yang telah diuji musim demi musim oleh petani Nganjuk.
-                </p>
+                  {t("SIMANTRI dirancang bukan sekadar alat pencatat angka di atas layar. Ini adalah ruang temu antara data historis pasar yang objektif, analisis agronomi presisi, dan kearifan lokal yang telah diuji musim demi musim oleh petani Nganjuk.")}</p>
               </div>
               <div className="pt-8 flex items-center gap-4">
                 <a
                   href="#solusi-section"
                   className="hover-btn-scale inline-flex items-center gap-2 text-[14px] font-semibold bg-[#173e2d]/10 hover:bg-[#173e2d] text-[#173e2d] hover:text-white px-6 py-3 rounded-full border border-[#173e2d]/15 hover:border-transparent group shadow-xs"
                 >
-                  <span>Pelajari arsitektur solusi SIMANTRI</span>
+                  <span>{t("Pelajari arsitektur solusi SIMANTRI")}</span>
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
@@ -828,16 +812,13 @@ export default function LandingPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-12">
               <div className="lg:col-span-7">
                 <span className="text-[11.5px] font-mono uppercase text-[#6b1434] tracking-[0.2em] font-bold mb-2 block">
-                  Kerentanan Musiman
-                </span>
+                  {t("Kerentanan Musiman")}</span>
                 <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight leading-tight">
-                  Tiga tantangan utama yang dihadapi petani bawang merah Nganjuk.
-                </h2>
+                  {t("Tiga tantangan utama yang dihadapi petani bawang merah Nganjuk.")}</h2>
               </div>
               <div className="lg:col-span-5">
                 <p className="text-[15px] text-[#5E665F] leading-relaxed">
-                  Ketergantungan pada kabar lisan dan lambatnya respon terhadap tanda-tanda kerusakan tanaman berdampak langsung pada margin pendapatan rumah tangga petani.
-                </p>
+                  {t("Ketergantungan pada kabar lisan dan lambatnya respon terhadap tanda-tanda kerusakan tanaman berdampak langsung pada margin pendapatan rumah tangga petani.")}</p>
               </div>
             </div>
 
@@ -853,15 +834,13 @@ export default function LandingPage() {
                     </div>
                   </div>
                   <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] mb-3 leading-snug">
-                    Harga bergerak lebih cepat daripada keputusan panen.
-                  </h3>
+                    {t("Harga bergerak lebih cepat daripada keputusan panen.")}</h3>
                   <p className="text-[13.5px] text-[#5E665F] leading-relaxed">
-                    Petani seringkali melepas panen pada harga terendah akibat ketiadaan proyeksi tren harga riil harian di pasar grosir Sukomoro dan sentra regional sekitarnya.
-                  </p>
+                    {t("Petani seringkali melepas panen pada harga terendah akibat ketiadaan proyeksi tren harga riil harian di pasar grosir Sukomoro dan sentra regional sekitarnya.")}</p>
                 </div>
                 <div className="pt-5 mt-6 border-t border-[#173e2d]/10 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#ba1a1a]"></span>
-                  <span className="text-[12px] font-medium text-[#414844]">Risiko kerugian margin hingga 35%</span>
+                  <span className="text-[12px] font-medium text-[#414844]">{t("Risiko kerugian margin hingga 35%")}</span>
                 </div>
               </div>
 
@@ -875,15 +854,13 @@ export default function LandingPage() {
                     </div>
                   </div>
                   <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] mb-3 leading-snug">
-                    Penyakit daun terlambat diidentifikasi pada fase awal.
-                  </h3>
+                    {t("Penyakit daun terlambat diidentifikasi pada fase awal.")}</h3>
                   <p className="text-[13.5px] text-[#5E665F] leading-relaxed">
-                    Gejala awal layu Fusarium (Moler) dan Trotol (Alternaria) kerap disalahartikan sebagai kekurangan air, memicu pengobatan keliru yang mempercepat pembusukan umbi.
-                  </p>
+                    {t("Gejala awal layu Fusarium (Moler) dan Trotol (Alternaria) kerap disalahartikan sebagai kekurangan air, memicu pengobatan keliru yang mempercepat pembusukan umbi.")}</p>
                 </div>
                 <div className="pt-5 mt-6 border-t border-[#173e2d]/10 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#ba1a1a]"></span>
-                  <span className="text-[12px] font-medium text-[#414844]">Penyebaran patogen spora dalam 72 jam</span>
+                  <span className="text-[12px] font-medium text-[#414844]">{t("Penyebaran patogen spora dalam 72 jam")}</span>
                 </div>
               </div>
 
@@ -897,15 +874,13 @@ export default function LandingPage() {
                     </div>
                   </div>
                   <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] mb-3 leading-snug">
-                    Kearifan lokal agronomi belum terhimpun rapi.
-                  </h3>
+                    {t("Kearifan lokal agronomi belum terhimpun rapi.")}</h3>
                   <p className="text-[13.5px] text-[#5E665F] leading-relaxed">
-                    Taktik pemupukan spesifik tanah liat berpasir Nganjuk dan penanganan bibit Tajuk tersimpan sporadis pada ingatan petani lansia tanpa transmisi sistematis.
-                  </p>
+                    {t("Taktik pemupukan spesifik tanah liat berpasir Nganjuk dan penanganan bibit Tajuk tersimpan sporadis pada ingatan petani lansia tanpa transmisi sistematis.")}</p>
                 </div>
                 <div className="pt-5 mt-6 border-t border-[#173e2d]/10 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#36684a]"></span>
-                  <span className="text-[12px] font-medium text-[#414844]">Hilangnya panduan adaptasi cuaca ekstrem</span>
+                  <span className="text-[12px] font-medium text-[#414844]">{t("Hilangnya panduan adaptasi cuaca ekstrem")}</span>
                 </div>
               </div>
             </div>
@@ -918,15 +893,12 @@ export default function LandingPage() {
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
               <div>
                 <span className="text-[11.5px] font-mono uppercase text-[#275a3d] tracking-[0.2em] font-bold mb-2 block">
-                  Ekosistem Terintegrasi
-                </span>
+                  {t("Ekosistem Terintegrasi")}</span>
                 <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight leading-tight">
-                  Semua yang dibutuhkan petani bawang merah.
-                </h2>
+                  {t("Semua yang dibutuhkan petani bawang merah.")}</h2>
               </div>
               <p className="text-[15px] text-[#5E665F] mt-3 md:mt-0 max-w-md">
-                Empat pilar fungsional yang dirancang khusus untuk memandu setiap tahapan budidaya di tanah Nganjuk.
-              </p>
+                {t("Empat pilar fungsional yang dirancang khusus untuk memandu setiap tahapan budidaya di tanah Nganjuk.")}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -934,26 +906,23 @@ export default function LandingPage() {
               <div className="hover-card-lift group relative rounded-[24px] overflow-hidden min-h-[400px] flex flex-col justify-end p-6 shadow-sm border border-transparent hover:border-[#b8efc9]/40">
                 <Image
                   src="/bg_tugu_bawang.jpg"
-                  alt="Pasar Sukomoro"
+                  alt={t("Pasar Sukomoro")}
                   fill
                   className="object-cover group-hover:scale-[1.02] transition-transform duration-[420ms]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
                   <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#b5ecc6] text-[#002110] text-[11px] font-bold self-start mb-3 shadow-xs">
-                    Analitik Pasar
-                  </span>
+                    {t("Analitik Pasar")}</span>
                   <h3 className="font-editorial text-[22px] font-semibold text-white mb-2">
-                    Prediksi Harga
-                  </h3>
+                    {t("Prediksi Harga")}</h3>
                   <p className="text-[13px] text-[#81a993] mb-4 line-clamp-3 leading-relaxed">
-                    Estimasi tren harga pasar 3-7 hari ke depan berbasis data historis transaksi untuk memilih hari lepas panen terbaik.
-                  </p>
+                    {t("Estimasi tren harga pasar 3-7 hari ke depan berbasis data historis transaksi untuk memilih hari lepas panen terbaik.")}</p>
                   <Link
                     href="/login"
                     className="hover-btn-scale inline-flex items-center gap-1.5 text-[12.5px] font-bold text-[#b8efc9] hover:text-white px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 self-start"
                   >
-                    <span>Buka Analisis Pasar</span>
+                    <span>{t("Buka Analisis Pasar")}</span>
                     <ArrowRight size={14} />
                   </Link>
                 </div>
@@ -963,26 +932,23 @@ export default function LandingPage() {
               <div className="hover-card-lift group relative rounded-[24px] overflow-hidden min-h-[400px] flex flex-col justify-end p-6 shadow-sm border border-transparent hover:border-[#b8efc9]/40">
                 <Image
                   src="/penyakit_bercak_ungu.jpg"
-                  alt="Deteksi Penyakit Daun"
+                  alt={t("Deteksi Penyakit Daun")}
                   fill
                   className="object-cover group-hover:scale-[1.02] transition-transform duration-[420ms]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
                   <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#EAC6D2] text-[#6b1434] text-[11px] font-bold self-start mb-3 shadow-xs">
-                    Diagnostik Citra AI
-                  </span>
+                    {t("Diagnostik Citra AI")}</span>
                   <h3 className="font-editorial text-[22px] font-semibold text-white mb-2">
-                    Deteksi Penyakit
-                  </h3>
+                    {t("Deteksi Penyakit")}</h3>
                   <p className="text-[13px] text-[#81a993] mb-4 line-clamp-3 leading-relaxed">
-                    Identifikasi visual penyakit moler, ulat grayak, dan antraknosa secara transparan dengan skor keyakinan terukur.
-                  </p>
+                    {t("Identifikasi visual penyakit moler, ulat grayak, dan antraknosa secara transparan dengan skor keyakinan terukur.")}</p>
                   <Link
                     href="/login"
                     className="hover-btn-scale inline-flex items-center gap-1.5 text-[12.5px] font-bold text-[#b8efc9] hover:text-white px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 self-start"
                   >
-                    <span>Mulai Deteksi Foto</span>
+                    <span>{t("Mulai Deteksi Foto")}</span>
                     <ArrowRight size={14} />
                   </Link>
                 </div>
@@ -992,26 +958,23 @@ export default function LandingPage() {
               <div className="hover-card-lift group relative rounded-[24px] overflow-hidden min-h-[400px] flex flex-col justify-end p-6 shadow-sm border border-transparent hover:border-[#b8efc9]/40">
                 <Image
                   src="/petani_bawang_merah.jpg"
-                  alt="SIMA Asisten Tani"
+                  alt={t("SIMA Asisten Tani")}
                   fill
                   className="object-cover group-hover:scale-[1.02] transition-transform duration-[420ms]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
                   <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#c1ecd4] text-[#002114] text-[11px] font-bold self-start mb-3 shadow-xs">
-                    Asisten AI Cerdas
-                  </span>
+                    {t("Asisten AI Cerdas")}</span>
                   <h3 className="font-editorial text-[22px] font-semibold text-white mb-2">
-                    SIMA (Asisten Tani)
-                  </h3>
+                    {t("SIMA (Asisten Tani)")}</h3>
                   <p className="text-[13px] text-[#81a993] mb-4 line-clamp-3 leading-relaxed">
-                    Tanya jawab seputar takaran pupuk NPK, pengendalian jamur saat hujan deras, dan rekomendasi cuaca harian Nganjuk.
-                  </p>
+                    {t("Tanya jawab seputar takaran pupuk NPK, pengendalian jamur saat hujan deras, dan rekomendasi cuaca harian Nganjuk.")}</p>
                   <a
                     href="#sima-showcase"
                     className="hover-btn-scale inline-flex items-center gap-1.5 text-[12.5px] font-bold text-[#b8efc9] hover:text-white px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 self-start"
                   >
-                    <span>Konsultasi SIMA</span>
+                    <span>{t("Konsultasi SIMA")}</span>
                     <ArrowRight size={14} />
                   </a>
                 </div>
@@ -1021,26 +984,23 @@ export default function LandingPage() {
               <div className="hover-card-lift group relative rounded-[24px] overflow-hidden min-h-[400px] flex flex-col justify-end p-6 shadow-sm border border-transparent hover:border-[#b8efc9]/40">
                 <Image
                   src="/varietas_tajuk.jpg"
-                  alt="Dunia Brambang"
+                  alt={t("Dunia Brambang")}
                   fill
                   className="object-cover group-hover:scale-[1.02] transition-transform duration-[420ms]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
                   <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#f1eae0] text-[#173e2d] text-[11px] font-bold self-start mb-3 shadow-xs">
-                    Pustaka Agronomi
-                  </span>
+                    {t("Pustaka Agronomi")}</span>
                   <h3 className="font-editorial text-[22px] font-semibold text-white mb-2">
-                    Dunia Brambang
-                  </h3>
+                    {t("Dunia Brambang")}</h3>
                   <p className="text-[13px] text-[#81a993] mb-4 line-clamp-3 leading-relaxed">
-                    Ensiklopedia varietas lokal unggul (Tajuk, Bauji, Trisula), metode simpan bibit tradisional, dan tata kelola tanah.
-                  </p>
+                    {t("Ensiklopedia varietas lokal unggul (Tajuk, Bauji, Trisula), metode simpan bibit tradisional, dan tata kelola tanah.")}</p>
                   <Link
                     href="/dunia-brambang"
                     className="hover-btn-scale inline-flex items-center gap-1.5 text-[12.5px] font-bold text-[#b8efc9] hover:text-white px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 self-start"
                   >
-                    <span>Buka Direktori Pustaka</span>
+                    <span>{t("Buka Direktori Pustaka")}</span>
                     <ArrowRight size={14} />
                   </Link>
                 </div>
@@ -1056,14 +1016,12 @@ export default function LandingPage() {
             <div className="lg:col-span-5 flex flex-col justify-center">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DDE8D8] text-[#002819] text-xs font-semibold uppercase tracking-wider self-start mb-4">
                 <Sparkles size={14} />
-                <span>AI Asisten Tani Nganjuk</span>
+                <span>{t("AI Asisten Tani Nganjuk")}</span>
               </div>
               <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight mb-5 leading-tight">
-                Punya kendala di bedengan? Tanyakan langsung pada SIMA.
-              </h2>
+                {t("Punya kendala di bedengan? Tanyakan langsung pada SIMA.")}</h2>
               <p className="text-[15px] sm:text-[16px] text-[#5E665F] leading-relaxed mb-8 font-normal">
-                SIMA mendampingi petani Nganjuk membedah penyakit tanaman, rekomendasi pupuk musiman, hingga proyeksi lelang pasar Sukomoro secara real-time lewat bahasa yang akrab dan lugas.
-              </p>
+                {t("SIMA mendampingi petani Nganjuk membedah penyakit tanaman, rekomendasi pupuk musiman, hingga proyeksi lelang pasar Sukomoro secara real-time lewat bahasa yang akrab dan lugas.")}</p>
 
               <div className="space-y-4 mb-9">
                 <div className="flex items-center gap-3.5 p-2 rounded-2xl hover:bg-[#F7F2EA] transition-colors cursor-pointer">
@@ -1071,8 +1029,8 @@ export default function LandingPage() {
                     <Microscope size={19} />
                   </div>
                   <div>
-                    <p className="text-[14px] font-bold text-[#1A221D] leading-tight">Diagnostik Gejala Cepat</p>
-                    <p className="text-[12.5px] text-[#5E665F]">Pemisahan akurat antara layu moler vs trotol bercak ungu.</p>
+                    <p className="text-[14px] font-bold text-[#1A221D] leading-tight">{t("Diagnostik Gejala Cepat")}</p>
+                    <p className="text-[12.5px] text-[#5E665F]">{t("Pemisahan akurat antara layu moler vs trotol bercak ungu.")}</p>
                   </div>
                 </div>
 
@@ -1081,8 +1039,8 @@ export default function LandingPage() {
                     <Calendar size={19} />
                   </div>
                   <div>
-                    <p className="text-[14px] font-bold text-[#1A221D] leading-tight">Kalender Agronomi Nganjuk</p>
-                    <p className="text-[12.5px] text-[#5E665F]">Jadwal tanam & dosis pupuk disesuaikan iklim Sukomoro & Bagor.</p>
+                    <p className="text-[14px] font-bold text-[#1A221D] leading-tight">{t("Kalender Agronomi Nganjuk")}</p>
+                    <p className="text-[12.5px] text-[#5E665F]">{t("Jadwal tanam & dosis pupuk disesuaikan iklim Sukomoro & Bagor.")}</p>
                   </div>
                 </div>
 
@@ -1091,8 +1049,8 @@ export default function LandingPage() {
                     <TrendingUp size={19} />
                   </div>
                   <div>
-                    <p className="text-[14px] font-bold text-[#1A221D] leading-tight">Pantauan Harga Lelang Sukomoro</p>
-                    <p className="text-[12.5px] text-[#5E665F]">Data rujukan timbang harian pasar grosir terbesar se-Jawa Timur.</p>
+                    <p className="text-[14px] font-bold text-[#1A221D] leading-tight">{t("Pantauan Harga Lelang Sukomoro")}</p>
+                    <p className="text-[12.5px] text-[#5E665F]">{t("Data rujukan timbang harian pasar grosir terbesar se-Jawa Timur.")}</p>
                   </div>
                 </div>
               </div>
@@ -1102,7 +1060,7 @@ export default function LandingPage() {
                   href="/login"
                   className="hover-btn-scale inline-flex items-center gap-2 bg-[#002819] hover:bg-[#275a3d] text-[#F8F4EC] font-semibold text-[14px] px-8 py-3.5 rounded-full shadow-md group"
                 >
-                  <span>Buka Asisten SIMA Lengkap</span>
+                  <span>{t("Buka Asisten SIMA Lengkap")}</span>
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
@@ -1123,22 +1081,19 @@ export default function LandingPage() {
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="font-editorial text-[18px] font-bold text-[#173e2d] leading-none">
-                          SIMA Lapangan
-                        </span>
+                          {t("SIMA Lapangan")}</span>
                         <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-[#DDE8D8] text-[#002819]">
-                          v2.4 Online
-                        </span>
+                          {t("v2.4 Online")}</span>
                       </div>
                       <span className="text-[11px] text-[#5E665F] block mt-0.5 font-medium">
-                        Agronomi Telemetri • Kec. Sukomoro & Bagor
-                      </span>
+                        {t("Agronomi Telemetri • Kec. Sukomoro & Bagor")}</span>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2">
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DDE8D8]/70 border border-[#36684a]/15 text-[11.5px] font-medium text-[#002819]">
                       <span className="w-2 h-2 rounded-full bg-[#36684a] animate-pulse"></span>
-                      <span>Live Telemetri</span>
+                      <span>{t("Live Telemetri")}</span>
                     </span>
                   </div>
                 </div>
@@ -1150,23 +1105,22 @@ export default function LandingPage() {
                     <div className="bg-[#F7F2EA] border border-[#173e2d]/10 rounded-2xl p-3.5 text-left text-[#5E665F] text-xs flex items-center gap-3">
                       <ShieldCheck size={18} className="text-[#275a3d] shrink-0" />
                       <p className="leading-relaxed">
-                        Percakapan interaktif berbasis data lapangan Balitsa & harga lelang pasar grosir Sukomoro hari ini.
-                      </p>
+                        {t("Percakapan interaktif berbasis data lapangan Balitsa & harga lelang pasar grosir Sukomoro hari ini.")}</p>
                     </div>
 
                     {/* Farmer / User Bubble */}
                     <div className="flex items-start justify-end gap-3 transition-opacity duration-300">
                       <div className="bg-[#173E2D] text-[#F8F4EC] rounded-2xl rounded-tr-none px-4 py-3 max-w-[85%] shadow-sm text-left">
                         <div className="flex items-center justify-between gap-3 mb-1 text-[11px] text-[#b8efc9]/90 font-medium">
-                          <span>{userCustomQuery ? 'Anda (Petani Mandiri)' : 'Pak Sugiono (Sukomoro)'}</span>
-                          <span className="text-[10px] font-mono text-[#a6d0b8]">08:48 WIB</span>
+                          <span>{userCustomQuery ? t("Anda (Petani Mandiri)") : t("Pak Sugiono (Sukomoro)")}</span>
+                          <span className="text-[10px] font-mono text-[#a6d0b8]">{t("08:48 WIB")}</span>
                         </div>
                         <p className="text-[13.5px] leading-relaxed">
                           {displayedData.user}
                         </p>
                       </div>
                       <div className="w-9 h-9 rounded-full bg-[#E9E2D4] border border-[#173e2d]/15 flex items-center justify-center shrink-0 text-[#173e2d] font-bold text-xs shadow-xs">
-                        {userCustomQuery ? 'PT' : 'SG'}
+                        {userCustomQuery ? t("PT") : t("SG")}
                       </div>
                     </div>
 
@@ -1191,17 +1145,14 @@ export default function LandingPage() {
                         <div className="bg-white border border-[#173e2d]/10 text-[#173e2d] rounded-2xl rounded-tl-none p-4 max-w-[88%] shadow-sm text-left">
                           <div className="flex items-center gap-2 mb-2 flex-wrap">
                             <span className="text-[12.5px] font-bold text-[#002819]">
-                              SIMA Agronomi
-                            </span>
+                              {t("SIMA Agronomi")}</span>
                             <span className="text-[10px] text-[#8B918B] font-mono">
-                              • 08:49 WIB
-                            </span>
+                              {t("• 08:49 WIB")}</span>
                             <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#36684a] bg-[#DDE8D8] px-2 py-0.5 rounded-full">
-                              <CheckCircle2 size={12} /> RAG Terverifikasi
-                            </span>
+                              <CheckCircle2 size={12} />  {t("RAG Terverifikasi")}</span>
                           </div>
                           <p className="text-[13.5px] leading-relaxed text-[#1e1b13]">
-                            {displayedData.reply}
+                            {t(displayedData.reply)}
                           </p>
                           <div className="mt-3 pt-2.5 border-t border-[#173e2d]/10 flex flex-wrap items-center justify-between gap-2">
                             <span className="inline-flex items-center gap-1 text-[11px] text-[#5E665F]">
@@ -1212,7 +1163,7 @@ export default function LandingPage() {
                               href={displayedData.target}
                               className="hover-btn-scale inline-flex items-center gap-1 text-[11.5px] font-bold text-[#275a3d] hover:text-[#002819] px-2.5 py-1 rounded-full hover:bg-[#DDE8D8]/50"
                             >
-                              <span>{displayedData.action}</span>
+                              <span>{t(displayedData.action)}</span>
                               <ArrowRight size={13} />
                             </Link>
                           </div>
@@ -1225,12 +1176,10 @@ export default function LandingPage() {
                   <div className="pt-3 border-t border-[#173e2d]/10">
                     <div className="flex items-center justify-between mb-2">
                       <p className="text-[11px] font-mono uppercase tracking-wider text-[#5E665F] font-bold">
-                        Pilih Pertanyaan Cepat:
-                      </p>
+                        {t("Pilih Pertanyaan Cepat:")}</p>
                       <span className="text-[10px] text-[#8B918B] flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#36684a]"></span>
-                        Klik untuk simulasikan
-                      </span>
+                        {t("Klik untuk simulasikan")}</span>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {SIMA_SCENARIOS.map((item, idx) => (
@@ -1243,8 +1192,8 @@ export default function LandingPage() {
                               : 'bg-white hover:bg-[#FAF7F2] text-[#173e2d] border border-[#173e2d]/15 hover:border-[#173e2d]/30'
                           }`}
                         >
-                          <span>{item.category === 'Penyakit Daun' ? '🌿' : item.category === 'Waktu Tanam' ? '📅' : '📈'}</span>
-                          <span>{item.user.length > 32 ? item.user.slice(0, 32) + '...' : item.user}</span>
+                          <span aria-hidden="true">{item.category === 'Penyakit Daun' ? <Microscope className="h-3.5 w-3.5" /> : item.category === 'Waktu Tanam' ? <Calendar className="h-3.5 w-3.5" /> : <TrendingUp className="h-3.5 w-3.5" />}</span>
+                          <span>{t(item.user).length > 32 ? t(item.user).slice(0, 32) + '...' : t(item.user)}</span>
                         </button>
                       ))}
                     </div>
@@ -1258,12 +1207,12 @@ export default function LandingPage() {
                       type="text"
                       value={customInput}
                       onChange={(e) => setCustomInput(e.target.value)}
-                      placeholder="Tanyakan seputar pupuk, hama, atau harga Sukomoro..."
+                      placeholder={t("Tanyakan seputar pupuk, hama, atau harga Sukomoro...")}
                       className="w-full bg-[#FAF7F2] border border-[#173e2d]/15 text-[#173e2d] text-sm rounded-full pl-4 pr-11 py-2.5 focus:outline-none focus:border-[#173e2d] focus:bg-white placeholder:text-[#5E665F]/70 transition-all"
                     />
                     <button
                       type="submit"
-                      aria-label="Kirim pertanyaan"
+                      aria-label={t("Kirim pertanyaan")}
                       className="hover-btn-scale absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#173E2D] hover:bg-[#275a3d] text-white flex items-center justify-center shadow-xs cursor-pointer"
                     >
                       <Send size={14} className="translate-x-0.5" />
@@ -1280,14 +1229,11 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center max-w-2xl mx-auto mb-14">
               <span className="text-[11.5px] font-mono uppercase text-[#275a3d] tracking-[0.2em] font-bold mb-3 block">
-                Alur Penerapan
-              </span>
+                {t("Alur Penerapan")}</span>
               <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight leading-tight">
-                Cara kerja SIMANTRI, dari lahan sampai keputusan jual.
-              </h2>
+                {t("Cara kerja SIMANTRI, dari lahan sampai keputusan jual.")}</h2>
               <p className="text-[15px] text-[#5E665F] mt-3">
-                Pendampingan terstruktur di setiap fase vegetatif dan generatif tanaman bawang merah Anda.
-              </p>
+                {t("Pendampingan terstruktur di setiap fase vegetatif dan generatif tanaman bawang merah Anda.")}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
@@ -1297,14 +1243,12 @@ export default function LandingPage() {
                   <div className="w-10 h-10 rounded-full bg-[#b5ecc6] text-[#002110] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     1
                   </div>
-                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">Persiapan</h4>
+                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">{t("Persiapan")}</h4>
                   <p className="text-[13px] text-[#5E665F] leading-relaxed">
-                    Pengecekan kualitas bibit umbi sertifikasi dan kalibrasi pH tanah bedengan Nganjuk.
-                  </p>
+                    {t("Pengecekan kualitas bibit umbi sertifikasi dan kalibrasi pH tanah bedengan Nganjuk.")}</p>
                 </div>
                 <span className="text-[11px] font-mono uppercase text-[#275a3d] mt-6 tracking-wider font-semibold">
-                  Fase Pra-Tanam
-                </span>
+                  {t("Fase Pra-Tanam")}</span>
               </div>
 
               {/* Step 2 */}
@@ -1313,33 +1257,28 @@ export default function LandingPage() {
                   <div className="w-10 h-10 rounded-full bg-[#f1eae0] text-[#173e2d] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     2
                   </div>
-                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">Tanam</h4>
+                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">{t("Tanam")}</h4>
                   <p className="text-[13px] text-[#5E665F] leading-relaxed">
-                    Pencatatan tanggal tanam, pola jarak kerapatan (15x15 cm), dan panduan pemupukan dasar.
-                  </p>
+                    {t("Pencatatan tanggal tanam, pola jarak kerapatan (15x15 cm), dan panduan pemupukan dasar.")}</p>
                 </div>
                 <span className="text-[11px] font-mono uppercase text-[#275a3d] mt-6 tracking-wider font-semibold">
-                  Hari Ke 1-15
-                </span>
+                  {t("Hari Ke 1-15")}</span>
               </div>
 
               {/* Step 3 (Highlighted Kritis) */}
               <div className="hover-card-lift bg-[#173E2D] hover:bg-[#275a3d] text-[#F8F4EC] p-6 rounded-[20px] flex flex-col justify-between shadow-md relative">
                 <div className="absolute -top-3 right-4 bg-[#b8efc9] text-[#002110] text-[10px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
-                  Kritis
-                </div>
+                  {t("Kritis")}</div>
                 <div>
                   <div className="w-10 h-10 rounded-full bg-[#36684a] text-white font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     3
                   </div>
-                  <h4 className="font-editorial text-[18px] font-semibold text-white mb-2">Rawat</h4>
+                  <h4 className="font-editorial text-[18px] font-semibold text-white mb-2">{t("Rawat")}</h4>
                   <p className="text-[13px] text-[#81a993] leading-relaxed">
-                    Monitoring gejala hama melalui kamera ponsel dan konsultasi tanggap darurat asisten SIMA.
-                  </p>
+                    {t("Monitoring gejala hama melalui kamera ponsel dan konsultasi tanggap darurat asisten SIMA.")}</p>
                 </div>
                 <span className="text-[11px] font-mono uppercase text-[#b8efc9] mt-6 tracking-wider font-semibold">
-                  Hari Ke 16-50
-                </span>
+                  {t("Hari Ke 16-50")}</span>
               </div>
 
               {/* Step 4 */}
@@ -1348,14 +1287,12 @@ export default function LandingPage() {
                   <div className="w-10 h-10 rounded-full bg-[#f1eae0] text-[#173e2d] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     4
                   </div>
-                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">Panen</h4>
+                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">{t("Panen")}</h4>
                   <p className="text-[13px] text-[#5E665F] leading-relaxed">
-                    Penentuan umur panen optimal (60-70 HST) dan metode pengeringan lapangan (ayom).
-                  </p>
+                    {t("Penentuan umur panen optimal (60-70 HST) dan metode pengeringan lapangan (ayom).")}</p>
                 </div>
                 <span className="text-[11px] font-mono uppercase text-[#275a3d] mt-6 tracking-wider font-semibold">
-                  Hari Ke 55-65
-                </span>
+                  {t("Hari Ke 55-65")}</span>
               </div>
 
               {/* Step 5 */}
@@ -1364,14 +1301,12 @@ export default function LandingPage() {
                   <div className="w-10 h-10 rounded-full bg-[#EAC6D2] text-[#6b1434] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     5
                   </div>
-                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">Jual</h4>
+                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">{t("Jual")}</h4>
                   <p className="text-[13px] text-[#5E665F] leading-relaxed">
-                    Melihat indeks harga regional, negosiasi adil dengan pembeli, dan pencatatan laba bersih.
-                  </p>
+                    {t("Melihat indeks harga regional, negosiasi adil dengan pembeli, dan pencatatan laba bersih.")}</p>
                 </div>
                 <span className="text-[11px] font-mono uppercase text-[#275a3d] mt-6 tracking-wider font-semibold">
-                  Pascapanen
-                </span>
+                  {t("Pascapanen")}</span>
               </div>
             </div>
           </div>
@@ -1387,11 +1322,10 @@ export default function LandingPage() {
                   <span className="w-3 h-3 rounded-full bg-red-400"></span>
                   <span className="w-3 h-3 rounded-full bg-amber-400"></span>
                   <span className="w-3 h-3 rounded-full bg-green-400"></span>
-                  <span className="ml-2 font-mono text-[12px] text-[#5E665F]">simantri.nganjukkab.go.id</span>
+                  <span className="ml-2 font-mono text-[12px] text-[#5E665F]">{t("simantri.nganjukkab.go.id")}</span>
                 </div>
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#DDE8D8] text-[#002819] text-[11px] font-bold">
-                  <span className="w-2 h-2 rounded-full bg-[#36684a] animate-pulse"></span> Data Pasar Aktif
-                </span>
+                  <span className="w-2 h-2 rounded-full bg-[#36684a] animate-pulse"></span>  {t("Data Pasar Aktif")}</span>
               </div>
 
               <div className="mt-6 space-y-6">
@@ -1399,17 +1333,16 @@ export default function LandingPage() {
                   <div className="flex items-center justify-between mb-3">
                     <div>
                       <span className="text-[11px] font-mono uppercase text-[#5E665F] font-semibold">
-                        Harga Acuan Rata-rata
-                      </span>
+                        {t("Harga Acuan Rata-rata")}</span>
                       <p className="font-editorial text-[24px] font-semibold text-[#173e2d]">
-                        Rp 28.500 <span className="text-[13px] text-[#5E665F] font-normal">/ kg (Basah)</span>
+                        {t("Rp 28.500")} <span className="text-[13px] text-[#5E665F] font-normal">{t("/ kg (Basah)")}</span>
                       </p>
                     </div>
                     <div className="text-right">
                       <span className="inline-flex items-center text-[#275a3d] text-[13px] font-bold">
                         <TrendingUp size={16} className="mr-1" /> +4.2%
                       </span>
-                      <p className="text-[11.5px] text-[#5E665F]">Pasar Sukomoro</p>
+                      <p className="text-[11.5px] text-[#5E665F]">{t("Pasar Sukomoro")}</p>
                     </div>
                   </div>
 
@@ -1431,13 +1364,13 @@ export default function LandingPage() {
                     </svg>
                   </div>
                   <div className="flex justify-between text-[11px] font-mono text-[#5E665F] pt-2">
-                    <span>Sen</span>
-                    <span>Sel</span>
-                    <span>Rab</span>
-                    <span>Kam</span>
-                    <span>Jum</span>
-                    <span>Sab</span>
-                    <span className="font-bold text-[#173e2d]">Hari Ini</span>
+                    <span>{t("Sen")}</span>
+                    <span>{t("Sel")}</span>
+                    <span>{t("Rab")}</span>
+                    <span>{t("Kam")}</span>
+                    <span>{t("Jum")}</span>
+                    <span>{t("Sab")}</span>
+                    <span className="font-bold text-[#173e2d]">{t("Hari Ini")}</span>
                   </div>
                 </div>
 
@@ -1446,21 +1379,19 @@ export default function LandingPage() {
                     <div className="w-14 h-14 rounded-[12px] overflow-hidden shrink-0 bg-[#f1eae0] relative">
                       <Image
                         src="/penyakit_bercak_ungu.jpg"
-                        alt="Diagnostik Trotol"
+                        alt={t("Diagnostik Trotol")}
                         fill
                         className="object-cover"
                       />
                     </div>
                     <div>
                       <span className="text-[10px] font-mono uppercase text-[#6b1434] font-bold">
-                        Deteksi Citra AI
-                      </span>
+                        {t("Deteksi Citra AI")}</span>
                       <p className="text-[13px] font-bold text-[#1A221D] leading-tight mt-0.5">
-                        Alternaria porri (Trotol)
-                      </p>
+                        {t("Alternaria porri (Trotol)")}</p>
                       <div className="flex items-center gap-1.5 mt-1">
                         <span className="w-2 h-2 rounded-full bg-[#36684a]"></span>
-                        <span className="text-[11.5px] text-[#5E665F]">Keyakinan 94.2%</span>
+                        <span className="text-[11.5px] text-[#5E665F]">{t("Keyakinan 94.2%")}</span>
                       </div>
                     </div>
                   </div>
@@ -1468,12 +1399,11 @@ export default function LandingPage() {
                   <div className="bg-[#173E2D] hover:bg-[#275a3d] transition-colors text-[#F8F4EC] p-4 rounded-[18px] flex flex-col justify-between shadow-xs">
                     <div className="flex items-center gap-2 mb-1 text-[#b8efc9]">
                       <Sparkles size={15} />
-                      <span className="text-[12px] font-semibold">SIMA Pertanian</span>
+                      <span className="text-[12px] font-semibold">{t("SIMA Pertanian")}</span>
                     </div>
                     <p className="text-[12px] text-[#81a993] line-clamp-2 leading-relaxed">
-                      &quot;Kurangi pupuk Urea saat kelembaban udara malam hari &gt;85% di Sukomoro...&quot;
-                    </p>
-                    <span className="text-[10px] text-[#a6d0b8] text-right mt-1 font-mono">Respons instan</span>
+                      {t("\"Kurangi pupuk Urea saat kelembaban udara malam hari >85% di Sukomoro...\"")}</p>
+                    <span className="text-[10px] text-[#a6d0b8] text-right mt-1 font-mono">{t("Respons instan")}</span>
                   </div>
                 </div>
               </div>
@@ -1482,40 +1412,34 @@ export default function LandingPage() {
             {/* Right: Narrative */}
             <div className="lg:col-span-5 flex flex-col">
               <span className="text-[11.5px] font-mono uppercase text-[#275a3d] tracking-[0.2em] font-bold mb-3">
-                Pusat Informasi
-              </span>
+                {t("Pusat Informasi")}</span>
               <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight mb-6 leading-tight">
-                Semua informasi penting, dalam satu genggaman.
-              </h2>
+                {t("Semua informasi penting, dalam satu genggaman.")}</h2>
               <p className="text-[15px] text-[#5E665F] leading-relaxed mb-8">
-                Antarmuka yang tenang dan bersih tanpa grafik rumit yang membingungkan. Dirancang agar mudah dioperasikan langsung di pematang sawah lewat ponsel cerdas Anda.
-              </p>
+                {t("Antarmuka yang tenang dan bersih tanpa grafik rumit yang membingungkan. Dirancang agar mudah dioperasikan langsung di pematang sawah lewat ponsel cerdas Anda.")}</p>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3 p-2 rounded-2xl hover:bg-white transition-colors">
                   <CheckCircle2 size={20} className="text-[#275a3d] mt-0.5 shrink-0" />
                   <div>
-                    <h4 className="text-[14px] font-bold text-[#1A221D]">Harga Harian Terverifikasi</h4>
+                    <h4 className="text-[14px] font-bold text-[#1A221D]">{t("Harga Harian Terverifikasi")}</h4>
                     <p className="text-[13px] text-[#5E665F] leading-relaxed">
-                      Pembaruan data harga setiap pukul 09.00 WIB langsung dari sentra timbang.
-                    </p>
+                      {t("Pembaruan data harga setiap pukul 09.00 WIB langsung dari sentra timbang.")}</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3 p-2 rounded-2xl hover:bg-white transition-colors">
                   <CheckCircle2 size={20} className="text-[#275a3d] mt-0.5 shrink-0" />
                   <div>
-                    <h4 className="text-[14px] font-bold text-[#1A221D]">Deteksi Penyakit dalam Hitungan Detik</h4>
+                    <h4 className="text-[14px] font-bold text-[#1A221D]">{t("Deteksi Penyakit dalam Hitungan Detik")}</h4>
                     <p className="text-[13px] text-[#5E665F] leading-relaxed">
-                      Cukup foto daun tanaman yang bergejala tanpa perlu menunggu sampel uji lab berhari-hari.
-                    </p>
+                      {t("Cukup foto daun tanaman yang bergejala tanpa perlu menunggu sampel uji lab berhari-hari.")}</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3 p-2 rounded-2xl hover:bg-white transition-colors">
                   <CheckCircle2 size={20} className="text-[#275a3d] mt-0.5 shrink-0" />
                   <div>
-                    <h4 className="text-[14px] font-bold text-[#1A221D]">Asisten yang Memahami Tanah Nganjuk</h4>
+                    <h4 className="text-[14px] font-bold text-[#1A221D]">{t("Asisten yang Memahami Tanah Nganjuk")}</h4>
                     <p className="text-[13px] text-[#5E665F] leading-relaxed">
-                      Diprogram dengan konteks lokal jenis tanah Alluvial dan iklim mikrokosmos Sukomoro-Rejoso.
-                    </p>
+                      {t("Diprogram dengan konteks lokal jenis tanah Alluvial dan iklim mikrokosmos Sukomoro-Rejoso.")}</p>
                   </div>
                 </li>
               </ul>
@@ -1528,14 +1452,11 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto">
             <div className="max-w-2xl mb-12">
               <span className="text-[11.5px] font-mono uppercase text-[#275a3d] tracking-[0.2em] font-bold mb-3 block">
-                Penerima Manfaat
-              </span>
+                {t("Penerima Manfaat")}</span>
               <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight leading-tight">
-                Dibuat untuk seluruh ekosistem pertanian bawang merah.
-              </h2>
+                {t("Dibuat untuk seluruh ekosistem pertanian bawang merah.")}</h2>
               <p className="text-[15px] text-[#5E665F] mt-3">
-                Menghubungkan praktisi di lapangan, pendamping teknis, hingga pengambil kebijakan daerah.
-              </p>
+                {t("Menghubungkan praktisi di lapangan, pendamping teknis, hingga pengambil kebijakan daerah.")}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -1544,29 +1465,27 @@ export default function LandingPage() {
                 <div className="h-48 sm:h-52 w-full bg-[#f1eae0] overflow-hidden relative">
                   <Image
                     src="/petani_bawang_merah.jpg"
-                    alt="Petani Nganjuk"
+                    alt={t("Petani Nganjuk")}
                     fill
                     className="object-cover transition-transform duration-500 hover:scale-[1.02]"
                   />
                 </div>
                 <div className="p-7 flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-[11px] font-mono uppercase text-[#275a3d] font-bold">Praktisi Lapangan</span>
+                    <span className="text-[11px] font-mono uppercase text-[#275a3d] font-bold">{t("Praktisi Lapangan")}</span>
                     <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] mt-1 mb-3">
-                      Petani Mandiri & Kelompok Tani
-                    </h3>
+                      {t("Petani Mandiri & Kelompok Tani")}</h3>
                     <p className="text-[13px] text-[#5E665F] leading-relaxed mb-6">
-                      Memperoleh kepastian harga jual, panduan dosis obat tepat guna, serta konsultasi cepat tanpa rasa sungkan saat menemukan bercak aneh pada daun bibit.
-                    </p>
+                      {t("Memperoleh kepastian harga jual, panduan dosis obat tepat guna, serta konsultasi cepat tanpa rasa sungkan saat menemukan bercak aneh pada daun bibit.")}</p>
                   </div>
                   <ul className="space-y-2 text-[12.5px] text-[#414844] pt-4 border-t border-[#173e2d]/10">
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#36684a]"></span>
-                      <span>Akses proyeksi tren harga</span>
+                      <span>{t("Akses proyeksi tren harga")}</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#36684a]"></span>
-                      <span>Penanganan hama tepat sasaran</span>
+                      <span>{t("Penanganan hama tepat sasaran")}</span>
                     </li>
                   </ul>
                 </div>
@@ -1577,29 +1496,27 @@ export default function LandingPage() {
                 <div className="h-48 sm:h-52 w-full bg-[#f1eae0] overflow-hidden relative">
                   <Image
                     src="/jayastamba.jpg"
-                    alt="PPL Pertanian Nganjuk"
+                    alt={t("PPL Pertanian Nganjuk")}
                     fill
                     className="object-cover transition-transform duration-500 hover:scale-[1.02]"
                   />
                 </div>
                 <div className="p-7 flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-[11px] font-mono uppercase text-[#275a3d] font-bold">Pendamping Teknis</span>
+                    <span className="text-[11px] font-mono uppercase text-[#275a3d] font-bold">{t("Pendamping Teknis")}</span>
                     <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] mt-1 mb-3">
-                      Penyuluh Lapangan (PPL)
-                    </h3>
+                      {t("Penyuluh Lapangan (PPL)")}</h3>
                     <p className="text-[13px] text-[#5E665F] leading-relaxed mb-6">
-                      Memantau peta sebaran kendala hama di tingkat desa, mencatat validasi temuan lapangan, serta menyebarkan panduan teknis musiman secara efisien.
-                    </p>
+                      {t("Memantau peta sebaran kendala hama di tingkat desa, mencatat validasi temuan lapangan, serta menyebarkan panduan teknis musiman secara efisien.")}</p>
                   </div>
                   <ul className="space-y-2 text-[12.5px] text-[#414844] pt-4 border-t border-[#173e2d]/10">
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#36684a]"></span>
-                      <span>Peta persebaran serangan patogen</span>
+                      <span>{t("Peta persebaran serangan patogen")}</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#36684a]"></span>
-                      <span>Kurasi artikel agronomi resmi</span>
+                      <span>{t("Kurasi artikel agronomi resmi")}</span>
                     </li>
                   </ul>
                 </div>
@@ -1610,29 +1527,27 @@ export default function LandingPage() {
                 <div className="h-48 sm:h-52 w-full bg-[#f1eae0] overflow-hidden relative">
                   <Image
                     src="/bg_tugu_bawang.jpg"
-                    alt="Dinas Pertanian Nganjuk"
+                    alt={t("Dinas Pertanian Nganjuk")}
                     fill
                     className="object-cover transition-transform duration-500 hover:scale-[1.02]"
                   />
                 </div>
                 <div className="p-7 flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-[11px] font-mono uppercase text-[#275a3d] font-bold">Pemerintah Daerah</span>
+                    <span className="text-[11px] font-mono uppercase text-[#275a3d] font-bold">{t("Pemerintah Daerah")}</span>
                     <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] mt-1 mb-3">
-                      Dinas Pertanian & Regulator
-                    </h3>
+                      {t("Dinas Pertanian & Regulator")}</h3>
                     <p className="text-[13px] text-[#5E665F] leading-relaxed mb-6">
-                      Melihat neraca estimasi pasokan bawang merah daerah, mengantisipasi kelangkaan pasokan, serta merumuskan kebijakan pupuk bersubsidi yang akurat.
-                    </p>
+                      {t("Melihat neraca estimasi pasokan bawang merah daerah, mengantisipasi kelangkaan pasokan, serta merumuskan kebijakan pupuk bersubsidi yang akurat.")}</p>
                   </div>
                   <ul className="space-y-2 text-[12.5px] text-[#414844] pt-4 border-t border-[#173e2d]/10">
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#36684a]"></span>
-                      <span>Data agregasi luas tanam real-time</span>
+                      <span>{t("Data agregasi luas tanam real-time")}</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#36684a]"></span>
-                      <span>Stabilitas pasokan pangan daerah</span>
+                      <span>{t("Stabilitas pasokan pangan daerah")}</span>
                     </li>
                   </ul>
                 </div>
@@ -1646,14 +1561,11 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center max-w-2xl mx-auto mb-14">
               <span className="text-[11.5px] font-mono uppercase text-[#275a3d] tracking-[0.2em] font-bold mb-3 block">
-                Prinsip Integritas Data
-              </span>
+                {t("Prinsip Integritas Data")}</span>
               <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight leading-tight">
-                Teknologi yang menjelaskan dari mana jawabannya berasal.
-              </h2>
+                {t("Teknologi yang menjelaskan dari mana jawabannya berasal.")}</h2>
               <p className="text-[15px] text-[#5E665F] mt-3">
-                Kami menolak sistem kotak hitam. Setiap rekomendasi dapat dilacak sumber data rujukannya.
-              </p>
+                {t("Kami menolak sistem kotak hitam. Setiap rekomendasi dapat dilacak sumber data rujukannya.")}</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -1662,11 +1574,9 @@ export default function LandingPage() {
                   <Database size={24} />
                 </div>
                 <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">
-                  Sumber Terverifikasi
-                </h4>
+                  {t("Sumber Terverifikasi")}</h4>
                 <p className="text-[13px] text-[#5E665F] leading-relaxed">
-                  Data pasar bersumber dari pencatatan harian pedagang grosir Sukomoro dan PIHPS nasional, bukan estimasi sintetis.
-                </p>
+                  {t("Data pasar bersumber dari pencatatan harian pedagang grosir Sukomoro dan PIHPS nasional, bukan estimasi sintetis.")}</p>
               </div>
 
               <div className="hover-card-lift flex flex-col bg-white p-6 rounded-2xl border border-[#173e2d]/10 hover:border-[#173e2d]/30 shadow-xs">
@@ -1674,11 +1584,9 @@ export default function LandingPage() {
                   <Percent size={24} />
                 </div>
                 <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">
-                  Tingkat Keyakinan Jelas
-                </h4>
+                  {t("Tingkat Keyakinan Jelas")}</h4>
                 <p className="text-[13px] text-[#5E665F] leading-relaxed">
-                  Hasil deteksi citra selalu menyertakan persentase keyakinan. Jika citra buram, sistem meminta foto ulang secara jujur.
-                </p>
+                  {t("Hasil deteksi citra selalu menyertakan persentase keyakinan. Jika citra buram, sistem meminta foto ulang secara jujur.")}</p>
               </div>
 
               <div className="hover-card-lift flex flex-col bg-white p-6 rounded-2xl border border-[#173e2d]/10 hover:border-[#173e2d]/30 shadow-xs">
@@ -1686,11 +1594,9 @@ export default function LandingPage() {
                   <ShieldCheck size={24} />
                 </div>
                 <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">
-                  Berbasis Bukti Ilmiah
-                </h4>
+                  {t("Berbasis Bukti Ilmiah")}</h4>
                 <p className="text-[13px] text-[#5E665F] leading-relaxed">
-                  Setiap dosis anjuran pupuk dan pestisida merujuk pada standar agronomi Kementerian Pertanian dan Balitsa Lembang.
-                </p>
+                  {t("Setiap dosis anjuran pupuk dan pestisida merujuk pada standar agronomi Kementerian Pertanian dan Balitsa Lembang.")}</p>
               </div>
 
               <div className="hover-card-lift flex flex-col bg-white p-6 rounded-2xl border border-[#173e2d]/10 hover:border-[#173e2d]/30 shadow-xs">
@@ -1698,11 +1604,9 @@ export default function LandingPage() {
                   <Lock size={24} />
                 </div>
                 <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">
-                  Akses Terstruktur
-                </h4>
+                  {t("Akses Terstruktur")}</h4>
                 <p className="text-[13px] text-[#5E665F] leading-relaxed">
-                  Privasi data lahan petani dijaga ketat. Tidak ada data pribadi yang dijualbelikan kepada pihak ketiga komersial.
-                </p>
+                  {t("Privasi data lahan petani dijaga ketat. Tidak ada data pribadi yang dijualbelikan kepada pihak ketiga komersial.")}</p>
               </div>
             </div>
           </div>
@@ -1713,33 +1617,28 @@ export default function LandingPage() {
           <div className="relative w-full rounded-[28px] sm:rounded-[36px] overflow-hidden p-8 sm:p-14 lg:p-20 bg-[#173E2D] text-[#F8F4EC] text-center flex flex-col items-center justify-center shadow-xl">
             <Image
               src="/bg_tugu_bawang.jpg"
-              alt="Pemandangan Sawah Bawang Nganjuk"
+              alt={t("Pemandangan Sawah Bawang Nganjuk")}
               fill
               className="object-cover opacity-15 pointer-events-none"
             />
             <div className="relative z-10 max-w-3xl flex flex-col items-center">
               <span className="text-[12px] font-mono uppercase text-[#b8efc9] tracking-[0.2em] font-semibold mb-3">
-                Ekosistem Pertanian Nganjuk
-              </span>
+                {t("Ekosistem Pertanian Nganjuk")}</span>
               <h2 className="font-editorial text-[30px] sm:text-[42px] font-normal leading-tight text-white tracking-tight mb-5 max-w-2xl text-center">
-                Mulai perjalanan pertanian bawang merah yang lebih cerdas bersama SIMANTRI.
-              </h2>
+                {t("Mulai perjalanan pertanian bawang merah yang lebih cerdas bersama SIMANTRI.")}</h2>
               <p className="text-[15px] sm:text-[16px] font-normal text-[#81a993] max-w-xl mb-9 leading-relaxed text-center">
-                Bergabunglah bersama ribuan petani, penyuluh kecamatan, dan praktisi agrikultur se-Kabupaten Nganjuk dalam ekosistem digital terpadu.
-              </p>
+                {t("Bergabunglah bersama ribuan petani, penyuluh kecamatan, dan praktisi agrikultur se-Kabupaten Nganjuk dalam ekosistem digital terpadu.")}</p>
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <Link
                   href="/register"
                   className="hover-btn-coral inline-flex items-center justify-center bg-[#E25C58] text-white font-semibold text-[14px] px-8 py-3.5 rounded-full shadow-lg"
                 >
-                  Mulai Gunakan SIMANTRI
-                </Link>
+                  {t("Mulai Gunakan SIMANTRI")}</Link>
                 <Link
                   href="/dunia-brambang"
                   className="hover-btn-scale inline-flex items-center justify-center border border-[#81a993]/40 text-white hover:bg-white/10 font-semibold text-[14px] px-8 py-3.5 rounded-full"
                 >
-                  Jelajahi Dunia Brambang
-                </Link>
+                  {t("Jelajahi Dunia Brambang")}</Link>
               </div>
             </div>
           </div>
@@ -1755,7 +1654,7 @@ export default function LandingPage() {
                 <div className="relative h-10 w-10 flex items-center justify-center rounded-full bg-white/10 p-1">
                   <Image
                     src="/logo_sima.png"
-                    alt="Logo SIMANTRI"
+                    alt={t("Logo SIMANTRI")}
                     width={32}
                     height={32}
                     className="object-contain"
@@ -1766,133 +1665,111 @@ export default function LandingPage() {
                 </span>
               </div>
               <p className="text-[13px] text-[#81a993] max-w-md leading-relaxed">
-                Platform informasi dan tata kelola pertanian presisi untuk memperkuat ketahanan pangan komoditas bawang merah di Kabupaten Nganjuk secara berkelanjutan.
-              </p>
+                {t("Platform informasi dan tata kelola pertanian presisi untuk memperkuat ketahanan pangan komoditas bawang merah di Kabupaten Nganjuk secara berkelanjutan.")}</p>
               <div className="pt-2 flex flex-wrap items-center gap-2.5">
                 <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#b5ecc6] text-[#002110] text-[11px] font-semibold">
-                  Nganjuk Agro Hub
-                </span>
+                  {t("Nganjuk Agro Hub")}</span>
                 <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#EAC6D2] text-[#6b1434] text-[11px] font-semibold">
-                  Varietas Tajuk & Bauji
-                </span>
+                  {t("Varietas Tajuk & Bauji")}</span>
               </div>
             </div>
 
             <div className="lg:col-span-2">
               <h4 className="text-[12px] font-bold text-white uppercase tracking-wider mb-4 font-mono">
-                NAVIGASI
-              </h4>
+                {t("NAVIGASI")}</h4>
               <ul className="space-y-2.5 text-[13px]">
                 <li className="flex items-center gap-1.5">
                   <ArrowRight size={13} className="text-[#81a993]" />
                   <a href="#masalah" className="text-[#81a993] hover:text-white transition-colors">
-                    Masalah
-                  </a>
+                    {t("Masalah")}</a>
                 </li>
                 <li className="flex items-center gap-1.5">
                   <ArrowRight size={13} className="text-[#81a993]" />
                   <a href="#solusi-section" className="text-[#81a993] hover:text-white transition-colors">
-                    Solusi Terpadu
-                  </a>
+                    {t("Solusi Terpadu")}</a>
                 </li>
                 <li className="flex items-center gap-1.5">
                   <ArrowRight size={13} className="text-[#81a993]" />
                   <a href="#cara-kerja" className="text-[#81a993] hover:text-white transition-colors">
-                    Cara Kerja
-                  </a>
+                    {t("Cara Kerja")}</a>
                 </li>
                 <li className="flex items-center gap-1.5">
                   <ArrowRight size={13} className="text-[#81a993]" />
                   <a href="#untuk-siapa" className="text-[#81a993] hover:text-white transition-colors">
-                    Untuk Siapa
-                  </a>
+                    {t("Untuk Siapa")}</a>
                 </li>
                 <li className="flex items-center gap-1.5">
                   <ArrowRight size={13} className="text-[#81a993]" />
                   <Link href="/dunia-brambang" className="text-[#81a993] hover:text-white transition-colors">
-                    Dunia Brambang
-                  </Link>
+                    {t("Dunia Brambang")}</Link>
                 </li>
               </ul>
             </div>
 
             <div className="lg:col-span-2">
               <h4 className="text-[12px] font-bold text-white uppercase tracking-wider mb-4 font-mono">
-                AKSES LAYANAN
-              </h4>
+                {t("AKSES LAYANAN")}</h4>
               <ul className="space-y-2.5 text-[13px]">
                 <li className="flex items-center gap-1.5">
                   <LogIn size={13} className="text-[#81a993]" />
                   <Link href="/login" className="text-[#81a993] hover:text-white transition-colors">
-                    Masuk Petani
-                  </Link>
+                    {t("Masuk Petani")}</Link>
                 </li>
                 <li className="flex items-center gap-1.5">
                   <UserPlus size={13} className="text-[#81a993]" />
                   <Link href="/register" className="text-[#81a993] hover:text-white transition-colors">
-                    Daftar Akun Baru
-                  </Link>
+                    {t("Daftar Akun Baru")}</Link>
                 </li>
                 <li className="flex items-center gap-1.5">
                   <Layers size={13} className="text-[#81a993]" />
                   <Link href="/dashboard" className="text-[#81a993] hover:text-white transition-colors">
-                    Dashboard Mandiri
-                  </Link>
+                    {t("Dashboard Mandiri")}</Link>
                 </li>
                 <li className="flex items-center gap-1.5">
                   <TrendingUp size={13} className="text-[#81a993]" />
                   <Link href="/login" className="text-[#81a993] hover:text-white transition-colors">
-                    Analitik Pasar
-                  </Link>
+                    {t("Analitik Pasar")}</Link>
                 </li>
               </ul>
             </div>
 
             <div className="lg:col-span-3">
               <h4 className="text-[12px] font-bold text-white uppercase tracking-wider mb-4 font-mono">
-                BANTUAN & KEBIJAKAN
-              </h4>
+                {t("BANTUAN & KEBIJAKAN")}</h4>
               <ul className="space-y-2.5 text-[13px]">
                 <li className="flex items-center gap-1.5">
                   <ChevronRight size={13} className="text-[#81a993]" />
                   <Link href="/terms" className="text-[#81a993] hover:text-white transition-colors">
-                    Syarat & Ketentuan
-                  </Link>
+                    {t("Syarat & Ketentuan")}</Link>
                 </li>
                 <li className="flex items-center gap-1.5">
                   <ChevronRight size={13} className="text-[#81a993]" />
                   <Link href="/privacy" className="text-[#81a993] hover:text-white transition-colors">
-                    Kebijakan Privasi
-                  </Link>
+                    {t("Kebijakan Privasi")}</Link>
                 </li>
                 <li className="flex items-center gap-1.5">
                   <ChevronRight size={13} className="text-[#81a993]" />
                   <Link href="/data-deletion" className="text-[#81a993] hover:text-white transition-colors">
-                    Penghapusan Data
-                  </Link>
+                    {t("Penghapusan Data")}</Link>
                 </li>
                 <li className="flex items-center gap-1.5">
                   <PhoneCall size={13} className="text-[#81a993]" />
                   <span className="text-[#81a993]">
-                    Dispertan Nganjuk
-                  </span>
+                    {t("Dispertan Nganjuk")}</span>
                 </li>
               </ul>
             </div>
           </div>
 
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-[#81a993] border-t border-white/10">
-            <p>© {new Date().getFullYear()} SIMANTRI Nganjuk. Semua hak dilindungi.</p>
+            <p>© {new Date().getFullYear()}  {t("SIMANTRI Nganjuk. Semua hak dilindungi.")}</p>
             <div className="flex items-center gap-6">
               <Link href="/privacy" className="hover:text-white transition-colors">
-                Privasi
-              </Link>
+                {t("Privasi")}</Link>
               <Link href="/terms" className="hover:text-white transition-colors">
-                Ketentuan Layanan
-              </Link>
+                {t("Ketentuan Layanan")}</Link>
               <Link href="/data-deletion" className="hover:text-white transition-colors">
-                Penghapusan Data
-              </Link>
+                {t("Penghapusan Data")}</Link>
             </div>
           </div>
         </div>

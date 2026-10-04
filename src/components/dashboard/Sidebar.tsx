@@ -1,5 +1,7 @@
 'use client'
 
+import { useLanguage } from '@/components/ui/LanguageProvider'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -43,6 +45,7 @@ type NavGroup = {
 }
 
 export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
+  const { t } = useLanguage()
   const pathname = usePathname()
   const router = useRouter()
   const closeButtonRef = useRef<HTMLButtonElement>(null)
@@ -118,7 +121,7 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
             <div className="h-10 w-10 relative flex items-center justify-center">
               <Image
                 src="/logo_simantri.png"
-                alt="Logo SIMANTRI"
+                alt={t("Logo SIMANTRI")}
                 width={40}
                 height={40}
                 className="object-contain group-hover:scale-[1.02] transition-transform"
@@ -130,8 +133,7 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
                 SIMANTRI
               </span>
               <span className="text-[11px] font-medium text-slate-500">
-                Sistem Bawang Merah
-              </span>
+                {t("Sistem Bawang Merah")}</span>
             </div>
           </Link>
 
@@ -140,18 +142,18 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
             type="button"
             onClick={onClose}
             className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 text-slate-600 lg:hidden"
-            aria-label="Tutup menu navigasi"
+            aria-label={t("Tutup menu navigasi")}
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
         {/* Navigation Sections */}
-        <nav className="px-3 py-4 flex flex-col gap-4" aria-label="Navigasi utama">
+        <nav className="px-3 py-4 flex flex-col gap-4" aria-label={t("Navigasi utama")}>
           {navGroups.map((group) => (
             <div key={group.title} className="space-y-1">
               <div className="px-3 pb-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                {group.title}
+                {t(group.title)}
               </div>
               <ul className="space-y-1">
                 {group.items.map((item) => {
@@ -172,7 +174,7 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
                         <Icon
                           className={`h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 ${active ? 'text-white' : 'text-slate-500'}`}
                         />
-                        <span>{item.label}</span>
+                        <span>{t(item.label)}</span>
                       </Link>
                     </li>
                   )
@@ -192,22 +194,22 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
             className="flex items-center gap-2.5 overflow-hidden min-w-0"
           >
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-simantri-700 text-xs font-bold text-white shadow-xs">
-              {profile?.full_name?.charAt(0).toUpperCase() || 'P'}
+              {profile?.full_name?.charAt(0).toUpperCase() || t("P")}
             </span>
             <div className="flex flex-col min-w-0">
               <span className="text-xs font-bold text-slate-900 truncate">
-                {profile?.full_name || 'Petani Bawang'}
+                {profile?.full_name || t("Petani Bawang")}
               </span>
               <span className="text-[10px] text-slate-500 truncate capitalize">
                 {profile?.role === 'penyuluh'
-                  ? 'PPL Nganjuk'
+                  ? t("PPL Nganjuk")
                   : profile?.role === 'admin'
-                  ? 'Administrator'
-                  : 'Petani Bawang Merah'}
+                  ? t("Administrator")
+                  : t("Petani Bawang Merah")}
               </span>
               <span className="text-[10px] text-simantri-700 flex items-center gap-1 truncate font-medium">
                 <MapPin className="w-2.5 h-2.5" />
-                {profile?.village || 'Sukomoro, Nganjuk'}
+                {profile?.village || t("Sukomoro, Nganjuk")}
               </span>
             </div>
           </Link>
@@ -216,7 +218,7 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
             type="button"
             onClick={handleLogout}
             className="shrink-0 w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer"
-            title="Keluar dari akun"
+            title={t("Keluar dari akun")}
           >
             <LogOut className="w-4 h-4" />
           </button>
@@ -241,7 +243,7 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
           inert={!isOpen}
           role="dialog"
           aria-modal="true"
-          aria-label="Menu navigasi"
+          aria-label={t("Menu navigasi")}
           className={`h-dvh transition-transform duration-300 ease-out ${
             isOpen ? 'translate-x-0' : '-translate-x-full'
           }`}

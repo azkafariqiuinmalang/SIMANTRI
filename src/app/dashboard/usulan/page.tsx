@@ -1,5 +1,7 @@
 'use client'
 
+import { useLanguage } from '@/components/ui/LanguageProvider'
+
 import { useState, useEffect, useCallback } from 'react'
 import { Skeleton, Toast } from '@/components/ui/Experience'
 import { createClient } from '@/lib/supabase/client'
@@ -38,6 +40,7 @@ interface SuggestionItem {
 }
 
 export default function UsulanPage() {
+  const { t } = useLanguage()
   const [profile, setProfile] = useState<Profile | null>(null)
   const [kbEntries, setKbEntries] = useState<KnowledgeEntryOption[]>([])
 
@@ -160,22 +163,19 @@ export default function UsulanPage() {
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-[#3A5A40]/15 text-[#3A5A40] border border-[#3A5A40]/30">
             <CheckCircle2 className="w-3.5 h-3.5" />
-            Diterima & Digunakan
-          </span>
+            {t("Diterima & Digunakan")}</span>
         )
       case 'tidak_digunakan':
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-[#8C3A3A]/15 text-[#8C3A3A] border border-[#8C3A3A]/30">
             <XCircle className="w-3.5 h-3.5" />
-            Tidak Digunakan
-          </span>
+            {t("Tidak Digunakan")}</span>
         )
       default:
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-[#E6A15C]/20 text-[#A6611A] border border-[#E6A15C]/40">
             <Clock className="w-3.5 h-3.5" />
-            Menunggu Tinjauan Admin
-          </span>
+            {t("Menunggu Tinjauan Admin")}</span>
         )
     }
   }
@@ -187,14 +187,11 @@ export default function UsulanPage() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <span className="text-xs font-mono font-semibold uppercase text-[#C4487A] tracking-wider">
-              Partisipasi Lapangan &bull; Use Case Pelaporan
-            </span>
+              {t("Partisipasi Lapangan • Use Case Pelaporan")}</span>
             <h1 className="text-2xl font-serif font-bold text-[#0E080A] mt-1">
-              Usulan & Koreksi Pengetahuan
-            </h1>
+              {t("Usulan & Koreksi Pengetahuan")}</h1>
             <p className="text-xs sm:text-sm text-[#4A3A32] mt-1 max-w-2xl leading-relaxed">
-              Ajukan pengalaman praktis di sawah, varietas unggulan lokal, atau koreksi jika menemukan informasi yang keliru pada materi SIMANTRI. Setiap usulan akan ditinjau langsung oleh Admin & Penyuluh.
-            </p>
+              {t("Ajukan pengalaman praktis di sawah, varietas unggulan lokal, atau koreksi jika menemukan informasi yang keliru pada materi SIMANTRI. Setiap usulan akan ditinjau langsung oleh Admin & Penyuluh.")}</p>
           </div>
 
           <button
@@ -203,7 +200,7 @@ export default function UsulanPage() {
             className="self-start md:self-auto p-2 text-xs font-semibold text-[#4A3A32] bg-white border border-[#E5DFD6] hover:bg-[#FBF4EE] rounded-xl flex items-center gap-1.5 shadow-sm transition-colors"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loadingList ? 'animate-spin' : ''}`} />
-            <span>Segarkan Status</span>
+            <span>{t("Segarkan Status")}</span>
           </button>
         </div>
       </div>
@@ -219,20 +216,18 @@ export default function UsulanPage() {
               </div>
               <div>
                 <h2 className="font-serif font-bold text-base text-[#0E080A]">
-                  Formulir Pengajuan Usulan
-                </h2>
+                  {t("Formulir Pengajuan Usulan")}</h2>
                 <p className="text-[11px] text-[#8A8580]">
-                  Kirim catatan langsung ke pengelola sistem
-                </p>
+                  {t("Kirim catatan langsung ke pengelola sistem")}</p>
               </div>
             </div>
 
-            {submitSuccess && <Toast message="Usulan Anda berhasil dikirim." onDismiss={() => setSubmitSuccess(false)} />}
+            {submitSuccess && <Toast message={t("Usulan Anda berhasil dikirim.")} onDismiss={() => setSubmitSuccess(false)} />}
 
             {errorMessage && (
               <div role="alert" className="p-3.5 rounded-xl bg-[#8C3A3A]/10 border border-[#8C3A3A]/30 text-[#8C3A3A] text-xs flex items-start gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                <p>Usulan belum terkirim. Pastikan isi usulan sudah diisi dan koneksi tersedia, lalu coba kembali.</p>
+                <p>{t("Usulan belum terkirim. Pastikan isi usulan sudah diisi dan koneksi tersedia, lalu coba kembali.")}</p>
               </div>
             )}
 
@@ -240,7 +235,7 @@ export default function UsulanPage() {
               {/* Tipe Usulan */}
               <div className="space-y-1.5">
                 <label className="block text-xs font-semibold text-[#0E080A]">
-                  Jenis Pengajuan <span className="text-[#8C3A3A]">*</span>
+                  {t("Jenis Pengajuan")} <span className="text-[#8C3A3A]">*</span>
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
@@ -252,8 +247,7 @@ export default function UsulanPage() {
                         : 'bg-[#FBF4EE] border-[#E5DFD6] text-[#4A3A32] hover:bg-white'
                     }`}
                   >
-                    Usulan Baru / Tips
-                  </button>
+                    {t("Usulan Baru / Tips")}</button>
                   <button
                     type="button"
                     onClick={() => setType('laporan_keliru')}
@@ -263,23 +257,21 @@ export default function UsulanPage() {
                         : 'bg-[#FBF4EE] border-[#E5DFD6] text-[#4A3A32] hover:bg-white'
                     }`}
                   >
-                    Lapor Info Keliru
-                  </button>
+                    {t("Lapor Info Keliru")}</button>
                 </div>
               </div>
 
               {/* Artikel Rujukan (Opsional) */}
               <div className="space-y-1.5">
                 <label className="block text-xs font-semibold text-[#0E080A]">
-                  Rujukan Dokumen Knowledge Base (Opsional)
-                </label>
+                  {t("Rujukan Dokumen Knowledge Base (Opsional)")}</label>
                 <select
-                  aria-label="Rujukan dokumen knowledge base"
+                  aria-label={t("Rujukan dokumen knowledge base")}
                   value={relatedEntryId}
                   onChange={(e) => setRelatedEntryId(e.target.value)}
                   className="w-full py-2 px-3 text-xs rounded-lg border border-[#E5DFD6] bg-white focus:outline-none focus:border-[#C4487A] text-[#0E080A]"
                 >
-                  <option value="">-- Tidak Terkait Entri Tertentu --</option>
+                  <option value="">{t("-- Tidak Terkait Entri Tertentu --")}</option>
                   {kbEntries.map((entry) => (
                     <option key={entry.id} value={entry.id}>
                       [{entry.category.toUpperCase()}] {entry.title}
@@ -287,23 +279,22 @@ export default function UsulanPage() {
                   ))}
                 </select>
                 <p className="text-[10px] text-[#8A8580]">
-                  Pilih jika usulan Anda mengoreksi salah satu dari 39 artikel resmi SIMANTRI.
-                </p>
+                  {t("Pilih jika usulan Anda mengoreksi salah satu dari 39 artikel resmi SIMANTRI.")}</p>
               </div>
 
               {/* Isi Catatan */}
               <div className="space-y-1.5">
                 <label className="block text-xs font-semibold text-[#0E080A]">
-                  Catatan Usulan / Penjelasan <span className="text-[#8C3A3A]">*</span>
+                  {t("Catatan Usulan / Penjelasan")} <span className="text-[#8C3A3A]">*</span>
                 </label>
                 <textarea
-                  aria-label="Catatan usulan atau penjelasan"
+                  aria-label={t("Catatan usulan atau penjelasan")}
                   aria-required="true"
                   aria-invalid={Boolean(errorMessage) && !contentNote.trim()}
                   rows={5}
                   value={contentNote}
                   onChange={(e) => setContentNote(e.target.value)}
-                  placeholder="Contoh: Menurut pengalaman kelompok tani kami di Rejoso, penggunaan mulsa perak-hitam di musim hujan efektif mengurangi trotol..."
+                  placeholder={t("Contoh: Menurut pengalaman kelompok tani kami di Rejoso, penggunaan mulsa perak-hitam di musim hujan efektif mengurangi trotol...")}
                   className="w-full p-3 text-xs rounded-xl border border-[#E5DFD6] bg-white focus:outline-none focus:border-[#C4487A] leading-relaxed text-[#0E080A]"
                 />
               </div>
@@ -316,12 +307,12 @@ export default function UsulanPage() {
                 {submitting ? (
                   <>
                     <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    <span>Mengirimkan Usulan...</span>
+                    <span>{t("Mengirimkan Usulan...")}</span>
                   </>
                 ) : (
                   <>
                     <Send className="w-3.5 h-3.5 text-[#E6A15C]" />
-                    <span>Kirim Usulan ke Admin &rarr;</span>
+                    <span>{t("Kirim Usulan ke Admin →")}</span>
                   </>
                 )}
               </button>
@@ -333,15 +324,14 @@ export default function UsulanPage() {
         <div className="lg:col-span-7 space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="font-serif font-bold text-base text-[#0E080A]">
-              Riwayat Status Usulan Saya ({suggestions.length})
+              {t("Riwayat Status Usulan Saya (")}{suggestions.length})
             </h3>
             <span className="text-[11px] text-[#8A8580]">
-              Terhubung langsung ke Supabase RLS
-            </span>
+              {t("Terhubung langsung ke Supabase RLS")}</span>
           </div>
 
           {loadingList ? (
-            <div className="card-standard p-8 space-y-3 bg-white border border-[#E5DFD6]" role="status" aria-label="Memuat daftar usulan">
+            <div className="card-standard p-8 space-y-3 bg-white border border-[#E5DFD6]" role="status" aria-label={t("Memuat daftar usulan")}>
               <Skeleton className="h-6 w-2/3" /><Skeleton className="h-16" /><Skeleton className="h-6 w-1/3" />
             </div>
           ) : suggestions.length === 0 ? (
@@ -351,11 +341,9 @@ export default function UsulanPage() {
               </div>
               <div>
                 <p className="text-xs font-semibold text-[#0E080A]">
-                  Belum ada usulan atau laporan yang diajukan.
-                </p>
+                  {t("Belum ada usulan atau laporan yang diajukan.")}</p>
                 <p className="text-[11px] text-[#8A8580] mt-1 max-w-sm mx-auto">
-                  Gunakan formulir di sebelah kiri untuk berbagi pengetahuan atau mengoreksi materi budidaya.
-                </p>
+                  {t("Gunakan formulir di sebelah kiri untuk berbagi pengetahuan atau mengoreksi materi budidaya.")}</p>
               </div>
             </div>
           ) : (
@@ -375,7 +363,7 @@ export default function UsulanPage() {
                             : 'bg-[#C4487A]/10 text-[#C4487A] border border-[#C4487A]/20'
                         }`}
                       >
-                        {item.type === 'laporan_keliru' ? 'Laporan Kesalahan' : 'Usulan Baru'}
+                        {item.type === 'laporan_keliru' ? t("Laporan Kesalahan") : t("Usulan Baru")}
                       </span>
                       <span className="text-[11px] text-[#8A8580] font-mono">
                         {new Date(item.created_at).toLocaleDateString('id-ID', {
@@ -394,29 +382,28 @@ export default function UsulanPage() {
                     <div className="p-2 rounded-lg bg-[#FBF4EE] border border-[#E5DFD6] text-xs flex items-center gap-2 text-[#4A3A32]">
                       <BookOpen className="w-3.5 h-3.5 text-[#C4487A] shrink-0" />
                       <span className="truncate">
-                        Rujukan KB: <strong className="text-[#0E080A]">{item.related_entry.title}</strong>
+                        {t("Rujukan KB:")} <strong className="text-[#0E080A]">{t(item.related_entry.title)}</strong>
                       </span>
                     </div>
                   )}
 
                   {/* Farmer Content Note */}
                   <div className="text-xs text-[#0E080A] bg-[#FAFAF8] p-3 rounded-xl border border-[#E5DFD6]/60 leading-relaxed">
-                    &ldquo;{item.content_note}&rdquo;
-                  </div>
+                    {"“"}{item.content_note}{"”"}</div>
 
                   {/* Admin Review Note (If reviewed) */}
                   {item.review_note && (
                     <div className="p-3 rounded-xl bg-[#3A5A40]/5 border-l-4 border-l-[#3A5A40] border border-[#3A5A40]/20 space-y-1 text-xs">
                       <div className="flex items-center gap-1.5 font-bold text-[#3A5A40]">
                         <ShieldCheck className="w-4 h-4" />
-                        <span>Tanggapan Tim Admin / Penyuluh:</span>
+                        <span>{t("Tanggapan Tim Admin / Penyuluh:")}</span>
                       </div>
                       <p className="text-[#4A3A32] leading-relaxed">
                         {item.review_note}
                       </p>
                       {item.reviewed_at && (
                         <p className="text-[10px] text-[#8A8580] font-mono">
-                          Ditinjau pada:{' '}
+                          {t("Ditinjau pada:")}{' '}
                           {new Date(item.reviewed_at).toLocaleDateString('id-ID', {
                             day: 'numeric',
                             month: 'long',

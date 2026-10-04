@@ -1,5 +1,7 @@
 'use client'
 
+import { useLanguage } from '@/components/ui/LanguageProvider'
+
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
@@ -23,6 +25,7 @@ interface Message {
   id?: string | null
   sender: 'user' | 'sima'
   text: string
+  requestText?: string
   timestamp: string
   feedback?: 'helpful' | 'not_helpful' | null
 }
@@ -43,6 +46,7 @@ export function openSimaAssistant(options?: { prompt?: string; autoSend?: boolea
 }
 
 export default function FloatingAssistant() {
+  const { t, language } = useLanguage()
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
@@ -91,7 +95,8 @@ export default function FloatingAssistant() {
     const now = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
     const userMsg: Message = {
       sender: 'user',
-      text: textToSend,
+      text: customText ? t(textToSend) : textToSend,
+      requestText: textToSend,
       timestamp: now,
     }
 
@@ -102,7 +107,7 @@ export default function FloatingAssistant() {
     try {
       const historyPayload = messages.map((m) => ({
         role: m.sender === 'user' ? 'user' : 'model',
-        text: m.text,
+        text: m.requestText ?? m.text,
       }))
 
       const response = await fetch('/api/chat', {
@@ -111,6 +116,7 @@ export default function FloatingAssistant() {
         body: JSON.stringify({
           message: textToSend,
           conversation_history: historyPayload,
+          language,
         }),
       })
 
@@ -138,14 +144,14 @@ export default function FloatingAssistant() {
       console.error('Floating Chat error:', err)
       const errorMsg: Message = {
         sender: 'sima',
-        text: 'Mohon maaf, terjadi gangguan saat menghubungi asisten SIMA. Silakan coba sesaat lagi.',
+        text: t('Mohon maaf, terjadi gangguan saat menghubungi asisten SIMA. Silakan coba sesaat lagi.'),
         timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
       }
       setMessages((prev) => [...prev, errorMsg])
     } finally {
       setLoading(false)
     }
-  }, [inputMessage, loading, messages])
+  }, [inputMessage, loading, messages, language, t])
 
   // Handle global event listener for cross-page trigger
   useEffect(() => {
@@ -217,14 +223,14 @@ export default function FloatingAssistant() {
               }}
               className="group relative cursor-pointer mb-2 mr-2 sm:mr-3 bg-white border border-[#DCE8E1] hover:border-[#167A4A]/40 rounded-[22px] sm:rounded-[26px] p-3.5 sm:p-4 shadow-lg shadow-emerald-950/8 hover:shadow-xl hover:shadow-emerald-950/12 transition-all duration-200 max-w-[260px] sm:max-w-[310px] text-left"
             >
-              <button type="button" className="absolute inset-0 rounded-[22px] sm:rounded-[26px]" aria-label="Tanya SIMA: buka percakapan" />
+              <button type="button" className="absolute inset-0 rounded-[22px] sm:rounded-[26px]" aria-label={t("Tanya SIMA: buka percakapan")} />
               {/* Header row with Title and Close Button */}
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-1.5">
                   <span className="inline-block w-2 h-2 rounded-full bg-[#167A4A] shrink-0" />
                   <p className="text-xs sm:text-[13px] font-bold text-[#1F2922] leading-tight">
-                    <span className="hidden sm:inline">Ada yang bisa SIMA bantu?</span>
-                    <span className="sm:hidden">Ada yang bisa dibantu?</span>
+                    <span className="hidden sm:inline">{t("Ada yang bisa SIMA bantu?")}</span>
+                    <span className="sm:hidden">{t("Ada yang bisa dibantu?")}</span>
                   </p>
                 </div>
 
@@ -235,8 +241,8 @@ export default function FloatingAssistant() {
                     setIsBubbleDismissed(true)
                   }}
                   className="relative z-10 min-w-11 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full p-1 transition-colors shrink-0 -mr-1 -mt-1 cursor-pointer"
-                  aria-label="Tutup percakapan sapaan"
-                  title="Tutup gelembung"
+                  aria-label={t("Tutup percakapan sapaan")}
+                  title={t("Tutup gelembung")}
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -244,14 +250,12 @@ export default function FloatingAssistant() {
 
               {/* Secondary description line (Desktop / Tablet) */}
               <p className="hidden sm:block text-[11px] text-[#3D463F]/80 leading-relaxed mt-1.5">
-                Tanya seputar budidaya, penyakit, atau harga bawang merah.
-              </p>
+                {t("Tanya seputar budidaya, penyakit, atau harga bawang merah.")}</p>
 
               {/* CTA Action button */}
               <div className="mt-2.5 sm:mt-3 flex items-center justify-between pt-2 border-t border-slate-100">
                 <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#167A4A] group-hover:text-[#115E39] group-hover:translate-x-0.5 transition-all">
-                  Tanya SIMA
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  {t("Tanya SIMA")}<ArrowRight className="w-3.5 h-3.5" />
                 </span>
 
                 <span className="text-[10px] font-medium text-[#A63C5D] bg-[#FDF2F4] px-2 py-0.5 rounded-full">
@@ -293,8 +297,8 @@ export default function FloatingAssistant() {
               setIsBubbleDismissed(!isBubbleDismissed)
             }}
             className="group relative cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#167A4A] focus-visible:ring-offset-2 rounded-full p-1 transition-transform active:translate-y-0"
-            aria-label="Buka Asisten SIMA (Klik untuk berdiskusi)"
-            title={isBubbleDismissed ? 'Tanya SIMA (Klik untuk membuka)' : 'Asisten SIMA'}
+            aria-label={t("Buka Asisten SIMA (Klik untuk berdiskusi)")}
+            title={isBubbleDismissed ? t("Tanya SIMA (Klik untuk membuka)") : t("Asisten SIMA")}
           >
             {/* Mascot Visual with Blinking Idle Animation - Single prominent large instance */}
             <div className="relative">
@@ -313,7 +317,7 @@ export default function FloatingAssistant() {
       {isOpen && (
         <div
           role="dialog"
-          aria-label="Percakapan SIMA"
+          aria-label={t("Percakapan SIMA")}
           className={`sim-result fixed z-50 transition-all duration-300 ease-out font-jakarta ${
             isMinimized
               ? 'bottom-20 lg:bottom-6 right-4 sm:right-6 w-[280px] sm:w-[320px] h-auto rounded-3xl shadow-xl border border-slate-200'
@@ -337,12 +341,11 @@ export default function FloatingAssistant() {
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5">
                   <span className="text-xs sm:text-sm font-extrabold text-white leading-tight truncate">
-                    SIMA AI Assistant
-                  </span>
+                    {t("SIMA AI Assistant")}</span>
                   <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
                 </div>
                 <p className="text-[10px] text-emerald-100 leading-none mt-0.5 truncate">
-                  {isMinimized ? 'Klik untuk membuka' : 'Knowledge Base Bawang Merah Nganjuk'}
+                  {isMinimized ? t("Klik untuk membuka") : t("Knowledge Base Bawang Merah Nganjuk")}
                 </p>
               </div>
             </div>
@@ -357,7 +360,7 @@ export default function FloatingAssistant() {
                   <button
                     onClick={() => setMessages([])}
                     className="p-1.5 rounded-xl text-white/80 hover:text-white hover:bg-white/15 transition-colors"
-                    title="Reset Obrolan"
+                    title={t("Reset Obrolan")}
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
                   </button>
@@ -365,7 +368,7 @@ export default function FloatingAssistant() {
                   <Link
                     href="/dashboard/chat"
                     className="p-1.5 rounded-xl text-white/80 hover:text-white hover:bg-white/15 transition-colors"
-                    title="Buka di Halaman Penuh"
+                    title={t("Buka di Halaman Penuh")}
                     onClick={() => setIsOpen(false)}
                   >
                     <Maximize2 className="w-3.5 h-3.5" />
@@ -376,7 +379,7 @@ export default function FloatingAssistant() {
               <button
                 onClick={() => setIsMinimized(!isMinimized)}
                 className="p-1.5 rounded-xl text-white/80 hover:text-white hover:bg-white/15 transition-colors"
-                title={isMinimized ? 'Buka Panel' : 'Minimalkan'}
+                title={isMinimized ? t("Buka Panel") : t("Minimalkan")}
               >
                 {isMinimized ? (
                   <ChevronUp className="w-4 h-4" />
@@ -388,7 +391,7 @@ export default function FloatingAssistant() {
               <button
                 onClick={() => setIsOpen(false)}
                 className="p-1.5 rounded-xl text-white/80 hover:text-white hover:bg-rose-500/30 transition-colors"
-                title="Tutup Panel"
+                title={t("Tutup Panel")}
               >
                 <X className="w-4 h-4" />
               </button>
@@ -406,17 +409,14 @@ export default function FloatingAssistant() {
                       <SimaMascot size={56} animated={true} enableBreathing={false} />
                     </div>
                     <p className="text-sm font-extrabold text-slate-900">
-                      Halo! Saya SIMA, Asisten Tani Anda
-                    </p>
+                      {t("Halo! Saya SIMA, Asisten Tani Anda")}</p>
                     <p className="text-[11px] text-slate-500 mt-1 max-w-[270px] leading-relaxed">
-                      Siap membantu tanya jawab seputar budidaya bawang merah, diagnosis penyakit, dan tren harga di Nganjuk.
-                    </p>
+                      {t("Siap membantu tanya jawab seputar budidaya bawang merah, diagnosis penyakit, dan tren harga di Nganjuk.")}</p>
 
                     {/* Quick suggestion chips */}
                     <div className="mt-4 w-full space-y-1.5">
                       <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 text-left">
-                        Pertanyaan Populer:
-                      </p>
+                        {t("Pertanyaan Populer:")}</p>
                       {QUICK_QUESTIONS.map((q) => (
                         <button
                           key={q}
@@ -424,7 +424,7 @@ export default function FloatingAssistant() {
                           className="w-full text-left p-2.5 rounded-2xl border border-slate-200 bg-white hover:border-[#167A4A] hover:bg-[#DFF3E8]/30 text-[11px] font-medium text-slate-700 transition-all flex items-center gap-2 shadow-xs cursor-pointer"
                         >
                           <HelpCircle className="w-3.5 h-3.5 text-[#167A4A] shrink-0" />
-                          <span className="truncate">{q}</span>
+                          <span className="truncate">{t(q)}</span>
                         </button>
                       ))}
                     </div>
@@ -454,8 +454,7 @@ export default function FloatingAssistant() {
                           {msg.sender === 'sima' && (
                             <div className="flex items-center justify-between gap-1 pb-1 mb-1.5 border-b border-slate-100">
                               <span className="font-bold text-[10px] text-[#167A4A]">
-                                SIMA AI
-                              </span>
+                                {t("SIMA AI")}</span>
                               <span className="text-[8px] font-mono text-slate-400">
                                 {msg.timestamp}
                               </span>
@@ -481,7 +480,7 @@ export default function FloatingAssistant() {
                                   ? 'text-emerald-700 bg-emerald-50'
                                   : 'hover:text-slate-700'
                               }`}
-                              title="Membantu"
+                              title={t("Membantu")}
                             >
                               <ThumbsUp className="w-3 h-3" />
                             </button>
@@ -494,7 +493,7 @@ export default function FloatingAssistant() {
                                   ? 'text-rose-700 bg-rose-50'
                                   : 'hover:text-slate-700'
                               }`}
-                              title="Kurang Membantu"
+                              title={t("Kurang Membantu")}
                             >
                               <ThumbsDown className="w-3 h-3" />
                             </button>
@@ -515,7 +514,7 @@ export default function FloatingAssistant() {
                       <span className="w-1.5 h-1.5 rounded-full bg-[#167A4A] sim-typing-dot" style={{ animationDelay: '0ms' }} />
                       <span className="w-1.5 h-1.5 rounded-full bg-[#167A4A] sim-typing-dot" style={{ animationDelay: '150ms' }} />
                       <span className="w-1.5 h-1.5 rounded-full bg-[#167A4A] sim-typing-dot" style={{ animationDelay: '300ms' }} />
-                      <span className="text-[10px] text-slate-500 ml-1.5 font-medium">SIMA sedang merangkai jawaban...</span>
+                      <span className="text-[10px] text-slate-500 ml-1.5 font-medium">{t("SIMA sedang merangkai jawaban...")}</span>
                     </div>
                   </div>
                 )}
@@ -532,8 +531,8 @@ export default function FloatingAssistant() {
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    aria-label="Pertanyaan untuk SIMA"
-                    placeholder="Tanya SIMA apa saja..."
+                    aria-label={t("Pertanyaan untuk SIMA")}
+                    placeholder={t("Tanya SIMA apa saja...")}
                     disabled={loading}
                     className="flex-1 max-h-24 min-h-[36px] p-2 text-xs text-slate-900 placeholder:text-slate-400 bg-transparent border-0 outline-none resize-none leading-relaxed"
                   />
@@ -541,7 +540,7 @@ export default function FloatingAssistant() {
                     onClick={() => handleSendMessage()}
                     disabled={!inputMessage.trim() || loading}
                     className="h-11 w-11 rounded-xl bg-[#167A4A] text-white flex items-center justify-center transition-all hover:bg-[#115E39] active:translate-y-0 disabled:opacity-40 disabled:cursor-not-allowed shrink-0 cursor-pointer"
-                    title="Kirim Pesan"
+                    title={t("Kirim Pesan")}
                   >
                     <Send className="w-3.5 h-3.5" />
                   </button>

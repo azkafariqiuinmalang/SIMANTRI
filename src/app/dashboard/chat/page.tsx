@@ -1,5 +1,7 @@
 'use client'
 
+import { useLanguage } from '@/components/ui/LanguageProvider'
+
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -28,6 +30,7 @@ interface Message {
   id?: string | null
   sender: 'user' | 'sima'
   text: string
+  requestText?: string
   sumber?: { doc_id: string; title: string }[]
   dari_kb?: boolean
   feedback?: 'helpful' | 'not_helpful' | null
@@ -100,6 +103,7 @@ const TRENDING_TOPICS = [
 ]
 
 export default function ChatAssistantPage() {
+  const { t, language } = useLanguage()
   const router = useRouter()
   const [profile, setProfile] = useState<Profile | null>(null)
   const [authChecking, setAuthChecking] = useState(true)
@@ -153,7 +157,7 @@ export default function ChatAssistantPage() {
     if (!textToSend || loading) return
 
     const now = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
-    const userMsg: Message = { sender: 'user', text: textToSend, timestamp: now }
+    const userMsg: Message = { sender: 'user', text: customText ? t(textToSend) : textToSend, requestText: textToSend, timestamp: now }
 
     setMessages((prev) => [...prev, userMsg])
     setInputMessage('')
@@ -162,12 +166,12 @@ export default function ChatAssistantPage() {
     try {
       const historyPayload = messages.map((message) => ({
         role: message.sender === 'user' ? 'user' : 'model',
-        text: message.text,
+        text: message.requestText ?? message.text,
       }))
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: textToSend, conversation_history: historyPayload }),
+        body: JSON.stringify({ message: textToSend, conversation_history: historyPayload, language }),
       })
 
       if (!response.ok) throw new Error(`HTTP error ${response.status}`)
@@ -194,7 +198,7 @@ export default function ChatAssistantPage() {
         {
           id: `err-${Date.now()}`,
           sender: 'sima',
-          text: 'Mohon maaf, terjadi gangguan saat menghubungi asisten cerdas SIMA. Silakan coba kembali sesaat lagi.',
+          text: t('Mohon maaf, terjadi gangguan saat menghubungi asisten cerdas SIMA. Silakan coba kembali sesaat lagi.'),
           timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
         },
       ])
@@ -242,9 +246,9 @@ export default function ChatAssistantPage() {
       <div className="flex min-h-[60vh] flex-1 items-center justify-center p-8 font-jakarta">
         <div className="flex flex-col items-center gap-3">
           <div className="w-16 h-16 rounded-3xl bg-white p-2 shadow-lg border border-emerald-100 flex items-center justify-center animate-pulse">
-            <Image src="/sima.jpg" alt="Logo SIMA" width={56} height={56} className="rounded-2xl object-cover" priority />
+            <Image src="/sima.jpg" alt={t("Logo SIMA")} width={56} height={56} className="rounded-2xl object-cover" priority />
           </div>
-          <p className="text-sm font-bold text-slate-700">Menghubungkan ke SIMA AI Assistant...</p>
+          <p className="text-sm font-bold text-slate-700">{t("Menghubungkan ke SIMA AI Assistant...")}</p>
         </div>
       </div>
     )
@@ -266,7 +270,7 @@ export default function ChatAssistantPage() {
             <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white p-1 shadow-lg shadow-black/20 shrink-0 border border-white/20">
               <Image
                 src="/sima.jpg"
-                alt="Logo SIMA"
+                alt={t("Logo SIMA")}
                 width={64}
                 height={64}
                 className="w-full h-full object-cover rounded-xl"
@@ -281,15 +285,12 @@ export default function ChatAssistantPage() {
             <div className="space-y-1">
               <div className="flex items-center gap-2 flex-wrap">
                 <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-                  SIMA AI Assistant
-                </h1>
+                  {t("SIMA AI Assistant")}</h1>
                 <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 text-[11px] font-extrabold">
-                  v2.4 Gemini + RAG Pertanian
-                </span>
+                  {t("v2.4 Gemini + RAG Pertanian")}</span>
               </div>
               <p className="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed">
-                Asisten cerdas agronomi budidaya, pengendalian OPT, dan analisis pasar bawang merah Kabupaten Nganjuk.
-              </p>
+                {t("Asisten cerdas agronomi budidaya, pengendalian OPT, dan analisis pasar bawang merah Kabupaten Nganjuk.")}</p>
             </div>
           </div>
 
@@ -299,10 +300,10 @@ export default function ChatAssistantPage() {
               type="button"
               onClick={() => setMessages([])}
               className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-bold text-white transition backdrop-blur-md active:translate-y-0"
-              title="Reset sesi percakapan"
+              title={t("Reset sesi percakapan")}
             >
               <RefreshCw className="w-3.5 h-3.5" />
-              <span>Percakapan Baru</span>
+              <span>{t("Percakapan Baru")}</span>
             </button>
             <button
               type="button"
@@ -310,7 +311,7 @@ export default function ChatAssistantPage() {
               className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-simantri-500 hover:bg-simantri-600 border border-emerald-400/30 text-xs font-bold text-white transition shadow-sm active:translate-y-0"
             >
               <Lightbulb className="w-3.5 h-3.5" />
-              <span>Panduan Tanya</span>
+              <span>{t("Panduan Tanya")}</span>
             </button>
           </div>
         </div>
@@ -332,7 +333,7 @@ export default function ChatAssistantPage() {
                     <div className="w-14 h-14 rounded-2xl bg-white p-1 shadow-md border border-emerald-200/60 shrink-0 overflow-hidden">
                       <Image
                         src="/sima.jpg"
-                        alt="SIMA Mascot"
+                        alt={t("SIMA Mascot")}
                         width={56}
                         height={56}
                         className="w-full h-full object-cover rounded-xl"
@@ -340,22 +341,19 @@ export default function ChatAssistantPage() {
                     </div>
                     <div className="space-y-1 min-w-0">
                       <span className="text-[11px] font-bold text-simantri-700 uppercase tracking-wider">
-                        Agronomi Telemetri Nganjuk
-                      </span>
+                        {t("Agronomi Telemetri Nganjuk")}</span>
                       <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-                        Sugeng Rawuh, Pak {farmerName}!
+                        {t("Sugeng Rawuh, Pak")} {farmerName}!
                       </h2>
                       <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mt-1">
-                        Saya <strong>SIMA</strong>, asisten agronomi Anda. Ada yang ingin ditanyakan seputar penanganan penyakit bercak ungu, takaran pupuk fase pembesaran umbi, atau strategi waktu jual di Pasar Sukomoro?
-                      </p>
+                        {t("Saya")} <strong>SIMA</strong>{t(", asisten agronomi Anda. Ada yang ingin ditanyakan seputar penanganan penyakit bercak ungu, takaran pupuk fase pembesaran umbi, atau strategi waktu jual di Pasar Sukomoro?")}</p>
                     </div>
                   </div>
 
                   {/* Tactical Quick Prompt Chips */}
                   <div className="mt-6 pt-5 border-t border-emerald-100/80">
                     <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-3">
-                      Rekomendasi Pertanyaan Cepat (Klik untuk Bertanya):
-                    </span>
+                      {t("Rekomendasi Pertanyaan Cepat (Klik untuk Bertanya):")}</span>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {TACTICAL_PROMPTS.map((prompt) => (
                         <button
@@ -369,10 +367,10 @@ export default function ChatAssistantPage() {
                           </div>
                           <div className="min-w-0">
                             <span className="text-[10px] font-bold text-slate-400 group-hover:text-emerald-200 uppercase tracking-wider block">
-                              {prompt.category}
+                              {t(prompt.category)}
                             </span>
                             <span className="text-xs font-semibold text-slate-800 group-hover:text-white leading-snug line-clamp-2 mt-0.5">
-                              {prompt.text}
+                              {t(prompt.text)}
                             </span>
                           </div>
                         </button>
@@ -402,12 +400,11 @@ export default function ChatAssistantPage() {
                   <div className={`max-w-[88%] sm:max-w-[80%] space-y-2`}>
                     {message.sender === 'sima' && (
                       <div className="flex items-center gap-2 px-1">
-                        <span className="text-xs font-extrabold text-simantri-800">SIMA Agronomi Nganjuk</span>
+                        <span className="text-xs font-extrabold text-simantri-800">{t("SIMA Agronomi Nganjuk")}</span>
                         <span className="text-[10px] text-slate-400 font-medium">• {message.timestamp}</span>
                         {message.dari_kb && (
                           <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">
-                            Tervalidasi RAG BPTP
-                          </span>
+                            {t("Tervalidasi RAG BPTP")}</span>
                         )}
                       </div>
                     )}
@@ -436,7 +433,7 @@ export default function ChatAssistantPage() {
                     {message.sender === 'sima' && message.id && (
                       <div className="flex flex-wrap items-center justify-between gap-2 px-1 text-xs text-slate-500 pt-0.5">
                         <div className="flex items-center gap-2">
-                          <span className="text-[11px]">Bermanfaat?</span>
+                          <span className="text-[11px]">{t("Bermanfaat?")}</span>
                           <button
                             type="button"
                             onClick={() => handleFeedback(message.id!, 'helpful')}
@@ -448,7 +445,7 @@ export default function ChatAssistantPage() {
                                 ? 'border-emerald-300 bg-emerald-50 text-emerald-700 font-bold'
                                 : 'border-slate-200 hover:bg-slate-100 text-slate-600'
                             }`}
-                            title="Jawaban membantu"
+                            title={t("Jawaban membantu")}
                           >
                             <ThumbsUp className="w-3.5 h-3.5" />
                           </button>
@@ -463,7 +460,7 @@ export default function ChatAssistantPage() {
                                 ? 'border-rose-300 bg-rose-50 text-rose-700 font-bold'
                                 : 'border-slate-200 hover:bg-slate-100 text-slate-600'
                             }`}
-                            title="Kurang tepat"
+                            title={t("Kurang tepat")}
                           >
                             <ThumbsDown className="w-3.5 h-3.5" />
                           </button>
@@ -478,12 +475,12 @@ export default function ChatAssistantPage() {
                             {copiedId === message.id ? (
                               <>
                                 <Check className="w-3.5 h-3.5 text-emerald-600" />
-                                <span className="text-[11px] text-emerald-600 font-bold">Tersalin</span>
+                                <span className="text-[11px] text-emerald-600 font-bold">{t("Tersalin")}</span>
                               </>
                             ) : (
                               <>
                                 <Copy className="w-3.5 h-3.5" />
-                                <span className="text-[11px]">Salin</span>
+                                <span className="text-[11px]">{t("Salin")}</span>
                               </>
                             )}
                           </button>
@@ -494,7 +491,7 @@ export default function ChatAssistantPage() {
 
                   {message.sender === 'user' && (
                     <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 mt-1 font-bold text-xs shadow-xs">
-                      {profile?.full_name?.charAt(0).toUpperCase() || 'P'}
+                      {profile?.full_name?.charAt(0).toUpperCase() || t("P")}
                     </div>
                   )}
                 </div>
@@ -514,8 +511,7 @@ export default function ChatAssistantPage() {
                     <span className="w-2 h-2 rounded-full bg-simantri-600 sim-typing-dot" style={{ animationDelay: '300ms' }} />
                   </div>
                   <span className="text-xs font-semibold text-slate-500 ml-2">
-                    SIMA sedang merangkai rekomendasi agronomi...
-                  </span>
+                    {t("SIMA sedang merangkai rekomendasi agronomi...")}</span>
                 </div>
               </div>
             )}
@@ -532,13 +528,13 @@ export default function ChatAssistantPage() {
               className="relative flex items-center gap-2 bg-slate-50 rounded-2xl p-2 border border-slate-200/80 focus-within:border-simantri-600 focus-within:ring-2 focus-within:ring-simantri-600/15 focus-within:bg-white transition-all"
             >
               <textarea
-                aria-label="Pertanyaan untuk SIMA"
+                aria-label={t("Pertanyaan untuk SIMA")}
                 ref={textareaRef}
                 rows={1}
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Tanyakan penanganan hama, pemupukan, atau taksiran harga... (contoh: takaran pupuk 42 HST)"
+                placeholder={t("Tanyakan penanganan hama, pemupukan, atau taksiran harga... (contoh: takaran pupuk 42 HST)")}
                 disabled={loading}
                 className="w-full bg-transparent border-0 outline-none text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 px-2 py-1.5 resize-none max-h-24 leading-relaxed"
               />
@@ -548,7 +544,7 @@ export default function ChatAssistantPage() {
                 disabled={!inputMessage.trim() || loading}
                 className="h-10 px-4 rounded-xl bg-simantri-700 hover:bg-simantri-800 active:bg-simantri-900 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm active:translate-y-0 disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
               >
-                <span>Kirim</span>
+                <span>{t("Kirim")}</span>
                 <Send className="w-3.5 h-3.5" />
               </button>
             </form>
@@ -557,12 +553,10 @@ export default function ChatAssistantPage() {
               <div className="flex items-center gap-1.5 truncate">
                 <Info className="w-3.5 h-3.5 text-simantri-600 shrink-0" />
                 <span className="truncate">
-                  Rekomendasi diselaraskan dengan SOP BPTP Jatim &amp; Pasar Sukomoro Nganjuk.
-                </span>
+                  {t("Rekomendasi diselaraskan dengan SOP BPTP Jatim & Pasar Sukomoro Nganjuk.")}</span>
               </div>
               <span className="hidden sm:inline font-mono text-[10px] text-slate-400 shrink-0">
-                Shift + Enter untuk baris baru
-              </span>
+                {t("Shift + Enter untuk baris baru")}</span>
             </div>
           </div>
         </div>
@@ -577,39 +571,37 @@ export default function ChatAssistantPage() {
                   <Sprout className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-extrabold text-slate-900">Konteks Lahan Anda</h3>
-                  <p className="text-[10px] text-slate-400 uppercase font-semibold">Telemetri Lapangan</p>
+                  <h3 className="text-sm font-extrabold text-slate-900">{t("Konteks Lahan Anda")}</h3>
+                  <p className="text-[10px] text-slate-400 uppercase font-semibold">{t("Telemetri Lapangan")}</p>
                 </div>
               </div>
               <span className="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[10px] font-extrabold text-emerald-800">
-                TERDETEKSI
-              </span>
+                {t("TERDETEKSI")}</span>
             </div>
 
             <div className="space-y-2.5 text-xs">
               <div className="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50">
-                <span className="text-slate-500">Varietas Utama:</span>
-                <span className="font-bold text-shallot-700">Tajuk / Bauji Nganjuk</span>
+                <span className="text-slate-500">{t("Varietas Utama:")}</span>
+                <span className="font-bold text-shallot-700">{t("Tajuk / Bauji Nganjuk")}</span>
               </div>
               <div className="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50">
-                <span className="text-slate-500">Fase &amp; Usia:</span>
-                <span className="font-bold text-slate-800">42 HST (Pembentukan Umbi)</span>
+                <span className="text-slate-500">{t("Fase & Usia:")}</span>
+                <span className="font-bold text-slate-800">{t("42 HST (Pembentukan Umbi)")}</span>
               </div>
               <div className="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50">
-                <span className="text-slate-500">Lokasi Hamparan:</span>
-                <span className="font-bold text-slate-800">Kecamatan {userVillage}</span>
+                <span className="text-slate-500">{t("Lokasi Hamparan:")}</span>
+                <span className="font-bold text-slate-800">{t("Kecamatan")} {userVillage}</span>
               </div>
               <div className="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50">
-                <span className="text-slate-500">Kondisi Cuaca:</span>
-                <span className="font-bold text-amber-700">31°C • RH 78% (Lembap)</span>
+                <span className="text-slate-500">{t("Kondisi Cuaca:")}</span>
+                <span className="font-bold text-amber-700">{t("31°C • RH 78% (Lembap)")}</span>
               </div>
             </div>
 
             <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200/70 text-amber-900 flex items-start gap-2 text-xs">
               <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
               <p className="leading-snug">
-                <strong>Waspada Kelembapan:</strong> Kelembapan malam {userVillage} cukup tinggi, perhatikan sanitasi daun dari bercak ungu.
-              </p>
+                <strong>{t("Waspada Kelembapan:")}</strong>  {t("Kelembapan malam")} {userVillage}  {t("cukup tinggi, perhatikan sanitasi daun dari bercak ungu.")}</p>
             </div>
           </div>
 
@@ -621,11 +613,11 @@ export default function ChatAssistantPage() {
                   <Flame className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-extrabold text-slate-900">Tren Tanya Sukomoro</h3>
-                  <p className="text-[10px] text-slate-400 uppercase font-semibold">7 Hari Terakhir</p>
+                  <h3 className="text-sm font-extrabold text-slate-900">{t("Tren Tanya Sukomoro")}</h3>
+                  <p className="text-[10px] text-slate-400 uppercase font-semibold">{t("7 Hari Terakhir")}</p>
                 </div>
               </div>
-              <span className="text-[10px] font-bold text-slate-400">Komunitas</span>
+              <span className="text-[10px] font-bold text-slate-400">{t("Komunitas")}</span>
             </div>
 
             <div className="space-y-2 pt-1">
@@ -638,12 +630,12 @@ export default function ChatAssistantPage() {
                 >
                   <div className="min-w-0 pr-2">
                     <span className="text-xs font-bold text-slate-800 group-hover:text-simantri-800 line-clamp-1 block">
-                      {topic.title}
+                      {t(topic.title)}
                     </span>
-                    <span className="text-[10px] text-slate-500">{topic.category}</span>
+                    <span className="text-[10px] text-slate-500">{t(topic.category)}</span>
                   </div>
                   <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold shrink-0 ${topic.badgeColor}`}>
-                    {topic.count}
+                    {t(topic.count)}
                   </span>
                 </button>
               ))}
@@ -657,20 +649,18 @@ export default function ChatAssistantPage() {
                 <PhoneCall className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-sm font-extrabold text-white">Butuh Kunjungan Lapangan?</h4>
-                <p className="text-[11px] text-emerald-200">BPP &amp; Mantri Tani Kab. Nganjuk</p>
+                <h4 className="text-sm font-extrabold text-white">{t("Butuh Kunjungan Lapangan?")}</h4>
+                <p className="text-[11px] text-emerald-200">{t("BPP & Mantri Tani Kab. Nganjuk")}</p>
               </div>
             </div>
             <p className="text-xs text-slate-200 leading-relaxed">
-              Jika tanaman mengalami gejala penyakit menular atau butuh verifikasi fisik langsung di bedengan sawah Anda.
-            </p>
+              {t("Jika tanaman mengalami gejala penyakit menular atau butuh verifikasi fisik langsung di bedengan sawah Anda.")}</p>
             <button
               type="button"
               onClick={() => handleSendMessage(`Saya membutuhkan rekomendasi langkah untuk mengundang PPL atau Mantri Pertanian ke lahan saya di ${userVillage}.`)}
               className="w-full py-2.5 px-4 rounded-2xl bg-white text-simantri-900 hover:bg-emerald-50 text-xs font-extrabold transition shadow-sm active:translate-y-0 text-center"
             >
-              Hubungi Penyuluh Lapangan
-            </button>
+              {t("Hubungi Penyuluh Lapangan")}</button>
           </div>
         </div>
       </div>
@@ -685,7 +675,7 @@ export default function ChatAssistantPage() {
             ref={guideRef}
             role="dialog"
             aria-modal="true"
-            aria-label="Panduan bertanya pada SIMA"
+            aria-label={t("Panduan bertanya pada SIMA")}
             className="sim-result bg-white rounded-3xl max-w-lg w-full max-h-[85dvh] overflow-y-auto p-6 sm:p-7 shadow-2xl border border-slate-100 space-y-5"
             onClick={(e) => e.stopPropagation()}
           >
@@ -696,9 +686,8 @@ export default function ChatAssistantPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-extrabold text-slate-900">
-                    Panduan Bertanya Efektif ke SIMA
-                  </h3>
-                  <p className="text-xs text-slate-500">Dapatkan rekomendasi agronomi paling presisi</p>
+                    {t("Panduan Bertanya Efektif ke SIMA")}</h3>
+                  <p className="text-xs text-slate-500">{t("Dapatkan rekomendasi agronomi paling presisi")}</p>
                 </div>
               </div>
               <button
@@ -715,10 +704,9 @@ export default function ChatAssistantPage() {
                   1
                 </div>
                 <div>
-                  <strong className="text-slate-900">Sebutkan Usia Tanaman (HST):</strong>
+                  <strong className="text-slate-900">{t("Sebutkan Usia Tanaman (HST):")}</strong>
                   <p className="text-xs text-slate-500 mt-0.5">
-                    Contoh: <em>&quot;Bawang saya usia 42 HST...&quot;</em> — Resep nutrisi fase vegetatif dan pembesaran umbi sangat berbeda.
-                  </p>
+                    {t("Contoh:")} <em>{t("\"Bawang saya usia 42 HST...\"")}</em>  {t("— Resep nutrisi fase vegetatif dan pembesaran umbi sangat berbeda.")}</p>
                 </div>
               </div>
 
@@ -727,10 +715,9 @@ export default function ChatAssistantPage() {
                   2
                 </div>
                 <div>
-                  <strong className="text-slate-900">Deskripsikan Gejala Fisik:</strong>
+                  <strong className="text-slate-900">{t("Deskripsikan Gejala Fisik:")}</strong>
                   <p className="text-xs text-slate-500 mt-0.5">
-                    Sebutkan warna daun (kuning ujung, bercak ungu, bintik putih) dan cuaca di sawah dalam 2 hari terakhir.
-                  </p>
+                    {t("Sebutkan warna daun (kuning ujung, bercak ungu, bintik putih) dan cuaca di sawah dalam 2 hari terakhir.")}</p>
                 </div>
               </div>
 
@@ -739,10 +726,9 @@ export default function ChatAssistantPage() {
                   3
                 </div>
                 <div>
-                  <strong className="text-slate-900">Tanyakan Prediksi Harga Pasar:</strong>
+                  <strong className="text-slate-900">{t("Tanyakan Prediksi Harga Pasar:")}</strong>
                   <p className="text-xs text-slate-500 mt-0.5">
-                    Gunakan kata kunci seperti <em>&quot;Prediksi harga tebas Sukomoro minggu depan&quot;</em> untuk simulasi jual panen.
-                  </p>
+                    {t("Gunakan kata kunci seperti")} <em>{t("\"Prediksi harga tebas Sukomoro minggu depan\"")}</em>  {t("untuk simulasi jual panen.")}</p>
                 </div>
               </div>
             </div>
@@ -753,8 +739,7 @@ export default function ChatAssistantPage() {
                 onClick={() => setIsGuideOpen(false)}
                 className="py-2.5 px-5 rounded-2xl bg-simantri-700 hover:bg-simantri-800 text-white font-bold text-xs transition"
               >
-                Saya Mengerti, Mulai Bertanya
-              </button>
+                {t("Saya Mengerti, Mulai Bertanya")}</button>
             </div>
           </div>
         </div>

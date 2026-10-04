@@ -1,5 +1,7 @@
 'use client'
 
+import { useLanguage } from '@/components/ui/LanguageProvider'
+
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -31,6 +33,7 @@ const SHOWCASE_SLIDES = [
 ]
 
 export default function LoginPage() {
+  const { t } = useLanguage()
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -89,7 +92,7 @@ export default function LoginPage() {
           className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-white hover:shadow hover:text-simantri-700"
         >
           <ArrowLeft className="h-3.5 w-3.5 text-simantri-600" />
-          <span>Kembali ke Beranda</span>
+          <span>{t("Kembali ke Beranda")}</span>
         </Link>
       </div>
 
@@ -97,14 +100,14 @@ export default function LoginPage() {
       <main className="w-full max-w-[1360px] min-h-[760px] bg-white rounded-[32px] shadow-2xl shadow-emerald-950/5 border border-slate-100 p-3.5 sm:p-4 lg:p-5 flex flex-col lg:flex-row gap-6 overflow-hidden">
         {/* Showcase Section (Left Side) */}
         <section
-          aria-label="Informasi Wilayah Pertanian"
+          aria-label={t("Informasi Wilayah Pertanian")}
           className="relative w-full lg:w-[50%] min-h-[460px] lg:min-h-[720px] rounded-[28px] overflow-hidden flex flex-col justify-between p-6 sm:p-8 text-white shadow-inner bg-slate-900"
         >
           {/* Background Image Carousel */}
           <div className="absolute inset-0">
             <Image
               src={SHOWCASE_SLIDES[activeSlide].image}
-              alt={SHOWCASE_SLIDES[activeSlide].title}
+              alt={t(SHOWCASE_SLIDES[activeSlide].title)}
               fill
               priority
               className="object-cover object-center filter brightness-[0.92] contrast-[1.05] transition-all duration-700"
@@ -118,7 +121,7 @@ export default function LoginPage() {
           <header className="relative z-10 flex items-center justify-between gap-4">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-xs font-semibold tracking-wide">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-white/95">Sistem Agrikultur Nganjuk</span>
+              <span className="text-white/95">{t("Sistem Agrikultur Nganjuk")}</span>
             </div>
 
             <div className="flex items-center space-x-2 text-xs sm:text-sm font-medium">
@@ -126,14 +129,12 @@ export default function LoginPage() {
                 href="/dunia-brambang"
                 className="text-white/85 hover:text-white transition py-1.5 px-3 hidden sm:inline-block"
               >
-                Dunia Brambang
-              </Link>
+                {t("Dunia Brambang")}</Link>
               <Link
                 href="/register"
                 className="border border-white/40 hover:border-white text-white backdrop-blur-md bg-white/10 hover:bg-white/20 transition duration-200 px-4 py-1.5 rounded-full font-semibold"
               >
-                Daftar Akun
-              </Link>
+                {t("Daftar Akun")}</Link>
             </div>
           </header>
 
@@ -141,14 +142,12 @@ export default function LoginPage() {
           <div className="relative z-10 my-auto py-8 max-w-md">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/25 border border-emerald-400/30 text-emerald-200 text-xs font-semibold mb-3 backdrop-blur-sm">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Agro-Intelligence Platform</span>
+              <span>{t("Agro-Intelligence Platform")}</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight drop-shadow-sm">
-              Digitalisasi Pertanian Bawang Merah Berkelanjutan
-            </h2>
+              {t("Digitalisasi Pertanian Bawang Merah Berkelanjutan")}</h2>
             <p className="mt-3 text-xs sm:text-sm text-emerald-50/85 leading-relaxed font-normal">
-              Akses prediksi harga pasar harian, diagnosa citra penyakit daun, dan wawasan agronomis presisi khusus Kabupaten Nganjuk.
-            </p>
+              {t("Akses prediksi harga pasar harian, diagnosa citra penyakit daun, dan wawasan agronomis presisi khusus Kabupaten Nganjuk.")}</p>
           </div>
 
           {/* Showcase Footer */}
@@ -159,7 +158,7 @@ export default function LoginPage() {
               </div>
               <div>
                 <h3 className="font-bold text-sm sm:text-base text-white tracking-wide leading-snug drop-shadow-sm">
-                  {SHOWCASE_SLIDES[activeSlide].title}
+                  {t(SHOWCASE_SLIDES[activeSlide].title)}
                 </h3>
                 <p className="text-xs text-emerald-100/80 font-medium">
                   {SHOWCASE_SLIDES[activeSlide].subtitle}
@@ -168,10 +167,10 @@ export default function LoginPage() {
             </div>
 
             {/* Slider Controls */}
-            <div aria-label="Kontrol Galeri" className="flex items-center space-x-2 self-end sm:self-auto">
+            <div aria-label={t("Kontrol Galeri")} className="flex items-center space-x-2 self-end sm:self-auto">
               <button
                 onClick={prevSlide}
-                aria-label="Sebelumnya"
+                aria-label={t("Sebelumnya")}
                 className="w-9 h-9 rounded-full border border-white/30 backdrop-blur-md bg-black/20 hover:bg-white/20 text-white flex items-center justify-center transition focus:outline-none"
                 type="button"
               >
@@ -179,7 +178,7 @@ export default function LoginPage() {
               </button>
               <button
                 onClick={nextSlide}
-                aria-label="Selanjutnya"
+                aria-label={t("Selanjutnya")}
                 className="w-9 h-9 rounded-full border border-white/30 backdrop-blur-md bg-black/20 hover:bg-white/20 text-white flex items-center justify-center transition focus:outline-none"
                 type="button"
               >
@@ -191,7 +190,7 @@ export default function LoginPage() {
 
         {/* Form Section (Right Side) */}
         <section
-          aria-label="Formulir Masuk"
+          aria-label={t("Formulir Masuk")}
           className="w-full lg:w-[50%] flex flex-col justify-between px-3 sm:px-8 lg:px-10 py-4 lg:py-6"
         >
           {/* Top Bar: Logo & Language Selector */}
@@ -200,7 +199,7 @@ export default function LoginPage() {
               <div className="h-10 w-10 relative flex items-center justify-center">
                 <Image
                   src="/logo_simantri.png"
-                  alt="Logo SIMANTRI"
+                  alt={t("Logo SIMANTRI")}
                   width={40}
                   height={40}
                   className="object-contain group-hover:scale-105 transition-transform"
@@ -212,14 +211,13 @@ export default function LoginPage() {
                   SIMANTRI
                 </span>
                 <span className="text-[10px] font-semibold text-simantri-700 tracking-wider uppercase">
-                  Kab. Nganjuk
-                </span>
+                  {t("Kab. Nganjuk")}</span>
               </div>
             </Link>
 
             <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full border border-slate-200 text-xs font-semibold text-slate-700 bg-slate-50/80">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              <span>Portal Masuk</span>
+              <span>{t("Portal Masuk")}</span>
             </div>
           </div>
 
@@ -227,18 +225,16 @@ export default function LoginPage() {
           <div className="max-w-[420px] w-full mx-auto my-auto py-4">
             <div className="text-center mb-6">
               <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2 font-jakarta">
-                Sugeng Rawuh
-              </h1>
+                {t("Sugeng Rawuh")}</h1>
               <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
-                Akses portal manajemen pertanian bawang merah cerdas Kabupaten Nganjuk
-              </p>
+                {t("Akses portal manajemen pertanian bawang merah cerdas Kabupaten Nganjuk")}</p>
             </div>
 
             {/* Error Message */}
             {errorMessage && (
               <div className="mb-4 p-3.5 rounded-2xl bg-red-50 border border-red-200 text-left flex items-start gap-2.5 text-red-800 animate-fadeIn">
                 <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-                <p className="text-xs leading-relaxed font-medium">{errorMessage}</p>
+                <p className="text-xs leading-relaxed font-medium">{t(errorMessage)}</p>
               </div>
             )}
 
@@ -249,8 +245,7 @@ export default function LoginPage() {
                   htmlFor="email"
                   className="block text-xs font-semibold text-slate-700 mb-1.5"
                 >
-                  Alamat Email Akun
-                </label>
+                  {t("Alamat Email Akun")}</label>
                 <input
                   id="email"
                   name="email"
@@ -258,7 +253,7 @@ export default function LoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="nama@email.com"
+                  placeholder={t("nama@email.com")}
                   className="w-full h-12 px-4 text-sm font-medium text-slate-800 placeholder-slate-400 bg-white border border-slate-300 rounded-2xl focus:border-simantri-500 focus:ring-4 focus:ring-simantri-500/15 transition-all outline-none"
                 />
               </div>
@@ -270,14 +265,12 @@ export default function LoginPage() {
                     htmlFor="password"
                     className="block text-xs font-semibold text-slate-700"
                   >
-                    Kata Sandi
-                  </label>
+                    {t("Kata Sandi")}</label>
                   <Link
                     href="/privacy"
                     className="text-xs font-semibold text-shallot-500 hover:text-shallot-600 transition"
                   >
-                    Lupa kata sandi?
-                  </Link>
+                    {t("Lupa kata sandi?")}</Link>
                 </div>
                 <div className="relative">
                   <input
@@ -294,7 +287,7 @@ export default function LoginPage() {
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none"
-                    aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+                    aria-label={showPassword ? t("Sembunyikan kata sandi") : t("Tampilkan kata sandi")}
                   >
                     {showPassword ? (
                       <EyeOff className="w-5 h-5" />
@@ -315,11 +308,11 @@ export default function LoginPage() {
                   {loading ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Memverifikasi Akun...</span>
+                      <span>{t("Memverifikasi Akun...")}</span>
                     </>
                   ) : (
                     <>
-                      <span>Masuk ke Sistem</span>
+                      <span>{t("Masuk ke Sistem")}</span>
                       <ChevronRight className="w-4 h-4" />
                     </>
                   )}
@@ -328,32 +321,28 @@ export default function LoginPage() {
 
               {/* Register Prompt */}
               <p className="text-center text-xs text-slate-500 pt-2 font-medium">
-                Belum memiliki akun?{' '}
+                {t("Belum memiliki akun?")}{' '}
                 <Link
                   href="/register"
                   className="text-simantri-600 hover:text-simantri-700 font-bold hover:underline transition"
                 >
-                  Daftar Sekarang
-                </Link>
+                  {t("Daftar Sekarang")}</Link>
               </p>
             </form>
           </div>
 
           {/* Form Footer */}
           <footer className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-3">
-            <span>© 2026 Dinas Pertanian Kab. Nganjuk</span>
+            <span>{t("© 2026 Dinas Pertanian Kab. Nganjuk")}</span>
             <div className="flex items-center space-x-3 text-[11px]">
               <Link href="/terms" className="hover:text-simantri-600 transition">
-                Syarat &amp; Ketentuan
-              </Link>
+                {t("Syarat & Ketentuan")}</Link>
               <span className="inline-block w-1 h-1 rounded-full bg-slate-300" />
               <Link href="/privacy" className="hover:text-simantri-600 transition">
-                Privasi
-              </Link>
+                {t("Privasi")}</Link>
               <span className="inline-block w-1 h-1 rounded-full bg-slate-300" />
               <Link href="/" className="hover:text-simantri-600 transition">
-                Beranda
-              </Link>
+                {t("Beranda")}</Link>
             </div>
           </footer>
         </section>

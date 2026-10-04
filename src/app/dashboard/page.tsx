@@ -1,5 +1,7 @@
 'use client'
 
+import { useLanguage } from '@/components/ui/LanguageProvider'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -58,6 +60,7 @@ const diseaseNames: Record<string, { label: string; latin: string; color: string
 }
 
 export default function DashboardPage() {
+  const { t } = useLanguage()
   const router = useRouter()
   const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
@@ -298,7 +301,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-[60vh] space-y-6 font-jakarta" role="status" aria-label="Memuat dashboard">
+      <div className="min-h-[60vh] space-y-6 font-jakarta" role="status" aria-label={t("Memuat dashboard")}>
         <Skeleton className="h-24 rounded-2xl" />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {[0, 1, 2, 3].map((item) => <Skeleton key={item} className="h-36 rounded-2xl" />)}
@@ -319,18 +322,16 @@ export default function DashboardPage() {
           <div className="flex items-center gap-2 mb-1.5">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-simantri-700 font-semibold text-xs border border-emerald-200/60 shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Pasar Sukomoro Aktif • Terhubung Real-Time</span>
+              <span>{t("Pasar Sukomoro Aktif • Terhubung Real-Time")}</span>
             </span>
             <span className="text-xs text-slate-400 font-medium hidden sm:inline-block">
-              Kecamatan {villageName}, Nganjuk
-            </span>
+              {t("Kecamatan")} {villageName}{t(", Nganjuk")}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-            Sugeng Rawuh, {farmerName}
+            {t("Sugeng Rawuh,")} {farmerName}
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
-            Pantauan kondisi pasar bawang merah dan kesehatan tanaman Anda hari ini di Nganjuk.
-          </p>
+            {t("Pantauan kondisi pasar bawang merah dan kesehatan tanaman Anda hari ini di Nganjuk.")}</p>
         </div>
 
         <div className="flex items-center gap-2">
@@ -339,7 +340,7 @@ export default function DashboardPage() {
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-simantri-500 hover:bg-simantri-600 active:bg-simantri-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-simantri-500/20 transition-all cursor-pointer"
           >
             <Camera className="w-4 h-4" />
-            <span>Diagnosa Tanaman</span>
+            <span>{t("Diagnosa Tanaman")}</span>
           </Link>
         </div>
       </section>
@@ -352,7 +353,7 @@ export default function DashboardPage() {
             <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white p-1 shadow-md border border-emerald-200 shrink-0 overflow-hidden">
               <Image
                 src="/sima.jpg"
-                alt="Logo SIMA Mascot"
+                alt={t("Logo SIMA Mascot")}
                 width={64}
                 height={64}
                 className="w-full h-full object-cover rounded-xl"
@@ -365,18 +366,14 @@ export default function DashboardPage() {
             <div className="flex flex-col">
               <div className="flex items-center gap-2">
                 <span className="text-[11px] font-extrabold text-simantri-700 uppercase tracking-wider">
-                  Asisten AI Agronomi
-                </span>
+                  {t("Asisten AI Agronomi")}</span>
                 <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-white text-simantri-800 text-[10px] font-bold border border-emerald-200">
-                  Model v2.4 (Gemini + RAG)
-                </span>
+                  {t("Model v2.4 (Gemini + RAG)")}</span>
               </div>
               <h2 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">
-                Tanya SIMA seputar budidaya atau tren pasar bawang
-              </h2>
+                {t("Tanya SIMA seputar budidaya atau tren pasar bawang")}</h2>
               <p className="text-xs text-slate-500 mt-0.5">
-                SIMA terhubung dengan basis pengetahuan lokal Nganjuk dan katalog hama terpadu.
-              </p>
+                {t("SIMA terhubung dengan basis pengetahuan lokal Nganjuk dan katalog hama terpadu.")}</p>
             </div>
           </div>
 
@@ -407,14 +404,14 @@ export default function DashboardPage() {
               type="text"
               value={simaPrompt}
               onChange={(e) => setSimaPrompt(e.target.value)}
-              placeholder="Ketik pertanyaan budidaya, penanganan hama, atau proyeksi panen..."
+              placeholder={t("Ketik pertanyaan budidaya, penanganan hama, atau proyeksi panen...")}
               className="w-full bg-transparent text-slate-800 placeholder-slate-400 text-xs sm:text-sm font-medium outline-none"
             />
             <button
               type="submit"
               className="inline-flex items-center justify-center gap-1.5 h-10 px-4 rounded-xl bg-simantri-500 hover:bg-simantri-600 text-white text-xs sm:text-sm font-bold transition-all shrink-0 cursor-pointer shadow-xs"
             >
-              <span>Kirim</span>
+              <span>{t("Kirim")}</span>
               <Send className="w-3.5 h-3.5" />
             </button>
           </form>
@@ -422,24 +419,23 @@ export default function DashboardPage() {
       </section>
 
       {/* Four KPI Metric Cards */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" aria-label="Ringkasan Utama">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" aria-label={t("Ringkasan Utama")}>
         {/* Card 1: Harga Bawang Hari Ini */}
         <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between transition-shadow">
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                Pasar Induk Sukomoro
-              </span>
+                {t("Pasar Induk Sukomoro")}</span>
               <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-simantri-600">
                 <TrendingUp className="w-5 h-5" />
               </div>
             </div>
-            <p className="text-xs font-semibold text-slate-500">Harga Bawang Hari Ini</p>
+            <p className="text-xs font-semibold text-slate-500">{t("Harga Bawang Hari Ini")}</p>
             <div className="flex items-baseline gap-1.5 mt-1">
               <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-jakarta">
                 Rp {latestPrice.toLocaleString('id-ID')}
               </span>
-              <span className="text-xs text-slate-400 font-medium">/ kg</span>
+              <span className="text-xs text-slate-400 font-medium">{t("/ kg")}</span>
             </div>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-50 flex items-center justify-between text-xs">
@@ -457,7 +453,7 @@ export default function DashboardPage() {
               )}
               {priceDelta >= 0 ? '+' : ''}Rp {Math.abs(priceDelta).toLocaleString('id-ID')} ({priceDeltaPercent.toFixed(1)}%)
             </span>
-            <span className="text-slate-400 text-[11px]">vs kemarin</span>
+            <span className="text-slate-400 text-[11px]">{t("vs kemarin")}</span>
           </div>
         </div>
 
@@ -466,29 +462,28 @@ export default function DashboardPage() {
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-shallot-50 text-shallot-600 font-bold text-[10px] border border-shallot-200">
-                MAPE 4.1%
-              </span>
+                {t("MAPE 4.1%")}</span>
               <div className="w-9 h-9 rounded-xl bg-shallot-50 flex items-center justify-center text-shallot-600">
                 <Sparkles className="w-5 h-5" />
               </div>
             </div>
-            <p className="text-xs font-semibold text-slate-500">Prediksi Harga (H+3)</p>
+            <p className="text-xs font-semibold text-slate-500">{t("Prediksi Harga (H+3)")}</p>
             <div className="flex items-baseline gap-1.5 mt-1">
               <span className="text-2xl sm:text-3xl font-extrabold text-shallot-600 tracking-tight font-jakarta">
                 Rp {latestPrediction?.predicted_price.toLocaleString('id-ID') || '29.800'}
               </span>
-              <span className="text-xs text-slate-400 font-medium">/ kg</span>
+              <span className="text-xs text-slate-400 font-medium">{t("/ kg")}</span>
             </div>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-50 flex items-center justify-between text-xs">
-            <span className="text-slate-500 font-medium">Model AI XGBoost</span>
+            <span className="text-slate-500 font-medium">{t("Model AI XGBoost")}</span>
             <span className="font-bold text-slate-800 text-[11px]">
               {latestPrediction
                 ? new Date(latestPrediction.prediction_date).toLocaleDateString('id-ID', {
                     day: 'numeric',
                     month: 'short',
                   })
-                : 'Target H+3'}
+                : t("Target H+3")}
             </span>
           </div>
         </div>
@@ -498,31 +493,28 @@ export default function DashboardPage() {
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                Diagnostik AI CV
-              </span>
+                {t("Diagnostik AI CV")}</span>
               <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-simantri-600">
                 <Camera className="w-5 h-5" />
               </div>
             </div>
-            <p className="text-xs font-semibold text-slate-500">Total Riwayat Deteksi</p>
+            <p className="text-xs font-semibold text-slate-500">{t("Total Riwayat Deteksi")}</p>
             <div className="flex items-baseline gap-1.5 mt-1">
               <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-jakarta">
-                {detectionsCount || totalDetectionsCount} Kali
-              </span>
-              <span className="text-xs text-slate-400 font-medium">sampel</span>
+                {detectionsCount || totalDetectionsCount}  {t("Kali")}</span>
+              <span className="text-xs text-slate-400 font-medium">{t("sampel")}</span>
             </div>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-50 flex items-center justify-between text-xs">
             <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 font-bold text-[11px] border border-amber-200">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-              <span>Monitoring Aktif</span>
+              <span>{t("Monitoring Aktif")}</span>
             </span>
             <Link
               href="/dashboard/deteksi"
               className="text-simantri-600 hover:text-simantri-700 font-bold hover:underline"
             >
-              Foto Baru &rarr;
-            </Link>
+              {t("Foto Baru →")}</Link>
           </div>
         </div>
 
@@ -531,31 +523,28 @@ export default function DashboardPage() {
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                Pustaka Sukomoro
-              </span>
+                {t("Pustaka Sukomoro")}</span>
               <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-simantri-600">
                 <BookOpen className="w-5 h-5" />
               </div>
             </div>
-            <p className="text-xs font-semibold text-slate-500">Knowledge Base SIMA</p>
+            <p className="text-xs font-semibold text-slate-500">{t("Knowledge Base SIMA")}</p>
             <div className="flex items-baseline gap-1.5 mt-1">
               <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-jakarta">
-                {knowledgeCount || 48} Artikel
-              </span>
-              <span className="text-xs text-slate-400 font-medium">terverifikasi</span>
+                {knowledgeCount || 48}  {t("Artikel")}</span>
+              <span className="text-xs text-slate-400 font-medium">{t("terverifikasi")}</span>
             </div>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-50 flex items-center justify-between text-xs text-slate-500 font-medium">
             <span className="flex items-center gap-1 text-simantri-700 font-bold text-[11px]">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>PPL Nganjuk</span>
+              <span>{t("PPL Nganjuk")}</span>
             </span>
             <Link
               href="/dunia-brambang"
               className="text-simantri-600 hover:text-simantri-700 font-bold hover:underline"
             >
-              Jelajahi &rarr;
-            </Link>
+              {t("Jelajahi →")}</Link>
           </div>
         </div>
       </section>
@@ -570,15 +559,12 @@ export default function DashboardPage() {
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="text-base sm:text-lg font-bold text-slate-900 font-jakarta">
-                    Tren Harga Bawang Merah Nganjuk
-                  </h3>
+                    {t("Tren Harga Bawang Merah Nganjuk")}</h3>
                   <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-simantri-700 text-[10px] font-bold border border-emerald-200">
-                    Aktual + Proyeksi
-                  </span>
+                    {t("Aktual + Proyeksi")}</span>
                 </div>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Data historis harian Pasar Sukomoro &amp; estimasi kecerdasan buatan
-                </p>
+                  {t("Data historis harian Pasar Sukomoro & estimasi kecerdasan buatan")}</p>
               </div>
 
               {/* Period Selector Tabs */}
@@ -594,8 +580,7 @@ export default function DashboardPage() {
                         : 'text-slate-500 hover:text-slate-800'
                     }`}
                   >
-                    {days} Hari
-                  </button>
+                    {days}  {t("Hari")}</button>
                 ))}
               </div>
             </div>
@@ -603,32 +588,32 @@ export default function DashboardPage() {
             {/* Metric Summary Bar */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3.5 mb-5 rounded-2xl bg-slate-50 border border-slate-100">
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase">Harga Terendah</span>
+                <span className="text-[10px] font-bold text-slate-400 uppercase">{t("Harga Terendah")}</span>
                 <p className="text-sm sm:text-base font-extrabold text-slate-900 mt-0.5 font-jakarta">
                   Rp {minPrice.toLocaleString('id-ID')}
                 </p>
-                <span className="text-[10px] text-slate-500">Periode terpilih</span>
+                <span className="text-[10px] text-slate-500">{t("Periode terpilih")}</span>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase">Rata-Rata</span>
+                <span className="text-[10px] font-bold text-slate-400 uppercase">{t("Rata-Rata")}</span>
                 <p className="text-sm sm:text-base font-extrabold text-slate-900 mt-0.5 font-jakarta">
                   Rp {avgPrice.toLocaleString('id-ID')}
                 </p>
-                <span className="text-[10px] text-slate-500">{selectedPeriod} hari terakhir</span>
+                <span className="text-[10px] text-slate-500">{selectedPeriod}  {t("hari terakhir")}</span>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase">Harga Tertinggi</span>
+                <span className="text-[10px] font-bold text-slate-400 uppercase">{t("Harga Tertinggi")}</span>
                 <p className="text-sm sm:text-base font-extrabold text-slate-900 mt-0.5 font-jakarta">
                   Rp {maxPrice.toLocaleString('id-ID')}
                 </p>
-                <span className="text-[10px] text-simantri-600 font-bold">Hari Ini (Aktual)</span>
+                <span className="text-[10px] text-simantri-600 font-bold">{t("Hari Ini (Aktual)")}</span>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-shallot-600 uppercase">Proyeksi H+3</span>
+                <span className="text-[10px] font-bold text-shallot-600 uppercase">{t("Proyeksi H+3")}</span>
                 <p className="text-sm sm:text-base font-extrabold text-shallot-600 mt-0.5 font-jakarta">
                   Rp {latestPrediction?.predicted_price.toLocaleString('id-ID') || '29.800'}
                 </p>
-                <span className="text-[10px] text-shallot-500 font-medium">Estimasi Model</span>
+                <span className="text-[10px] text-shallot-500 font-medium">{t("Estimasi Model")}</span>
               </div>
             </div>
 
@@ -655,18 +640,15 @@ export default function DashboardPage() {
                 {/* Horizontal Gridlines & Axis Labels */}
                 <line stroke="#E2E8F0" strokeDasharray="4 4" strokeWidth="1" x1="60" x2="730" y1="30" y2="30" />
                 <text fill="#94A3B8" fontFamily="Inter" fontSize="11" textAnchor="end" x="50" y="34">
-                  Rp 30.000
-                </text>
+                  {t("Rp 30.000")}</text>
 
                 <line stroke="#E2E8F0" strokeDasharray="4 4" strokeWidth="1" x1="60" x2="730" y1="105" y2="105" />
                 <text fill="#94A3B8" fontFamily="Inter" fontSize="11" textAnchor="end" x="50" y="109">
-                  Rp 25.000
-                </text>
+                  {t("Rp 25.000")}</text>
 
                 <line stroke="#E2E8F0" strokeDasharray="4 4" strokeWidth="1" x1="60" x2="730" y1="180" y2="180" />
                 <text fill="#94A3B8" fontFamily="Inter" fontSize="11" textAnchor="end" x="50" y="184">
-                  Rp 20.000
-                </text>
+                  {t("Rp 20.000")}</text>
 
                 {/* Bottom Baseline */}
                 <line stroke="#CBD5E1" strokeWidth="1" x1="60" x2="730" y1="215" y2="215" />
@@ -719,17 +701,13 @@ export default function DashboardPage() {
 
                 {/* X-Axis Labels */}
                 <text fill="#94A3B8" fontFamily="Inter" fontSize="11" textAnchor="middle" x="60" y="235">
-                  Awal Periode
-                </text>
+                  {t("Awal Periode")}</text>
                 <text fill="#94A3B8" fontFamily="Inter" fontSize="11" textAnchor="middle" x="240" y="235">
-                  Tengah
-                </text>
+                  {t("Tengah")}</text>
                 <text fill="#94A3B8" fontFamily="Inter" fontSize="11" textAnchor="middle" x="420" y="235">
-                  Minggu Lalu
-                </text>
+                  {t("Minggu Lalu")}</text>
                 <text fill="#167A4A" fontFamily="Inter" fontSize="11" fontWeight="700" textAnchor="middle" x="660" y="235">
-                  Hari Ini
-                </text>
+                  {t("Hari Ini")}</text>
                 <text fill="#A63C5D" fontFamily="Inter" fontSize="11" fontWeight="700" textAnchor="middle" x="720" y="235">
                   H+3
                 </text>
@@ -741,13 +719,13 @@ export default function DashboardPage() {
           <div className="mt-5 pt-3.5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-500">
             <div className="flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-simantri-600" />
-              <span>Sumber: Pencatatan Harian Pasar Sukomoro &amp; Dinas Pertanian Nganjuk</span>
+              <span>{t("Sumber: Pencatatan Harian Pasar Sukomoro & Dinas Pertanian Nganjuk")}</span>
             </div>
             <Link
               href="/dashboard/harga"
               className="text-simantri-600 hover:text-simantri-700 font-bold inline-flex items-center gap-1"
             >
-              <span>Detail &amp; Simulasi Prediksi</span>
+              <span>{t("Detail & Simulasi Prediksi")}</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -758,15 +736,12 @@ export default function DashboardPage() {
           <div>
             <div className="flex items-center justify-between mb-1">
               <h3 className="text-base sm:text-lg font-bold text-slate-900 font-jakarta">
-                Distribusi Deteksi
-              </h3>
+                {t("Distribusi Deteksi")}</h3>
               <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold">
-                Bulan Ini
-              </span>
+                {t("Bulan Ini")}</span>
             </div>
             <p className="text-xs text-slate-500 mb-5">
-              Berdasarkan hasil foto daun tanaman bawang di kebun Anda
-            </p>
+              {t("Berdasarkan hasil foto daun tanaman bawang di kebun Anda")}</p>
 
             {/* Donut Chart Visual */}
             <div className="flex flex-col items-center justify-center my-3">
@@ -828,8 +803,8 @@ export default function DashboardPage() {
                   <span className="text-2xl font-extrabold text-slate-900 leading-none font-jakarta">
                     58%
                   </span>
-                  <span className="text-xs font-bold text-simantri-700 mt-0.5">Tanaman Sehat</span>
-                  <span className="text-[10px] text-slate-400 font-medium">8 dari 14 sampel</span>
+                  <span className="text-xs font-bold text-simantri-700 mt-0.5">{t("Tanaman Sehat")}</span>
+                  <span className="text-[10px] text-slate-400 font-medium">{t("8 dari 14 sampel")}</span>
                 </div>
               </div>
             </div>
@@ -850,7 +825,7 @@ export default function DashboardPage() {
                       />
                       <div className="flex flex-col min-w-0">
                         <span className="text-xs font-bold text-slate-800 truncate">
-                          {item.label}
+                          {t(item.label)}
                         </span>
                         <span className="text-[10px] text-slate-400 truncate italic">
                           {item.latin}
@@ -859,7 +834,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="text-right shrink-0">
                       <span className="text-xs font-bold text-slate-900">{percent}%</span>
-                      <span className="block text-[10px] text-slate-400">{item.count} sampel</span>
+                      <span className="block text-[10px] text-slate-400">{item.count} {t("sampel")}</span>
                     </div>
                   </div>
                 )
@@ -873,7 +848,7 @@ export default function DashboardPage() {
               className="w-full h-11 rounded-2xl bg-slate-100 hover:bg-simantri-50 hover:text-simantri-700 text-slate-700 font-bold text-xs inline-flex items-center justify-center gap-2 transition-all cursor-pointer"
             >
               <Camera className="w-4 h-4 text-simantri-600" />
-              <span>Lihat Riwayat Lengkap Diagnosa</span>
+              <span>{t("Lihat Riwayat Lengkap Diagnosa")}</span>
             </Link>
           </div>
         </div>
@@ -888,11 +863,9 @@ export default function DashboardPage() {
             </div>
             <div>
               <h3 className="text-base font-bold text-slate-900">
-                Punya Pengalaman Mengatasi Hama di Lapangan?
-              </h3>
+                {t("Punya Pengalaman Mengatasi Hama di Lapangan?")}</h3>
               <p className="text-xs text-slate-600 mt-0.5 max-w-2xl">
-                Bagikan metode budidaya Anda untuk divalidasi oleh tim penyuluh Sukomoro &amp; Dinas Pertanian Nganjuk agar masuk ke dalam basis pengetahuan SIMA.
-              </p>
+                {t("Bagikan metode budidaya Anda untuk divalidasi oleh tim penyuluh Sukomoro & Dinas Pertanian Nganjuk agar masuk ke dalam basis pengetahuan SIMA.")}</p>
             </div>
           </div>
           <Link
@@ -900,7 +873,7 @@ export default function DashboardPage() {
             className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-2xl bg-white hover:bg-simantri-500 hover:text-white text-simantri-700 font-bold text-xs sm:text-sm border border-emerald-300 transition-all shrink-0 shadow-xs cursor-pointer"
           >
             <FileText className="w-4 h-4" />
-            <span>Kirim Usulan Praktik Baik</span>
+            <span>{t("Kirim Usulan Praktik Baik")}</span>
           </Link>
         </div>
       </section>
@@ -910,16 +883,14 @@ export default function DashboardPage() {
         <summary className="flex min-h-12 cursor-pointer items-center justify-between px-5 py-3 font-bold text-xs text-slate-700 hover:bg-slate-50 transition">
           <div className="flex items-center gap-2.5">
             <ShieldCheck className="h-4 w-4 text-simantri-600" />
-            <span>Transparansi Keamanan &amp; Privasi Data Petani (RLS Aktif)</span>
+            <span>{t("Transparansi Keamanan & Privasi Data Petani (RLS Aktif)")}</span>
           </div>
           <span className="text-[11px] font-semibold text-simantri-700 bg-simantri-50 px-2.5 py-0.5 rounded-full border border-simantri-200">
-            Terlindungi
-          </span>
+            {t("Terlindungi")}</span>
         </summary>
         <div className="border-t border-slate-100 p-5 bg-slate-50/50">
           <p className="max-w-3xl text-xs leading-relaxed text-slate-600">
-            Row Level Security (RLS) pada PostgreSQL Supabase memastikan bahwa data diagnosa kamera, konsultasi SIMA, dan data usaha tani hanya dapat diakses oleh akun Anda secara terenkripsi.
-          </p>
+            {t("Row Level Security (RLS) pada PostgreSQL Supabase memastikan bahwa data diagnosa kamera, konsultasi SIMA, dan data usaha tani hanya dapat diakses oleh akun Anda secara terenkripsi.")}</p>
           {profile?.role === 'admin' && (
             <button
               type="button"
@@ -928,7 +899,7 @@ export default function DashboardPage() {
               className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-simantri-500 text-white text-xs font-bold shadow-xs hover:bg-simantri-600 transition"
             >
               {testing ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <PlayCircle className="w-3.5 h-3.5" />}
-              <span>Audit Kepatuhan RLS</span>
+              <span>{t("Audit Kepatuhan RLS")}</span>
             </button>
           )}
           {testLog.length > 0 && (

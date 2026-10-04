@@ -1,5 +1,7 @@
 'use client'
 
+import { LanguageSwitcher, useLanguage } from '@/components/ui/LanguageProvider'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -32,6 +34,7 @@ const bottomNavigation = [
 ]
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const { t } = useLanguage()
   const router = useRouter()
   const pathname = usePathname()
   const [profile, setProfile] = useState<Profile | null>(null)
@@ -42,15 +45,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const closeSidebar = useCallback(() => setIsSidebarOpen(false), [])
 
   useEffect(() => {
-    const today = new Date()
-    setFormattedDate(
-      today.toLocaleDateString('id-ID', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      })
-    )
+    const timer = window.setTimeout(() => {
+      const today = new Date()
+      setFormattedDate(
+        today.toLocaleDateString('id-ID', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        })
+      )
+    }, 0)
+    return () => window.clearTimeout(timer)
   }, [])
 
   useEffect(() => {
@@ -102,7 +108,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <div className="flex min-h-dvh items-center justify-center bg-[#F6F8F6] font-jakarta">
         <div className="flex flex-col items-center gap-3" role="status">
           <Loader2 className="h-8 w-8 animate-spin text-simantri-600" aria-hidden="true" />
-          <p className="text-sm font-semibold text-slate-700">Memuat Sistem SIMANTRI…</p>
+          <p className="text-sm font-semibold text-slate-700">{t("Memuat Sistem SIMANTRI…")}</p>
         </div>
       </div>
     )
@@ -126,7 +132,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               type="button"
               onClick={() => setIsSidebarOpen(true)}
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 lg:hidden"
-              aria-label="Buka menu navigasi"
+              aria-label={t("Buka menu navigasi")}
               aria-expanded={isSidebarOpen}
             >
               <Menu className="h-5 w-5" />
@@ -142,7 +148,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 className="h-8 w-8 object-contain"
                 priority
               />
-              <span className="font-extrabold text-sm tracking-tight text-simantri-700 min-[380px]:block">
+              <span className="hidden min-[430px]:block font-extrabold text-sm tracking-tight text-simantri-700">
                 SIMANTRI
               </span>
             </Link>
@@ -151,26 +157,26 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="hidden lg:flex items-center gap-2.5">
               <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 text-xs font-semibold text-slate-700">
                 <Calendar className="w-3.5 h-3.5 text-simantri-600" />
-                <span>{formattedDate || 'Selasa, 24 Oktober'}</span>
+                <span>{formattedDate || t("Selasa, 24 Oktober")}</span>
               </div>
 
               <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-simantri-50 text-xs font-bold text-simantri-700 border border-simantri-200/50">
                 <MapPin className="w-3.5 h-3.5 text-simantri-600" />
-                <span>Nganjuk (Sentra Bawang Merah)</span>
+                <span>{t("Nganjuk (Sentra Bawang Merah)")}</span>
               </div>
             </div>
           </div>
 
           {/* Center Search Bar (SIMA Assistant trigger) */}
-          <div className="hidden md:flex flex-1 max-w-md mx-6">
+          <div className="hidden 2xl:flex min-w-0 flex-1 max-w-md mx-6">
             <button
               type="button"
               onClick={() => openSimaAssistant()}
               className="w-full h-10 px-4 rounded-full border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-simantri-300 text-left text-xs text-slate-400 flex items-center justify-between transition-all group shadow-xs cursor-pointer"
             >
-              <div className="flex items-center gap-2.5">
+              <div className="flex min-w-0 items-center gap-2.5">
                 <Search className="w-4 h-4 text-slate-400 group-hover:text-simantri-600" />
-                <span>Cari panduan, hama, atau tanya SIMA…</span>
+                <span className="truncate">{t("Cari panduan, hama, atau tanya SIMA…")}</span>
               </div>
               <kbd className="hidden sm:inline-block px-2 py-0.5 rounded-md bg-white border border-slate-200 text-[10px] font-semibold text-slate-500">
                 Ctrl K
@@ -180,12 +186,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
           {/* Right Action Icons & User Avatar */}
           <div className="flex items-center gap-2.5">
+            <LanguageSwitcher />
             <Link
               href="/dashboard/chat"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-simantri-50 hover:bg-simantri-100 text-xs font-bold text-simantri-700 border border-simantri-200/60 transition shadow-xs"
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-simantri-50 hover:bg-simantri-100 text-xs font-bold text-simantri-700 border border-simantri-200/60 transition shadow-xs"
             >
               <Sparkles className="w-3.5 h-3.5 text-simantri-600" />
-              <span>Tanya SIMA</span>
+              <span>{t("Tanya SIMA")}</span>
             </Link>
 
             <Link
@@ -193,11 +200,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               className="flex items-center gap-2 p-1 rounded-full hover:bg-slate-100 transition"
             >
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-simantri-700 text-xs font-bold text-white shadow-xs">
-                {profile?.full_name?.charAt(0).toUpperCase() || 'P'}
+                {profile?.full_name?.charAt(0).toUpperCase() || t("P")}
               </span>
               <span className="hidden xl:flex flex-col text-left">
                 <span className="text-xs font-bold text-slate-900 leading-tight">
-                  {profile?.full_name?.split(' ')[0] || 'Petani'}
+                  {profile?.full_name?.split(' ')[0] || t("Petani")}
                 </span>
                 <span className="text-[10px] text-slate-500 capitalize">
                   {profile?.village || 'Nganjuk'}
@@ -208,7 +215,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </header>
 
         {/* Main Content Area */}
-        <main id="main-content" className="flex-1 p-4 sm:p-6 lg:p-8 pb-24 lg:pb-10">
+        <main id="main-content" lang={['/dashboard/sinyal-wilayah', '/dashboard/tinjau-usulan'].includes(pathname) ? 'id' : undefined} className="flex-1 p-4 sm:p-6 lg:p-8 pb-24 lg:pb-10">
           {children}
         </main>
 
@@ -217,7 +224,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {/* Mobile Bottom Navigation Bar */}
         <nav
           className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200/80 bg-white/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl lg:hidden shadow-lg"
-          aria-label="Navigasi utama mobile"
+          aria-label={t("Navigasi utama mobile")}
         >
           <ul className="mx-auto grid max-w-lg grid-cols-5">
             {bottomNavigation.map((item) => {
@@ -236,7 +243,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     }`}
                   >
                     <Icon className="h-5 w-5" strokeWidth={active ? 2.4 : 1.8} />
-                    <span>{item.label}</span>
+                    <span>{t(item.label)}</span>
                   </Link>
                 </li>
               )

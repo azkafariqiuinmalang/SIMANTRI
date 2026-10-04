@@ -1,5 +1,7 @@
 'use client'
 
+import { useLanguage } from '@/components/ui/LanguageProvider'
+
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -48,6 +50,7 @@ const NGANJUK_KECAMATAN = [
 ]
 
 export default function ProfilPage() {
+  const { t } = useLanguage()
   const router = useRouter()
   const [profile, setProfile] = useState<Profile | null>(null)
   const [email, setEmail] = useState<string>('')
@@ -163,7 +166,7 @@ export default function ProfilPage() {
       <div className="flex min-h-[60vh] flex-1 items-center justify-center p-8 font-jakarta">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="w-8 h-8 animate-spin text-simantri-600" />
-          <p className="text-xs font-semibold text-slate-600">Memuat profil akun SIMANTRI...</p>
+          <p className="text-xs font-semibold text-slate-600">{t("Memuat profil akun SIMANTRI...")}</p>
         </div>
       </div>
     )
@@ -191,21 +194,19 @@ export default function ProfilPage() {
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] font-bold text-simantri-200">
               <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Manajemen Akun &amp; Kemitraan Agronomi</span>
+              <span>{t("Manajemen Akun & Kemitraan Agronomi")}</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-              Kelola Profil Akun
-            </h1>
+              {t("Kelola Profil Akun")}</h1>
             <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              Informasi identitas akun, rincian lokasi hamparan binaan, dan pengelolaan keamanan sesi SIMANTRI Kabupaten Nganjuk.
-            </p>
+              {t("Informasi identitas akun, rincian lokasi hamparan binaan, dan pengelolaan keamanan sesi SIMANTRI Kabupaten Nganjuk.")}</p>
           </div>
 
           <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/15 self-start md:self-auto">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-xs font-extrabold text-white">Sinkronisasi Si-Petani Aktif</span>
+            <span className="text-xs font-extrabold text-white">{t("Sinkronisasi Si-Petani Aktif")}</span>
             <span className="text-white/40">•</span>
-            <span className="text-[11px] text-emerald-200 font-mono">v2.4 Nganjuk</span>
+            <span className="text-[11px] text-emerald-200 font-mono">{t("v2.4 Nganjuk")}</span>
           </div>
         </div>
       </div>
@@ -217,7 +218,7 @@ export default function ProfilPage() {
         <div role="alert" className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 text-xs sm:text-sm flex items-center justify-between gap-3 shadow-xs animate-in fade-in">
           <div className="flex items-center gap-2.5 font-bold">
             <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
-            <span>Tindakan belum berhasil. Periksa isian dan koneksi, lalu coba kembali.</span>
+            <span>{t("Tindakan belum berhasil. Periksa isian dan koneksi, lalu coba kembali.")}</span>
           </div>
           <button
             onClick={() => setErrorMessage(null)}
@@ -237,10 +238,10 @@ export default function ProfilPage() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <div className="relative shrink-0">
                 <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-simantri-700 via-simantri-800 to-slate-900 text-white flex items-center justify-center font-extrabold text-2xl shadow-md border-2 border-white">
-                  {fullName ? fullName.charAt(0).toUpperCase() : 'U'}
+                  {fullName ? fullName.charAt(0).toUpperCase() : t("U")}
                 </div>
                 {profile?.is_verified_contributor && (
-                  <div className="absolute -bottom-1 -right-1 bg-emerald-600 text-white rounded-full p-1 shadow-md border-2 border-white flex items-center justify-center" title="Kontributor Terverifikasi">
+                  <div className="absolute -bottom-1 -right-1 bg-emerald-600 text-white rounded-full p-1 shadow-md border-2 border-white flex items-center justify-center" title={t("Kontributor Terverifikasi")}>
                     <ShieldCheck className="w-3.5 h-3.5" />
                   </div>
                 )}
@@ -249,13 +250,13 @@ export default function ProfilPage() {
               <div className="min-w-0 flex-1">
                 <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-50 text-simantri-800 font-bold text-[11px] border border-emerald-200/80 mb-1.5">
                   <Sprout className="w-3.5 h-3.5 text-simantri-600" />
-                  <span>{roleLabel}</span>
+                  <span>{t(roleLabel)}</span>
                 </div>
                 <h2 className="text-xl font-extrabold text-slate-900 truncate">
-                  {fullName || 'Pengguna SIMANTRI'}
+                  {fullName || t("Pengguna SIMANTRI")}
                 </h2>
                 <p className="text-xs text-slate-400 font-mono mt-0.5">
-                  UID: {profile?.id?.slice(0, 13)}...
+                  {t("UID:")} {profile?.id?.slice(0, 13)}...
                 </p>
               </div>
             </div>
@@ -264,34 +265,33 @@ export default function ProfilPage() {
             <div className="p-3.5 bg-slate-50 rounded-2xl flex items-start gap-3 border border-slate-100">
               <Lock className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
               <div>
-                <span className="text-xs font-bold text-slate-800 block">Otoritas Akses Terproteksi</span>
+                <span className="text-xs font-bold text-slate-800 block">{t("Otoritas Akses Terproteksi")}</span>
                 <p className="text-[11px] text-slate-500 leading-relaxed mt-0.5">
-                  Hak akses dikelola sesuai peran terdaftar di Supabase RLS. Penyesuaian peran memerlukan validasi Administrator / Dinas.
-                </p>
+                  {t("Hak akses dikelola sesuai peran terdaftar di Supabase RLS. Penyesuaian peran memerlukan validasi Administrator / Dinas.")}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 text-slate-600 text-xs font-semibold pt-1">
               <MapPin className="w-4 h-4 text-simantri-600 shrink-0" />
-              <span>{village || 'Kecamatan Sukomoro'}, Kab. Nganjuk, Jawa Timur</span>
+              <span>{village || t("Kecamatan Sukomoro")}{t(", Kab. Nganjuk, Jawa Timur")}</span>
             </div>
 
             {/* Metric Telemetry Micro-Cards */}
             <div className="grid grid-cols-3 gap-2.5 pt-2">
               <div className="bg-slate-50 p-3 rounded-2xl text-center border border-slate-100">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Deteksi CV</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">{t("Deteksi CV")}</span>
                 <span className="text-xl font-extrabold text-slate-900 mt-0.5 block">{detectionsCount}</span>
-                <span className="text-[10px] font-semibold text-simantri-700">Riwayat Foto</span>
+                <span className="text-[10px] font-semibold text-simantri-700">{t("Riwayat Foto")}</span>
               </div>
               <div className="bg-slate-50 p-3 rounded-2xl text-center border border-slate-100">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Pengetahuan</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">{t("Pengetahuan")}</span>
                 <span className="text-xl font-extrabold text-slate-900 mt-0.5 block">{suggestionsCount}</span>
-                <span className="text-[10px] font-semibold text-shallot-700">Usulan Tani</span>
+                <span className="text-[10px] font-semibold text-shallot-700">{t("Usulan Tani")}</span>
               </div>
               <div className="bg-slate-50 p-3 rounded-2xl text-center border border-slate-100">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Bergabung</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">{t("Bergabung")}</span>
                 <span className="text-sm font-extrabold text-slate-900 mt-1 block">{joinDate}</span>
-                <span className="text-[10px] font-semibold text-slate-500">Musim Tanam</span>
+                <span className="text-[10px] font-semibold text-slate-500">{t("Musim Tanam")}</span>
               </div>
             </div>
           </div>
@@ -302,17 +302,15 @@ export default function ProfilPage() {
               <Image src="/sima.jpg" alt="SIMA" width={48} height={48} className="w-full h-full object-cover rounded-xl" />
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="text-xs font-extrabold text-slate-900">Butuh Bantuan Profil?</h4>
+              <h4 className="text-xs font-extrabold text-slate-900">{t("Butuh Bantuan Profil?")}</h4>
               <p className="text-[11px] text-slate-600 mt-0.5">
-                Tanyakan kepada SIMA mengenai prosedur pembaruan status kelompok tani atau KTA.
-              </p>
+                {t("Tanyakan kepada SIMA mengenai prosedur pembaruan status kelompok tani atau KTA.")}</p>
             </div>
             <Link
               href="/dashboard/chat"
               className="px-3 py-1.5 rounded-xl bg-simantri-700 hover:bg-simantri-800 text-white text-xs font-bold shrink-0 transition"
             >
-              Tanya
-            </Link>
+              {t("Tanya")}</Link>
           </div>
         </div>
 
@@ -326,8 +324,8 @@ export default function ProfilPage() {
                   <User className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-extrabold text-slate-900">Informasi Pribadi &amp; Wilayah</h3>
-                  <p className="text-xs text-slate-400">Data registrasi resmi pada ekosistem SIMANTRI</p>
+                  <h3 className="text-base font-extrabold text-slate-900">{t("Informasi Pribadi & Wilayah")}</h3>
+                  <p className="text-xs text-slate-400">{t("Data registrasi resmi pada ekosistem SIMANTRI")}</p>
                 </div>
               </div>
             </div>
@@ -336,17 +334,16 @@ export default function ProfilPage() {
               {/* Full Name */}
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-800">
-                  Nama Lengkap
-                </label>
+                  {t("Nama Lengkap")}</label>
                 <div className="relative">
                   <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     required
                     value={fullName}
-                    aria-label="Nama lengkap"
+                    aria-label={t("Nama lengkap")}
                     onChange={(e) => setFullName(e.target.value)}
-                    placeholder="Contoh: Pak Sutrisno"
+                    placeholder={t("Contoh: Pak Sutrisno")}
                     className="w-full h-11 pl-10 pr-4 text-xs rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-hidden focus:border-simantri-600 focus:ring-2 focus:ring-simantri-600/10 text-slate-900 transition font-medium"
                   />
                 </div>
@@ -356,9 +353,8 @@ export default function ProfilPage() {
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <label className="block text-xs font-bold text-slate-800">
-                    Alamat Email (Akun Login)
-                  </label>
-                  <span className="text-[10px] font-bold text-slate-400 uppercase">Aktif</span>
+                    {t("Alamat Email (Akun Login)")}</label>
+                  <span className="text-[10px] font-bold text-slate-400 uppercase">{t("Aktif")}</span>
                 </div>
                 <div className="relative">
                   <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -366,27 +362,25 @@ export default function ProfilPage() {
                     type="email"
                     disabled
                     value={email}
-                    aria-label="Alamat email akun"
+                    aria-label={t("Alamat email akun")}
                     className="w-full h-11 pl-10 pr-4 text-xs rounded-2xl border border-slate-200 bg-slate-100/80 text-slate-500 font-mono cursor-not-allowed"
                   />
                 </div>
                 <p className="text-[11px] text-slate-400">
-                  Email terikat dengan otentikasi akun dan diamankan dengan Supabase Auth.
-                </p>
+                  {t("Email terikat dengan otentikasi akun dan diamankan dengan Supabase Auth.")}</p>
               </div>
 
               {/* Role (Read only) */}
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-800">
-                  Peran Aktor Sistem
-                </label>
+                  {t("Peran Aktor Sistem")}</label>
                 <div className="relative">
                   <Shield className="w-4 h-4 text-simantri-600 absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     disabled
-                    value={roleLabel}
-                    aria-label="Peran aktor sistem"
+                    value={t(roleLabel)}
+                    aria-label={t("Peran aktor sistem")}
                     className="w-full h-11 pl-10 pr-4 text-xs rounded-2xl border border-slate-200 bg-slate-100/80 text-slate-700 font-bold cursor-not-allowed"
                   />
                 </div>
@@ -395,11 +389,10 @@ export default function ProfilPage() {
               {/* Village / District */}
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-800">
-                  Kecamatan / Wilayah Budidaya Bawang Merah
-                </label>
+                  {t("Kecamatan / Wilayah Budidaya Bawang Merah")}</label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <select
-                    aria-label="Kecamatan budidaya"
+                    aria-label={t("Kecamatan budidaya")}
                     value={
                       NGANJUK_KECAMATAN.find((k) =>
                         village.toLowerCase().includes(k.toLowerCase())
@@ -411,10 +404,10 @@ export default function ProfilPage() {
                     }}
                     className="h-11 px-3.5 text-xs rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-hidden focus:border-simantri-600 text-slate-900 transition font-medium"
                   >
-                    <option value="">-- Pilih Kecamatan di Nganjuk --</option>
+                    <option value="">{t("-- Pilih Kecamatan di Nganjuk --")}</option>
                     {NGANJUK_KECAMATAN.map((k) => (
                       <option key={k} value={k}>
-                        Kecamatan {k}
+                        {t("Kecamatan")} {k}
                       </option>
                     ))}
                   </select>
@@ -422,15 +415,14 @@ export default function ProfilPage() {
                   <input
                     type="text"
                     value={village}
-                    aria-label="Desa atau hamparan budidaya"
+                    aria-label={t("Desa atau hamparan budidaya")}
                     onChange={(e) => setVillage(e.target.value)}
-                    placeholder="Atau tulis nama Desa / Hamparan..."
+                    placeholder={t("Atau tulis nama Desa / Hamparan...")}
                     className="h-11 px-3.5 text-xs rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-hidden focus:border-simantri-600 text-slate-900 transition font-medium"
                   />
                 </div>
                 <p className="text-[11px] text-slate-400">
-                  Lokasi hamparan menentukan kalibrasi prediksi harga, peringatan OPT cuaca, dan rujukan PPL kecamatan.
-                </p>
+                  {t("Lokasi hamparan menentukan kalibrasi prediksi harga, peringatan OPT cuaca, dan rujukan PPL kecamatan.")}</p>
               </div>
 
               {/* Submit Button */}
@@ -443,12 +435,12 @@ export default function ProfilPage() {
                   {saving ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Menyimpan...</span>
+                      <span>{t("Menyimpan...")}</span>
                     </>
                   ) : (
                     <>
                       <Save className="w-4 h-4" />
-                      <span>Simpan Perubahan Profil</span>
+                      <span>{t("Simpan Perubahan Profil")}</span>
                     </>
                   )}
                 </button>
@@ -464,8 +456,8 @@ export default function ProfilPage() {
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-extrabold text-slate-900">Keamanan &amp; Sesi Akun</h3>
-                  <p className="text-xs text-slate-400">Proteksi akses berbasis enkripsi Row-Level Security</p>
+                  <h3 className="text-base font-extrabold text-slate-900">{t("Keamanan & Sesi Akun")}</h3>
+                  <p className="text-xs text-slate-400">{t("Proteksi akses berbasis enkripsi Row-Level Security")}</p>
                 </div>
               </div>
             </div>
@@ -477,13 +469,12 @@ export default function ProfilPage() {
                   <KeyRound className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-xs font-bold text-slate-900 block">Sesi Terenkripsi Supabase Auth</span>
-                  <span className="text-[11px] text-slate-500">Data lahan &amp; riwayat deteksi terlindungi secara aman.</span>
+                  <span className="text-xs font-bold text-slate-900 block">{t("Sesi Terenkripsi Supabase Auth")}</span>
+                  <span className="text-[11px] text-slate-500">{t("Data lahan & riwayat deteksi terlindungi secara aman.")}</span>
                 </div>
               </div>
               <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold uppercase shrink-0">
-                Sesi Valid
-              </span>
+                {t("Sesi Valid")}</span>
             </div>
 
             {/* Action Bar */}
@@ -499,7 +490,7 @@ export default function ProfilPage() {
                 ) : (
                   <KeyRound className="w-3.5 h-3.5 text-simantri-700" />
                 )}
-                <span>Kirim Reset Kata Sandi</span>
+                <span>{t("Kirim Reset Kata Sandi")}</span>
               </button>
 
               <button
@@ -508,7 +499,7 @@ export default function ProfilPage() {
                 className="h-11 px-5 rounded-2xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 font-bold text-xs transition flex items-center justify-center gap-2 active:scale-95"
               >
                 <LogOut className="w-3.5 h-3.5" />
-                <span>Keluar dari Akun</span>
+                <span>{t("Keluar dari Akun")}</span>
               </button>
             </div>
           </div>

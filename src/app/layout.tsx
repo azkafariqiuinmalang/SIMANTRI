@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Fraunces, Inter, Newsreader, Manrope, Caveat, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
+import { LanguageProvider } from '@/components/ui/LanguageProvider'
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -55,7 +56,7 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} ${newsreader.variable} ${manrope.variable} ${caveat.variable} ${fraunces.variable} ${inter.variable}`}
     >
       <body className="min-h-screen bg-[#FAF7F2] text-[#1A221D] font-sans antialiased flex flex-col selection:bg-[#167a4a]/20 selection:text-[#167a4a]">
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   )

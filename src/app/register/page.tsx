@@ -1,5 +1,7 @@
 'use client'
 
+import { useLanguage } from '@/components/ui/LanguageProvider'
+
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -56,6 +58,7 @@ const BPP_INSTITUTIONS = [
 ]
 
 export default function RegisterPage() {
+  const { t } = useLanguage()
   const router = useRouter()
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
@@ -181,7 +184,7 @@ export default function RegisterPage() {
           className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-white hover:shadow hover:text-simantri-700"
         >
           <ArrowLeft className="h-3.5 w-3.5 text-simantri-600" />
-          <span>Kembali ke Beranda</span>
+          <span>{t("Kembali ke Beranda")}</span>
         </Link>
       </div>
 
@@ -189,14 +192,14 @@ export default function RegisterPage() {
       <main className="w-full max-w-[1360px] min-h-[820px] bg-white rounded-[32px] shadow-2xl shadow-emerald-950/5 border border-slate-100 p-3.5 sm:p-4 lg:p-5 flex flex-col lg:flex-row gap-6 overflow-hidden">
         {/* Showcase Section (Left Side) */}
         <section
-          aria-label="Informasi Wilayah Pertanian"
+          aria-label={t("Informasi Wilayah Pertanian")}
           className="relative w-full lg:w-[45%] min-h-[460px] lg:min-h-[780px] rounded-[28px] overflow-hidden flex flex-col justify-between p-6 sm:p-8 text-white shadow-inner bg-slate-900"
         >
           {/* Background Image */}
           <div className="absolute inset-0">
             <Image
               src="/jayastamba.jpg"
-              alt="Monumen Jayastamba Nganjuk"
+              alt={t("Monumen Jayastamba Nganjuk")}
               fill
               priority
               className="object-cover object-center filter brightness-[0.88] contrast-[1.08]"
@@ -210,7 +213,7 @@ export default function RegisterPage() {
           <header className="relative z-10 flex items-center justify-between gap-4">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-xs font-semibold tracking-wide">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-white/95">Registrasi Akun Baru</span>
+              <span className="text-white/95">{t("Registrasi Akun Baru")}</span>
             </div>
 
             <div className="flex items-center space-x-2 text-xs sm:text-sm font-medium">
@@ -218,8 +221,7 @@ export default function RegisterPage() {
                 href="/login"
                 className="border border-white/40 hover:border-white text-white backdrop-blur-md bg-white/10 hover:bg-white/20 transition duration-200 px-4 py-1.5 rounded-full font-semibold"
               >
-                Sudah Ada Akun? Masuk
-              </Link>
+                {t("Sudah Ada Akun? Masuk")}</Link>
             </div>
           </header>
 
@@ -227,28 +229,26 @@ export default function RegisterPage() {
           <div className="relative z-10 my-auto py-6 max-w-md">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/25 border border-emerald-400/30 text-emerald-200 text-xs font-semibold mb-3 backdrop-blur-sm">
               <Sprout className="w-3.5 h-3.5" />
-              <span>Komunitas Agrikultur Nganjuk</span>
+              <span>{t("Komunitas Agrikultur Nganjuk")}</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight tracking-tight drop-shadow-sm">
-              Tingkatkan Hasil Panen Bawang Merah Bersama SIMANTRI
-            </h2>
+              {t("Tingkatkan Hasil Panen Bawang Merah Bersama SIMANTRI")}</h2>
             <p className="mt-3 text-xs sm:text-sm text-emerald-50/85 leading-relaxed font-normal">
-              Dapatkan data real-time harga pasar di 19 kecamatan, akses diagnosa AI penyakit daun, dan konsultasi interaktif bersama SIMA AI.
-            </p>
+              {t("Dapatkan data real-time harga pasar di 19 kecamatan, akses diagnosa AI penyakit daun, dan konsultasi interaktif bersama SIMA AI.")}</p>
 
             {/* Benefit Items */}
             <div className="mt-6 space-y-2.5">
               <div className="flex items-center gap-2.5 text-xs text-white/90 bg-white/10 backdrop-blur-sm p-2.5 rounded-xl border border-white/15">
                 <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0" />
-                <span>Pemantauan harga harian bawang merah akurat</span>
+                <span>{t("Pemantauan harga harian bawang merah akurat")}</span>
               </div>
               <div className="flex items-center gap-2.5 text-xs text-white/90 bg-white/10 backdrop-blur-sm p-2.5 rounded-xl border border-white/15">
                 <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0" />
-                <span>Pendeteksi gejala penyakit (Purple Blotch, Antraknosa, dll)</span>
+                <span>{t("Pendeteksi gejala penyakit (Purple Blotch, Antraknosa, dll)")}</span>
               </div>
               <div className="flex items-center gap-2.5 text-xs text-white/90 bg-white/10 backdrop-blur-sm p-2.5 rounded-xl border border-white/15">
                 <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0" />
-                <span>Rekomendasi tindakan budidaya spesifik wilayah Nganjuk</span>
+                <span>{t("Rekomendasi tindakan budidaya spesifik wilayah Nganjuk")}</span>
               </div>
             </div>
           </div>
@@ -257,14 +257,14 @@ export default function RegisterPage() {
           <div className="relative z-10 flex items-center justify-between pt-4 border-t border-white/15 text-xs text-emerald-100/80">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-emerald-300" />
-              <span>Data aman terintegrasi Dinas Pertanian Nganjuk</span>
+              <span>{t("Data aman terintegrasi Dinas Pertanian Nganjuk")}</span>
             </div>
           </div>
         </section>
 
         {/* Form Section (Right Side) */}
         <section
-          aria-label="Formulir Pendaftaran"
+          aria-label={t("Formulir Pendaftaran")}
           className="w-full lg:w-[55%] flex flex-col justify-between px-3 sm:px-8 lg:px-10 py-3 lg:py-5 overflow-y-auto"
         >
           {/* Top Bar: Logo & Language Selector */}
@@ -273,7 +273,7 @@ export default function RegisterPage() {
               <div className="h-10 w-10 relative flex items-center justify-center">
                 <Image
                   src="/logo_simantri.png"
-                  alt="Logo SIMANTRI"
+                  alt={t("Logo SIMANTRI")}
                   width={40}
                   height={40}
                   className="object-contain group-hover:scale-105 transition-transform"
@@ -285,14 +285,13 @@ export default function RegisterPage() {
                   SIMANTRI
                 </span>
                 <span className="text-[10px] font-semibold text-simantri-700 tracking-wider uppercase">
-                  Kab. Nganjuk
-                </span>
+                  {t("Kab. Nganjuk")}</span>
               </div>
             </Link>
 
             <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full border border-slate-200 text-xs font-semibold text-slate-700 bg-slate-50/80">
               <UserCheck className="w-3.5 h-3.5 text-simantri-600" />
-              <span>Registrasi</span>
+              <span>{t("Registrasi")}</span>
             </div>
           </div>
 
@@ -300,18 +299,16 @@ export default function RegisterPage() {
           <div className="max-w-[500px] w-full mx-auto my-auto py-2">
             <div className="text-center mb-4">
               <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-1.5 font-jakarta">
-                Buat Akun Baru
-              </h1>
+                {t("Buat Akun Baru")}</h1>
               <p className="text-xs sm:text-sm text-slate-500 font-medium">
-                Bergabung bersama ekosistem cerdas bawang merah Nganjuk
-              </p>
+                {t("Bergabung bersama ekosistem cerdas bawang merah Nganjuk")}</p>
             </div>
 
             {/* Error Message */}
             {errorMessage && (
               <div className="mb-3.5 p-3 rounded-2xl bg-red-50 border border-red-200 text-left flex items-start gap-2.5 text-red-800 animate-fadeIn">
                 <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-                <p className="text-xs leading-relaxed font-medium">{errorMessage}</p>
+                <p className="text-xs leading-relaxed font-medium">{t(errorMessage)}</p>
               </div>
             )}
 
@@ -320,13 +317,12 @@ export default function RegisterPage() {
               <div className="mb-3.5 p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-left flex items-start gap-2.5 text-emerald-800 animate-fadeIn">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-xs leading-relaxed font-medium">{successMessage}</p>
+                  <p className="text-xs leading-relaxed font-medium">{t(successMessage)}</p>
                   <Link
                     href="/login"
                     className="mt-1.5 inline-block text-xs font-bold text-simantri-700 underline hover:text-simantri-800"
                   >
-                    Lanjut ke Halaman Masuk &rarr;
-                  </Link>
+                    {t("Lanjut ke Halaman Masuk →")}</Link>
                 </div>
               </div>
             )}
@@ -338,8 +334,7 @@ export default function RegisterPage() {
                   htmlFor="fullname"
                   className="block text-xs font-semibold text-slate-700 mb-1"
                 >
-                  Nama Lengkap
-                </label>
+                  {t("Nama Lengkap")}</label>
                 <input
                   id="fullname"
                   name="fullname"
@@ -347,7 +342,7 @@ export default function RegisterPage() {
                   required
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  placeholder="Contoh: Budi Santoso, S.P."
+                  placeholder={t("Contoh: Budi Santoso, S.P.")}
                   className="w-full h-11 px-3.5 text-sm font-medium text-slate-800 placeholder-slate-400 bg-white border border-slate-300 rounded-2xl focus:border-simantri-500 focus:ring-4 focus:ring-simantri-500/15 transition-all outline-none"
                 />
               </div>
@@ -358,8 +353,7 @@ export default function RegisterPage() {
                   htmlFor="email"
                   className="block text-xs font-semibold text-slate-700 mb-1"
                 >
-                  Alamat Email Aktif
-                </label>
+                  {t("Alamat Email Aktif")}</label>
                 <input
                   id="email"
                   name="email"
@@ -367,7 +361,7 @@ export default function RegisterPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="nama@email.com"
+                  placeholder={t("nama@email.com")}
                   className="w-full h-11 px-3.5 text-sm font-medium text-slate-800 placeholder-slate-400 bg-white border border-slate-300 rounded-2xl focus:border-simantri-500 focus:ring-4 focus:ring-simantri-500/15 transition-all outline-none"
                 />
               </div>
@@ -379,8 +373,7 @@ export default function RegisterPage() {
                     htmlFor="role"
                     className="block text-xs font-semibold text-slate-700 mb-1"
                   >
-                    Peran Pengguna
-                  </label>
+                    {t("Peran Pengguna")}</label>
                   <div className="relative">
                     <select
                       id="role"
@@ -389,8 +382,8 @@ export default function RegisterPage() {
                       onChange={(e) => setRole(e.target.value as 'petani' | 'penyuluh')}
                       className="w-full h-11 px-3.5 text-sm font-medium text-slate-800 bg-white border border-slate-300 rounded-2xl focus:border-simantri-500 focus:ring-4 focus:ring-simantri-500/15 transition-all outline-none appearance-none cursor-pointer pr-9"
                     >
-                      <option value="petani">🌾 Petani Bawang</option>
-                      <option value="penyuluh">📋 PPL / Penyuluh Resmi</option>
+                      <option value="petani">{t("Petani Bawang")}</option>
+                      <option value="penyuluh">{t("PPL / Penyuluh Resmi")}</option>
                     </select>
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
                       <ChevronRight className="w-4 h-4 rotate-90" />
@@ -403,8 +396,7 @@ export default function RegisterPage() {
                     htmlFor="village"
                     className="block text-xs font-semibold text-slate-700 mb-1"
                   >
-                    Kecamatan / Wilayah
-                  </label>
+                    {t("Kecamatan / Wilayah")}</label>
                   <div className="relative">
                     <select
                       id="village"
@@ -433,8 +425,7 @@ export default function RegisterPage() {
                     htmlFor="reg_password"
                     className="block text-xs font-semibold text-slate-700 mb-1"
                   >
-                    Kata Sandi
-                  </label>
+                    {t("Kata Sandi")}</label>
                   <div className="relative">
                     <input
                       id="reg_password"
@@ -443,14 +434,14 @@ export default function RegisterPage() {
                       required
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Min. 6 karakter"
+                      placeholder={t("Min. 6 karakter")}
                       className="w-full h-11 pl-3.5 pr-10 text-sm font-medium text-slate-800 placeholder-slate-400 bg-white border border-slate-300 rounded-2xl focus:border-simantri-500 focus:ring-4 focus:ring-simantri-500/15 transition-all outline-none"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none"
-                      aria-label="Toggle password"
+                      aria-label={t("Toggle password")}
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -462,8 +453,7 @@ export default function RegisterPage() {
                     htmlFor="confirm_password"
                     className="block text-xs font-semibold text-slate-700 mb-1"
                   >
-                    Konfirmasi Sandi
-                  </label>
+                    {t("Konfirmasi Sandi")}</label>
                   <div className="relative">
                     <input
                       id="confirm_password"
@@ -472,14 +462,14 @@ export default function RegisterPage() {
                       required
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      placeholder="Ulangi sandi"
+                      placeholder={t("Ulangi sandi")}
                       className="w-full h-11 pl-3.5 pr-10 text-sm font-medium text-slate-800 placeholder-slate-400 bg-white border border-slate-300 rounded-2xl focus:border-simantri-500 focus:ring-4 focus:ring-simantri-500/15 transition-all outline-none"
                     />
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                       className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none"
-                      aria-label="Toggle confirm password"
+                      aria-label={t("Toggle confirm password")}
                     >
                       {showConfirmPassword ? (
                         <EyeOff className="w-4 h-4" />
@@ -498,11 +488,9 @@ export default function RegisterPage() {
                     <BadgeCheck className="w-5 h-5 text-simantri-600 shrink-0 mt-0.5" />
                     <div>
                       <h4 className="text-xs font-bold text-simantri-900">
-                        Verifikasi Identitas Penyuluh Pertanian
-                      </h4>
+                        {t("Verifikasi Identitas Penyuluh Pertanian")}</h4>
                       <p className="text-[11px] text-slate-600 leading-relaxed font-medium">
-                        Akun Penyuluh memerlukan validasi dokumen resmi KTA/SK sebelum hak verifikasi diberikan.
-                      </p>
+                        {t("Akun Penyuluh memerlukan validasi dokumen resmi KTA/SK sebelum hak verifikasi diberikan.")}</p>
                     </div>
                   </div>
 
@@ -512,7 +500,7 @@ export default function RegisterPage() {
                         htmlFor="nip"
                         className="block text-[11px] font-semibold text-slate-700 mb-1"
                       >
-                        NIP / No. Registrasi KTA <span className="text-shallot-600">*</span>
+                        {t("NIP / No. Registrasi KTA")} <span className="text-shallot-600">*</span>
                       </label>
                       <input
                         id="nip"
@@ -531,7 +519,7 @@ export default function RegisterPage() {
                         htmlFor="institution"
                         className="block text-[11px] font-semibold text-slate-700 mb-1"
                       >
-                        Instansi Penugasan <span className="text-shallot-600">*</span>
+                        {t("Instansi Penugasan")} <span className="text-shallot-600">*</span>
                       </label>
                       <select
                         id="institution"
@@ -551,7 +539,7 @@ export default function RegisterPage() {
 
                   <div>
                     <label className="block text-[11px] font-semibold text-slate-700 mb-1">
-                      Unggah Dokumen Bukti (KTA / SK Dinas) <span className="text-shallot-600">*</span>
+                      {t("Unggah Dokumen Bukti (KTA / SK Dinas)")} <span className="text-shallot-600">*</span>
                     </label>
                     <div className="p-2.5 border-2 border-dashed border-simantri-300 rounded-xl bg-white text-center hover:bg-simantri-50/50 transition-colors relative">
                       <input
@@ -576,7 +564,7 @@ export default function RegisterPage() {
                               setDocFileName(null)
                             }}
                             className="p-1 text-red-500 hover:text-red-700"
-                            title="Hapus Dokumen"
+                            title={t("Hapus Dokumen")}
                           >
                             <X className="w-3.5 h-3.5" />
                           </button>
@@ -588,11 +576,9 @@ export default function RegisterPage() {
                         >
                           <Upload className="w-4 h-4 text-simantri-600" />
                           <span className="text-xs font-semibold text-simantri-700">
-                            Pilih Foto KTA / Dokumen SK
-                          </span>
+                            {t("Pilih Foto KTA / Dokumen SK")}</span>
                           <span className="text-[10px] text-slate-400">
-                            JPG, PNG, atau PDF (Maks 5MB)
-                          </span>
+                            {t("JPG, PNG, atau PDF (Maks 5MB)")}</span>
                         </label>
                       )}
                     </div>
@@ -615,22 +601,19 @@ export default function RegisterPage() {
                   htmlFor="terms"
                   className="text-xs text-slate-600 leading-snug cursor-pointer select-none"
                 >
-                  Saya menyetujui{' '}
+                  {t("Saya menyetujui")}{' '}
                   <Link
                     href="/terms"
                     className="text-simantri-600 hover:text-simantri-700 font-semibold hover:underline"
                   >
-                    Ketentuan Layanan
-                  </Link>{' '}
+                    {t("Ketentuan Layanan")}</Link>{' '}
                   &amp;{' '}
                   <Link
                     href="/privacy"
                     className="text-simantri-600 hover:text-simantri-700 font-semibold hover:underline"
                   >
-                    Kebijakan Privasi
-                  </Link>{' '}
-                  SIMANTRI Nganjuk.
-                </label>
+                    {t("Kebijakan Privasi")}</Link>{' '}
+                  {t("SIMANTRI Nganjuk.")}</label>
               </div>
 
               {/* Submit Button */}
@@ -643,11 +626,11 @@ export default function RegisterPage() {
                   {loading ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Mendaftarkan Akun...</span>
+                      <span>{t("Mendaftarkan Akun...")}</span>
                     </>
                   ) : (
                     <>
-                      <span>Daftar Akun {role === 'penyuluh' ? 'Penyuluh' : 'Petani'}</span>
+                      <span>{t("Daftar Akun")} {role === 'penyuluh' ? t("Penyuluh") : t("Petani")}</span>
                       <ChevronRight className="w-4 h-4" />
                     </>
                   )}
@@ -656,32 +639,28 @@ export default function RegisterPage() {
 
               {/* Login Prompt */}
               <p className="text-center text-xs text-slate-500 pt-1 font-medium">
-                Sudah memiliki akun SIMANTRI?{' '}
+                {t("Sudah memiliki akun SIMANTRI?")}{' '}
                 <Link
                   href="/login"
                   className="text-simantri-600 hover:text-simantri-700 font-bold hover:underline transition"
                 >
-                  Masuk di sini
-                </Link>
+                  {t("Masuk di sini")}</Link>
               </p>
             </form>
           </div>
 
           {/* Form Footer */}
           <footer className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-2">
-            <span>© 2026 Dinas Pertanian Kab. Nganjuk</span>
+            <span>{t("© 2026 Dinas Pertanian Kab. Nganjuk")}</span>
             <div className="flex items-center space-x-3 text-[11px]">
               <Link href="/terms" className="hover:text-simantri-600 transition">
-                Syarat &amp; Ketentuan
-              </Link>
+                {t("Syarat & Ketentuan")}</Link>
               <span className="inline-block w-1 h-1 rounded-full bg-slate-300" />
               <Link href="/privacy" className="hover:text-simantri-600 transition">
-                Privasi
-              </Link>
+                {t("Privasi")}</Link>
               <span className="inline-block w-1 h-1 rounded-full bg-slate-300" />
               <Link href="/" className="hover:text-simantri-600 transition">
-                Beranda
-              </Link>
+                {t("Beranda")}</Link>
             </div>
           </footer>
         </section>
