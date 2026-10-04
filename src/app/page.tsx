@@ -1,6 +1,6 @@
 'use client'
 
-import { useLanguage } from '@/components/ui/LanguageProvider'
+import { LanguageSwitcher, useLanguage } from '@/components/ui/LanguageProvider'
 import { ThemeSwitcher } from '@/components/ui/ThemeProvider'
 
 import { useState, useEffect, useRef } from 'react'
@@ -384,7 +384,7 @@ export default function LandingPage() {
     <div className="bg-[#FAF7F2] dark:bg-[var(--theme-canvas)] text-[#1A221D] dark:text-[var(--theme-ink)] font-manrope antialiased min-h-screen selection:bg-[#b5ecc6] dark:selection:bg-[var(--theme-green-soft)] selection:text-[#002110] dark:selection:text-[var(--theme-green)]">
       {/* TOP FLOATING CAPSULE NAVIGATION */}
       <header className="fixed top-4 xl:top-6 left-0 right-0 z-50 px-4 pointer-events-none">
-        <div className="max-w-6xl mx-auto h-16 bg-white/90 dark:bg-[var(--theme-surface)]/90 backdrop-blur-md border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 rounded-full px-3 sm:px-6 shadow-[0_8px_30px_rgba(20,35,28,0.06)] flex items-center justify-between pointer-events-auto transition-all duration-300 hover:border-[#173e2d]/25 dark:hover:border-[var(--theme-green)]/25 hover:shadow-[0_12px_35px_rgba(20,35,28,0.1)]">
+        <div className="max-w-7xl mx-auto h-16 bg-white/90 dark:bg-[var(--theme-surface)]/90 backdrop-blur-md border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 rounded-full px-3 sm:px-6 shadow-[0_8px_30px_rgba(20,35,28,0.06)] flex items-center justify-between pointer-events-auto transition-all duration-300 hover:border-[#173e2d]/25 dark:hover:border-[var(--theme-green)]/25 hover:shadow-[0_12px_35px_rgba(20,35,28,0.1)]">
           {/* Brand - Official SIMANTRI Logo */}
           <Link
             href="#beranda"
@@ -468,15 +468,16 @@ export default function LandingPage() {
 
           {/* Right Action Buttons */}
           <div className="flex items-center gap-1 sm:gap-3">
+            <LanguageSwitcher compact />
             <ThemeSwitcher />
             <Link
               href="/login"
-              className="inline-flex min-h-11 items-center text-[14px] font-semibold text-[#5E665F] dark:text-[var(--theme-body)] hover:text-[#173e2d] dark:hover:text-[var(--theme-green)] hover:bg-[#173e2d]/8 dark:hover:bg-[var(--theme-green-soft)] px-2 sm:px-4 py-1.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] dark:focus-visible:ring-[var(--theme-green)] focus-visible:ring-offset-1 transition-colors duration-200"
+              className="hidden sm:inline-flex min-h-11 items-center text-[14px] font-semibold text-[#5E665F] dark:text-[var(--theme-body)] hover:text-[#173e2d] dark:hover:text-[var(--theme-green)] hover:bg-[#173e2d]/8 dark:hover:bg-[var(--theme-green-soft)] px-2 sm:px-4 py-1.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] dark:focus-visible:ring-[var(--theme-green)] focus-visible:ring-offset-1 transition-colors duration-200"
             >
               {t("Masuk")}</Link>
             <Link
               href="/register"
-              className="inline-flex min-h-11 items-center justify-center bg-[#173e2d] text-[#F8F4EC] text-[13.5px] font-semibold px-3 sm:px-5 py-2 rounded-full hover:bg-[#275a3d] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] dark:focus-visible:ring-[var(--theme-green)] focus-visible:ring-offset-2 transition-all duration-200 shadow-sm"
+              className="hidden sm:inline-flex min-h-11 items-center justify-center bg-[#173e2d] text-[#F8F4EC] text-[13.5px] font-semibold px-3 sm:px-5 py-2 rounded-full hover:bg-[#275a3d] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] dark:focus-visible:ring-[var(--theme-green)] focus-visible:ring-offset-2 transition-all duration-200 shadow-sm"
             >
               {t("Daftar")}</Link>
             
@@ -485,7 +486,7 @@ export default function LandingPage() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={t("Toggle navigation menu")}
               aria-expanded={mobileMenuOpen}
-              className="xl:hidden p-2 rounded-full text-[#173e2d] dark:text-[var(--theme-green)] hover:bg-[#173e2d]/10 dark:hover:bg-[var(--theme-green-soft)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] dark:focus-visible:ring-[var(--theme-green)] transition-colors duration-200"
+              className="xl:hidden min-h-11 min-w-11 p-2 rounded-full text-[#173e2d] dark:text-[var(--theme-green)] hover:bg-[#173e2d]/10 dark:hover:bg-[var(--theme-green-soft)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] dark:focus-visible:ring-[var(--theme-green)] transition-colors duration-200"
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>

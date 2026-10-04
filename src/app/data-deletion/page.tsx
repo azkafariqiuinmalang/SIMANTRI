@@ -1,5 +1,6 @@
 'use client'
 import { ThemeSwitcher } from '@/components/ui/ThemeProvider'
+import { LanguageSwitcher } from '@/components/ui/LanguageProvider'
 
 import { useState } from 'react'
 import Link from 'next/link'
@@ -98,7 +99,7 @@ Terima kasih.`
                 priority
               />
             </div>
-            <div>
+            <div className="hidden sm:block">
               <span className="block font-serif text-lg font-bold leading-none tracking-tight">
                 SIMAN<em className="text-[#A6304F] dark:text-[var(--theme-rose)]">TRI</em>
               </span>
@@ -109,6 +110,7 @@ Terima kasih.`
           </Link>
 
           <div className="flex items-center gap-3">
+            <LanguageSwitcher compact />
             <ThemeSwitcher />
             <Link
               href="/"

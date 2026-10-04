@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { ThemeSwitcher } from '@/components/ui/ThemeProvider'
+import { LanguageSwitcher } from '@/components/ui/LanguageProvider'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, FileText, Scale, AlertTriangle, Cpu, CheckCircle2, ShieldCheck, HelpCircle } from 'lucide-react'
@@ -30,7 +31,7 @@ export default function TermsPage() {
                 priority
               />
             </div>
-            <div>
+            <div className="hidden sm:block">
               <span className="block font-serif text-lg font-bold leading-none tracking-tight">
                 SIMAN<em className="text-[#A6304F] dark:text-[var(--theme-rose)]">TRI</em>
               </span>
@@ -41,6 +42,7 @@ export default function TermsPage() {
           </Link>
 
           <div className="flex items-center gap-3">
+            <LanguageSwitcher compact />
             <ThemeSwitcher />
             <Link
               href="/"

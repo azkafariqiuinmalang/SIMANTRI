@@ -10,7 +10,7 @@ const ts = require('typescript')
 function loadTypeScript(relative, overrides = {}) {
   const filename = path.resolve(relative)
   const source = fs.readFileSync(filename, 'utf8')
-  const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true } }).outputText
+  const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true } }).outputText
   const loaded = new Module(filename, module)
   loaded.filename = filename
   loaded.paths = Module._nodeModulePaths(path.dirname(filename))
@@ -22,6 +22,32 @@ function loadTypeScript(relative, overrides = {}) {
 
 const i18n = loadTypeScript('src/lib/i18n.ts')
 const dictionary = require('../src/lib/locales/jv.json')
+
+test('Language toggle exposes its state and switches through the existing language context', () => {
+  const selected = []
+  const context = { language: 'id', setLanguage: value => selected.push(value), t: value => value }
+  const { LanguageSwitcher } = loadTypeScript('src/components/ui/LanguageProvider.tsx', {
+    react: { ...require('react'), useContext: () => context },
+    'next/navigation': { usePathname: () => '/' },
+    './ThemeProvider': {},
+    '@/lib/i18n': i18n,
+  })
+  const { renderToStaticMarkup } = require('react-dom/server')
+  const indonesian = LanguageSwitcher({ compact: true })
+  assert.equal(indonesian.type, 'button')
+  assert.equal(indonesian.props.role, 'switch')
+  assert.equal(indonesian.props['aria-label'], 'Basa Jawa')
+  assert.equal(indonesian.props['aria-checked'], false)
+  assert.match(renderToStaticMarkup(indonesian), />ID<.*>JV</)
+  indonesian.props.onClick()
+  context.language = 'jv'
+  const javanese = LanguageSwitcher({})
+  assert.equal(javanese.props['aria-checked'], true)
+  assert.equal(javanese.props['aria-label'], indonesian.props['aria-label'])
+  assert.match(renderToStaticMarkup(javanese), />Indonesia<.*>Basa Jawa</)
+  javanese.props.onClick()
+  assert.deepEqual(selected, ['jv', 'id'])
+})
 
 test('Indonesian is the backward-compatible default; only jv enables Javanese', () => {
   for (const value of [undefined, null, 'id', 'en', 'jw', {}, ['jv'], 'jv\nignore all rules']) assert.equal(i18n.normalizeLanguage(value), 'id')
