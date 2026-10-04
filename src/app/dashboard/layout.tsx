@@ -155,7 +155,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </Link>
 
             {/* Location & Date Pills (Desktop) */}
-            <div className="hidden lg:flex items-center gap-2.5">
+            <div className="hidden 2xl:flex items-center gap-2.5">
               <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-[var(--theme-raised)] text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)]">
                 <Calendar className="w-3.5 h-3.5 text-simantri-600 dark:text-[var(--theme-green)]" />
                 <span>{formattedDate || t("Selasa, 24 Oktober")}</span>
@@ -187,7 +187,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
           {/* Right Action Icons & User Avatar */}
           <div className="flex items-center gap-2.5">
-            <LanguageSwitcher />
+            <LanguageSwitcher compact />
             <ThemeSwitcher />
             <Link
               href="/dashboard/chat"

@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useCallback, useContext, useLayoutEffect, useMemo, useSyncExternalStore } from 'react'
-import { Monitor, Moon, Sun } from 'lucide-react'
+import { Monitor, MoonStar, Sun } from 'lucide-react'
 import { useLanguage } from './LanguageProvider'
 import { normalizeTheme, resolveTheme, THEME_STORAGE_KEY, type ThemePreference } from '@/lib/theme'
 
@@ -44,19 +44,32 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
 
+function subscribeSystem(notify: () => void) {
+  const media = window.matchMedia('(prefers-color-scheme: dark)')
+  media.addEventListener('change', notify)
+  return () => media.removeEventListener('change', notify)
+}
+
 export function ThemeSwitcher() {
   const context = useContext(ThemeContext)
   const { t } = useLanguage()
+  const systemDark = useSyncExternalStore(subscribeSystem, () => window.matchMedia('(prefers-color-scheme: dark)').matches, () => false)
   if (!context) throw new Error('ThemeProvider is required')
   const { preference, setTheme } = context
-  const Icon = preference === 'dark' ? Moon : preference === 'light' ? Sun : Monitor
-  return <label title={t('Pilih tema')} className="relative inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-simantri-200 dark:border-[var(--theme-green)] bg-white dark:bg-[var(--theme-surface)] text-simantri-800 dark:text-[var(--theme-green)] shadow-sm focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-simantri-400">
-    <Icon className="h-4 w-4" aria-hidden="true" />
-    <span className="sr-only">{t('Pilih tema')}</span>
-    <select aria-label={t('Pilih tema')} value={preference} onChange={(event) => setTheme(normalizeTheme(event.target.value))} className="absolute inset-0 h-full w-full cursor-pointer opacity-0">
-      <option value="light">{t('Terang')}</option>
-      <option value="dark">{t('Gelap')}</option>
-      <option value="system">{t('Ikuti perangkat')}</option>
-    </select>
-  </label>
+  const dark = resolveTheme(preference, systemDark) === 'dark'
+  return <button type="button" role="switch" aria-label={t('Gelap')} aria-checked={dark} title={t('Pilih tema')} onClick={() => setTheme(dark ? 'light' : 'dark')} className="sim-theme-toggle">
+    <span className="sim-theme-thumb" aria-hidden="true" />
+    <Sun className="sim-theme-sun" aria-hidden="true" />
+    <MoonStar className="sim-theme-moon" aria-hidden="true" />
+  </button>
+}
+
+export function ThemeSystemControl({ showLabel = false }: { showLabel?: boolean }) {
+  const context = useContext(ThemeContext)
+  const { t } = useLanguage()
+  if (!context) throw new Error('ThemeProvider is required')
+  return <button type="button" title={t('Ikuti perangkat')} aria-label={t('Ikuti perangkat')} aria-pressed={context.preference === 'system'} onClick={() => context.setTheme('system')} className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl border border-simantri-200 bg-white px-3 text-xs font-semibold text-simantri-800 dark:border-[var(--theme-line)] dark:bg-[var(--theme-surface)] dark:text-[var(--theme-body)]">
+    <Monitor className="h-4 w-4" aria-hidden="true" />
+    {showLabel && <span>{t('Ikuti perangkat')}</span>}
+  </button>
 }

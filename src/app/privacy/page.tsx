@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ThemeSwitcher } from '@/components/ui/ThemeProvider'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Shield, Lock, Eye, FileText, Database, Trash2, Mail, CheckCircle2, ArrowRight } from 'lucide-react'
@@ -40,13 +41,14 @@ export default function PrivacyPage() {
           </Link>
 
           <div className="flex items-center gap-3">
+            <ThemeSwitcher />
             <Link
               href="/"
               className="inline-flex items-center gap-2 rounded-full border border-[#241812]/15 dark:border-[var(--theme-line)] bg-white/70 dark:bg-[var(--theme-surface)]/70 px-4 py-2 text-xs font-semibold text-[#241812] dark:text-[var(--theme-ink)] backdrop-blur-sm transition-all hover:bg-white dark:hover:bg-[var(--theme-surface)] hover:border-[#A6304F]/40 dark:hover:border-[var(--theme-rose)]/40 hover:text-[#A6304F] dark:hover:text-[var(--theme-rose)] shadow-sm"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Kembali ke Beranda</span>
-              <span className="sm:hidden">Beranda</span>
+              <span className="sr-only sm:hidden">Beranda</span>
             </Link>
           </div>
         </div>

@@ -4,7 +4,7 @@ All public pages, authentication screens, farmer/PPL dashboards, review/regional
 
 - `src/lib/theme.ts`: strict preference normalization, resolution, and fixed pre-paint bootstrap script.
 - `ThemeProvider`: hydration-safe preference store, `simantri.theme` localStorage persistence, cross-tab sync, session fallback when storage is blocked, and live OS preference updates. No cookies, authentication, APIs, or database changes.
-- `ThemeSwitcher`: keyboard/touch-accessible native three-option selector with an existing Lucide icon. Public/admin pages use the persistent control beside the language selector; dashboard pages use the header. Labels support Indonesian and Javanese.
+- `ThemeSwitcher`: keyboard/touch-accessible light/dark pill switch with Lucide sun/moon icons and an animated circular thumb. Landing, dashboard, and admin place the switch in the navbar. `ThemeSystemControl` restores device-following behavior in the sidebar or public preference controls. Labels support Indonesian and Javanese.
 - `src/app/theme.css`: charcoal surfaces, semantic foreground/accent tokens, component states and Tailwind's attribute-driven dark variant. Original light utilities remain unchanged; paired dark utilities preserve responsive and interaction variants.
 
 Default preference is system; choosing light keeps the existing light presentation regardless of the device. An inline head script applies the resolved theme before first paint. Only the root HTML attribute uses hydration suppression; content is still checked normally.

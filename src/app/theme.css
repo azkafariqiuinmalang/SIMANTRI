@@ -2,6 +2,16 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 :root { color-scheme: light; }
+.sim-theme-toggle { position: relative; display: inline-flex; align-items: center; justify-content: space-around; width: 84px; height: 44px; flex-shrink: 0; padding: 4px; border: 1px solid #d2dbd5; border-radius: 999px; background: #fff; cursor: pointer; }
+.sim-theme-thumb { position: absolute; left: 4px; top: 4px; width: 34px; height: 34px; border-radius: 50%; background: #16222b; transition: transform var(--motion-normal) var(--motion-standard), background-color var(--motion-normal); }
+.sim-theme-sun, .sim-theme-moon { position: relative; z-index: 1; width: 20px; height: 20px; }
+.sim-theme-sun { color: #f5c518; }
+.sim-theme-moon { color: #66717c; }
+[data-theme="dark"] .sim-theme-toggle { background: #16222b; border-color: #637e6c; }
+[data-theme="dark"] .sim-theme-thumb { transform: translateX(40px); background: #fff; }
+[data-theme="dark"] .sim-theme-sun { color: #b18e16; }
+[data-theme="dark"] .sim-theme-moon { color: #16222b; }
+@media (prefers-reduced-motion: reduce) { .sim-theme-thumb { transition: none; } }
 :root[data-theme="dark"] {
   color-scheme: dark;
   --theme-canvas: #101815;

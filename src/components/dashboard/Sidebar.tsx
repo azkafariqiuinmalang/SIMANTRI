@@ -1,4 +1,5 @@
 'use client'
+import { ThemeSystemControl } from '@/components/ui/ThemeProvider'
 
 import { useLanguage } from '@/components/ui/LanguageProvider'
 
@@ -187,6 +188,7 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
 
       {/* User Profile Mini Bar & Logout */}
       <div className="p-3 border-t border-slate-100 dark:border-[var(--theme-line)] bg-slate-50/50 dark:bg-[var(--theme-canvas)]/50">
+        <div className="mb-2"><ThemeSystemControl showLabel /></div>
         <div className="bg-white dark:bg-[var(--theme-surface)] rounded-2xl p-2.5 flex items-center justify-between border border-slate-200/80 dark:border-[var(--theme-line)] shadow-xs">
           <Link
             href="/dashboard/profil"

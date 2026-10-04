@@ -1,6 +1,7 @@
 'use client'
 
 import { useLanguage } from '@/components/ui/LanguageProvider'
+import { ThemeSwitcher } from '@/components/ui/ThemeProvider'
 
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
@@ -400,7 +401,7 @@ export default function LandingPage() {
                 priority
               />
             </div>
-            <div className="flex flex-col">
+            <div className="hidden sm:flex flex-col">
               <span className="font-editorial text-[20px] font-semibold text-[#173e2d] dark:text-[var(--theme-green)] tracking-tight leading-none group-hover:text-[#275a3d] dark:group-hover:text-[var(--theme-green)] transition-colors duration-200">
                 SIMANTRI
               </span>
@@ -467,6 +468,7 @@ export default function LandingPage() {
 
           {/* Right Action Buttons */}
           <div className="flex items-center gap-1 sm:gap-3">
+            <ThemeSwitcher />
             <Link
               href="/login"
               className="inline-flex min-h-11 items-center text-[14px] font-semibold text-[#5E665F] dark:text-[var(--theme-body)] hover:text-[#173e2d] dark:hover:text-[var(--theme-green)] hover:bg-[#173e2d]/8 dark:hover:bg-[var(--theme-green-soft)] px-2 sm:px-4 py-1.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] dark:focus-visible:ring-[var(--theme-green)] focus-visible:ring-offset-1 transition-colors duration-200"
