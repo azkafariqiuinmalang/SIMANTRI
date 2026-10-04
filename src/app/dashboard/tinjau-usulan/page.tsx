@@ -197,16 +197,16 @@ export default function TinjauUsulanPage() {
   return (
     <div className="space-y-6 font-jakarta">
       {/* HEADER SECTION */}
-      <section className="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <section className="bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-6 border border-slate-100 dark:border-[var(--theme-line)] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-simantri-700 font-bold text-xs uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-simantri-700 dark:text-[var(--theme-green)] font-bold text-xs uppercase tracking-wider mb-1">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Moderasi &amp; Validasi Konten PPL</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-[var(--theme-ink)] tracking-tight">
             Peninjauan Usulan &amp; Koreksi Petani
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-[var(--theme-muted)] mt-1 max-w-2xl leading-relaxed">
             Tinjau laporan koreksi atau tips budidaya yang dikirimkan oleh petani dan kelompok tani se-Kabupaten Nganjuk untuk memperkaya basis pengetahuan SIMA.
           </p>
         </div>
@@ -214,7 +214,7 @@ export default function TinjauUsulanPage() {
         <button
           onClick={loadData}
           disabled={loading}
-          className="inline-flex items-center gap-2 h-11 px-4 text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-2xl shadow-xs transition-colors shrink-0 cursor-pointer"
+          className="inline-flex items-center gap-2 h-11 px-4 text-xs font-bold text-slate-700 dark:text-[var(--theme-body)] bg-slate-50 dark:bg-[var(--theme-canvas)] hover:bg-slate-100 dark:hover:bg-[var(--theme-raised)] border border-slate-200 dark:border-[var(--theme-line)] rounded-2xl shadow-xs transition-colors shrink-0 cursor-pointer"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           <span>Segarkan Antrean</span>
@@ -234,8 +234,8 @@ export default function TinjauUsulanPage() {
             onClick={() => setFilterStatus(tab.val)}
             className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all border cursor-pointer ${
               filterStatus === tab.val
-                ? 'bg-simantri-500 text-white border-simantri-500 shadow-xs'
-                : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                ? 'bg-simantri-500 text-white border-simantri-500 dark:border-[var(--theme-green)] shadow-xs'
+                : 'bg-white dark:bg-[var(--theme-surface)] border-slate-200 dark:border-[var(--theme-line)] text-slate-600 dark:text-[var(--theme-body)] hover:bg-slate-50 dark:hover:bg-[var(--theme-canvas)]'
             }`}
           >
             {tab.label}
@@ -245,36 +245,36 @@ export default function TinjauUsulanPage() {
 
       {/* LIST OF SUGGESTIONS */}
       {loading ? (
-        <div className="bg-white rounded-3xl p-12 text-center border border-slate-100">
-          <Loader2 className="w-8 h-8 animate-spin text-simantri-600 mx-auto mb-2" />
-          <p className="text-xs text-slate-500">Memuat usulan masuk...</p>
+        <div className="bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-12 text-center border border-slate-100 dark:border-[var(--theme-line)]">
+          <Loader2 className="w-8 h-8 animate-spin text-simantri-600 dark:text-[var(--theme-green)] mx-auto mb-2" />
+          <p className="text-xs text-slate-500 dark:text-[var(--theme-muted)]">Memuat usulan masuk...</p>
         </div>
       ) : filteredSuggestions.length === 0 ? (
-        <div className="bg-white rounded-3xl p-12 text-center border border-slate-100 space-y-2">
+        <div className="bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-12 text-center border border-slate-100 dark:border-[var(--theme-line)] space-y-2">
           <ClipboardCheck className="w-10 h-10 text-slate-300 mx-auto" />
-          <h3 className="font-bold text-sm text-slate-800">Tidak Ada Usulan Dalam Filter Ini</h3>
-          <p className="text-xs text-slate-400">Semua usulan telah diproses atau antrean sedang kosong.</p>
+          <h3 className="font-bold text-sm text-slate-800 dark:text-[var(--theme-ink)]">Tidak Ada Usulan Dalam Filter Ini</h3>
+          <p className="text-xs text-slate-400 dark:text-[var(--theme-muted)]">Semua usulan telah diproses atau antrean sedang kosong.</p>
         </div>
       ) : (
         <div className="space-y-4">
           {filteredSuggestions.map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-100 shadow-sm space-y-4 hover:shadow-md transition-shadow"
+              className="bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-5 sm:p-6 border border-slate-100 dark:border-[var(--theme-line)] shadow-sm space-y-4 hover:shadow-md transition-shadow"
             >
-              <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
+              <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-[var(--theme-line)]">
                 <div className="flex items-center gap-3">
                   <span className="w-9 h-9 rounded-2xl bg-simantri-700 text-white flex items-center justify-center font-bold text-xs shadow-xs">
                     {item.submitter?.full_name?.charAt(0).toUpperCase() || 'P'}
                   </span>
                   <div>
-                    <p className="text-xs font-bold text-slate-900 flex items-center gap-2">
+                    <p className="text-xs font-bold text-slate-900 dark:text-[var(--theme-ink)] flex items-center gap-2">
                       <span>{item.submitter?.full_name || 'Petani Anonim'}</span>
-                      <span className="text-[10px] uppercase px-2 py-0.5 rounded-full bg-emerald-50 text-simantri-800 font-bold border border-emerald-200">
+                      <span className="text-[10px] uppercase px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-simantri-800 dark:text-[var(--theme-green)] font-bold border border-emerald-200 dark:border-[var(--theme-green)]">
                         {item.submitted_role}
                       </span>
                     </p>
-                    <p className="text-[10px] text-slate-400">
+                    <p className="text-[10px] text-slate-400 dark:text-[var(--theme-muted)]">
                       Desa {item.submitter?.village || 'Sukomoro'} •{' '}
                       {new Date(item.created_at).toLocaleString('id-ID', {
                         day: 'numeric',
@@ -291,8 +291,8 @@ export default function TinjauUsulanPage() {
                   <span
                     className={`text-[10px] uppercase px-2.5 py-1 rounded-full font-bold border ${
                       item.type === 'laporan_keliru'
-                        ? 'bg-shallot-50 text-shallot-600 border-shallot-200'
-                        : 'bg-emerald-50 text-simantri-800 border-emerald-200'
+                        ? 'bg-shallot-50 dark:bg-[var(--theme-rose-soft)] text-shallot-600 dark:text-[var(--theme-rose)] border-shallot-200 dark:border-[var(--theme-rose)]'
+                        : 'bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-simantri-800 dark:text-[var(--theme-green)] border-emerald-200 dark:border-[var(--theme-green)]'
                     }`}
                   >
                     {item.type === 'laporan_keliru' ? 'Laporan Koreksi' : 'Usulan Baru'}
@@ -301,10 +301,10 @@ export default function TinjauUsulanPage() {
                   <span
                     className={`text-[10px] uppercase px-2.5 py-1 rounded-full font-bold border ${
                       item.status === 'digunakan_dalam_pembaruan'
-                        ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                        ? 'bg-emerald-100 dark:bg-[var(--theme-green-soft)] text-emerald-800 dark:text-[var(--theme-green)] border-emerald-300 dark:border-[var(--theme-green)]'
                         : item.status === 'tidak_digunakan'
-                        ? 'bg-red-50 text-red-700 border-red-200'
-                        : 'bg-amber-50 text-amber-800 border-amber-200'
+                        ? 'bg-red-50 dark:bg-[var(--theme-red-soft)] text-red-700 dark:text-[var(--theme-red)] border-red-200 dark:border-[var(--theme-red)]'
+                        : 'bg-amber-50 dark:bg-[var(--theme-amber-soft)] text-amber-800 dark:text-[var(--theme-amber)] border-amber-200 dark:border-[var(--theme-amber)]'
                     }`}
                   >
                     {item.status.replace(/_/g, ' ')}
@@ -314,8 +314,8 @@ export default function TinjauUsulanPage() {
 
               {/* Rujukan KB */}
               {item.related_entry?.title && (
-                <div className="p-2.5 rounded-2xl bg-slate-50 border border-slate-100 text-xs flex items-center gap-2 text-slate-700">
-                  <BookOpen className="w-4 h-4 text-simantri-600 shrink-0" />
+                <div className="p-2.5 rounded-2xl bg-slate-50 dark:bg-[var(--theme-canvas)] border border-slate-100 dark:border-[var(--theme-line)] text-xs flex items-center gap-2 text-slate-700 dark:text-[var(--theme-body)]">
+                  <BookOpen className="w-4 h-4 text-simantri-600 dark:text-[var(--theme-green)] shrink-0" />
                   <span>
                     Merujuk pada Referensi: <strong>{item.related_entry.title}</strong>
                   </span>
@@ -323,26 +323,26 @@ export default function TinjauUsulanPage() {
               )}
 
               {/* Isi Usulan */}
-              <div className="p-4 rounded-2xl bg-slate-50/70 border border-slate-100 text-xs sm:text-sm text-slate-800 leading-relaxed italic">
+              <div className="p-4 rounded-2xl bg-slate-50/70 dark:bg-[var(--theme-canvas)]/70 border border-slate-100 dark:border-[var(--theme-line)] text-xs sm:text-sm text-slate-800 dark:text-[var(--theme-ink)] leading-relaxed italic">
                 &ldquo;{item.content_note}&rdquo;
               </div>
 
               {/* Review Note (if already reviewed) */}
               {item.review_note && (
-                <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs space-y-1">
-                  <p className="font-bold text-simantri-800 flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4 text-simantri-600" />
+                <div className="p-3.5 rounded-2xl bg-emerald-50 dark:bg-[var(--theme-green-soft)] border border-emerald-200 dark:border-[var(--theme-green)] text-xs space-y-1">
+                  <p className="font-bold text-simantri-800 dark:text-[var(--theme-green)] flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-simantri-600 dark:text-[var(--theme-green)]" />
                     <span>Catatan Tanggapan Tim Penyuluh:</span>
                   </p>
-                  <p className="text-slate-700">{item.review_note}</p>
+                  <p className="text-slate-700 dark:text-[var(--theme-body)]">{item.review_note}</p>
                 </div>
               )}
 
               {/* Action Buttons for Penyuluh */}
               <div className="pt-2 flex flex-wrap items-center justify-end gap-2">
                 {activeReviewId === item.id ? (
-                  <div className="w-full p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 mt-2 animate-fadeIn">
-                    <label className="text-xs font-bold text-slate-800 block">
+                  <div className="w-full p-4 rounded-2xl bg-slate-50 dark:bg-[var(--theme-canvas)] border border-slate-200 dark:border-[var(--theme-line)] space-y-3 mt-2 animate-fadeIn">
+                    <label className="text-xs font-bold text-slate-800 dark:text-[var(--theme-ink)] block">
                       Catatan Peninjauan / Tanggapan untuk Petani:
                     </label>
                     <textarea
@@ -350,13 +350,13 @@ export default function TinjauUsulanPage() {
                       value={reviewNoteInput}
                       onChange={(e) => setReviewNoteInput(e.target.value)}
                       placeholder="Tuliskan catatan apresiasi, klarifikasi ilmiah, atau rekomendasi pengendalian..."
-                      className="w-full p-3 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-simantri-500"
+                      className="w-full p-3 text-xs rounded-xl border border-slate-200 dark:border-[var(--theme-line)] bg-white dark:bg-[var(--theme-surface)] focus:outline-none focus:border-simantri-500 dark:focus:border-[var(--theme-green)]"
                     />
                     <div className="flex items-center justify-end gap-2">
                       <button
                         type="button"
                         onClick={() => setActiveReviewId(null)}
-                        className="px-4 py-2 text-xs font-bold text-slate-500 hover:bg-slate-200 rounded-xl"
+                        className="px-4 py-2 text-xs font-bold text-slate-500 dark:text-[var(--theme-muted)] hover:bg-slate-200 dark:hover:bg-[var(--theme-raised)] rounded-xl"
                       >
                         Batal
                       </button>

@@ -84,20 +84,20 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F6F8F6] text-slate-800 flex items-center justify-center p-3 sm:p-5 lg:p-7 antialiased font-jakarta">
+    <div className="min-h-screen bg-[#F6F8F6] dark:bg-[var(--theme-canvas)] text-slate-800 dark:text-[var(--theme-ink)] flex items-center justify-center p-3 sm:p-5 lg:p-7 antialiased font-jakarta">
       {/* Tombol Balik ke Beranda (Fixed di pojok atas) */}
       <div className="fixed top-4 left-4 z-30 hidden sm:block">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-white hover:shadow hover:text-simantri-700"
+          className="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-[var(--theme-line)] bg-white/80 dark:bg-[var(--theme-surface)]/80 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] shadow-sm transition-all hover:bg-white dark:hover:bg-[var(--theme-surface)] hover:shadow hover:text-simantri-700 dark:hover:text-[var(--theme-green)]"
         >
-          <ArrowLeft className="h-3.5 w-3.5 text-simantri-600" />
+          <ArrowLeft className="h-3.5 w-3.5 text-simantri-600 dark:text-[var(--theme-green)]" />
           <span>{t("Kembali ke Beranda")}</span>
         </Link>
       </div>
 
       {/* Main Container */}
-      <main className="w-full max-w-[1360px] min-h-[760px] bg-white rounded-[32px] shadow-2xl shadow-emerald-950/5 border border-slate-100 p-3.5 sm:p-4 lg:p-5 flex flex-col lg:flex-row gap-6 overflow-hidden">
+      <main className="w-full max-w-[1360px] min-h-[760px] bg-white dark:bg-[var(--theme-surface)] rounded-[32px] shadow-2xl shadow-emerald-950/5 border border-slate-100 dark:border-[var(--theme-line)] p-3.5 sm:p-4 lg:p-5 flex flex-col lg:flex-row gap-6 overflow-hidden">
         {/* Showcase Section (Left Side) */}
         <section
           aria-label={t("Informasi Wilayah Pertanian")}
@@ -132,7 +132,7 @@ export default function LoginPage() {
                 {t("Dunia Brambang")}</Link>
               <Link
                 href="/register"
-                className="border border-white/40 hover:border-white text-white backdrop-blur-md bg-white/10 hover:bg-white/20 transition duration-200 px-4 py-1.5 rounded-full font-semibold"
+                className="border border-white/40 hover:border-white dark:hover:border-[var(--theme-line)] text-white backdrop-blur-md bg-white/10 hover:bg-white/20 transition duration-200 px-4 py-1.5 rounded-full font-semibold"
               >
                 {t("Daftar Akun")}</Link>
             </div>
@@ -140,7 +140,7 @@ export default function LoginPage() {
 
           {/* Middle Highlight Quote */}
           <div className="relative z-10 my-auto py-8 max-w-md">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/25 border border-emerald-400/30 text-emerald-200 text-xs font-semibold mb-3 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/25 border border-emerald-400/30 dark:border-[var(--theme-green)]/30 text-emerald-200 text-xs font-semibold mb-3 backdrop-blur-sm">
               <Sparkles className="w-3.5 h-3.5" />
               <span>{t("Agro-Intelligence Platform")}</span>
             </div>
@@ -153,7 +153,7 @@ export default function LoginPage() {
           {/* Showcase Footer */}
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4 pt-6 border-t border-white/15">
             <div className="flex items-center space-x-3.5">
-              <div className="w-12 h-12 rounded-2xl ring-2 ring-emerald-300/40 bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg overflow-hidden shrink-0">
+              <div className="w-12 h-12 rounded-2xl ring-2 ring-emerald-300/40 dark:ring-[var(--theme-green)]/40 bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg overflow-hidden shrink-0">
                 <ShieldCheck className="w-6 h-6 text-emerald-200" />
               </div>
               <div>
@@ -207,15 +207,15 @@ export default function LoginPage() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-bold text-base tracking-tight text-slate-900 leading-tight">
+                <span className="font-bold text-base tracking-tight text-slate-900 dark:text-[var(--theme-ink)] leading-tight">
                   SIMANTRI
                 </span>
-                <span className="text-[10px] font-semibold text-simantri-700 tracking-wider uppercase">
+                <span className="text-[10px] font-semibold text-simantri-700 dark:text-[var(--theme-green)] tracking-wider uppercase">
                   {t("Kab. Nganjuk")}</span>
               </div>
             </Link>
 
-            <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full border border-slate-200 text-xs font-semibold text-slate-700 bg-slate-50/80">
+            <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full border border-slate-200 dark:border-[var(--theme-line)] text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] bg-slate-50/80 dark:bg-[var(--theme-canvas)]/80">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
               <span>{t("Portal Masuk")}</span>
             </div>
@@ -224,16 +224,16 @@ export default function LoginPage() {
           {/* Main Form Body */}
           <div className="max-w-[420px] w-full mx-auto my-auto py-4">
             <div className="text-center mb-6">
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2 font-jakarta">
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-[var(--theme-ink)] tracking-tight mb-2 font-jakarta">
                 {t("Sugeng Rawuh")}</h1>
-              <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-[var(--theme-muted)] font-medium leading-relaxed">
                 {t("Akses portal manajemen pertanian bawang merah cerdas Kabupaten Nganjuk")}</p>
             </div>
 
             {/* Error Message */}
             {errorMessage && (
-              <div className="mb-4 p-3.5 rounded-2xl bg-red-50 border border-red-200 text-left flex items-start gap-2.5 text-red-800 animate-fadeIn">
-                <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+              <div className="mb-4 p-3.5 rounded-2xl bg-red-50 dark:bg-[var(--theme-red-soft)] border border-red-200 dark:border-[var(--theme-red)] text-left flex items-start gap-2.5 text-red-800 dark:text-[var(--theme-red)] animate-fadeIn">
+                <AlertCircle className="w-4 h-4 text-red-600 dark:text-[var(--theme-red)] shrink-0 mt-0.5" />
                 <p className="text-xs leading-relaxed font-medium">{t(errorMessage)}</p>
               </div>
             )}
@@ -243,7 +243,7 @@ export default function LoginPage() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-xs font-semibold text-slate-700 mb-1.5"
+                  className="block text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] mb-1.5"
                 >
                   {t("Alamat Email Akun")}</label>
                 <input
@@ -254,7 +254,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={t("nama@email.com")}
-                  className="w-full h-12 px-4 text-sm font-medium text-slate-800 placeholder-slate-400 bg-white border border-slate-300 rounded-2xl focus:border-simantri-500 focus:ring-4 focus:ring-simantri-500/15 transition-all outline-none"
+                  className="w-full h-12 px-4 text-sm font-medium text-slate-800 dark:text-[var(--theme-ink)] placeholder-slate-400 dark:placeholder-[var(--theme-muted)] bg-white dark:bg-[var(--theme-surface)] border border-slate-300 dark:border-[var(--theme-line)] rounded-2xl focus:border-simantri-500 dark:focus:border-[var(--theme-green)] focus:ring-4 focus:ring-simantri-500/15 dark:focus:ring-[var(--theme-green)]/15 transition-all outline-none"
                 />
               </div>
 
@@ -263,12 +263,12 @@ export default function LoginPage() {
                 <div className="flex items-center justify-between mb-1.5">
                   <label
                     htmlFor="password"
-                    className="block text-xs font-semibold text-slate-700"
+                    className="block text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)]"
                   >
                     {t("Kata Sandi")}</label>
                   <Link
                     href="/privacy"
-                    className="text-xs font-semibold text-shallot-500 hover:text-shallot-600 transition"
+                    className="text-xs font-semibold text-shallot-500 dark:text-[var(--theme-rose)] hover:text-shallot-600 dark:hover:text-[var(--theme-rose)] transition"
                   >
                     {t("Lupa kata sandi?")}</Link>
                 </div>
@@ -281,12 +281,12 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full h-12 pl-4 pr-11 text-sm font-medium text-slate-800 placeholder-slate-400 bg-white border border-slate-300 rounded-2xl focus:border-simantri-500 focus:ring-4 focus:ring-simantri-500/15 transition-all outline-none"
+                    className="w-full h-12 pl-4 pr-11 text-sm font-medium text-slate-800 dark:text-[var(--theme-ink)] placeholder-slate-400 dark:placeholder-[var(--theme-muted)] bg-white dark:bg-[var(--theme-surface)] border border-slate-300 dark:border-[var(--theme-line)] rounded-2xl focus:border-simantri-500 dark:focus:border-[var(--theme-green)] focus:ring-4 focus:ring-simantri-500/15 dark:focus:ring-[var(--theme-green)]/15 transition-all outline-none"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none"
+                    className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 dark:text-[var(--theme-muted)] hover:text-slate-600 dark:hover:text-[var(--theme-body)] focus:outline-none"
                     aria-label={showPassword ? t("Sembunyikan kata sandi") : t("Tampilkan kata sandi")}
                   >
                     {showPassword ? (
@@ -303,7 +303,7 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full h-12 bg-simantri-500 hover:bg-simantri-600 active:bg-simantri-700 text-white font-bold text-sm tracking-wide rounded-2xl shadow-lg shadow-simantri-500/25 transition duration-200 focus:outline-none focus:ring-4 focus:ring-simantri-500/30 flex items-center justify-center space-x-2 disabled:opacity-60 cursor-pointer"
+                  className="w-full h-12 bg-simantri-500 hover:bg-simantri-600 active:bg-simantri-700 text-white font-bold text-sm tracking-wide rounded-2xl shadow-lg shadow-simantri-500/25 transition duration-200 focus:outline-none focus:ring-4 focus:ring-simantri-500/30 dark:focus:ring-[var(--theme-green)]/30 flex items-center justify-center space-x-2 disabled:opacity-60 cursor-pointer"
                 >
                   {loading ? (
                     <>
@@ -320,11 +320,11 @@ export default function LoginPage() {
               </div>
 
               {/* Register Prompt */}
-              <p className="text-center text-xs text-slate-500 pt-2 font-medium">
+              <p className="text-center text-xs text-slate-500 dark:text-[var(--theme-muted)] pt-2 font-medium">
                 {t("Belum memiliki akun?")}{' '}
                 <Link
                   href="/register"
-                  className="text-simantri-600 hover:text-simantri-700 font-bold hover:underline transition"
+                  className="text-simantri-600 dark:text-[var(--theme-green)] hover:text-simantri-700 dark:hover:text-[var(--theme-green)] font-bold hover:underline transition"
                 >
                   {t("Daftar Sekarang")}</Link>
               </p>
@@ -332,16 +332,16 @@ export default function LoginPage() {
           </div>
 
           {/* Form Footer */}
-          <footer className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-3">
+          <footer className="pt-4 border-t border-slate-100 dark:border-[var(--theme-line)] flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 dark:text-[var(--theme-muted)] gap-3">
             <span>{t("© 2026 Dinas Pertanian Kab. Nganjuk")}</span>
             <div className="flex items-center space-x-3 text-[11px]">
-              <Link href="/terms" className="hover:text-simantri-600 transition">
+              <Link href="/terms" className="hover:text-simantri-600 dark:hover:text-[var(--theme-green)] transition">
                 {t("Syarat & Ketentuan")}</Link>
-              <span className="inline-block w-1 h-1 rounded-full bg-slate-300" />
-              <Link href="/privacy" className="hover:text-simantri-600 transition">
+              <span className="inline-block w-1 h-1 rounded-full bg-slate-300 dark:bg-[var(--theme-raised)]" />
+              <Link href="/privacy" className="hover:text-simantri-600 dark:hover:text-[var(--theme-green)] transition">
                 {t("Privasi")}</Link>
-              <span className="inline-block w-1 h-1 rounded-full bg-slate-300" />
-              <Link href="/" className="hover:text-simantri-600 transition">
+              <span className="inline-block w-1 h-1 rounded-full bg-slate-300 dark:bg-[var(--theme-raised)]" />
+              <Link href="/" className="hover:text-simantri-600 dark:hover:text-[var(--theme-green)] transition">
                 {t("Beranda")}</Link>
             </div>
           </footer>

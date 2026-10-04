@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Fraunces, Inter, Newsreader, Manrope, Caveat, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 import { LanguageProvider } from '@/components/ui/LanguageProvider'
+import { ThemeProvider } from '@/components/ui/ThemeProvider'
+import { THEME_BOOTSTRAP } from '@/lib/theme'
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -53,10 +55,13 @@ export default function RootLayout({
   return (
     <html
       lang="id"
+      data-theme="light"
+      suppressHydrationWarning
       className={`${plusJakartaSans.variable} ${newsreader.variable} ${manrope.variable} ${caveat.variable} ${fraunces.variable} ${inter.variable}`}
     >
-      <body className="min-h-screen bg-[#FAF7F2] text-[#1A221D] font-sans antialiased flex flex-col selection:bg-[#167a4a]/20 selection:text-[#167a4a]">
-        <LanguageProvider>{children}</LanguageProvider>
+      <head><script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} /></head>
+      <body className="min-h-screen bg-[#FAF7F2] dark:bg-[var(--theme-canvas)] text-[#1A221D] dark:text-[var(--theme-ink)] font-sans antialiased flex flex-col selection:bg-[#167a4a]/20 dark:selection:bg-[var(--theme-green-soft)] selection:text-[#167a4a] dark:selection:text-[var(--theme-green)]">
+        <ThemeProvider><LanguageProvider>{children}</LanguageProvider></ThemeProvider>
       </body>
     </html>
   )

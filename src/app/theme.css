@@ -1,0 +1,72 @@
+/* Semantic dark surfaces; photographs, logos, and exhibition art are never inverted. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root { color-scheme: light; }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --theme-canvas: #101815;
+  --theme-surface: #19241f;
+  --theme-raised: #233129;
+  --theme-ink: #edf4ef;
+  --theme-body: #cddbd2;
+  --theme-muted: #a6b9ac;
+  --theme-line: #637e6c;
+  --theme-green: #91ddb1;
+  --theme-green-soft: #203c2d;
+  --theme-rose: #f2a4bf;
+  --theme-rose-soft: #422936;
+  --theme-amber: #f2cc83;
+  --theme-amber-soft: #3c3221;
+  --theme-red: #ffb2b2;
+  --theme-red-soft: #42282c;
+  --sim-canvas: var(--theme-canvas);
+  --sim-surface: var(--theme-surface);
+  --sim-ink: var(--theme-ink);
+  --sim-text: var(--theme-body);
+  --sim-muted: var(--theme-muted);
+  --sim-line: var(--theme-line);
+  --sim-green-50: var(--theme-green-soft);
+  --sim-green-100: #294a36;
+  --sim-green-200: #4a7b5a;
+  --sim-green-500: #74ce96;
+  --sim-green-600: #91ddb1;
+  --sim-green-700: #a5e8bd;
+  --sim-rose-50: var(--theme-rose-soft);
+  --sim-rose-500: var(--theme-rose);
+  --sim-amber-50: var(--theme-amber-soft);
+  --sim-amber-500: var(--theme-amber);
+  --sim-blue-50: #223548;
+  --sim-blue-600: #a3cefb;
+  --sim-color-primary: #226e43;
+  --sim-color-primary-hover: #2b8050;
+  --sim-color-primary-soft: var(--theme-green-soft);
+  --sim-color-background: var(--theme-canvas);
+  --sim-color-surface: var(--theme-surface);
+  --sim-color-foreground: var(--theme-ink);
+  --sim-color-body: var(--theme-body);
+  --sim-color-muted: var(--theme-muted);
+  --sim-color-border: var(--theme-line);
+  --sim-shadow-card: 0 10px 35px -24px #0009;
+  --sim-shadow-float: 0 24px 70px -28px #000c;
+}
+
+[data-theme="dark"] body { background: var(--theme-canvas); color: var(--theme-ink); }
+[data-theme="dark"] :is(input, select, textarea) { color-scheme: dark; border-color: var(--theme-line); }
+[data-theme="dark"] :is(input, textarea)::placeholder { color: var(--theme-muted); opacity: 1; }
+[data-theme="dark"] :is(input, select, textarea):focus { border-color: var(--theme-green); }
+[data-theme="dark"] :is(button, a, input, select, textarea):focus-visible { outline-color: var(--theme-green); }
+[data-theme="dark"] .sim-toast { background: var(--theme-raised); color: var(--theme-ink); border-color: var(--theme-line); }
+[data-theme="dark"] .sim-skeleton { background: var(--theme-raised); }
+[data-theme="dark"] .sim-button-secondary { background: var(--theme-surface); }
+[data-theme="dark"] .sim-button-secondary:hover:not(:disabled) { color: var(--theme-green); }
+[data-theme="dark"] .card-standard { background: var(--theme-surface); color: var(--theme-body); border-color: var(--theme-line); }
+[data-theme="dark"] .btn-secondary { color: var(--theme-rose); border-color: var(--theme-rose); }
+[data-theme="dark"] .btn-secondary:is(:hover, :active):not(:disabled) { background: var(--theme-rose-soft); color: var(--theme-rose); }
+[data-theme="dark"] .nav-link-pill:not(:hover) { color: var(--theme-body); }
+[data-theme="dark"] .sim-icon-tile { color: var(--theme-green); }
+[data-theme="dark"] .input-standard { background: var(--theme-surface); color: var(--theme-ink); border-color: var(--theme-line); }
+[data-theme="dark"] .landing-glass-header.is-scrolled { background-color: #19241fe8 !important; border-bottom-color: var(--theme-line) !important; }
+[data-theme="dark"] :is(.simantri-step-card-hover, .simantri-timeline-card-hover):hover { background-color: var(--theme-raised) !important; }
+@media (forced-colors: active) {
+  [data-theme] :is(input, select, textarea, button) { forced-color-adjust: auto; }
+}

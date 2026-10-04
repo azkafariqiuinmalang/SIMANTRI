@@ -11,15 +11,15 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <div lang="id" className="min-h-screen bg-[#F6ECDF] text-[#241812] flex flex-col selection:bg-[#C4487A]/20 selection:text-[#4A1F2B]">
+    <div lang="id" className="min-h-screen bg-[#F6ECDF] dark:bg-[var(--theme-canvas)] text-[#241812] dark:text-[var(--theme-ink)] flex flex-col selection:bg-[#C4487A]/20 dark:selection:bg-[var(--theme-rose-soft)] selection:text-[#4A1F2B] dark:selection:text-[var(--theme-rose)]">
       {/* TOP HEADER */}
-      <header className="sticky top-0 z-40 backdrop-blur-md bg-[#F6ECDF]/90 border-b border-[#241812]/10 transition-all">
+      <header className="sticky top-0 z-40 backdrop-blur-md bg-[#F6ECDF]/90 dark:bg-[var(--theme-canvas)]/90 border-b border-[#241812]/10 dark:border-[var(--theme-line)] transition-all">
         <div className="mx-auto flex h-16 sm:h-20 max-w-6xl items-center justify-between px-4 sm:px-8">
           <Link
             href="/"
             className="group flex items-center gap-3 transition-transform hover:scale-105 active:scale-95"
           >
-            <div className="w-10 h-10 rounded-xl bg-white p-1 shadow-sm border border-[#241812]/10 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-white dark:bg-[var(--theme-surface)] p-1 shadow-sm border border-[#241812]/10 dark:border-[var(--theme-line)] flex items-center justify-center">
               <Image
                 src="/logo_simantri.png"
                 alt="Logo SIMANTRI"
@@ -31,9 +31,9 @@ export default function TermsPage() {
             </div>
             <div>
               <span className="block font-serif text-lg font-bold leading-none tracking-tight">
-                SIMAN<em className="text-[#A6304F]">TRI</em>
+                SIMAN<em className="text-[#A6304F] dark:text-[var(--theme-rose)]">TRI</em>
               </span>
-              <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#6b5b52]">
+              <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#6b5b52] dark:text-[var(--theme-body)]">
                 Syarat & Ketentuan
               </span>
             </div>
@@ -42,7 +42,7 @@ export default function TermsPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full border border-[#241812]/15 bg-white/70 px-4 py-2 text-xs font-semibold text-[#241812] backdrop-blur-sm transition-all hover:bg-white hover:border-[#A6304F]/40 hover:text-[#A6304F] shadow-sm"
+              className="inline-flex items-center gap-2 rounded-full border border-[#241812]/15 dark:border-[var(--theme-line)] bg-white/70 dark:bg-[var(--theme-surface)]/70 px-4 py-2 text-xs font-semibold text-[#241812] dark:text-[var(--theme-ink)] backdrop-blur-sm transition-all hover:bg-white dark:hover:bg-[var(--theme-surface)] hover:border-[#A6304F]/40 dark:hover:border-[var(--theme-rose)]/40 hover:text-[#A6304F] dark:hover:text-[var(--theme-rose)] shadow-sm"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Kembali ke Beranda</span>
@@ -53,12 +53,12 @@ export default function TermsPage() {
       </header>
 
       {/* SUB-NAVIGATION TABS */}
-      <nav className="bg-[#EDE3D3] border-b border-[#241812]/10 px-4 sm:px-8 py-3">
+      <nav className="bg-[#EDE3D3] dark:bg-[var(--theme-raised)] border-b border-[#241812]/10 dark:border-[var(--theme-line)] px-4 sm:px-8 py-3">
         <div className="mx-auto max-w-6xl flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm font-medium">
           <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
             <Link
               href="/privacy"
-              className="rounded-full bg-white/60 text-[#54433A] hover:bg-white hover:text-[#241812] px-4 py-1.5 transition-all whitespace-nowrap"
+              className="rounded-full bg-white/60 dark:bg-[var(--theme-surface)]/60 text-[#54433A] dark:text-[var(--theme-body)] hover:bg-white dark:hover:bg-[var(--theme-surface)] hover:text-[#241812] dark:hover:text-[var(--theme-ink)] px-4 py-1.5 transition-all whitespace-nowrap"
             >
               Kebijakan Privasi
             </Link>
@@ -70,12 +70,12 @@ export default function TermsPage() {
             </Link>
             <Link
               href="/data-deletion"
-              className="rounded-full bg-white/60 text-[#54433A] hover:bg-white hover:text-[#241812] px-4 py-1.5 transition-all whitespace-nowrap"
+              className="rounded-full bg-white/60 dark:bg-[var(--theme-surface)]/60 text-[#54433A] dark:text-[var(--theme-body)] hover:bg-white dark:hover:bg-[var(--theme-surface)] hover:text-[#241812] dark:hover:text-[var(--theme-ink)] px-4 py-1.5 transition-all whitespace-nowrap"
             >
               Penghapusan Data
             </Link>
           </div>
-          <span className="text-[11px] font-mono text-[#6b5b52]">
+          <span className="text-[11px] font-mono text-[#6b5b52] dark:text-[var(--theme-body)]">
             Terakhir diperbarui: 25 Agustus 2026
           </span>
         </div>
@@ -85,44 +85,44 @@ export default function TermsPage() {
       <main className="flex-1 px-4 sm:px-8 py-10 sm:py-16">
         <div className="mx-auto max-w-4xl">
           {/* HERO BANNER */}
-          <div className="mb-10 sm:mb-14 rounded-3xl bg-gradient-to-br from-[#FFFDF8] via-white to-[#FAF0E4] p-6 sm:p-10 border border-[#241812]/10 shadow-[0_20px_45px_-20px_rgba(36,24,18,0.15)] relative overflow-hidden">
-            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-[#E6A15C]/15 rounded-full blur-3xl pointer-events-none" />
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#E6A15C]/30 bg-[#E6A15C]/15 px-3.5 py-1.5 font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8C531B] mb-4">
-              <Scale className="h-3.5 w-3.5 text-[#8C531B]" />
+          <div className="mb-10 sm:mb-14 rounded-3xl bg-gradient-to-br from-[#FFFDF8] dark:from-[var(--theme-surface)] via-white dark:via-[var(--theme-surface)] to-[#FAF0E4] dark:to-[var(--theme-raised)] p-6 sm:p-10 border border-[#241812]/10 dark:border-[var(--theme-line)] shadow-[0_20px_45px_-20px_rgba(36,24,18,0.15)] relative overflow-hidden">
+            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-[#E6A15C]/15 dark:bg-[var(--theme-amber-soft)] rounded-full blur-3xl pointer-events-none" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#E6A15C]/30 dark:border-[var(--theme-amber)]/30 bg-[#E6A15C]/15 dark:bg-[var(--theme-amber-soft)] px-3.5 py-1.5 font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8C531B] dark:text-[var(--theme-amber)] mb-4">
+              <Scale className="h-3.5 w-3.5 text-[#8C531B] dark:text-[var(--theme-amber)]" />
               Ketentuan Penggunaan Platform
             </div>
-            <h1 className="font-serif text-2xl sm:text-4xl font-bold text-[#241812] tracking-tight leading-tight">
+            <h1 className="font-serif text-2xl sm:text-4xl font-bold text-[#241812] dark:text-[var(--theme-ink)] tracking-tight leading-tight">
               Syarat dan Ketentuan Layanan
             </h1>
-            <p className="mt-3 text-sm sm:text-base text-[#6b5b52] leading-relaxed max-w-2xl">
+            <p className="mt-3 text-sm sm:text-base text-[#6b5b52] dark:text-[var(--theme-body)] leading-relaxed max-w-2xl">
               Selamat datang di SIMANTRI. Dengan mengakses atau menggunakan aplikasi web dan layanan SIMANTRI, Anda menyetujui untuk terikat oleh syarat dan ketentuan berikut.
             </p>
           </div>
 
           {/* TERMS SECTIONS */}
-          <div className="space-y-8 text-[#3D2E26] text-sm sm:text-base leading-relaxed">
+          <div className="space-y-8 text-[#3D2E26] dark:text-[var(--theme-ink)] text-sm sm:text-base leading-relaxed">
             {/* Section 1 */}
-            <section className="rounded-2xl bg-[#FFFDF8]/90 border border-[#241812]/10 p-6 sm:p-8 shadow-sm">
+            <section className="rounded-2xl bg-[#FFFDF8]/90 dark:bg-[var(--theme-surface)]/90 border border-[#241812]/10 dark:border-[var(--theme-line)] p-6 sm:p-8 shadow-sm">
               <div className="flex items-start gap-4">
-                <div className="p-2.5 rounded-xl bg-[#A6304F]/10 text-[#A6304F] shrink-0 mt-1">
+                <div className="p-2.5 rounded-xl bg-[#A6304F]/10 dark:bg-[var(--theme-rose-soft)] text-[#A6304F] dark:text-[var(--theme-rose)] shrink-0 mt-1">
                   <FileText className="h-5 w-5" />
                 </div>
                 <div>
-                  <h2 className="font-serif text-lg sm:text-xl font-bold text-[#241812] mb-3">
+                  <h2 className="font-serif text-lg sm:text-xl font-bold text-[#241812] dark:text-[var(--theme-ink)] mb-3">
                     1. Ketentuan Umum & Definisi
                   </h2>
                   <p className="mb-3">
                     Dalam Syarat dan Ketentuan ini, yang dimaksud dengan:
                   </p>
-                  <ul className="space-y-2 list-disc list-inside text-[#54433A]">
+                  <ul className="space-y-2 list-disc list-inside text-[#54433A] dark:text-[var(--theme-body)]">
                     <li>
-                      <strong className="text-[#241812]">SIMANTRI:</strong> Sistem Informasi Manajemen Pertanian Bawang Merah Nganjuk, platform berbasis web yang menyediakan prakiraan harga, deteksi penyakit tanaman berbasis computer vision, asisten konsultasi AI, dan arsip pengetahuan pertanian.
+                      <strong className="text-[#241812] dark:text-[var(--theme-ink)]">SIMANTRI:</strong> Sistem Informasi Manajemen Pertanian Bawang Merah Nganjuk, platform berbasis web yang menyediakan prakiraan harga, deteksi penyakit tanaman berbasis computer vision, asisten konsultasi AI, dan arsip pengetahuan pertanian.
                     </li>
                     <li>
-                      <strong className="text-[#241812]">Pengguna:</strong> Setiap individu yang mengakses platform, baik sebagai Petani, Penyuluh Pertanian Lapangan (PPL), Administrator, maupun masyarakat umum.
+                      <strong className="text-[#241812] dark:text-[var(--theme-ink)]">Pengguna:</strong> Setiap individu yang mengakses platform, baik sebagai Petani, Penyuluh Pertanian Lapangan (PPL), Administrator, maupun masyarakat umum.
                     </li>
                     <li>
-                      <strong className="text-[#241812]">Layanan:</strong> Seluruh fitur interaktif, analitik data, pameran digital Dunia Brambang, dan modul konsultasi yang tersedia di domain resmi SIMANTRI.
+                      <strong className="text-[#241812] dark:text-[var(--theme-ink)]">Layanan:</strong> Seluruh fitur interaktif, analitik data, pameran digital Dunia Brambang, dan modul konsultasi yang tersedia di domain resmi SIMANTRI.
                     </li>
                   </ul>
                 </div>
@@ -130,16 +130,16 @@ export default function TermsPage() {
             </section>
 
             {/* Section 2 */}
-            <section className="rounded-2xl bg-[#FFFDF8]/90 border border-[#241812]/10 p-6 sm:p-8 shadow-sm">
+            <section className="rounded-2xl bg-[#FFFDF8]/90 dark:bg-[var(--theme-surface)]/90 border border-[#241812]/10 dark:border-[var(--theme-line)] p-6 sm:p-8 shadow-sm">
               <div className="flex items-start gap-4">
-                <div className="p-2.5 rounded-xl bg-[#56724A]/20 text-[#36512C] shrink-0 mt-1">
+                <div className="p-2.5 rounded-xl bg-[#56724A]/20 dark:bg-[var(--theme-green-soft)] text-[#36512C] dark:text-[var(--theme-green)] shrink-0 mt-1">
                   <ShieldCheck className="h-5 w-5" />
                 </div>
                 <div>
-                  <h2 className="font-serif text-lg sm:text-xl font-bold text-[#241812] mb-3">
+                  <h2 className="font-serif text-lg sm:text-xl font-bold text-[#241812] dark:text-[var(--theme-ink)] mb-3">
                     2. Akun, Hak Akses & Tanggung Jawab Pengguna
                   </h2>
-                  <ul className="space-y-2.5 list-disc list-inside text-[#54433A]">
+                  <ul className="space-y-2.5 list-disc list-inside text-[#54433A] dark:text-[var(--theme-body)]">
                     <li>Pengguna wajib memberikan informasi yang akurat, benar, dan terkini saat melakukan pendaftaran akun.</li>
                     <li>Akun dengan peran <strong>Penyuluh Pertanian</strong> wajib melalui proses verifikasi dan persetujuan oleh Administrator sebelum mendapatkan hak akses khusus validasi usulan.</li>
                     <li>Pengguna bertanggung jawab penuh dalam menjaga kerahasiaan kata sandi serta segala aktivitas yang terjadi di bawah akun masing-masing.</li>
@@ -150,27 +150,27 @@ export default function TermsPage() {
             </section>
 
             {/* Section 3 */}
-            <section className="rounded-2xl bg-[#FFFDF8]/90 border border-[#241812]/10 p-6 sm:p-8 shadow-sm">
+            <section className="rounded-2xl bg-[#FFFDF8]/90 dark:bg-[var(--theme-surface)]/90 border border-[#241812]/10 dark:border-[var(--theme-line)] p-6 sm:p-8 shadow-sm">
               <div className="flex items-start gap-4">
-                <div className="p-2.5 rounded-xl bg-[#E6A15C]/20 text-[#8C531B] shrink-0 mt-1">
+                <div className="p-2.5 rounded-xl bg-[#E6A15C]/20 dark:bg-[var(--theme-amber-soft)] text-[#8C531B] dark:text-[var(--theme-amber)] shrink-0 mt-1">
                   <Cpu className="h-5 w-5" />
                 </div>
                 <div>
-                  <h2 className="font-serif text-lg sm:text-xl font-bold text-[#241812] mb-3">
+                  <h2 className="font-serif text-lg sm:text-xl font-bold text-[#241812] dark:text-[var(--theme-ink)] mb-3">
                     3. Batasan Tanggung Jawab Kecerdasan Buatan (AI Disclaimer)
                   </h2>
-                  <div className="p-4 rounded-xl bg-[#FAF0E4] border border-[#E5DFD6] mb-4">
-                    <p className="text-xs sm:text-sm text-[#8C531B] font-medium flex items-center gap-2">
-                      <AlertTriangle className="h-4 w-4 shrink-0 text-[#8C531B]" />
+                  <div className="p-4 rounded-xl bg-[#FAF0E4] dark:bg-[var(--theme-raised)] border border-[#E5DFD6] dark:border-[var(--theme-line)] mb-4">
+                    <p className="text-xs sm:text-sm text-[#8C531B] dark:text-[var(--theme-amber)] font-medium flex items-center gap-2">
+                      <AlertTriangle className="h-4 w-4 shrink-0 text-[#8C531B] dark:text-[var(--theme-amber)]" />
                       Pemberitahuan Penting Mengenai Fitur Analitik & AI:
                     </p>
                   </div>
-                  <ul className="space-y-2.5 list-disc list-inside text-[#54433A]">
+                  <ul className="space-y-2.5 list-disc list-inside text-[#54433A] dark:text-[var(--theme-body)]">
                     <li>
-                      <strong className="text-[#241812]">Deteksi Penyakit AI:</strong> Hasil analisis gambar tanaman berbasis Computer Vision berfungsi sebagai panduan diagnosis awal dan rekomendasi pendukung. Keputusan penanganan OPT dan penggunaan pestisida tetap disarankan untuk dikonfirmasikan dengan Penyuluh Pertanian setempat.
+                      <strong className="text-[#241812] dark:text-[var(--theme-ink)]">Deteksi Penyakit AI:</strong> Hasil analisis gambar tanaman berbasis Computer Vision berfungsi sebagai panduan diagnosis awal dan rekomendasi pendukung. Keputusan penanganan OPT dan penggunaan pestisida tetap disarankan untuk dikonfirmasikan dengan Penyuluh Pertanian setempat.
                     </li>
                     <li>
-                      <strong className="text-[#241812]">Prakiraan Harga XGBoost:</strong> Proyeksi harga bawang merah 1-7 hari ke depan dihasilkan melalui model statistik historis. Harga aktual di pasar dapat dipengaruhi oleh faktor cuaca ekstrem tak terduga, fluktuasi pasokan nasional, atau dinamika pasar mendadak.
+                      <strong className="text-[#241812] dark:text-[var(--theme-ink)]">Prakiraan Harga XGBoost:</strong> Proyeksi harga bawang merah 1-7 hari ke depan dihasilkan melalui model statistik historis. Harga aktual di pasar dapat dipengaruhi oleh faktor cuaca ekstrem tak terduga, fluktuasi pasokan nasional, atau dinamika pasar mendadak.
                     </li>
                     <li>
                       SIMANTRI dan pengembang tidak bertanggung jawab atas kerugian finansial langsung atau tidak langsung yang timbul akibat keputusan bisnis/tani semata-mata berdasarkan hasil komputasi sistem.
@@ -181,19 +181,19 @@ export default function TermsPage() {
             </section>
 
             {/* Section 4 */}
-            <section className="rounded-2xl bg-[#FFFDF8]/90 border border-[#241812]/10 p-6 sm:p-8 shadow-sm">
+            <section className="rounded-2xl bg-[#FFFDF8]/90 dark:bg-[var(--theme-surface)]/90 border border-[#241812]/10 dark:border-[var(--theme-line)] p-6 sm:p-8 shadow-sm">
               <div className="flex items-start gap-4">
-                <div className="p-2.5 rounded-xl bg-[#A6304F]/10 text-[#A6304F] shrink-0 mt-1">
+                <div className="p-2.5 rounded-xl bg-[#A6304F]/10 dark:bg-[var(--theme-rose-soft)] text-[#A6304F] dark:text-[var(--theme-rose)] shrink-0 mt-1">
                   <Scale className="h-5 w-5" />
                 </div>
                 <div>
-                  <h2 className="font-serif text-lg sm:text-xl font-bold text-[#241812] mb-3">
+                  <h2 className="font-serif text-lg sm:text-xl font-bold text-[#241812] dark:text-[var(--theme-ink)] mb-3">
                     4. Hak Kekayaan Intelektual
                   </h2>
                   <p className="mb-3">
                     Seluruh desain antarmuka, kode sumber, logo, narasi kurasi di modul <em>Dunia Brambang</em>, dan model komputasi merupakan hak milik SIMANTRI dan mitra pengembang terkait yang dilindungi undang-undang hak cipta Republik Indonesia.
                   </p>
-                  <p className="text-[#54433A]">
+                  <p className="text-[#54433A] dark:text-[var(--theme-body)]">
                     Data kearifan lokal yang disumbangkan oleh petani tetap dihormati sebagai kontribusi komunitas untuk kemajuan pertanian Nganjuk secara terbuka dan edukatif.
                   </p>
                 </div>
@@ -201,19 +201,19 @@ export default function TermsPage() {
             </section>
 
             {/* Section 5 */}
-            <section className="rounded-2xl bg-[#FFFDF8]/90 border border-[#241812]/10 p-6 sm:p-8 shadow-sm">
+            <section className="rounded-2xl bg-[#FFFDF8]/90 dark:bg-[var(--theme-surface)]/90 border border-[#241812]/10 dark:border-[var(--theme-line)] p-6 sm:p-8 shadow-sm">
               <div className="flex items-start gap-4">
-                <div className="p-2.5 rounded-xl bg-[#241812]/10 text-[#241812] shrink-0 mt-1">
+                <div className="p-2.5 rounded-xl bg-[#241812]/10 dark:bg-[var(--theme-raised)] text-[#241812] dark:text-[var(--theme-ink)] shrink-0 mt-1">
                   <HelpCircle className="h-5 w-5" />
                 </div>
                 <div>
-                  <h2 className="font-serif text-lg sm:text-xl font-bold text-[#241812] mb-3">
+                  <h2 className="font-serif text-lg sm:text-xl font-bold text-[#241812] dark:text-[var(--theme-ink)] mb-3">
                     5. Perubahan Ketentuan & Hukum yang Berlaku
                   </h2>
-                  <p className="mb-3 text-[#54433A]">
+                  <p className="mb-3 text-[#54433A] dark:text-[var(--theme-body)]">
                     SIMANTRI berhak memperbarui Syarat & Ketentuan ini sewaktu-waktu demi menyesuaikan perkembangan teknologi dan regulasi pemerintah. Penggunaan berkelanjutan atas platform menandakan persetujuan Anda terhadap perubahan tersebut.
                   </p>
-                  <p className="text-[#54433A]">
+                  <p className="text-[#54433A] dark:text-[var(--theme-body)]">
                     Syarat dan Ketentuan ini diatur dan ditafsirkan sesuai dengan hukum yang berlaku di Negara Kesatuan Republik Indonesia.
                   </p>
                 </div>

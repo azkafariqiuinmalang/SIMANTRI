@@ -165,8 +165,8 @@ export default function ProfilPage() {
     return (
       <div className="flex min-h-[60vh] flex-1 items-center justify-center p-8 font-jakarta">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 animate-spin text-simantri-600" />
-          <p className="text-xs font-semibold text-slate-600">{t("Memuat profil akun SIMANTRI...")}</p>
+          <Loader2 className="w-8 h-8 animate-spin text-simantri-600 dark:text-[var(--theme-green)]" />
+          <p className="text-xs font-semibold text-slate-600 dark:text-[var(--theme-body)]">{t("Memuat profil akun SIMANTRI...")}</p>
         </div>
       </div>
     )
@@ -215,14 +215,14 @@ export default function ProfilPage() {
       {successMessage && <Toast message={successMessage} onDismiss={() => setSuccessMessage(null)} />}
 
       {errorMessage && (
-        <div role="alert" className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 text-xs sm:text-sm flex items-center justify-between gap-3 shadow-xs animate-in fade-in">
+        <div role="alert" className="p-4 rounded-2xl bg-rose-50 dark:bg-[var(--theme-rose-soft)] border border-rose-200 dark:border-[var(--theme-rose)] text-rose-900 dark:text-[var(--theme-rose)] text-xs sm:text-sm flex items-center justify-between gap-3 shadow-xs animate-in fade-in">
           <div className="flex items-center gap-2.5 font-bold">
-            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+            <AlertCircle className="w-4 h-4 text-rose-600 dark:text-[var(--theme-rose)] shrink-0" />
             <span>{t("Tindakan belum berhasil. Periksa isian dan koneksi, lalu coba kembali.")}</span>
           </div>
           <button
             onClick={() => setErrorMessage(null)}
-            className="p-1 text-rose-700 hover:bg-rose-100 rounded-lg transition"
+            className="p-1 text-rose-700 dark:text-[var(--theme-rose)] hover:bg-rose-100 dark:hover:bg-[var(--theme-rose-soft)] rounded-lg transition"
           >
             <X className="w-4 h-4" />
           </button>
@@ -234,76 +234,76 @@ export default function ProfilPage() {
         {/* LEFT COLUMN: IDENTITY & TELEMETRY SUMMARY (5 COLS) */}
         <div className="lg:col-span-5 space-y-6">
           {/* Card Profil Utama */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-xs relative overflow-hidden space-y-5">
+          <div className="bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-6 border border-slate-100 dark:border-[var(--theme-line)] shadow-xs relative overflow-hidden space-y-5">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <div className="relative shrink-0">
-                <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-simantri-700 via-simantri-800 to-slate-900 text-white flex items-center justify-center font-extrabold text-2xl shadow-md border-2 border-white">
+                <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-simantri-700 via-simantri-800 to-slate-900 text-white flex items-center justify-center font-extrabold text-2xl shadow-md border-2 border-white dark:border-[var(--theme-line)]">
                   {fullName ? fullName.charAt(0).toUpperCase() : t("U")}
                 </div>
                 {profile?.is_verified_contributor && (
-                  <div className="absolute -bottom-1 -right-1 bg-emerald-600 text-white rounded-full p-1 shadow-md border-2 border-white flex items-center justify-center" title={t("Kontributor Terverifikasi")}>
+                  <div className="absolute -bottom-1 -right-1 bg-emerald-600 text-white rounded-full p-1 shadow-md border-2 border-white dark:border-[var(--theme-line)] flex items-center justify-center" title={t("Kontributor Terverifikasi")}>
                     <ShieldCheck className="w-3.5 h-3.5" />
                   </div>
                 )}
               </div>
 
               <div className="min-w-0 flex-1">
-                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-50 text-simantri-800 font-bold text-[11px] border border-emerald-200/80 mb-1.5">
-                  <Sprout className="w-3.5 h-3.5 text-simantri-600" />
+                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-simantri-800 dark:text-[var(--theme-green)] font-bold text-[11px] border border-emerald-200/80 dark:border-[var(--theme-green)]/80 mb-1.5">
+                  <Sprout className="w-3.5 h-3.5 text-simantri-600 dark:text-[var(--theme-green)]" />
                   <span>{t(roleLabel)}</span>
                 </div>
-                <h2 className="text-xl font-extrabold text-slate-900 truncate">
+                <h2 className="text-xl font-extrabold text-slate-900 dark:text-[var(--theme-ink)] truncate">
                   {fullName || t("Pengguna SIMANTRI")}
                 </h2>
-                <p className="text-xs text-slate-400 font-mono mt-0.5">
+                <p className="text-xs text-slate-400 dark:text-[var(--theme-muted)] font-mono mt-0.5">
                   {t("UID:")} {profile?.id?.slice(0, 13)}...
                 </p>
               </div>
             </div>
 
             {/* Role Lock Notice */}
-            <div className="p-3.5 bg-slate-50 rounded-2xl flex items-start gap-3 border border-slate-100">
-              <Lock className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+            <div className="p-3.5 bg-slate-50 dark:bg-[var(--theme-canvas)] rounded-2xl flex items-start gap-3 border border-slate-100 dark:border-[var(--theme-line)]">
+              <Lock className="w-4 h-4 text-slate-400 dark:text-[var(--theme-muted)] shrink-0 mt-0.5" />
               <div>
-                <span className="text-xs font-bold text-slate-800 block">{t("Otoritas Akses Terproteksi")}</span>
-                <p className="text-[11px] text-slate-500 leading-relaxed mt-0.5">
+                <span className="text-xs font-bold text-slate-800 dark:text-[var(--theme-ink)] block">{t("Otoritas Akses Terproteksi")}</span>
+                <p className="text-[11px] text-slate-500 dark:text-[var(--theme-muted)] leading-relaxed mt-0.5">
                   {t("Hak akses dikelola sesuai peran terdaftar di Supabase RLS. Penyesuaian peran memerlukan validasi Administrator / Dinas.")}</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 text-slate-600 text-xs font-semibold pt-1">
-              <MapPin className="w-4 h-4 text-simantri-600 shrink-0" />
+            <div className="flex items-center gap-2 text-slate-600 dark:text-[var(--theme-body)] text-xs font-semibold pt-1">
+              <MapPin className="w-4 h-4 text-simantri-600 dark:text-[var(--theme-green)] shrink-0" />
               <span>{village || t("Kecamatan Sukomoro")}{t(", Kab. Nganjuk, Jawa Timur")}</span>
             </div>
 
             {/* Metric Telemetry Micro-Cards */}
             <div className="grid grid-cols-3 gap-2.5 pt-2">
-              <div className="bg-slate-50 p-3 rounded-2xl text-center border border-slate-100">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">{t("Deteksi CV")}</span>
-                <span className="text-xl font-extrabold text-slate-900 mt-0.5 block">{detectionsCount}</span>
-                <span className="text-[10px] font-semibold text-simantri-700">{t("Riwayat Foto")}</span>
+              <div className="bg-slate-50 dark:bg-[var(--theme-canvas)] p-3 rounded-2xl text-center border border-slate-100 dark:border-[var(--theme-line)]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-[var(--theme-muted)] block">{t("Deteksi CV")}</span>
+                <span className="text-xl font-extrabold text-slate-900 dark:text-[var(--theme-ink)] mt-0.5 block">{detectionsCount}</span>
+                <span className="text-[10px] font-semibold text-simantri-700 dark:text-[var(--theme-green)]">{t("Riwayat Foto")}</span>
               </div>
-              <div className="bg-slate-50 p-3 rounded-2xl text-center border border-slate-100">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">{t("Pengetahuan")}</span>
-                <span className="text-xl font-extrabold text-slate-900 mt-0.5 block">{suggestionsCount}</span>
-                <span className="text-[10px] font-semibold text-shallot-700">{t("Usulan Tani")}</span>
+              <div className="bg-slate-50 dark:bg-[var(--theme-canvas)] p-3 rounded-2xl text-center border border-slate-100 dark:border-[var(--theme-line)]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-[var(--theme-muted)] block">{t("Pengetahuan")}</span>
+                <span className="text-xl font-extrabold text-slate-900 dark:text-[var(--theme-ink)] mt-0.5 block">{suggestionsCount}</span>
+                <span className="text-[10px] font-semibold text-shallot-700 dark:text-[var(--theme-rose)]">{t("Usulan Tani")}</span>
               </div>
-              <div className="bg-slate-50 p-3 rounded-2xl text-center border border-slate-100">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">{t("Bergabung")}</span>
-                <span className="text-sm font-extrabold text-slate-900 mt-1 block">{joinDate}</span>
-                <span className="text-[10px] font-semibold text-slate-500">{t("Musim Tanam")}</span>
+              <div className="bg-slate-50 dark:bg-[var(--theme-canvas)] p-3 rounded-2xl text-center border border-slate-100 dark:border-[var(--theme-line)]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-[var(--theme-muted)] block">{t("Bergabung")}</span>
+                <span className="text-sm font-extrabold text-slate-900 dark:text-[var(--theme-ink)] mt-1 block">{joinDate}</span>
+                <span className="text-[10px] font-semibold text-slate-500 dark:text-[var(--theme-muted)]">{t("Musim Tanam")}</span>
               </div>
             </div>
           </div>
 
           {/* SIMA Quick Helper Card */}
-          <div className="bg-emerald-50/70 border border-emerald-200/60 rounded-3xl p-5 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-white p-1 shadow-xs border border-emerald-200 shrink-0 overflow-hidden">
+          <div className="bg-emerald-50/70 dark:bg-[var(--theme-green-soft)] border border-emerald-200/60 dark:border-[var(--theme-green)]/60 rounded-3xl p-5 shadow-xs flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-white dark:bg-[var(--theme-surface)] p-1 shadow-xs border border-emerald-200 dark:border-[var(--theme-green)] shrink-0 overflow-hidden">
               <Image src="/sima.jpg" alt="SIMA" width={48} height={48} className="w-full h-full object-cover rounded-xl" />
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="text-xs font-extrabold text-slate-900">{t("Butuh Bantuan Profil?")}</h4>
-              <p className="text-[11px] text-slate-600 mt-0.5">
+              <h4 className="text-xs font-extrabold text-slate-900 dark:text-[var(--theme-ink)]">{t("Butuh Bantuan Profil?")}</h4>
+              <p className="text-[11px] text-slate-600 dark:text-[var(--theme-body)] mt-0.5">
                 {t("Tanyakan kepada SIMA mengenai prosedur pembaruan status kelompok tani atau KTA.")}</p>
             </div>
             <Link
@@ -317,15 +317,15 @@ export default function ProfilPage() {
         {/* RIGHT COLUMN: EDIT FORM & SECURITY SETTINGS (7 COLS) */}
         <div className="lg:col-span-7 space-y-6">
           {/* Card Informasi Akun Form */}
-          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-100 shadow-xs space-y-6">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+          <div className="bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-6 sm:p-7 border border-slate-100 dark:border-[var(--theme-line)] shadow-xs space-y-6">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-[var(--theme-line)]">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-simantri-700 flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-simantri-700 dark:text-[var(--theme-green)] flex items-center justify-center font-bold">
                   <User className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-extrabold text-slate-900">{t("Informasi Pribadi & Wilayah")}</h3>
-                  <p className="text-xs text-slate-400">{t("Data registrasi resmi pada ekosistem SIMANTRI")}</p>
+                  <h3 className="text-base font-extrabold text-slate-900 dark:text-[var(--theme-ink)]">{t("Informasi Pribadi & Wilayah")}</h3>
+                  <p className="text-xs text-slate-400 dark:text-[var(--theme-muted)]">{t("Data registrasi resmi pada ekosistem SIMANTRI")}</p>
                 </div>
               </div>
             </div>
@@ -333,10 +333,10 @@ export default function ProfilPage() {
             <form onSubmit={handleSave} className="space-y-4">
               {/* Full Name */}
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-800">
+                <label className="block text-xs font-bold text-slate-800 dark:text-[var(--theme-ink)]">
                   {t("Nama Lengkap")}</label>
                 <div className="relative">
-                  <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <User className="w-4 h-4 text-slate-400 dark:text-[var(--theme-muted)] absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     required
@@ -344,7 +344,7 @@ export default function ProfilPage() {
                     aria-label={t("Nama lengkap")}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder={t("Contoh: Pak Sutrisno")}
-                    className="w-full h-11 pl-10 pr-4 text-xs rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-hidden focus:border-simantri-600 focus:ring-2 focus:ring-simantri-600/10 text-slate-900 transition font-medium"
+                    className="w-full h-11 pl-10 pr-4 text-xs rounded-2xl border border-slate-200 dark:border-[var(--theme-line)] bg-slate-50/50 dark:bg-[var(--theme-canvas)]/50 focus:bg-white dark:focus:bg-[var(--theme-surface)] focus:outline-hidden focus:border-simantri-600 dark:focus:border-[var(--theme-green)] focus:ring-2 focus:ring-simantri-600/10 dark:focus:ring-[var(--theme-green)]/10 text-slate-900 dark:text-[var(--theme-ink)] transition font-medium"
                   />
                 </div>
               </div>
@@ -352,43 +352,43 @@ export default function ProfilPage() {
               {/* Email (Read only) */}
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <label className="block text-xs font-bold text-slate-800">
+                  <label className="block text-xs font-bold text-slate-800 dark:text-[var(--theme-ink)]">
                     {t("Alamat Email (Akun Login)")}</label>
-                  <span className="text-[10px] font-bold text-slate-400 uppercase">{t("Aktif")}</span>
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase">{t("Aktif")}</span>
                 </div>
                 <div className="relative">
-                  <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <Mail className="w-4 h-4 text-slate-400 dark:text-[var(--theme-muted)] absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
                     type="email"
                     disabled
                     value={email}
                     aria-label={t("Alamat email akun")}
-                    className="w-full h-11 pl-10 pr-4 text-xs rounded-2xl border border-slate-200 bg-slate-100/80 text-slate-500 font-mono cursor-not-allowed"
+                    className="w-full h-11 pl-10 pr-4 text-xs rounded-2xl border border-slate-200 dark:border-[var(--theme-line)] bg-slate-100/80 dark:bg-[var(--theme-raised)]/80 text-slate-500 dark:text-[var(--theme-muted)] font-mono cursor-not-allowed"
                   />
                 </div>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-slate-400 dark:text-[var(--theme-muted)]">
                   {t("Email terikat dengan otentikasi akun dan diamankan dengan Supabase Auth.")}</p>
               </div>
 
               {/* Role (Read only) */}
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-800">
+                <label className="block text-xs font-bold text-slate-800 dark:text-[var(--theme-ink)]">
                   {t("Peran Aktor Sistem")}</label>
                 <div className="relative">
-                  <Shield className="w-4 h-4 text-simantri-600 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <Shield className="w-4 h-4 text-simantri-600 dark:text-[var(--theme-green)] absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     disabled
                     value={t(roleLabel)}
                     aria-label={t("Peran aktor sistem")}
-                    className="w-full h-11 pl-10 pr-4 text-xs rounded-2xl border border-slate-200 bg-slate-100/80 text-slate-700 font-bold cursor-not-allowed"
+                    className="w-full h-11 pl-10 pr-4 text-xs rounded-2xl border border-slate-200 dark:border-[var(--theme-line)] bg-slate-100/80 dark:bg-[var(--theme-raised)]/80 text-slate-700 dark:text-[var(--theme-body)] font-bold cursor-not-allowed"
                   />
                 </div>
               </div>
 
               {/* Village / District */}
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-800">
+                <label className="block text-xs font-bold text-slate-800 dark:text-[var(--theme-ink)]">
                   {t("Kecamatan / Wilayah Budidaya Bawang Merah")}</label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <select
@@ -402,7 +402,7 @@ export default function ProfilPage() {
                       const kec = e.target.value
                       setVillage(kec ? `Kecamatan ${kec}` : '')
                     }}
-                    className="h-11 px-3.5 text-xs rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-hidden focus:border-simantri-600 text-slate-900 transition font-medium"
+                    className="h-11 px-3.5 text-xs rounded-2xl border border-slate-200 dark:border-[var(--theme-line)] bg-slate-50/50 dark:bg-[var(--theme-canvas)]/50 focus:bg-white dark:focus:bg-[var(--theme-surface)] focus:outline-hidden focus:border-simantri-600 dark:focus:border-[var(--theme-green)] text-slate-900 dark:text-[var(--theme-ink)] transition font-medium"
                   >
                     <option value="">{t("-- Pilih Kecamatan di Nganjuk --")}</option>
                     {NGANJUK_KECAMATAN.map((k) => (
@@ -418,10 +418,10 @@ export default function ProfilPage() {
                     aria-label={t("Desa atau hamparan budidaya")}
                     onChange={(e) => setVillage(e.target.value)}
                     placeholder={t("Atau tulis nama Desa / Hamparan...")}
-                    className="h-11 px-3.5 text-xs rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-hidden focus:border-simantri-600 text-slate-900 transition font-medium"
+                    className="h-11 px-3.5 text-xs rounded-2xl border border-slate-200 dark:border-[var(--theme-line)] bg-slate-50/50 dark:bg-[var(--theme-canvas)]/50 focus:bg-white dark:focus:bg-[var(--theme-surface)] focus:outline-hidden focus:border-simantri-600 dark:focus:border-[var(--theme-green)] text-slate-900 dark:text-[var(--theme-ink)] transition font-medium"
                   />
                 </div>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-slate-400 dark:text-[var(--theme-muted)]">
                   {t("Lokasi hamparan menentukan kalibrasi prediksi harga, peringatan OPT cuaca, dan rujukan PPL kecamatan.")}</p>
               </div>
 
@@ -449,31 +449,31 @@ export default function ProfilPage() {
           </div>
 
           {/* Card Keamanan & Sesi Akun */}
-          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-100 shadow-xs space-y-5">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+          <div className="bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-6 sm:p-7 border border-slate-100 dark:border-[var(--theme-line)] shadow-xs space-y-5">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-[var(--theme-line)]">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-simantri-700 flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-simantri-700 dark:text-[var(--theme-green)] flex items-center justify-center font-bold">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-extrabold text-slate-900">{t("Keamanan & Sesi Akun")}</h3>
-                  <p className="text-xs text-slate-400">{t("Proteksi akses berbasis enkripsi Row-Level Security")}</p>
+                  <h3 className="text-base font-extrabold text-slate-900 dark:text-[var(--theme-ink)]">{t("Keamanan & Sesi Akun")}</h3>
+                  <p className="text-xs text-slate-400 dark:text-[var(--theme-muted)]">{t("Proteksi akses berbasis enkripsi Row-Level Security")}</p>
                 </div>
               </div>
             </div>
 
             {/* Status Autentikasi Box */}
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div className="p-4 bg-slate-50 dark:bg-[var(--theme-canvas)] rounded-2xl border border-slate-100 dark:border-[var(--theme-line)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl bg-emerald-100 text-simantri-800 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-[var(--theme-green-soft)] text-simantri-800 dark:text-[var(--theme-green)] flex items-center justify-center shrink-0">
                   <KeyRound className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-xs font-bold text-slate-900 block">{t("Sesi Terenkripsi Supabase Auth")}</span>
-                  <span className="text-[11px] text-slate-500">{t("Data lahan & riwayat deteksi terlindungi secara aman.")}</span>
+                  <span className="text-xs font-bold text-slate-900 dark:text-[var(--theme-ink)] block">{t("Sesi Terenkripsi Supabase Auth")}</span>
+                  <span className="text-[11px] text-slate-500 dark:text-[var(--theme-muted)]">{t("Data lahan & riwayat deteksi terlindungi secara aman.")}</span>
                 </div>
               </div>
-              <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold uppercase shrink-0">
+              <span className="px-3 py-1 rounded-full bg-emerald-100 dark:bg-[var(--theme-green-soft)] text-emerald-800 dark:text-[var(--theme-green)] text-[10px] font-extrabold uppercase shrink-0">
                 {t("Sesi Valid")}</span>
             </div>
 
@@ -483,12 +483,12 @@ export default function ProfilPage() {
                 type="button"
                 onClick={handleResetPassword}
                 disabled={resetPasswordLoading}
-                className="h-11 px-5 rounded-2xl border border-slate-200 hover:bg-slate-100 text-slate-700 font-bold text-xs transition flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
+                className="h-11 px-5 rounded-2xl border border-slate-200 dark:border-[var(--theme-line)] hover:bg-slate-100 dark:hover:bg-[var(--theme-raised)] text-slate-700 dark:text-[var(--theme-body)] font-bold text-xs transition flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
               >
                 {resetPasswordLoading ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
                 ) : (
-                  <KeyRound className="w-3.5 h-3.5 text-simantri-700" />
+                  <KeyRound className="w-3.5 h-3.5 text-simantri-700 dark:text-[var(--theme-green)]" />
                 )}
                 <span>{t("Kirim Reset Kata Sandi")}</span>
               </button>
@@ -496,7 +496,7 @@ export default function ProfilPage() {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="h-11 px-5 rounded-2xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 font-bold text-xs transition flex items-center justify-center gap-2 active:scale-95"
+                className="h-11 px-5 rounded-2xl bg-rose-50 dark:bg-[var(--theme-rose-soft)] hover:bg-rose-100 dark:hover:bg-[var(--theme-rose-soft)] border border-rose-200 dark:border-[var(--theme-rose)] text-rose-700 dark:text-[var(--theme-rose)] font-bold text-xs transition flex items-center justify-center gap-2 active:scale-95"
               >
                 <LogOut className="w-3.5 h-3.5" />
                 <span>{t("Keluar dari Akun")}</span>

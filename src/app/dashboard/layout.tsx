@@ -1,6 +1,7 @@
 'use client'
 
 import { LanguageSwitcher, useLanguage } from '@/components/ui/LanguageProvider'
+import { ThemeSwitcher } from '@/components/ui/ThemeProvider'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -105,17 +106,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   if (loading) {
     return (
-      <div className="flex min-h-dvh items-center justify-center bg-[#F6F8F6] font-jakarta">
+      <div className="flex min-h-dvh items-center justify-center bg-[#F6F8F6] dark:bg-[var(--theme-canvas)] font-jakarta">
         <div className="flex flex-col items-center gap-3" role="status">
-          <Loader2 className="h-8 w-8 animate-spin text-simantri-600" aria-hidden="true" />
-          <p className="text-sm font-semibold text-slate-700">{t("Memuat Sistem SIMANTRI…")}</p>
+          <Loader2 className="h-8 w-8 animate-spin text-simantri-600 dark:text-[var(--theme-green)]" aria-hidden="true" />
+          <p className="text-sm font-semibold text-slate-700 dark:text-[var(--theme-body)]">{t("Memuat Sistem SIMANTRI…")}</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-[#F6F8F6] font-jakarta flex overflow-x-clip text-slate-800">
+    <div className="min-h-screen bg-[#F6F8F6] dark:bg-[var(--theme-canvas)] font-jakarta flex overflow-x-clip text-slate-800 dark:text-[var(--theme-ink)]">
       <Sidebar
         profile={profile}
         isOpen={isSidebarOpen}
@@ -125,13 +126,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       <div className="min-w-0 flex-1 flex flex-col">
         {/* Top Header */}
-        <header className="sticky top-0 z-30 h-16 sm:h-20 bg-white/85 backdrop-blur-xl border-b border-slate-100 px-4 sm:px-6 lg:px-8 flex items-center justify-between shadow-xs">
+        <header className="sticky top-0 z-30 h-16 sm:h-20 bg-white/85 dark:bg-[var(--theme-surface)]/85 backdrop-blur-xl border-b border-slate-100 dark:border-[var(--theme-line)] px-4 sm:px-6 lg:px-8 flex items-center justify-between shadow-xs">
           <div className="flex items-center gap-3">
             {/* Mobile Sidebar Toggle Button */}
             <button
               type="button"
               onClick={() => setIsSidebarOpen(true)}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 lg:hidden"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 dark:border-[var(--theme-line)] text-slate-700 dark:text-[var(--theme-body)] hover:bg-slate-50 dark:hover:bg-[var(--theme-canvas)] lg:hidden"
               aria-label={t("Buka menu navigasi")}
               aria-expanded={isSidebarOpen}
             >
@@ -148,20 +149,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 className="h-8 w-8 object-contain"
                 priority
               />
-              <span className="hidden min-[430px]:block font-extrabold text-sm tracking-tight text-simantri-700">
+              <span className="hidden sm:block font-extrabold text-sm tracking-tight text-simantri-700 dark:text-[var(--theme-green)]">
                 SIMANTRI
               </span>
             </Link>
 
             {/* Location & Date Pills (Desktop) */}
             <div className="hidden lg:flex items-center gap-2.5">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 text-xs font-semibold text-slate-700">
-                <Calendar className="w-3.5 h-3.5 text-simantri-600" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-[var(--theme-raised)] text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)]">
+                <Calendar className="w-3.5 h-3.5 text-simantri-600 dark:text-[var(--theme-green)]" />
                 <span>{formattedDate || t("Selasa, 24 Oktober")}</span>
               </div>
 
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-simantri-50 text-xs font-bold text-simantri-700 border border-simantri-200/50">
-                <MapPin className="w-3.5 h-3.5 text-simantri-600" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-simantri-50 dark:bg-[var(--theme-green-soft)] text-xs font-bold text-simantri-700 dark:text-[var(--theme-green)] border border-simantri-200/50 dark:border-[var(--theme-green)]/50">
+                <MapPin className="w-3.5 h-3.5 text-simantri-600 dark:text-[var(--theme-green)]" />
                 <span>{t("Nganjuk (Sentra Bawang Merah)")}</span>
               </div>
             </div>
@@ -172,13 +173,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <button
               type="button"
               onClick={() => openSimaAssistant()}
-              className="w-full h-10 px-4 rounded-full border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-simantri-300 text-left text-xs text-slate-400 flex items-center justify-between transition-all group shadow-xs cursor-pointer"
+              className="w-full h-10 px-4 rounded-full border border-slate-200 dark:border-[var(--theme-line)] bg-slate-50/70 dark:bg-[var(--theme-canvas)]/70 hover:bg-white dark:hover:bg-[var(--theme-surface)] hover:border-simantri-300 dark:hover:border-[var(--theme-green)] text-left text-xs text-slate-400 dark:text-[var(--theme-muted)] flex items-center justify-between transition-all group shadow-xs cursor-pointer"
             >
               <div className="flex min-w-0 items-center gap-2.5">
-                <Search className="w-4 h-4 text-slate-400 group-hover:text-simantri-600" />
+                <Search className="w-4 h-4 text-slate-400 dark:text-[var(--theme-muted)] group-hover:text-simantri-600 dark:group-hover:text-[var(--theme-green)]" />
                 <span className="truncate">{t("Cari panduan, hama, atau tanya SIMA…")}</span>
               </div>
-              <kbd className="hidden sm:inline-block px-2 py-0.5 rounded-md bg-white border border-slate-200 text-[10px] font-semibold text-slate-500">
+              <kbd className="hidden sm:inline-block px-2 py-0.5 rounded-md bg-white dark:bg-[var(--theme-surface)] border border-slate-200 dark:border-[var(--theme-line)] text-[10px] font-semibold text-slate-500 dark:text-[var(--theme-muted)]">
                 Ctrl K
               </kbd>
             </button>
@@ -187,26 +188,27 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {/* Right Action Icons & User Avatar */}
           <div className="flex items-center gap-2.5">
             <LanguageSwitcher />
+            <ThemeSwitcher />
             <Link
               href="/dashboard/chat"
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-simantri-50 hover:bg-simantri-100 text-xs font-bold text-simantri-700 border border-simantri-200/60 transition shadow-xs"
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-simantri-50 dark:bg-[var(--theme-green-soft)] hover:bg-simantri-100 dark:hover:bg-[var(--theme-green-soft)] text-xs font-bold text-simantri-700 dark:text-[var(--theme-green)] border border-simantri-200/60 dark:border-[var(--theme-green)]/60 transition shadow-xs"
             >
-              <Sparkles className="w-3.5 h-3.5 text-simantri-600" />
+              <Sparkles className="w-3.5 h-3.5 text-simantri-600 dark:text-[var(--theme-green)]" />
               <span>{t("Tanya SIMA")}</span>
             </Link>
 
             <Link
               href="/dashboard/profil"
-              className="flex items-center gap-2 p-1 rounded-full hover:bg-slate-100 transition"
+              className="flex items-center gap-2 p-1 rounded-full hover:bg-slate-100 dark:hover:bg-[var(--theme-raised)] transition"
             >
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-simantri-700 text-xs font-bold text-white shadow-xs">
                 {profile?.full_name?.charAt(0).toUpperCase() || t("P")}
               </span>
               <span className="hidden xl:flex flex-col text-left">
-                <span className="text-xs font-bold text-slate-900 leading-tight">
+                <span className="text-xs font-bold text-slate-900 dark:text-[var(--theme-ink)] leading-tight">
                   {profile?.full_name?.split(' ')[0] || t("Petani")}
                 </span>
-                <span className="text-[10px] text-slate-500 capitalize">
+                <span className="text-[10px] text-slate-500 dark:text-[var(--theme-muted)] capitalize">
                   {profile?.village || 'Nganjuk'}
                 </span>
               </span>
@@ -223,7 +225,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         {/* Mobile Bottom Navigation Bar */}
         <nav
-          className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200/80 bg-white/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl lg:hidden shadow-lg"
+          className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200/80 dark:border-[var(--theme-line)] bg-white/95 dark:bg-[var(--theme-surface)]/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl lg:hidden shadow-lg"
           aria-label={t("Navigasi utama mobile")}
         >
           <ul className="mx-auto grid max-w-lg grid-cols-5">
@@ -238,8 +240,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     aria-current={active ? 'page' : undefined}
                     className={`flex min-h-12 flex-col items-center justify-center gap-1 rounded-2xl px-1 text-[11px] font-bold transition-all ${
                       active
-                        ? 'text-simantri-700 bg-simantri-50/90'
-                        : 'text-slate-500 hover:text-slate-900'
+                        ? 'text-simantri-700 dark:text-[var(--theme-green)] bg-simantri-50/90 dark:bg-[var(--theme-green-soft)]'
+                        : 'text-slate-500 dark:text-[var(--theme-muted)] hover:text-slate-900 dark:hover:text-[var(--theme-ink)]'
                     }`}
                   >
                     <Icon className="h-5 w-5" strokeWidth={active ? 2.4 : 1.8} />

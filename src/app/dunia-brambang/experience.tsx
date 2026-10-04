@@ -348,9 +348,9 @@ export default function DuniaBrambangExperience() {
             className="glass-panel px-4 py-2 rounded-full text-xs flex items-center space-x-2 text-[#FBF4EE]/90 hover:text-[#FBF4EE] transition-all duration-300 cursor-pointer"
           >
             {isAudioPlaying ? (
-              <Volume2 className="w-4 h-4 text-[#C4487A]" />
+              <Volume2 className="w-4 h-4 text-[#C4487A] dark:text-[var(--theme-rose)]" />
             ) : (
-              <VolumeX className="w-4 h-4 text-[#C4487A]" />
+              <VolumeX className="w-4 h-4 text-[#C4487A] dark:text-[var(--theme-rose)]" />
             )}
             <span className="hidden sm:inline">
               {isAudioPlaying ? 'Suara Ambien: Nyala' : 'Suara Ambien: Mati'}
@@ -417,7 +417,7 @@ export default function DuniaBrambangExperience() {
           </div>
 
           <div className="max-w-4xl mx-auto text-center z-10 space-y-12">
-            <div className="inline-block px-3 py-1 rounded-full border border-[#C4487A]/30 text-[#C4487A] text-xs tracking-widest uppercase mb-4">
+            <div className="inline-block px-3 py-1 rounded-full border border-[#C4487A]/30 dark:border-[var(--theme-rose)]/30 text-[#C4487A] dark:text-[var(--theme-rose)] text-xs tracking-widest uppercase mb-4">
               Pameran Digital &bull; SIMANTRI
             </div>
 
@@ -428,7 +428,7 @@ export default function DuniaBrambangExperience() {
               <p className="font-serif text-2xl md:text-4xl lg:text-5xl font-light leading-relaxed text-[#FBF4EE]/90">
                 &quot;Setiap hari, jutaan orang memasak dengan bawang.
               </p>
-              <p className="font-serif text-2xl md:text-4xl lg:text-5xl italic font-light leading-relaxed text-[#C4487A] mt-4">
+              <p className="font-serif text-2xl md:text-4xl lg:text-5xl italic font-light leading-relaxed text-[#C4487A] dark:text-[var(--theme-rose)] mt-4">
                 Namun hanya sedikit yang tahu dari mana kisah ini bermula.&quot;
               </p>
             </div>
@@ -438,7 +438,7 @@ export default function DuniaBrambangExperience() {
               className="opacity-0 translate-y-8 transition-all"
             >
               <h1 className="font-serif text-5xl md:text-8xl lg:text-9xl font-normal tracking-tight text-[#FBF4EE] mt-8">
-                Dunia <span className="text-[#C4487A] italic">Brambang.</span>
+                Dunia <span className="text-[#C4487A] dark:text-[var(--theme-rose)] italic">Brambang.</span>
               </h1>
               <p className="text-sm md:text-base font-light text-[#FBF4EE]/60 max-w-lg mx-auto mt-6 tracking-wide">
                 Sebuah pengalaman museum interaktif yang mengeksplorasi jiwa
@@ -453,7 +453,7 @@ export default function DuniaBrambangExperience() {
               <span className="text-xs uppercase tracking-widest text-[#FBF4EE]/50">
                 Mulai Perjalanan
               </span>
-              <div className="w-6 h-10 border border-[#FBF4EE]/30 rounded-full flex justify-center p-1">
+              <div className="w-6 h-10 border border-[#FBF4EE]/30 dark:border-[var(--theme-line)] rounded-full flex justify-center p-1">
                 <div className="w-1.5 h-3 bg-[#C4487A] rounded-full animate-bounce"></div>
               </div>
             </div>
@@ -467,7 +467,7 @@ export default function DuniaBrambangExperience() {
         >
           <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-5 space-y-8 lg:order-1 order-2">
-              <span className="text-[#C4487A] text-xs font-mono uppercase tracking-widest">
+              <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-widest">
                 Galeri 01 &bull; Identitas
               </span>
               <h2 className="font-serif text-4xl md:text-6xl font-light leading-tight">
@@ -483,11 +483,11 @@ export default function DuniaBrambangExperience() {
 
             <div className="lg:col-span-7 lg:order-2 order-1">
               <div className="glass-panel p-8 md:p-12 rounded-2xl relative overflow-hidden space-y-8 shadow-2xl">
-                <div className="absolute -right-16 -bottom-16 w-64 h-64 bg-[#C4487A]/10 rounded-full blur-3xl"></div>
+                <div className="absolute -right-16 -bottom-16 w-64 h-64 bg-[#C4487A]/10 dark:bg-[var(--theme-rose-soft)] rounded-full blur-3xl"></div>
 
                 <div className="relative z-10">
                   <div className="flex items-baseline space-x-2">
-                    <span className="font-serif text-6xl md:text-8xl font-bold text-[#C4487A]">
+                    <span className="font-serif text-6xl md:text-8xl font-bold text-[#C4487A] dark:text-[var(--theme-rose)]">
                       38,72
                     </span>
                     <span className="font-serif text-3xl md:text-5xl text-[#FBF4EE]">
@@ -499,7 +499,7 @@ export default function DuniaBrambangExperience() {
                   </p>
                 </div>
 
-                <div className="relative z-10 py-6 border-y border-[#FBF4EE]/10 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="relative z-10 py-6 border-y border-[#FBF4EE]/10 dark:border-[var(--theme-line)] grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <h3 className="font-serif text-xl text-[#FBF4EE]">
                       Kota Brambang
@@ -522,16 +522,16 @@ export default function DuniaBrambangExperience() {
                   </div>
                 </div>
 
-                <div className="relative z-10 h-40 bg-[#0E080A]/40 rounded-xl border border-[#FBF4EE]/10 p-4 flex items-center justify-around">
+                <div className="relative z-10 h-40 bg-[#0E080A]/40 rounded-xl border border-[#FBF4EE]/10 dark:border-[var(--theme-line)] p-4 flex items-center justify-around">
                   <div className="text-center">
-                    <Landmark className="w-8 h-8 text-[#C4487A] mx-auto mb-1" />
+                    <Landmark className="w-8 h-8 text-[#C4487A] dark:text-[var(--theme-rose)] mx-auto mb-1" />
                     <span className="text-[11px] text-[#FBF4EE]/80 block">
                       Tengara Ikonik
                     </span>
                   </div>
                   <div className="w-px h-12 bg-[#FBF4EE]/10"></div>
                   <div className="text-center">
-                    <Sprout className="w-8 h-8 text-[#3A5A40] mx-auto mb-1" />
+                    <Sprout className="w-8 h-8 text-[#3A5A40] dark:text-[var(--theme-green)] mx-auto mb-1" />
                     <span className="text-[11px] text-[#FBF4EE]/80 block">
                       Sabuk Tanah Subur
                     </span>
@@ -559,7 +559,7 @@ export default function DuniaBrambangExperience() {
               <div className="relative w-80 h-[460px] md:w-[440px] md:h-[520px] flex items-center justify-center p-4">
                 <div
                   id="tuguGlow"
-                  className="absolute inset-0 bg-gradient-to-t from-[#C4487A]/0 via-[#C4487A]/0 to-transparent rounded-full blur-2xl transition-all duration-1000 opacity-0"
+                  className="absolute inset-0 bg-gradient-to-t from-[#C4487A]/0 dark:from-[var(--theme-rose-soft)] via-[#C4487A]/0 dark:via-[var(--theme-rose-soft)] to-transparent rounded-full blur-2xl transition-all duration-1000 opacity-0"
                 ></div>
 
                 <svg
@@ -690,7 +690,7 @@ export default function DuniaBrambangExperience() {
             </div>
 
             <div className="lg:col-span-6 space-y-8 lg:order-1 order-2">
-              <span className="text-[#C4487A] text-xs font-mono uppercase tracking-widest">
+              <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-widest">
                 Galeri 02 &bull; Monumen
               </span>
               <h2 className="font-serif text-4xl md:text-5xl font-light leading-tight">
@@ -721,7 +721,7 @@ export default function DuniaBrambangExperience() {
         >
           <div className="max-w-7xl mx-auto w-full space-y-16">
             <div className="text-center max-w-3xl mx-auto space-y-4">
-              <span className="text-[#C4487A] text-xs font-mono uppercase tracking-widest">
+              <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-widest">
                 Galeri 03 &bull; Skala & Dampak
               </span>
               <h2 className="font-serif text-4xl md:text-6xl font-light">
@@ -735,7 +735,7 @@ export default function DuniaBrambangExperience() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div className="glass-panel p-8 rounded-2xl space-y-3 transform hover:-translate-y-2 transition-all">
-                <span className="text-xs font-mono text-[#C4487A] uppercase tracking-widest">
+                <span className="text-xs font-mono text-[#C4487A] dark:text-[var(--theme-rose)] uppercase tracking-widest">
                   Hasil Tahunan
                 </span>
                 <div className="font-serif text-5xl md:text-6xl text-[#FBF4EE] font-light">
@@ -767,7 +767,7 @@ export default function DuniaBrambangExperience() {
               </div>
 
               <div className="glass-panel p-8 rounded-2xl space-y-3 transform hover:-translate-y-2 transition-all">
-                <span className="text-xs font-mono text-[#3A5A40] uppercase tracking-widest">
+                <span className="text-xs font-mono text-[#3A5A40] dark:text-[var(--theme-green)] uppercase tracking-widest">
                   Jangkauan Global
                 </span>
                 <div className="font-serif text-5xl md:text-6xl text-[#FBF4EE] font-light">
@@ -796,7 +796,7 @@ export default function DuniaBrambangExperience() {
                 </div>
                 <div
                   id="activeFlowNode"
-                  className="px-4 py-2 rounded-full bg-[#C4487A]/20 text-[#C4487A] text-xs font-mono"
+                  className="px-4 py-2 rounded-full bg-[#C4487A]/20 dark:bg-[var(--theme-rose-soft)] text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono"
                 >
                   Terpilih: {selectedFlow.title}
                 </div>
@@ -815,11 +815,11 @@ export default function DuniaBrambangExperience() {
                   }
                   className={`p-4 rounded-xl text-left space-y-2 transition-all cursor-pointer ${
                     selectedFlow.id === 'domestic'
-                      ? 'border border-[#C4487A] bg-[#C4487A]/10'
-                      : 'border border-[#FBF4EE]/10 hover:border-[#C4487A]/50'
+                      ? 'border border-[#C4487A] dark:border-[var(--theme-rose)] bg-[#C4487A]/10 dark:bg-[var(--theme-rose-soft)]'
+                      : 'border border-[#FBF4EE]/10 dark:border-[var(--theme-line)] hover:border-[#C4487A]/50 dark:hover:border-[var(--theme-rose)]/50'
                   }`}
                 >
-                  <span className="text-xs text-[#C4487A] uppercase font-mono">
+                  <span className="text-xs text-[#C4487A] dark:text-[var(--theme-rose)] uppercase font-mono">
                     Simpul 01
                   </span>
                   <p className="font-serif text-lg text-[#FBF4EE]">Pusat Domestik</p>
@@ -840,14 +840,14 @@ export default function DuniaBrambangExperience() {
                   }
                   className={`p-4 rounded-xl text-left space-y-2 transition-all cursor-pointer ${
                     selectedFlow.id === 'outer'
-                      ? 'border border-[#C4487A] bg-[#C4487A]/10'
-                      : 'border border-[#FBF4EE]/10 hover:border-[#C4487A]/50'
+                      ? 'border border-[#C4487A] dark:border-[var(--theme-rose)] bg-[#C4487A]/10 dark:bg-[var(--theme-rose-soft)]'
+                      : 'border border-[#FBF4EE]/10 dark:border-[var(--theme-line)] hover:border-[#C4487A]/50 dark:hover:border-[var(--theme-rose)]/50'
                   }`}
                 >
                   <span
                     className={`text-xs uppercase font-mono ${
                       selectedFlow.id === 'outer'
-                        ? 'text-[#C4487A]'
+                        ? 'text-[#C4487A] dark:text-[var(--theme-rose)]'
                         : 'text-[#FBF4EE]/50'
                     }`}
                   >
@@ -871,14 +871,14 @@ export default function DuniaBrambangExperience() {
                   }
                   className={`p-4 rounded-xl text-left space-y-2 transition-all cursor-pointer ${
                     selectedFlow.id === 'asean'
-                      ? 'border border-[#C4487A] bg-[#C4487A]/10'
-                      : 'border border-[#FBF4EE]/10 hover:border-[#C4487A]/50'
+                      ? 'border border-[#C4487A] dark:border-[var(--theme-rose)] bg-[#C4487A]/10 dark:bg-[var(--theme-rose-soft)]'
+                      : 'border border-[#FBF4EE]/10 dark:border-[var(--theme-line)] hover:border-[#C4487A]/50 dark:hover:border-[var(--theme-rose)]/50'
                   }`}
                 >
                   <span
                     className={`text-xs uppercase font-mono ${
                       selectedFlow.id === 'asean'
-                        ? 'text-[#C4487A]'
+                        ? 'text-[#C4487A] dark:text-[var(--theme-rose)]'
                         : 'text-[#FBF4EE]/50'
                     }`}
                   >
@@ -902,14 +902,14 @@ export default function DuniaBrambangExperience() {
                   }
                   className={`p-4 rounded-xl text-left space-y-2 transition-all cursor-pointer ${
                     selectedFlow.id === 'industrial'
-                      ? 'border border-[#C4487A] bg-[#C4487A]/10'
-                      : 'border border-[#FBF4EE]/10 hover:border-[#C4487A]/50'
+                      ? 'border border-[#C4487A] dark:border-[var(--theme-rose)] bg-[#C4487A]/10 dark:bg-[var(--theme-rose-soft)]'
+                      : 'border border-[#FBF4EE]/10 dark:border-[var(--theme-line)] hover:border-[#C4487A]/50 dark:hover:border-[var(--theme-rose)]/50'
                   }`}
                 >
                   <span
                     className={`text-xs uppercase font-mono ${
                       selectedFlow.id === 'industrial'
-                        ? 'text-[#C4487A]'
+                        ? 'text-[#C4487A] dark:text-[var(--theme-rose)]'
                         : 'text-[#FBF4EE]/50'
                     }`}
                   >
@@ -926,9 +926,9 @@ export default function DuniaBrambangExperience() {
 
               <div
                 id="flowNodeDetails"
-                className="mt-6 p-4 rounded-xl bg-[#0E080A]/60 border border-[#FBF4EE]/10 text-sm text-[#FBF4EE]/80 flex items-center space-x-3"
+                className="mt-6 p-4 rounded-xl bg-[#0E080A]/60 border border-[#FBF4EE]/10 dark:border-[var(--theme-line)] text-sm text-[#FBF4EE]/80 flex items-center space-x-3"
               >
-                <Info className="w-5 h-5 text-[#C4487A] flex-shrink-0" />
+                <Info className="w-5 h-5 text-[#C4487A] dark:text-[var(--theme-rose)] flex-shrink-0" />
                 <span id="flowDetailsText">{selectedFlow.details}</span>
               </div>
             </div>
@@ -957,7 +957,7 @@ export default function DuniaBrambangExperience() {
             {/* VARIETY 1: BAUJI */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-7 space-y-6 order-2 lg:order-1">
-                <div className="inline-block px-3 py-1 rounded-full bg-[#3A5A40]/20 text-[#3A5A40] text-xs font-mono uppercase tracking-wider">
+                <div className="inline-block px-3 py-1 rounded-full bg-[#3A5A40]/20 dark:bg-[var(--theme-green-soft)] text-[#3A5A40] dark:text-[var(--theme-green)] text-xs font-mono uppercase tracking-wider">
                   Raksasa Musim Hujan
                 </div>
                 <h3 className="font-serif text-5xl md:text-6xl font-light text-[#FBF4EE]">
@@ -976,7 +976,7 @@ export default function DuniaBrambangExperience() {
                 </p>
               </div>
               <div className="lg:col-span-5 flex justify-center order-1 lg:order-2">
-                <div className="w-64 h-64 md:w-80 md:h-80 glass-panel rounded-full p-6 flex items-center justify-center animate-float border border-[#3A5A40]/30">
+                <div className="w-64 h-64 md:w-80 md:h-80 glass-panel rounded-full p-6 flex items-center justify-center animate-float border border-[#3A5A40]/30 dark:border-[var(--theme-green)]/30">
                   <svg
                     viewBox="0 0 200 200"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1003,7 +1003,7 @@ export default function DuniaBrambangExperience() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-5 flex justify-center order-1 lg:order-1">
                 <div
-                  className="w-64 h-64 md:w-80 md:h-80 glass-panel rounded-full p-6 flex items-center justify-center animate-float border border-[#C4487A]/30"
+                  className="w-64 h-64 md:w-80 md:h-80 glass-panel rounded-full p-6 flex items-center justify-center animate-float border border-[#C4487A]/30 dark:border-[var(--theme-rose)]/30"
                   style={{ animationDelay: '2s' }}
                 >
                   <svg
@@ -1025,7 +1025,7 @@ export default function DuniaBrambangExperience() {
                 </div>
               </div>
               <div className="lg:col-span-7 space-y-6 order-2 lg:order-2">
-                <div className="inline-block px-3 py-1 rounded-full bg-[#C4487A]/20 text-[#C4487A] text-xs font-mono uppercase tracking-wider">
+                <div className="inline-block px-3 py-1 rounded-full bg-[#C4487A]/20 dark:bg-[var(--theme-rose-soft)] text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-wider">
                   Penguasa Musim Kemarau
                 </div>
                 <h3 className="font-serif text-5xl md:text-6xl font-light text-[#FBF4EE]">
@@ -1055,7 +1055,7 @@ export default function DuniaBrambangExperience() {
         >
           <div className="max-w-6xl mx-auto w-full space-y-16">
             <div className="space-y-4">
-              <span className="text-[#C4487A] text-xs font-mono uppercase tracking-widest">
+              <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-widest">
                 Galeri 05 &bull; Beban Tak Terlihat
               </span>
               <h2 className="font-serif text-4xl md:text-6xl font-light text-[#FBF4EE]">
@@ -1069,7 +1069,7 @@ export default function DuniaBrambangExperience() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="p-6 rounded-2xl glass-panel space-y-4 hover:border-red-500/40 transition-all">
+              <div className="p-6 rounded-2xl glass-panel space-y-4 hover:border-red-500/40 dark:hover:border-[var(--theme-red)]/40 transition-all">
                 <div className="w-10 h-10 rounded-full bg-red-900/30 text-red-400 flex items-center justify-center">
                   <CloudRain className="w-5 h-5" />
                 </div>
@@ -1081,7 +1081,7 @@ export default function DuniaBrambangExperience() {
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl glass-panel space-y-4 hover:border-red-500/40 transition-all">
+              <div className="p-6 rounded-2xl glass-panel space-y-4 hover:border-red-500/40 dark:hover:border-[var(--theme-red)]/40 transition-all">
                 <div className="w-10 h-10 rounded-full bg-red-900/30 text-red-400 flex items-center justify-center">
                   <Bug className="w-5 h-5" />
                 </div>
@@ -1093,7 +1093,7 @@ export default function DuniaBrambangExperience() {
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl glass-panel space-y-4 hover:border-red-500/40 transition-all">
+              <div className="p-6 rounded-2xl glass-panel space-y-4 hover:border-red-500/40 dark:hover:border-[var(--theme-red)]/40 transition-all">
                 <div className="w-10 h-10 rounded-full bg-red-900/30 text-red-400 flex items-center justify-center">
                   <TrendingDown className="w-5 h-5" />
                 </div>
@@ -1106,7 +1106,7 @@ export default function DuniaBrambangExperience() {
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl glass-panel space-y-4 hover:border-red-500/40 transition-all">
+              <div className="p-6 rounded-2xl glass-panel space-y-4 hover:border-red-500/40 dark:hover:border-[var(--theme-red)]/40 transition-all">
                 <div className="w-10 h-10 rounded-full bg-red-900/30 text-red-400 flex items-center justify-center">
                   <Coins className="w-5 h-5" />
                 </div>
@@ -1122,7 +1122,7 @@ export default function DuniaBrambangExperience() {
 
             <div className="glass-panel p-8 md:p-12 rounded-3xl relative overflow-hidden bg-gradient-to-r from-[#4A1F2B]/40 to-[#0E080A]">
               <div className="max-w-3xl space-y-6">
-                <span className="text-xs font-mono text-[#C4487A] uppercase tracking-widest">
+                <span className="text-xs font-mono text-[#C4487A] dark:text-[var(--theme-rose)] uppercase tracking-widest">
                   Paradoks Ekonomi
                 </span>
                 <h3 className="font-serif text-2xl md:text-3xl text-[#FBF4EE]">
@@ -1145,7 +1145,7 @@ export default function DuniaBrambangExperience() {
           className="min-h-screen w-full relative bg-[#0E080A] text-[#FBF4EE] flex flex-col justify-center overflow-hidden py-28"
         >
           <div className="max-w-[800px] mx-auto w-full px-6 mb-16 text-center">
-            <span className="text-[#C4487A] text-xs font-mono uppercase tracking-[0.25em] block mb-3">
+            <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-[0.25em] block mb-3">
               Gallery 06 &bull; Fase Penanaman
             </span>
             <h2 className="font-serif text-3xl md:text-6xl font-light text-[#FBF4EE] tracking-tight leading-tight mb-3">
@@ -1202,12 +1202,12 @@ export default function DuniaBrambangExperience() {
                 data-index="1"
               >
                 <div className="w-full md:w-1/2 md:pr-10 hidden md:block"></div>
-                <div className="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-[#0E080A] border border-[#C4487A] text-[#FBF4EE] font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
+                <div className="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-[#0E080A] border border-[#C4487A] dark:border-[var(--theme-rose)] text-[#FBF4EE] font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
                   01
                 </div>
                 <div className="w-full md:w-1/2 pl-12 md:pl-10 md:pr-0">
                   <div className="space-y-2 text-left">
-                    <span className="text-[#C4487A] text-[11px] font-mono uppercase tracking-[0.2em] block">
+                    <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-[11px] font-mono uppercase tracking-[0.2em] block">
                       LABUHAN 1
                     </span>
                     <h3 className="font-serif text-xl md:text-2xl font-light text-[#FBF4EE] italic leading-snug">
@@ -1234,7 +1234,7 @@ export default function DuniaBrambangExperience() {
               >
                 <div className="w-full md:w-1/2 pl-12 md:pl-0 md:pr-10 md:text-right">
                   <div className="space-y-2">
-                    <span className="text-[#C4487A] text-[11px] font-mono uppercase tracking-[0.2em] block">
+                    <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-[11px] font-mono uppercase tracking-[0.2em] block">
                       LABUHAN 2
                     </span>
                     <h3 className="font-serif text-xl md:text-2xl font-light text-[#FBF4EE] italic leading-snug">
@@ -1252,7 +1252,7 @@ export default function DuniaBrambangExperience() {
                     <div className="w-12 h-px bg-[#FBF4EE]/15 mt-2 ml-auto md:ml-auto md:mr-0"></div>
                   </div>
                 </div>
-                <div className="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-[#0E080A] border border-[#C4487A] text-[#FBF4EE] font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
+                <div className="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-[#0E080A] border border-[#C4487A] dark:border-[var(--theme-rose)] text-[#FBF4EE] font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
                   02
                 </div>
                 <div className="w-full md:w-1/2 md:pl-10 hidden md:block"></div>
@@ -1264,12 +1264,12 @@ export default function DuniaBrambangExperience() {
                 data-index="3"
               >
                 <div className="w-full md:w-1/2 md:pr-10 hidden md:block"></div>
-                <div className="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-[#0E080A] border border-[#C4487A] text-[#FBF4EE] font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
+                <div className="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-[#0E080A] border border-[#C4487A] dark:border-[var(--theme-rose)] text-[#FBF4EE] font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
                   03
                 </div>
                 <div className="w-full md:w-1/2 pl-12 md:pl-10 md:pr-0">
                   <div className="space-y-2 text-left">
-                    <span className="text-[#C4487A] text-[11px] font-mono uppercase tracking-[0.2em] block">
+                    <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-[11px] font-mono uppercase tracking-[0.2em] block">
                       LABUHAN 3
                     </span>
                     <h3 className="font-serif text-xl md:text-2xl font-light text-[#FBF4EE] italic leading-snug">
@@ -1296,7 +1296,7 @@ export default function DuniaBrambangExperience() {
               >
                 <div className="w-full md:w-1/2 pl-12 md:pl-0 md:pr-10 md:text-right">
                   <div className="space-y-2">
-                    <span className="text-[#C4487A] text-[11px] font-mono uppercase tracking-[0.2em] block">
+                    <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-[11px] font-mono uppercase tracking-[0.2em] block">
                       MUSIM RAYA
                     </span>
                     <h3 className="font-serif text-xl md:text-2xl font-light text-[#FBF4EE] italic leading-snug">
@@ -1314,7 +1314,7 @@ export default function DuniaBrambangExperience() {
                     <div className="w-12 h-px bg-[#FBF4EE]/15 mt-2 ml-auto md:ml-auto md:mr-0"></div>
                   </div>
                 </div>
-                <div className="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-[#0E080A] border border-[#C4487A] text-[#FBF4EE] font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
+                <div className="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-[#0E080A] border border-[#C4487A] dark:border-[var(--theme-rose)] text-[#FBF4EE] font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
                   04
                 </div>
                 <div className="w-full md:w-1/2 md:pl-10 hidden md:block"></div>
@@ -1326,12 +1326,12 @@ export default function DuniaBrambangExperience() {
                 data-index="5"
               >
                 <div className="w-full md:w-1/2 md:pr-10 hidden md:block"></div>
-                <div className="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-[#0E080A] border border-[#C4487A] text-[#FBF4EE] font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
+                <div className="absolute left-6 md:left-[50%] -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-[#0E080A] border border-[#C4487A] dark:border-[var(--theme-rose)] text-[#FBF4EE] font-mono text-[10px] z-20 shadow-lg scale-0 transition-transform duration-500 node-circle">
                   05
                 </div>
                 <div className="w-full md:w-1/2 pl-12 md:pl-10 md:pr-0">
                   <div className="space-y-2 text-left">
-                    <span className="text-[#C4487A] text-[11px] font-mono uppercase tracking-[0.2em] block">
+                    <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-[11px] font-mono uppercase tracking-[0.2em] block">
                       APITAN
                     </span>
                     <h3 className="font-serif text-xl md:text-2xl font-light text-[#FBF4EE] italic leading-snug">
@@ -1362,12 +1362,12 @@ export default function DuniaBrambangExperience() {
           <div className="max-w-3xl mx-auto w-full text-center space-y-24">
             {/* HEADER */}
             <div className="space-y-6 hp-block opacity-0 translate-y-6 transition-all duration-500">
-              <span className="text-[#C4487A] text-xs font-mono uppercase tracking-[0.25em] block">
+              <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-[0.25em] block">
                 Gallery 07 &bull; Hasil Panen
               </span>
               <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl font-light text-[#FBF4EE] tracking-tight leading-tight">
                 &quot;Bukan hanya panen bawang. <br />
-                <span className="italic text-[#C4487A]">
+                <span className="italic text-[#C4487A] dark:text-[var(--theme-rose)]">
                   Tapi panen masa depan.&quot;
                 </span>
               </h2>
@@ -1375,13 +1375,13 @@ export default function DuniaBrambangExperience() {
                 Di balik setiap musim, ada peluang yang sering tidak dilihat oleh
                 generasi muda.
               </p>
-              <div className="w-16 h-px bg-[#C4487A]/30 mx-auto mt-8"></div>
+              <div className="w-16 h-px bg-[#C4487A]/30 dark:bg-[var(--theme-rose-soft)] mx-auto mt-8"></div>
             </div>
 
             {/* BLOCK 1 */}
             <div className="space-y-8 hp-block opacity-0 translate-y-6 transition-all duration-500">
               <div className="space-y-3">
-                <span className="text-[#C4487A] text-xs font-mono uppercase tracking-widest block">
+                <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-widest block">
                   Nilai Ekonomi
                 </span>
                 <h3 className="font-serif text-3xl md:text-4xl font-light text-[#FBF4EE]">
@@ -1394,7 +1394,7 @@ export default function DuniaBrambangExperience() {
               </div>
 
               <div className="py-6">
-                <span className="font-serif text-6xl md:text-8xl font-light text-[#C4487A] tracking-tight block">
+                <span className="font-serif text-6xl md:text-8xl font-light text-[#C4487A] dark:text-[var(--theme-rose)] tracking-tight block">
                   1 : 20
                 </span>
               </div>
@@ -1405,7 +1405,7 @@ export default function DuniaBrambangExperience() {
             {/* BLOCK 2 */}
             <div className="space-y-8 hp-block opacity-0 translate-y-6 transition-all duration-500">
               <div className="space-y-3">
-                <span className="text-[#C4487A] text-xs font-mono uppercase tracking-widest block">
+                <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-widest block">
                   Kehidupan Petani
                 </span>
                 <h3 className="font-serif text-3xl md:text-4xl font-light text-[#FBF4EE]">
@@ -1438,7 +1438,7 @@ export default function DuniaBrambangExperience() {
             {/* BLOCK 3 */}
             <div className="space-y-8 hp-block opacity-0 translate-y-6 transition-all duration-500">
               <div className="space-y-3">
-                <span className="text-[#C4487A] text-xs font-mono uppercase tracking-widest block">
+                <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-widest block">
                   Panggilan Masa Depan
                 </span>
                 <h3 className="font-serif text-3xl md:text-4xl font-light text-[#FBF4EE]">
@@ -1451,7 +1451,7 @@ export default function DuniaBrambangExperience() {
               </div>
 
               <div className="pt-6">
-                <p className="font-serif text-2xl md:text-4xl font-light italic text-[#C4487A] tracking-wide">
+                <p className="font-serif text-2xl md:text-4xl font-light italic text-[#C4487A] dark:text-[var(--theme-rose)] tracking-wide">
                   &quot;Ini bukan pekerjaan lama. Ini peluang baru.&quot;
                 </p>
               </div>
@@ -1462,11 +1462,11 @@ export default function DuniaBrambangExperience() {
         {/* GALLERY 5: MEMORI LISAN */}
         <section
           id="gallery-5"
-          className="min-h-screen w-full relative flex flex-col justify-center px-6 md:px-20 py-32 bg-[#0E080A] text-[#FBF4EE] border-y border-[#FBF4EE]/5 overflow-hidden"
+          className="min-h-screen w-full relative flex flex-col justify-center px-6 md:px-20 py-32 bg-[#0E080A] text-[#FBF4EE] border-y border-[#FBF4EE]/5 dark:border-[var(--theme-line)] overflow-hidden"
         >
           <div className="max-w-5xl mx-auto w-full space-y-20">
             <div className="text-center max-w-3xl mx-auto space-y-4">
-              <span className="text-[#C4487A] text-xs font-mono uppercase tracking-widest">
+              <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-widest">
                 Galeri 08 &bull; Memori Lisan
               </span>
               <h2 className="font-serif text-4xl md:text-6xl font-light tracking-tight">
@@ -1489,11 +1489,11 @@ export default function DuniaBrambangExperience() {
                   className="timeline-node relative opacity-0 translate-y-12 transition-all"
                   data-index="1"
                 >
-                  <div className="absolute left-1/2 -translate-x-1/2 -top-6 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-[#0E080A] border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20">
+                  <div className="absolute left-1/2 -translate-x-1/2 -top-6 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-[#0E080A] border border-[#C4487A] dark:border-[var(--theme-rose)] text-[#FBF4EE] font-mono text-xs z-20">
                     01
                   </div>
-                  <div className="glass-panel p-8 md:p-10 rounded-3xl max-w-2xl mx-auto text-center space-y-4 relative z-10 border border-[#C4487A]/20">
-                    <span className="text-[#C4487A] text-xs font-mono uppercase tracking-widest">
+                  <div className="glass-panel p-8 md:p-10 rounded-3xl max-w-2xl mx-auto text-center space-y-4 relative z-10 border border-[#C4487A]/20 dark:border-[var(--theme-rose)]/20">
+                    <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-widest">
                       Generasi Sesepuh
                     </span>
                     <h3 className="font-serif text-2xl md:text-3xl font-light text-[#FBF4EE]">
@@ -1514,11 +1514,11 @@ export default function DuniaBrambangExperience() {
                   className="timeline-node relative opacity-0 translate-y-12 transition-all"
                   data-index="2"
                 >
-                  <div className="absolute left-1/2 -translate-x-1/2 -top-6 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-[#0E080A] border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20">
+                  <div className="absolute left-1/2 -translate-x-1/2 -top-6 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-[#0E080A] border border-[#C4487A] dark:border-[var(--theme-rose)] text-[#FBF4EE] font-mono text-xs z-20">
                     02
                   </div>
-                  <div className="glass-panel p-8 md:p-10 rounded-3xl max-w-2xl mx-auto text-center space-y-4 relative z-10 border border-[#C4487A]/20">
-                    <span className="text-[#C4487A] text-xs font-mono uppercase tracking-widest">
+                  <div className="glass-panel p-8 md:p-10 rounded-3xl max-w-2xl mx-auto text-center space-y-4 relative z-10 border border-[#C4487A]/20 dark:border-[var(--theme-rose)]/20">
+                    <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-widest">
                       Risiko Kehilangan
                     </span>
                     <h3 className="font-serif text-2xl md:text-3xl font-light text-[#FBF4EE]">
@@ -1538,11 +1538,11 @@ export default function DuniaBrambangExperience() {
                   className="timeline-node relative opacity-0 translate-y-12 transition-all"
                   data-index="3"
                 >
-                  <div className="absolute left-1/2 -translate-x-1/2 -top-6 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-[#0E080A] border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20">
+                  <div className="absolute left-1/2 -translate-x-1/2 -top-6 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-[#0E080A] border border-[#C4487A] dark:border-[var(--theme-rose)] text-[#FBF4EE] font-mono text-xs z-20">
                     03
                   </div>
-                  <div className="glass-panel p-8 md:p-10 rounded-3xl max-w-2xl mx-auto text-center space-y-4 relative z-10 border border-[#C4487A]/20">
-                    <span className="text-[#C4487A] text-xs font-mono uppercase tracking-widest">
+                  <div className="glass-panel p-8 md:p-10 rounded-3xl max-w-2xl mx-auto text-center space-y-4 relative z-10 border border-[#C4487A]/20 dark:border-[var(--theme-rose)]/20">
+                    <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-widest">
                       Penjaga Kebijaksanaan
                     </span>
                     <h3 className="font-serif text-2xl md:text-3xl font-light text-[#FBF4EE]">
@@ -1562,11 +1562,11 @@ export default function DuniaBrambangExperience() {
                   className="timeline-node relative opacity-0 translate-y-12 transition-all"
                   data-index="4"
                 >
-                  <div className="absolute left-1/2 -translate-x-1/2 -top-6 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-[#0E080A] border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20">
+                  <div className="absolute left-1/2 -translate-x-1/2 -top-6 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-[#0E080A] border border-[#C4487A] dark:border-[var(--theme-rose)] text-[#FBF4EE] font-mono text-xs z-20">
                     04
                   </div>
-                  <div className="glass-panel p-8 md:p-10 rounded-3xl max-w-2xl mx-auto text-center space-y-4 relative z-10 border border-[#C4487A]/20">
-                    <span className="text-[#C4487A] text-xs font-mono uppercase tracking-widest">
+                  <div className="glass-panel p-8 md:p-10 rounded-3xl max-w-2xl mx-auto text-center space-y-4 relative z-10 border border-[#C4487A]/20 dark:border-[var(--theme-rose)]/20">
+                    <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-widest">
                       Bahaya Kepunahan
                     </span>
                     <h3 className="font-serif text-2xl md:text-3xl font-light text-[#FBF4EE]">
@@ -1593,7 +1593,7 @@ export default function DuniaBrambangExperience() {
         >
           <div className="max-w-[760px] mx-auto w-full space-y-16">
             <div className="text-center space-y-6">
-              <span className="text-[#3A5A40] text-xs font-mono uppercase tracking-[0.25em] block">
+              <span className="text-[#3A5A40] dark:text-[var(--theme-green)] text-xs font-mono uppercase tracking-[0.25em] block">
                 Galeri 09 &bull; Penjaga SIMANTRI
               </span>
               <h2 className="font-serif text-5xl md:text-7xl font-light text-[#FBF4EE] tracking-tight">
@@ -1616,11 +1616,11 @@ export default function DuniaBrambangExperience() {
                   className="simantri-node relative opacity-0 translate-y-12 transition-all"
                   data-index="1"
                 >
-                  <div className="absolute left-1/2 -translate-x-1/2 -top-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#4A1F2B] border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20 transition-all duration-300 hover:scale-110 hover:text-[#FBF4EE] cursor-pointer">
+                  <div className="absolute left-1/2 -translate-x-1/2 -top-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#4A1F2B] border border-[#C4487A] dark:border-[var(--theme-rose)] text-[#FBF4EE] font-mono text-xs z-20 transition-all duration-300 hover:scale-110 hover:text-[#FBF4EE] cursor-pointer">
                     01
                   </div>
                   <div className="max-w-[700px] mx-auto text-center space-y-4 px-4">
-                    <span className="text-[#C4487A] text-xs font-mono uppercase tracking-[0.2em] block">
+                    <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-[0.2em] block">
                       Pengalaman Petani
                     </span>
                     <h3 className="font-serif text-3xl md:text-4xl font-light text-[#FBF4EE] italic">
@@ -1639,11 +1639,11 @@ export default function DuniaBrambangExperience() {
                   className="simantri-node relative opacity-0 translate-y-12 transition-all"
                   data-index="2"
                 >
-                  <div className="absolute left-1/2 -translate-x-1/2 -top-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#4A1F2B] border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20 transition-all duration-300 hover:scale-110 hover:text-[#FBF4EE] cursor-pointer">
+                  <div className="absolute left-1/2 -translate-x-1/2 -top-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#4A1F2B] border border-[#C4487A] dark:border-[var(--theme-rose)] text-[#FBF4EE] font-mono text-xs z-20 transition-all duration-300 hover:scale-110 hover:text-[#FBF4EE] cursor-pointer">
                     02
                   </div>
                   <div className="max-w-[700px] mx-auto text-center space-y-4 px-4">
-                    <span className="text-[#C4487A] text-xs font-mono uppercase tracking-[0.2em] block">
+                    <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-[0.2em] block">
                       Pengetahuan
                     </span>
                     <h3 className="font-serif text-3xl md:text-4xl font-light text-[#FBF4EE] italic">
@@ -1662,11 +1662,11 @@ export default function DuniaBrambangExperience() {
                   className="simantri-node relative opacity-0 translate-y-12 transition-all"
                   data-index="3"
                 >
-                  <div className="absolute left-1/2 -translate-x-1/2 -top-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#4A1F2B] border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20 transition-all duration-300 hover:scale-110 hover:text-[#FBF4EE] cursor-pointer">
+                  <div className="absolute left-1/2 -translate-x-1/2 -top-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#4A1F2B] border border-[#C4487A] dark:border-[var(--theme-rose)] text-[#FBF4EE] font-mono text-xs z-20 transition-all duration-300 hover:scale-110 hover:text-[#FBF4EE] cursor-pointer">
                     03
                   </div>
                   <div className="max-w-[700px] mx-auto text-center space-y-6 px-4">
-                    <span className="text-[#C4487A] text-xs font-mono uppercase tracking-[0.2em] block">
+                    <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-[0.2em] block">
                       SIMANTRI
                     </span>
                     <h3 className="font-serif text-3xl md:text-4xl font-light text-[#FBF4EE] italic">
@@ -1680,16 +1680,16 @@ export default function DuniaBrambangExperience() {
 
                     <div className="pt-8 pb-4 flex flex-col items-center justify-center space-y-3 font-serif text-[#FBF4EE]/90 text-lg">
                       <span className="tracking-widest">Pengalaman</span>
-                      <span className="text-[#C4487A] text-sm">&darr;</span>
+                      <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-sm">&darr;</span>
                       <span className="tracking-widest">Pengetahuan</span>
-                      <span className="text-[#C4487A] text-sm">&darr;</span>
+                      <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-sm">&darr;</span>
 
                       <div className="my-4 flex justify-center">
-                        <div className="relative w-52 h-52 md:w-64 md:h-64 rounded-full bg-[#FBF4EE]/10 border-2 border-[#C4487A] p-3 shadow-2xl flex items-center justify-center animate-float overflow-hidden group">
-                          <div className="absolute inset-0 bg-gradient-to-tr from-[#4A1F2B]/40 via-transparent to-[#C4487A]/20"></div>
+                        <div className="relative w-52 h-52 md:w-64 md:h-64 rounded-full bg-[#FBF4EE]/10 border-2 border-[#C4487A] dark:border-[var(--theme-rose)] p-3 shadow-2xl flex items-center justify-center animate-float overflow-hidden group">
+                          <div className="absolute inset-0 bg-gradient-to-tr from-[#4A1F2B]/40 via-transparent to-[#C4487A]/20 dark:to-[var(--theme-rose-soft)]"></div>
                           {/* Emulated Glowing Logo Element */}
-                          <div className="w-full h-full rounded-full bg-[#4A1F2B] flex flex-col items-center justify-center p-4 border border-[#C4487A]/30 relative z-10 transform group-hover:scale-105 transition-transform duration-500">
-                            <Sprout className="w-16 h-16 text-[#C4487A] mb-2 animate-pulse" />
+                          <div className="w-full h-full rounded-full bg-[#4A1F2B] flex flex-col items-center justify-center p-4 border border-[#C4487A]/30 dark:border-[var(--theme-rose)]/30 relative z-10 transform group-hover:scale-105 transition-transform duration-500">
+                            <Sprout className="w-16 h-16 text-[#C4487A] dark:text-[var(--theme-rose)] mb-2 animate-pulse" />
                             <span className="font-serif text-xl tracking-[0.25em] font-bold text-[#FBF4EE]">
                               SIMANTRI
                             </span>
@@ -1700,7 +1700,7 @@ export default function DuniaBrambangExperience() {
                         </div>
                       </div>
 
-                      <span className="text-[#C4487A] text-sm">&darr;</span>
+                      <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-sm">&darr;</span>
                       <span className="tracking-widest">Generasi</span>
                     </div>
 
@@ -1712,11 +1712,11 @@ export default function DuniaBrambangExperience() {
                   className="simantri-node relative opacity-0 translate-y-12 transition-all"
                   data-index="4"
                 >
-                  <div className="absolute left-1/2 -translate-x-1/2 -top-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#4A1F2B] border border-[#C4487A] text-[#FBF4EE] font-mono text-xs z-20 transition-all duration-300 hover:scale-110 hover:text-[#FBF4EE] cursor-pointer">
+                  <div className="absolute left-1/2 -translate-x-1/2 -top-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#4A1F2B] border border-[#C4487A] dark:border-[var(--theme-rose)] text-[#FBF4EE] font-mono text-xs z-20 transition-all duration-300 hover:scale-110 hover:text-[#FBF4EE] cursor-pointer">
                     04
                   </div>
                   <div className="max-w-[700px] mx-auto text-center space-y-6 px-4">
-                    <span className="text-[#C4487A] text-xs font-mono uppercase tracking-[0.2em] block">
+                    <span className="text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-[0.2em] block">
                       Masa Depan
                     </span>
                     <h3 className="font-serif text-3xl md:text-4xl font-light text-[#FBF4EE] italic">
@@ -1727,7 +1727,7 @@ export default function DuniaBrambangExperience() {
                       bertahan hari ini, tetapi juga memiliki masa depan.
                     </p>
                     <div className="pt-6">
-                      <blockquote className="font-serif text-xl md:text-2xl text-[#C4487A] font-light italic max-w-xl mx-auto leading-relaxed">
+                      <blockquote className="font-serif text-xl md:text-2xl text-[#C4487A] dark:text-[var(--theme-rose)] font-light italic max-w-xl mx-auto leading-relaxed">
                         &quot;Teknologi terbaik bukanlah yang menggantikan manusia,
                         tetapi yang menjaga warisannya.&quot;
                       </blockquote>
@@ -1747,13 +1747,13 @@ export default function DuniaBrambangExperience() {
           <div className="absolute inset-0 ambient-spotlight opacity-50"></div>
 
           <div className="max-w-4xl mx-auto space-y-12 z-10">
-            <div className="inline-block px-4 py-1.5 rounded-full border border-[#C4487A]/30 text-[#C4487A] text-xs font-mono uppercase tracking-widest">
+            <div className="inline-block px-4 py-1.5 rounded-full border border-[#C4487A]/30 dark:border-[var(--theme-rose)]/30 text-[#C4487A] dark:text-[var(--theme-rose)] text-xs font-mono uppercase tracking-widest">
               Galeri 10 &bull; Fajar Era Baru
             </div>
 
             <h2 className="font-serif text-4xl md:text-7xl font-light leading-tight">
               &quot;Kota Brambang tidak dibangun dalam satu musim. <br />
-              <span className="italic text-[#C4487A]">
+              <span className="italic text-[#C4487A] dark:text-[var(--theme-rose)]">
                 Ia dibangun melintasi generasi.&quot;
               </span>
             </h2>
@@ -1782,7 +1782,7 @@ export default function DuniaBrambangExperience() {
               </button>
             </div>
 
-            <footer className="pt-20 border-t border-[#FBF4EE]/10 text-xs text-[#FBF4EE]/50 space-y-2">
+            <footer className="pt-20 border-t border-[#FBF4EE]/10 dark:border-[var(--theme-line)] text-xs text-[#FBF4EE]/50 space-y-2">
               <p>Dunia Brambang &bull; Pameran Budaya & Pertanian Interaktif</p>
               <p>Didukung oleh SIMANTRI &bull; Nganjuk, Jawa Timur</p>
             </footer>

@@ -64,7 +64,7 @@ export function Toast({ message, onDismiss }: { message: string; onDismiss: () =
     if (closeTimer.current) clearTimeout(closeTimer.current)
     closeTimer.current = setTimeout(onDismiss, 220)
   }
-  return <div className={`sim-toast ${closing ? 'sim-toast-closing' : ''}`} role="status"><CheckCircle2 className="h-5 w-5 shrink-0 text-simantri-600" aria-hidden="true" /><span>{t(message)}</span><button type="button" onClick={close} aria-label={t("Tutup pemberitahuan")}><X className="h-4 w-4" aria-hidden="true" /></button></div>
+  return <div className={`sim-toast ${closing ? 'sim-toast-closing' : ''}`} role="status"><CheckCircle2 className="h-5 w-5 shrink-0 text-simantri-600 dark:text-[var(--theme-green)]" aria-hidden="true" /><span>{t(message)}</span><button type="button" onClick={close} aria-label={t("Tutup pemberitahuan")}><X className="h-4 w-4" aria-hidden="true" /></button></div>
 }
 
 export function Skeleton({ className = '' }: { className?: string }) {

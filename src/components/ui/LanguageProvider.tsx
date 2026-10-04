@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore } from 'react'
 import { usePathname } from 'next/navigation'
 import { Languages } from 'lucide-react'
+import { ThemeSwitcher } from './ThemeProvider'
 import { LANGUAGE_STORAGE_KEY, normalizeLanguage, translate, type Language, type TranslationParams } from '@/lib/i18n'
 
 const CHANGE_EVENT = 'simantri-language-change'
@@ -41,8 +42,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   return <LanguageContext.Provider value={value}>
     {children}
-    {!pathname.startsWith('/dashboard') && pathname !== '/dunia-brambang' && (
-      <div className="fixed bottom-4 left-4 z-40"><LanguageSwitcher /></div>
+    {!pathname.startsWith('/dashboard') && (
+      <div className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-50 flex items-center gap-2">
+        {pathname !== '/dunia-brambang' && <LanguageSwitcher />}
+        <ThemeSwitcher />
+      </div>
     )}
   </LanguageContext.Provider>
 }
@@ -55,7 +59,7 @@ export function useLanguage() {
 
 export function LanguageSwitcher() {
   const { language, setLanguage, t } = useLanguage()
-  return <label className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-xl border border-simantri-200 bg-white px-2.5 text-xs font-semibold text-simantri-800 shadow-sm">
+  return <label className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-xl border border-simantri-200 dark:border-[var(--theme-green)] bg-white dark:bg-[var(--theme-surface)] px-2.5 text-xs font-semibold text-simantri-800 dark:text-[var(--theme-green)] shadow-sm">
     <Languages className="h-4 w-4 shrink-0" aria-hidden="true" />
     <span className="sr-only">{t('Pilih bahasa')}</span>
     <select aria-label={t('Pilih bahasa')} value={language} onChange={(event) => setLanguage(normalizeLanguage(event.target.value))} className="min-h-11 max-w-[130px] cursor-pointer bg-transparent pr-1 text-xs font-semibold focus:outline-none">

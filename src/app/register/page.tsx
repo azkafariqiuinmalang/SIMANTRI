@@ -176,20 +176,20 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F6F8F6] text-slate-800 flex items-center justify-center p-3 sm:p-5 lg:p-7 antialiased font-jakarta">
+    <div className="min-h-screen bg-[#F6F8F6] dark:bg-[var(--theme-canvas)] text-slate-800 dark:text-[var(--theme-ink)] flex items-center justify-center p-3 sm:p-5 lg:p-7 antialiased font-jakarta">
       {/* Tombol Balik ke Beranda (Fixed di pojok atas) */}
       <div className="fixed top-4 left-4 z-30 hidden sm:block">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-white hover:shadow hover:text-simantri-700"
+          className="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-[var(--theme-line)] bg-white/80 dark:bg-[var(--theme-surface)]/80 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] shadow-sm transition-all hover:bg-white dark:hover:bg-[var(--theme-surface)] hover:shadow hover:text-simantri-700 dark:hover:text-[var(--theme-green)]"
         >
-          <ArrowLeft className="h-3.5 w-3.5 text-simantri-600" />
+          <ArrowLeft className="h-3.5 w-3.5 text-simantri-600 dark:text-[var(--theme-green)]" />
           <span>{t("Kembali ke Beranda")}</span>
         </Link>
       </div>
 
       {/* Main Container */}
-      <main className="w-full max-w-[1360px] min-h-[820px] bg-white rounded-[32px] shadow-2xl shadow-emerald-950/5 border border-slate-100 p-3.5 sm:p-4 lg:p-5 flex flex-col lg:flex-row gap-6 overflow-hidden">
+      <main className="w-full max-w-[1360px] min-h-[820px] bg-white dark:bg-[var(--theme-surface)] rounded-[32px] shadow-2xl shadow-emerald-950/5 border border-slate-100 dark:border-[var(--theme-line)] p-3.5 sm:p-4 lg:p-5 flex flex-col lg:flex-row gap-6 overflow-hidden">
         {/* Showcase Section (Left Side) */}
         <section
           aria-label={t("Informasi Wilayah Pertanian")}
@@ -219,7 +219,7 @@ export default function RegisterPage() {
             <div className="flex items-center space-x-2 text-xs sm:text-sm font-medium">
               <Link
                 href="/login"
-                className="border border-white/40 hover:border-white text-white backdrop-blur-md bg-white/10 hover:bg-white/20 transition duration-200 px-4 py-1.5 rounded-full font-semibold"
+                className="border border-white/40 hover:border-white dark:hover:border-[var(--theme-line)] text-white backdrop-blur-md bg-white/10 hover:bg-white/20 transition duration-200 px-4 py-1.5 rounded-full font-semibold"
               >
                 {t("Sudah Ada Akun? Masuk")}</Link>
             </div>
@@ -227,7 +227,7 @@ export default function RegisterPage() {
 
           {/* Middle Showcase Information */}
           <div className="relative z-10 my-auto py-6 max-w-md">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/25 border border-emerald-400/30 text-emerald-200 text-xs font-semibold mb-3 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/25 border border-emerald-400/30 dark:border-[var(--theme-green)]/30 text-emerald-200 text-xs font-semibold mb-3 backdrop-blur-sm">
               <Sprout className="w-3.5 h-3.5" />
               <span>{t("Komunitas Agrikultur Nganjuk")}</span>
             </div>
@@ -281,16 +281,16 @@ export default function RegisterPage() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-bold text-base tracking-tight text-slate-900 leading-tight">
+                <span className="font-bold text-base tracking-tight text-slate-900 dark:text-[var(--theme-ink)] leading-tight">
                   SIMANTRI
                 </span>
-                <span className="text-[10px] font-semibold text-simantri-700 tracking-wider uppercase">
+                <span className="text-[10px] font-semibold text-simantri-700 dark:text-[var(--theme-green)] tracking-wider uppercase">
                   {t("Kab. Nganjuk")}</span>
               </div>
             </Link>
 
-            <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full border border-slate-200 text-xs font-semibold text-slate-700 bg-slate-50/80">
-              <UserCheck className="w-3.5 h-3.5 text-simantri-600" />
+            <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full border border-slate-200 dark:border-[var(--theme-line)] text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] bg-slate-50/80 dark:bg-[var(--theme-canvas)]/80">
+              <UserCheck className="w-3.5 h-3.5 text-simantri-600 dark:text-[var(--theme-green)]" />
               <span>{t("Registrasi")}</span>
             </div>
           </div>
@@ -298,29 +298,29 @@ export default function RegisterPage() {
           {/* Main Form Body */}
           <div className="max-w-[500px] w-full mx-auto my-auto py-2">
             <div className="text-center mb-4">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-1.5 font-jakarta">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-[var(--theme-ink)] tracking-tight mb-1.5 font-jakarta">
                 {t("Buat Akun Baru")}</h1>
-              <p className="text-xs sm:text-sm text-slate-500 font-medium">
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-[var(--theme-muted)] font-medium">
                 {t("Bergabung bersama ekosistem cerdas bawang merah Nganjuk")}</p>
             </div>
 
             {/* Error Message */}
             {errorMessage && (
-              <div className="mb-3.5 p-3 rounded-2xl bg-red-50 border border-red-200 text-left flex items-start gap-2.5 text-red-800 animate-fadeIn">
-                <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+              <div className="mb-3.5 p-3 rounded-2xl bg-red-50 dark:bg-[var(--theme-red-soft)] border border-red-200 dark:border-[var(--theme-red)] text-left flex items-start gap-2.5 text-red-800 dark:text-[var(--theme-red)] animate-fadeIn">
+                <AlertCircle className="w-4 h-4 text-red-600 dark:text-[var(--theme-red)] shrink-0 mt-0.5" />
                 <p className="text-xs leading-relaxed font-medium">{t(errorMessage)}</p>
               </div>
             )}
 
             {/* Success Message */}
             {successMessage && (
-              <div className="mb-3.5 p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-left flex items-start gap-2.5 text-emerald-800 animate-fadeIn">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <div className="mb-3.5 p-3.5 rounded-2xl bg-emerald-50 dark:bg-[var(--theme-green-soft)] border border-emerald-200 dark:border-[var(--theme-green)] text-left flex items-start gap-2.5 text-emerald-800 dark:text-[var(--theme-green)] animate-fadeIn">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-[var(--theme-green)] shrink-0 mt-0.5" />
                 <div>
                   <p className="text-xs leading-relaxed font-medium">{t(successMessage)}</p>
                   <Link
                     href="/login"
-                    className="mt-1.5 inline-block text-xs font-bold text-simantri-700 underline hover:text-simantri-800"
+                    className="mt-1.5 inline-block text-xs font-bold text-simantri-700 dark:text-[var(--theme-green)] underline hover:text-simantri-800 dark:hover:text-[var(--theme-green)]"
                   >
                     {t("Lanjut ke Halaman Masuk →")}</Link>
                 </div>
@@ -332,7 +332,7 @@ export default function RegisterPage() {
               <div>
                 <label
                   htmlFor="fullname"
-                  className="block text-xs font-semibold text-slate-700 mb-1"
+                  className="block text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] mb-1"
                 >
                   {t("Nama Lengkap")}</label>
                 <input
@@ -343,7 +343,7 @@ export default function RegisterPage() {
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder={t("Contoh: Budi Santoso, S.P.")}
-                  className="w-full h-11 px-3.5 text-sm font-medium text-slate-800 placeholder-slate-400 bg-white border border-slate-300 rounded-2xl focus:border-simantri-500 focus:ring-4 focus:ring-simantri-500/15 transition-all outline-none"
+                  className="w-full h-11 px-3.5 text-sm font-medium text-slate-800 dark:text-[var(--theme-ink)] placeholder-slate-400 dark:placeholder-[var(--theme-muted)] bg-white dark:bg-[var(--theme-surface)] border border-slate-300 dark:border-[var(--theme-line)] rounded-2xl focus:border-simantri-500 dark:focus:border-[var(--theme-green)] focus:ring-4 focus:ring-simantri-500/15 dark:focus:ring-[var(--theme-green)]/15 transition-all outline-none"
                 />
               </div>
 
@@ -351,7 +351,7 @@ export default function RegisterPage() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-xs font-semibold text-slate-700 mb-1"
+                  className="block text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] mb-1"
                 >
                   {t("Alamat Email Aktif")}</label>
                 <input
@@ -362,7 +362,7 @@ export default function RegisterPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={t("nama@email.com")}
-                  className="w-full h-11 px-3.5 text-sm font-medium text-slate-800 placeholder-slate-400 bg-white border border-slate-300 rounded-2xl focus:border-simantri-500 focus:ring-4 focus:ring-simantri-500/15 transition-all outline-none"
+                  className="w-full h-11 px-3.5 text-sm font-medium text-slate-800 dark:text-[var(--theme-ink)] placeholder-slate-400 dark:placeholder-[var(--theme-muted)] bg-white dark:bg-[var(--theme-surface)] border border-slate-300 dark:border-[var(--theme-line)] rounded-2xl focus:border-simantri-500 dark:focus:border-[var(--theme-green)] focus:ring-4 focus:ring-simantri-500/15 dark:focus:ring-[var(--theme-green)]/15 transition-all outline-none"
                 />
               </div>
 
@@ -371,7 +371,7 @@ export default function RegisterPage() {
                 <div>
                   <label
                     htmlFor="role"
-                    className="block text-xs font-semibold text-slate-700 mb-1"
+                    className="block text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] mb-1"
                   >
                     {t("Peran Pengguna")}</label>
                   <div className="relative">
@@ -380,12 +380,12 @@ export default function RegisterPage() {
                       name="role"
                       value={role}
                       onChange={(e) => setRole(e.target.value as 'petani' | 'penyuluh')}
-                      className="w-full h-11 px-3.5 text-sm font-medium text-slate-800 bg-white border border-slate-300 rounded-2xl focus:border-simantri-500 focus:ring-4 focus:ring-simantri-500/15 transition-all outline-none appearance-none cursor-pointer pr-9"
+                      className="w-full h-11 px-3.5 text-sm font-medium text-slate-800 dark:text-[var(--theme-ink)] bg-white dark:bg-[var(--theme-surface)] border border-slate-300 dark:border-[var(--theme-line)] rounded-2xl focus:border-simantri-500 dark:focus:border-[var(--theme-green)] focus:ring-4 focus:ring-simantri-500/15 dark:focus:ring-[var(--theme-green)]/15 transition-all outline-none appearance-none cursor-pointer pr-9"
                     >
                       <option value="petani">{t("Petani Bawang")}</option>
                       <option value="penyuluh">{t("PPL / Penyuluh Resmi")}</option>
                     </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400 dark:text-[var(--theme-muted)]">
                       <ChevronRight className="w-4 h-4 rotate-90" />
                     </div>
                   </div>
@@ -394,7 +394,7 @@ export default function RegisterPage() {
                 <div>
                   <label
                     htmlFor="village"
-                    className="block text-xs font-semibold text-slate-700 mb-1"
+                    className="block text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] mb-1"
                   >
                     {t("Kecamatan / Wilayah")}</label>
                   <div className="relative">
@@ -403,7 +403,7 @@ export default function RegisterPage() {
                       name="village"
                       value={village}
                       onChange={(e) => setVillage(e.target.value)}
-                      className="w-full h-11 px-3.5 text-sm font-medium text-slate-800 bg-white border border-slate-300 rounded-2xl focus:border-simantri-500 focus:ring-4 focus:ring-simantri-500/15 transition-all outline-none appearance-none cursor-pointer pr-9"
+                      className="w-full h-11 px-3.5 text-sm font-medium text-slate-800 dark:text-[var(--theme-ink)] bg-white dark:bg-[var(--theme-surface)] border border-slate-300 dark:border-[var(--theme-line)] rounded-2xl focus:border-simantri-500 dark:focus:border-[var(--theme-green)] focus:ring-4 focus:ring-simantri-500/15 dark:focus:ring-[var(--theme-green)]/15 transition-all outline-none appearance-none cursor-pointer pr-9"
                     >
                       {NGANJUK_VILLAGES.map((v) => (
                         <option key={v} value={v}>
@@ -411,7 +411,7 @@ export default function RegisterPage() {
                         </option>
                       ))}
                     </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400 dark:text-[var(--theme-muted)]">
                       <ChevronRight className="w-4 h-4 rotate-90" />
                     </div>
                   </div>
@@ -423,7 +423,7 @@ export default function RegisterPage() {
                 <div>
                   <label
                     htmlFor="reg_password"
-                    className="block text-xs font-semibold text-slate-700 mb-1"
+                    className="block text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] mb-1"
                   >
                     {t("Kata Sandi")}</label>
                   <div className="relative">
@@ -435,12 +435,12 @@ export default function RegisterPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder={t("Min. 6 karakter")}
-                      className="w-full h-11 pl-3.5 pr-10 text-sm font-medium text-slate-800 placeholder-slate-400 bg-white border border-slate-300 rounded-2xl focus:border-simantri-500 focus:ring-4 focus:ring-simantri-500/15 transition-all outline-none"
+                      className="w-full h-11 pl-3.5 pr-10 text-sm font-medium text-slate-800 dark:text-[var(--theme-ink)] placeholder-slate-400 dark:placeholder-[var(--theme-muted)] bg-white dark:bg-[var(--theme-surface)] border border-slate-300 dark:border-[var(--theme-line)] rounded-2xl focus:border-simantri-500 dark:focus:border-[var(--theme-green)] focus:ring-4 focus:ring-simantri-500/15 dark:focus:ring-[var(--theme-green)]/15 transition-all outline-none"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 dark:text-[var(--theme-muted)] hover:text-slate-600 dark:hover:text-[var(--theme-body)] focus:outline-none"
                       aria-label={t("Toggle password")}
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -451,7 +451,7 @@ export default function RegisterPage() {
                 <div>
                   <label
                     htmlFor="confirm_password"
-                    className="block text-xs font-semibold text-slate-700 mb-1"
+                    className="block text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] mb-1"
                   >
                     {t("Konfirmasi Sandi")}</label>
                   <div className="relative">
@@ -463,12 +463,12 @@ export default function RegisterPage() {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder={t("Ulangi sandi")}
-                      className="w-full h-11 pl-3.5 pr-10 text-sm font-medium text-slate-800 placeholder-slate-400 bg-white border border-slate-300 rounded-2xl focus:border-simantri-500 focus:ring-4 focus:ring-simantri-500/15 transition-all outline-none"
+                      className="w-full h-11 pl-3.5 pr-10 text-sm font-medium text-slate-800 dark:text-[var(--theme-ink)] placeholder-slate-400 dark:placeholder-[var(--theme-muted)] bg-white dark:bg-[var(--theme-surface)] border border-slate-300 dark:border-[var(--theme-line)] rounded-2xl focus:border-simantri-500 dark:focus:border-[var(--theme-green)] focus:ring-4 focus:ring-simantri-500/15 dark:focus:ring-[var(--theme-green)]/15 transition-all outline-none"
                     />
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 dark:text-[var(--theme-muted)] hover:text-slate-600 dark:hover:text-[var(--theme-body)] focus:outline-none"
                       aria-label={t("Toggle confirm password")}
                     >
                       {showConfirmPassword ? (
@@ -483,13 +483,13 @@ export default function RegisterPage() {
 
               {/* Extra Verification Section for Penyuluh */}
               {role === 'penyuluh' && (
-                <div className="p-3.5 rounded-2xl bg-simantri-50 border border-simantri-200 space-y-3 animate-fadeIn">
+                <div className="p-3.5 rounded-2xl bg-simantri-50 dark:bg-[var(--theme-green-soft)] border border-simantri-200 dark:border-[var(--theme-green)] space-y-3 animate-fadeIn">
                   <div className="flex items-start gap-2">
-                    <BadgeCheck className="w-5 h-5 text-simantri-600 shrink-0 mt-0.5" />
+                    <BadgeCheck className="w-5 h-5 text-simantri-600 dark:text-[var(--theme-green)] shrink-0 mt-0.5" />
                     <div>
-                      <h4 className="text-xs font-bold text-simantri-900">
+                      <h4 className="text-xs font-bold text-simantri-900 dark:text-[var(--theme-green)]">
                         {t("Verifikasi Identitas Penyuluh Pertanian")}</h4>
-                      <p className="text-[11px] text-slate-600 leading-relaxed font-medium">
+                      <p className="text-[11px] text-slate-600 dark:text-[var(--theme-body)] leading-relaxed font-medium">
                         {t("Akun Penyuluh memerlukan validasi dokumen resmi KTA/SK sebelum hak verifikasi diberikan.")}</p>
                     </div>
                   </div>
@@ -498,9 +498,9 @@ export default function RegisterPage() {
                     <div>
                       <label
                         htmlFor="nip"
-                        className="block text-[11px] font-semibold text-slate-700 mb-1"
+                        className="block text-[11px] font-semibold text-slate-700 dark:text-[var(--theme-body)] mb-1"
                       >
-                        {t("NIP / No. Registrasi KTA")} <span className="text-shallot-600">*</span>
+                        {t("NIP / No. Registrasi KTA")} <span className="text-shallot-600 dark:text-[var(--theme-rose)]">*</span>
                       </label>
                       <input
                         id="nip"
@@ -510,23 +510,23 @@ export default function RegisterPage() {
                         value={nip}
                         onChange={(e) => setNip(e.target.value)}
                         placeholder="198503152010011002"
-                        className="w-full h-10 px-3 rounded-xl border border-slate-300 bg-white text-xs font-medium text-slate-800 placeholder-slate-400 focus:border-simantri-500 focus:outline-none"
+                        className="w-full h-10 px-3 rounded-xl border border-slate-300 dark:border-[var(--theme-line)] bg-white dark:bg-[var(--theme-surface)] text-xs font-medium text-slate-800 dark:text-[var(--theme-ink)] placeholder-slate-400 dark:placeholder-[var(--theme-muted)] focus:border-simantri-500 dark:focus:border-[var(--theme-green)] focus:outline-none"
                       />
                     </div>
 
                     <div>
                       <label
                         htmlFor="institution"
-                        className="block text-[11px] font-semibold text-slate-700 mb-1"
+                        className="block text-[11px] font-semibold text-slate-700 dark:text-[var(--theme-body)] mb-1"
                       >
-                        {t("Instansi Penugasan")} <span className="text-shallot-600">*</span>
+                        {t("Instansi Penugasan")} <span className="text-shallot-600 dark:text-[var(--theme-rose)]">*</span>
                       </label>
                       <select
                         id="institution"
                         name="institution"
                         value={institution}
                         onChange={(e) => setInstitution(e.target.value)}
-                        className="w-full h-10 px-3 rounded-xl border border-slate-300 bg-white text-xs font-medium text-slate-800 focus:border-simantri-500 focus:outline-none"
+                        className="w-full h-10 px-3 rounded-xl border border-slate-300 dark:border-[var(--theme-line)] bg-white dark:bg-[var(--theme-surface)] text-xs font-medium text-slate-800 dark:text-[var(--theme-ink)] focus:border-simantri-500 dark:focus:border-[var(--theme-green)] focus:outline-none"
                       >
                         {BPP_INSTITUTIONS.map((inst) => (
                           <option key={inst} value={inst}>
@@ -538,10 +538,10 @@ export default function RegisterPage() {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-700 mb-1">
-                      {t("Unggah Dokumen Bukti (KTA / SK Dinas)")} <span className="text-shallot-600">*</span>
+                    <label className="block text-[11px] font-semibold text-slate-700 dark:text-[var(--theme-body)] mb-1">
+                      {t("Unggah Dokumen Bukti (KTA / SK Dinas)")} <span className="text-shallot-600 dark:text-[var(--theme-rose)]">*</span>
                     </label>
-                    <div className="p-2.5 border-2 border-dashed border-simantri-300 rounded-xl bg-white text-center hover:bg-simantri-50/50 transition-colors relative">
+                    <div className="p-2.5 border-2 border-dashed border-simantri-300 dark:border-[var(--theme-green)] rounded-xl bg-white dark:bg-[var(--theme-surface)] text-center hover:bg-simantri-50/50 dark:hover:bg-[var(--theme-green-soft)] transition-colors relative">
                       <input
                         type="file"
                         id="docUpload"
@@ -552,9 +552,9 @@ export default function RegisterPage() {
                       />
 
                       {docFileName ? (
-                        <div className="flex items-center justify-between gap-2 text-xs text-slate-800 font-medium px-1">
+                        <div className="flex items-center justify-between gap-2 text-xs text-slate-800 dark:text-[var(--theme-ink)] font-medium px-1">
                           <span className="flex items-center gap-1.5 truncate">
-                            <FileCheck className="w-4 h-4 text-simantri-600" />
+                            <FileCheck className="w-4 h-4 text-simantri-600 dark:text-[var(--theme-green)]" />
                             {docFileName}
                           </span>
                           <button
@@ -563,7 +563,7 @@ export default function RegisterPage() {
                               setDocBase64(null)
                               setDocFileName(null)
                             }}
-                            className="p-1 text-red-500 hover:text-red-700"
+                            className="p-1 text-red-500 dark:text-[var(--theme-red)] hover:text-red-700 dark:hover:text-[var(--theme-red)]"
                             title={t("Hapus Dokumen")}
                           >
                             <X className="w-3.5 h-3.5" />
@@ -572,12 +572,12 @@ export default function RegisterPage() {
                       ) : (
                         <label
                           htmlFor="docUpload"
-                          className="cursor-pointer flex flex-col items-center justify-center gap-1 py-1 text-slate-600"
+                          className="cursor-pointer flex flex-col items-center justify-center gap-1 py-1 text-slate-600 dark:text-[var(--theme-body)]"
                         >
-                          <Upload className="w-4 h-4 text-simantri-600" />
-                          <span className="text-xs font-semibold text-simantri-700">
+                          <Upload className="w-4 h-4 text-simantri-600 dark:text-[var(--theme-green)]" />
+                          <span className="text-xs font-semibold text-simantri-700 dark:text-[var(--theme-green)]">
                             {t("Pilih Foto KTA / Dokumen SK")}</span>
-                          <span className="text-[10px] text-slate-400">
+                          <span className="text-[10px] text-slate-400 dark:text-[var(--theme-muted)]">
                             {t("JPG, PNG, atau PDF (Maks 5MB)")}</span>
                         </label>
                       )}
@@ -595,22 +595,22 @@ export default function RegisterPage() {
                   checked={agreeTerms}
                   onChange={(e) => setAgreeTerms(e.target.checked)}
                   required
-                  className="mt-0.5 w-4 h-4 rounded text-simantri-600 focus:ring-simantri-500 border-slate-300 cursor-pointer accent-simantri-600"
+                  className="mt-0.5 w-4 h-4 rounded text-simantri-600 dark:text-[var(--theme-green)] focus:ring-simantri-500 dark:focus:ring-[var(--theme-green)] border-slate-300 dark:border-[var(--theme-line)] cursor-pointer accent-simantri-600"
                 />
                 <label
                   htmlFor="terms"
-                  className="text-xs text-slate-600 leading-snug cursor-pointer select-none"
+                  className="text-xs text-slate-600 dark:text-[var(--theme-body)] leading-snug cursor-pointer select-none"
                 >
                   {t("Saya menyetujui")}{' '}
                   <Link
                     href="/terms"
-                    className="text-simantri-600 hover:text-simantri-700 font-semibold hover:underline"
+                    className="text-simantri-600 dark:text-[var(--theme-green)] hover:text-simantri-700 dark:hover:text-[var(--theme-green)] font-semibold hover:underline"
                   >
                     {t("Ketentuan Layanan")}</Link>{' '}
                   &amp;{' '}
                   <Link
                     href="/privacy"
-                    className="text-simantri-600 hover:text-simantri-700 font-semibold hover:underline"
+                    className="text-simantri-600 dark:text-[var(--theme-green)] hover:text-simantri-700 dark:hover:text-[var(--theme-green)] font-semibold hover:underline"
                   >
                     {t("Kebijakan Privasi")}</Link>{' '}
                   {t("SIMANTRI Nganjuk.")}</label>
@@ -621,7 +621,7 @@ export default function RegisterPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 bg-simantri-500 hover:bg-simantri-600 active:bg-simantri-700 text-white font-bold text-sm tracking-wide rounded-2xl shadow-lg shadow-simantri-500/25 transition duration-200 focus:outline-none focus:ring-4 focus:ring-simantri-500/30 flex items-center justify-center space-x-2 disabled:opacity-60 cursor-pointer"
+                  className="w-full py-3 bg-simantri-500 hover:bg-simantri-600 active:bg-simantri-700 text-white font-bold text-sm tracking-wide rounded-2xl shadow-lg shadow-simantri-500/25 transition duration-200 focus:outline-none focus:ring-4 focus:ring-simantri-500/30 dark:focus:ring-[var(--theme-green)]/30 flex items-center justify-center space-x-2 disabled:opacity-60 cursor-pointer"
                 >
                   {loading ? (
                     <>
@@ -638,11 +638,11 @@ export default function RegisterPage() {
               </div>
 
               {/* Login Prompt */}
-              <p className="text-center text-xs text-slate-500 pt-1 font-medium">
+              <p className="text-center text-xs text-slate-500 dark:text-[var(--theme-muted)] pt-1 font-medium">
                 {t("Sudah memiliki akun SIMANTRI?")}{' '}
                 <Link
                   href="/login"
-                  className="text-simantri-600 hover:text-simantri-700 font-bold hover:underline transition"
+                  className="text-simantri-600 dark:text-[var(--theme-green)] hover:text-simantri-700 dark:hover:text-[var(--theme-green)] font-bold hover:underline transition"
                 >
                   {t("Masuk di sini")}</Link>
               </p>
@@ -650,16 +650,16 @@ export default function RegisterPage() {
           </div>
 
           {/* Form Footer */}
-          <footer className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-2">
+          <footer className="pt-3 border-t border-slate-100 dark:border-[var(--theme-line)] flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 dark:text-[var(--theme-muted)] gap-2">
             <span>{t("© 2026 Dinas Pertanian Kab. Nganjuk")}</span>
             <div className="flex items-center space-x-3 text-[11px]">
-              <Link href="/terms" className="hover:text-simantri-600 transition">
+              <Link href="/terms" className="hover:text-simantri-600 dark:hover:text-[var(--theme-green)] transition">
                 {t("Syarat & Ketentuan")}</Link>
-              <span className="inline-block w-1 h-1 rounded-full bg-slate-300" />
-              <Link href="/privacy" className="hover:text-simantri-600 transition">
+              <span className="inline-block w-1 h-1 rounded-full bg-slate-300 dark:bg-[var(--theme-raised)]" />
+              <Link href="/privacy" className="hover:text-simantri-600 dark:hover:text-[var(--theme-green)] transition">
                 {t("Privasi")}</Link>
-              <span className="inline-block w-1 h-1 rounded-full bg-slate-300" />
-              <Link href="/" className="hover:text-simantri-600 transition">
+              <span className="inline-block w-1 h-1 rounded-full bg-slate-300 dark:bg-[var(--theme-raised)]" />
+              <Link href="/" className="hover:text-simantri-600 dark:hover:text-[var(--theme-green)] transition">
                 {t("Beranda")}</Link>
             </div>
           </footer>

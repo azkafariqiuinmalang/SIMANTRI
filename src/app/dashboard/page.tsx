@@ -320,17 +320,17 @@ export default function DashboardPage() {
       <section className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div className="flex flex-col">
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-simantri-700 font-semibold text-xs border border-emerald-200/60 shadow-xs">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-simantri-700 dark:text-[var(--theme-green)] font-semibold text-xs border border-emerald-200/60 dark:border-[var(--theme-green)]/60 shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>{t("Pasar Sukomoro Aktif • Terhubung Real-Time")}</span>
             </span>
-            <span className="text-xs text-slate-400 font-medium hidden sm:inline-block">
+            <span className="text-xs text-slate-400 dark:text-[var(--theme-muted)] font-medium hidden sm:inline-block">
               {t("Kecamatan")} {villageName}{t(", Nganjuk")}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-[var(--theme-ink)] tracking-tight">
             {t("Sugeng Rawuh,")} {farmerName}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-[var(--theme-muted)] font-medium mt-0.5">
             {t("Pantauan kondisi pasar bawang merah dan kesehatan tanaman Anda hari ini di Nganjuk.")}</p>
         </div>
 
@@ -346,11 +346,11 @@ export default function DashboardPage() {
       </section>
 
       {/* SIMA Conversational Entry Panel */}
-      <section className="bg-emerald-50/70 border border-emerald-200/60 rounded-3xl p-5 sm:p-6 shadow-xs">
+      <section className="bg-emerald-50/70 dark:bg-[var(--theme-green-soft)] border border-emerald-200/60 dark:border-[var(--theme-green)]/60 rounded-3xl p-5 sm:p-6 shadow-xs">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
           {/* Assistant Identity Left */}
           <div className="flex items-start sm:items-center gap-4">
-            <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white p-1 shadow-md border border-emerald-200 shrink-0 overflow-hidden">
+            <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white dark:bg-[var(--theme-surface)] p-1 shadow-md border border-emerald-200 dark:border-[var(--theme-green)] shrink-0 overflow-hidden">
               <Image
                 src="/sima.jpg"
                 alt={t("Logo SIMA Mascot")}
@@ -360,19 +360,19 @@ export default function DashboardPage() {
               />
               <span className="absolute -bottom-1 -right-1 flex h-3.5 w-3.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-white" />
+                <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-white dark:border-[var(--theme-line)]" />
               </span>
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-extrabold text-simantri-700 uppercase tracking-wider">
+                <span className="text-[11px] font-extrabold text-simantri-700 dark:text-[var(--theme-green)] uppercase tracking-wider">
                   {t("Asisten AI Agronomi")}</span>
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-white text-simantri-800 text-[10px] font-bold border border-emerald-200">
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-white dark:bg-[var(--theme-surface)] text-simantri-800 dark:text-[var(--theme-green)] text-[10px] font-bold border border-emerald-200 dark:border-[var(--theme-green)]">
                   {t("Model v2.4 (Gemini + RAG)")}</span>
               </div>
-              <h2 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">
+              <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[var(--theme-ink)] mt-0.5">
                 {t("Tanya SIMA seputar budidaya atau tren pasar bawang")}</h2>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-[var(--theme-muted)] mt-0.5">
                 {t("SIMA terhubung dengan basis pengetahuan lokal Nganjuk dan katalog hama terpadu.")}</p>
             </div>
           </div>
@@ -388,7 +388,7 @@ export default function DashboardPage() {
                 key={promptText}
                 type="button"
                 onClick={() => setSimaPrompt(promptText)}
-                className="text-left px-3 py-1.5 rounded-full bg-white hover:bg-simantri-50 text-slate-700 hover:text-simantri-800 text-xs font-semibold transition-all border border-slate-200/80 hover:border-simantri-300 shadow-xs cursor-pointer"
+                className="text-left px-3 py-1.5 rounded-full bg-white dark:bg-[var(--theme-surface)] hover:bg-simantri-50 dark:hover:bg-[var(--theme-green-soft)] text-slate-700 dark:text-[var(--theme-body)] hover:text-simantri-800 dark:hover:text-[var(--theme-green)] text-xs font-semibold transition-all border border-slate-200/80 dark:border-[var(--theme-line)] hover:border-simantri-300 dark:hover:border-[var(--theme-green)] shadow-xs cursor-pointer"
               >
                 {promptText}
               </button>
@@ -397,15 +397,15 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick Prompt Input Box */}
-        <div className="mt-4 pt-3 border-t border-emerald-200/50">
-          <form onSubmit={handleSimaSubmit} className="flex items-center gap-2 bg-white rounded-2xl p-1.5 pl-4 border border-slate-200 shadow-xs">
-            <Search className="w-5 h-5 text-slate-400 shrink-0" />
+        <div className="mt-4 pt-3 border-t border-emerald-200/50 dark:border-[var(--theme-green)]/50">
+          <form onSubmit={handleSimaSubmit} className="flex items-center gap-2 bg-white dark:bg-[var(--theme-surface)] rounded-2xl p-1.5 pl-4 border border-slate-200 dark:border-[var(--theme-line)] shadow-xs">
+            <Search className="w-5 h-5 text-slate-400 dark:text-[var(--theme-muted)] shrink-0" />
             <input
               type="text"
               value={simaPrompt}
               onChange={(e) => setSimaPrompt(e.target.value)}
               placeholder={t("Ketik pertanyaan budidaya, penanganan hama, atau proyeksi panen...")}
-              className="w-full bg-transparent text-slate-800 placeholder-slate-400 text-xs sm:text-sm font-medium outline-none"
+              className="w-full bg-transparent text-slate-800 dark:text-[var(--theme-ink)] placeholder-slate-400 dark:placeholder-[var(--theme-muted)] text-xs sm:text-sm font-medium outline-none"
             />
             <button
               type="submit"
@@ -421,29 +421,29 @@ export default function DashboardPage() {
       {/* Four KPI Metric Cards */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" aria-label={t("Ringkasan Utama")}>
         {/* Card 1: Harga Bawang Hari Ini */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between transition-shadow">
+        <div className="bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-5 border border-slate-100 dark:border-[var(--theme-line)] shadow-sm flex flex-col justify-between transition-shadow">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase tracking-wider">
                 {t("Pasar Induk Sukomoro")}</span>
-              <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-simantri-600">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-[var(--theme-green-soft)] flex items-center justify-center text-simantri-600 dark:text-[var(--theme-green)]">
                 <TrendingUp className="w-5 h-5" />
               </div>
             </div>
-            <p className="text-xs font-semibold text-slate-500">{t("Harga Bawang Hari Ini")}</p>
+            <p className="text-xs font-semibold text-slate-500 dark:text-[var(--theme-muted)]">{t("Harga Bawang Hari Ini")}</p>
             <div className="flex items-baseline gap-1.5 mt-1">
-              <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-jakarta">
+              <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-[var(--theme-ink)] tracking-tight font-jakarta">
                 Rp {latestPrice.toLocaleString('id-ID')}
               </span>
-              <span className="text-xs text-slate-400 font-medium">{t("/ kg")}</span>
+              <span className="text-xs text-slate-400 dark:text-[var(--theme-muted)] font-medium">{t("/ kg")}</span>
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-slate-50 flex items-center justify-between text-xs">
+          <div className="mt-4 pt-3 border-t border-slate-50 dark:border-[var(--theme-line)] flex items-center justify-between text-xs">
             <span
               className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-bold text-[11px] ${
                 priceDelta >= 0
-                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                  : 'bg-red-50 text-red-700 border border-red-200'
+                  ? 'bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-emerald-700 dark:text-[var(--theme-green)] border border-emerald-200 dark:border-[var(--theme-green)]'
+                  : 'bg-red-50 dark:bg-[var(--theme-red-soft)] text-red-700 dark:text-[var(--theme-red)] border border-red-200 dark:border-[var(--theme-red)]'
               }`}
             >
               {priceDelta >= 0 ? (
@@ -453,31 +453,31 @@ export default function DashboardPage() {
               )}
               {priceDelta >= 0 ? '+' : ''}Rp {Math.abs(priceDelta).toLocaleString('id-ID')} ({priceDeltaPercent.toFixed(1)}%)
             </span>
-            <span className="text-slate-400 text-[11px]">{t("vs kemarin")}</span>
+            <span className="text-slate-400 dark:text-[var(--theme-muted)] text-[11px]">{t("vs kemarin")}</span>
           </div>
         </div>
 
         {/* Card 2: Prediksi Harga H+3 */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between transition-shadow">
+        <div className="bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-5 border border-slate-100 dark:border-[var(--theme-line)] shadow-sm flex flex-col justify-between transition-shadow">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-shallot-50 text-shallot-600 font-bold text-[10px] border border-shallot-200">
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-shallot-50 dark:bg-[var(--theme-rose-soft)] text-shallot-600 dark:text-[var(--theme-rose)] font-bold text-[10px] border border-shallot-200 dark:border-[var(--theme-rose)]">
                 {t("MAPE 4.1%")}</span>
-              <div className="w-9 h-9 rounded-xl bg-shallot-50 flex items-center justify-center text-shallot-600">
+              <div className="w-9 h-9 rounded-xl bg-shallot-50 dark:bg-[var(--theme-rose-soft)] flex items-center justify-center text-shallot-600 dark:text-[var(--theme-rose)]">
                 <Sparkles className="w-5 h-5" />
               </div>
             </div>
-            <p className="text-xs font-semibold text-slate-500">{t("Prediksi Harga (H+3)")}</p>
+            <p className="text-xs font-semibold text-slate-500 dark:text-[var(--theme-muted)]">{t("Prediksi Harga (H+3)")}</p>
             <div className="flex items-baseline gap-1.5 mt-1">
-              <span className="text-2xl sm:text-3xl font-extrabold text-shallot-600 tracking-tight font-jakarta">
+              <span className="text-2xl sm:text-3xl font-extrabold text-shallot-600 dark:text-[var(--theme-rose)] tracking-tight font-jakarta">
                 Rp {latestPrediction?.predicted_price.toLocaleString('id-ID') || '29.800'}
               </span>
-              <span className="text-xs text-slate-400 font-medium">{t("/ kg")}</span>
+              <span className="text-xs text-slate-400 dark:text-[var(--theme-muted)] font-medium">{t("/ kg")}</span>
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-slate-50 flex items-center justify-between text-xs">
-            <span className="text-slate-500 font-medium">{t("Model AI XGBoost")}</span>
-            <span className="font-bold text-slate-800 text-[11px]">
+          <div className="mt-4 pt-3 border-t border-slate-50 dark:border-[var(--theme-line)] flex items-center justify-between text-xs">
+            <span className="text-slate-500 dark:text-[var(--theme-muted)] font-medium">{t("Model AI XGBoost")}</span>
+            <span className="font-bold text-slate-800 dark:text-[var(--theme-ink)] text-[11px]">
               {latestPrediction
                 ? new Date(latestPrediction.prediction_date).toLocaleDateString('id-ID', {
                     day: 'numeric',
@@ -489,60 +489,60 @@ export default function DashboardPage() {
         </div>
 
         {/* Card 3: Total Deteksi Tanaman */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between transition-shadow">
+        <div className="bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-5 border border-slate-100 dark:border-[var(--theme-line)] shadow-sm flex flex-col justify-between transition-shadow">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase tracking-wider">
                 {t("Diagnostik AI CV")}</span>
-              <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-simantri-600">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-[var(--theme-green-soft)] flex items-center justify-center text-simantri-600 dark:text-[var(--theme-green)]">
                 <Camera className="w-5 h-5" />
               </div>
             </div>
-            <p className="text-xs font-semibold text-slate-500">{t("Total Riwayat Deteksi")}</p>
+            <p className="text-xs font-semibold text-slate-500 dark:text-[var(--theme-muted)]">{t("Total Riwayat Deteksi")}</p>
             <div className="flex items-baseline gap-1.5 mt-1">
-              <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-jakarta">
+              <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-[var(--theme-ink)] tracking-tight font-jakarta">
                 {detectionsCount || totalDetectionsCount}  {t("Kali")}</span>
-              <span className="text-xs text-slate-400 font-medium">{t("sampel")}</span>
+              <span className="text-xs text-slate-400 dark:text-[var(--theme-muted)] font-medium">{t("sampel")}</span>
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-slate-50 flex items-center justify-between text-xs">
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 font-bold text-[11px] border border-amber-200">
+          <div className="mt-4 pt-3 border-t border-slate-50 dark:border-[var(--theme-line)] flex items-center justify-between text-xs">
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-50 dark:bg-[var(--theme-amber-soft)] text-amber-700 dark:text-[var(--theme-amber)] font-bold text-[11px] border border-amber-200 dark:border-[var(--theme-amber)]">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
               <span>{t("Monitoring Aktif")}</span>
             </span>
             <Link
               href="/dashboard/deteksi"
-              className="text-simantri-600 hover:text-simantri-700 font-bold hover:underline"
+              className="text-simantri-600 dark:text-[var(--theme-green)] hover:text-simantri-700 dark:hover:text-[var(--theme-green)] font-bold hover:underline"
             >
               {t("Foto Baru →")}</Link>
           </div>
         </div>
 
         {/* Card 4: Knowledge Base SIMA */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between transition-shadow">
+        <div className="bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-5 border border-slate-100 dark:border-[var(--theme-line)] shadow-sm flex flex-col justify-between transition-shadow">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase tracking-wider">
                 {t("Pustaka Sukomoro")}</span>
-              <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-simantri-600">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-[var(--theme-green-soft)] flex items-center justify-center text-simantri-600 dark:text-[var(--theme-green)]">
                 <BookOpen className="w-5 h-5" />
               </div>
             </div>
-            <p className="text-xs font-semibold text-slate-500">{t("Knowledge Base SIMA")}</p>
+            <p className="text-xs font-semibold text-slate-500 dark:text-[var(--theme-muted)]">{t("Knowledge Base SIMA")}</p>
             <div className="flex items-baseline gap-1.5 mt-1">
-              <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-jakarta">
+              <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-[var(--theme-ink)] tracking-tight font-jakarta">
                 {knowledgeCount || 48}  {t("Artikel")}</span>
-              <span className="text-xs text-slate-400 font-medium">{t("terverifikasi")}</span>
+              <span className="text-xs text-slate-400 dark:text-[var(--theme-muted)] font-medium">{t("terverifikasi")}</span>
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-slate-50 flex items-center justify-between text-xs text-slate-500 font-medium">
-            <span className="flex items-center gap-1 text-simantri-700 font-bold text-[11px]">
+          <div className="mt-4 pt-3 border-t border-slate-50 dark:border-[var(--theme-line)] flex items-center justify-between text-xs text-slate-500 dark:text-[var(--theme-muted)] font-medium">
+            <span className="flex items-center gap-1 text-simantri-700 dark:text-[var(--theme-green)] font-bold text-[11px]">
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>{t("PPL Nganjuk")}</span>
             </span>
             <Link
               href="/dunia-brambang"
-              className="text-simantri-600 hover:text-simantri-700 font-bold hover:underline"
+              className="text-simantri-600 dark:text-[var(--theme-green)] hover:text-simantri-700 dark:hover:text-[var(--theme-green)] font-bold hover:underline"
             >
               {t("Jelajahi →")}</Link>
           </div>
@@ -552,23 +552,23 @@ export default function DashboardPage() {
       {/* Main Analytics Grid (8:4 layout) */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column (8 cols): Tren Harga Bawang Merah */}
-        <div className="lg:col-span-8 bg-white rounded-3xl p-5 sm:p-6 border border-slate-100 shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-8 bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-5 sm:p-6 border border-slate-100 dark:border-[var(--theme-line)] shadow-sm flex flex-col justify-between">
           <div>
             {/* Header with period tabs */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 font-jakarta">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[var(--theme-ink)] font-jakarta">
                     {t("Tren Harga Bawang Merah Nganjuk")}</h3>
-                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-simantri-700 text-[10px] font-bold border border-emerald-200">
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-simantri-700 dark:text-[var(--theme-green)] text-[10px] font-bold border border-emerald-200 dark:border-[var(--theme-green)]">
                     {t("Aktual + Proyeksi")}</span>
                 </div>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-slate-500 dark:text-[var(--theme-muted)] mt-0.5">
                   {t("Data historis harian Pasar Sukomoro & estimasi kecerdasan buatan")}</p>
               </div>
 
               {/* Period Selector Tabs */}
-              <div className="inline-flex p-1 rounded-2xl bg-slate-100 self-start sm:self-auto border border-slate-200/60">
+              <div className="inline-flex p-1 rounded-2xl bg-slate-100 dark:bg-[var(--theme-raised)] self-start sm:self-auto border border-slate-200/60 dark:border-[var(--theme-line)]">
                 {([7, 14, 30] as const).map((days) => (
                   <button
                     key={days}
@@ -576,8 +576,8 @@ export default function DashboardPage() {
                     onClick={() => setSelectedPeriod(days)}
                     className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                       selectedPeriod === days
-                        ? 'bg-white text-simantri-700 shadow-xs'
-                        : 'text-slate-500 hover:text-slate-800'
+                        ? 'bg-white dark:bg-[var(--theme-surface)] text-simantri-700 dark:text-[var(--theme-green)] shadow-xs'
+                        : 'text-slate-500 dark:text-[var(--theme-muted)] hover:text-slate-800 dark:hover:text-[var(--theme-ink)]'
                     }`}
                   >
                     {days}  {t("Hari")}</button>
@@ -586,34 +586,34 @@ export default function DashboardPage() {
             </div>
 
             {/* Metric Summary Bar */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3.5 mb-5 rounded-2xl bg-slate-50 border border-slate-100">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3.5 mb-5 rounded-2xl bg-slate-50 dark:bg-[var(--theme-canvas)] border border-slate-100 dark:border-[var(--theme-line)]">
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase">{t("Harga Terendah")}</span>
-                <p className="text-sm sm:text-base font-extrabold text-slate-900 mt-0.5 font-jakarta">
+                <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase">{t("Harga Terendah")}</span>
+                <p className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-[var(--theme-ink)] mt-0.5 font-jakarta">
                   Rp {minPrice.toLocaleString('id-ID')}
                 </p>
-                <span className="text-[10px] text-slate-500">{t("Periode terpilih")}</span>
+                <span className="text-[10px] text-slate-500 dark:text-[var(--theme-muted)]">{t("Periode terpilih")}</span>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase">{t("Rata-Rata")}</span>
-                <p className="text-sm sm:text-base font-extrabold text-slate-900 mt-0.5 font-jakarta">
+                <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase">{t("Rata-Rata")}</span>
+                <p className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-[var(--theme-ink)] mt-0.5 font-jakarta">
                   Rp {avgPrice.toLocaleString('id-ID')}
                 </p>
-                <span className="text-[10px] text-slate-500">{selectedPeriod}  {t("hari terakhir")}</span>
+                <span className="text-[10px] text-slate-500 dark:text-[var(--theme-muted)]">{selectedPeriod}  {t("hari terakhir")}</span>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase">{t("Harga Tertinggi")}</span>
-                <p className="text-sm sm:text-base font-extrabold text-slate-900 mt-0.5 font-jakarta">
+                <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase">{t("Harga Tertinggi")}</span>
+                <p className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-[var(--theme-ink)] mt-0.5 font-jakarta">
                   Rp {maxPrice.toLocaleString('id-ID')}
                 </p>
-                <span className="text-[10px] text-simantri-600 font-bold">{t("Hari Ini (Aktual)")}</span>
+                <span className="text-[10px] text-simantri-600 dark:text-[var(--theme-green)] font-bold">{t("Hari Ini (Aktual)")}</span>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-shallot-600 uppercase">{t("Proyeksi H+3")}</span>
-                <p className="text-sm sm:text-base font-extrabold text-shallot-600 mt-0.5 font-jakarta">
+                <span className="text-[10px] font-bold text-shallot-600 dark:text-[var(--theme-rose)] uppercase">{t("Proyeksi H+3")}</span>
+                <p className="text-sm sm:text-base font-extrabold text-shallot-600 dark:text-[var(--theme-rose)] mt-0.5 font-jakarta">
                   Rp {latestPrediction?.predicted_price.toLocaleString('id-ID') || '29.800'}
                 </p>
-                <span className="text-[10px] text-shallot-500 font-medium">{t("Estimasi Model")}</span>
+                <span className="text-[10px] text-shallot-500 dark:text-[var(--theme-rose)] font-medium">{t("Estimasi Model")}</span>
               </div>
             </div>
 
@@ -716,14 +716,14 @@ export default function DashboardPage() {
           </div>
 
           {/* Footer Source Note */}
-          <div className="mt-5 pt-3.5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-500">
+          <div className="mt-5 pt-3.5 border-t border-slate-100 dark:border-[var(--theme-line)] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-500 dark:text-[var(--theme-muted)]">
             <div className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-simantri-600" />
+              <ShieldCheck className="w-4 h-4 text-simantri-600 dark:text-[var(--theme-green)]" />
               <span>{t("Sumber: Pencatatan Harian Pasar Sukomoro & Dinas Pertanian Nganjuk")}</span>
             </div>
             <Link
               href="/dashboard/harga"
-              className="text-simantri-600 hover:text-simantri-700 font-bold inline-flex items-center gap-1"
+              className="text-simantri-600 dark:text-[var(--theme-green)] hover:text-simantri-700 dark:hover:text-[var(--theme-green)] font-bold inline-flex items-center gap-1"
             >
               <span>{t("Detail & Simulasi Prediksi")}</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -732,15 +732,15 @@ export default function DashboardPage() {
         </div>
 
         {/* Right Column (4 cols): Distribusi Deteksi Penyakit */}
-        <div className="lg:col-span-4 bg-white rounded-3xl p-5 sm:p-6 border border-slate-100 shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-4 bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-5 sm:p-6 border border-slate-100 dark:border-[var(--theme-line)] shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-1">
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 font-jakarta">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[var(--theme-ink)] font-jakarta">
                 {t("Distribusi Deteksi")}</h3>
-              <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold">
+              <span className="px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-[var(--theme-raised)] text-slate-600 dark:text-[var(--theme-body)] text-[10px] font-bold">
                 {t("Bulan Ini")}</span>
             </div>
-            <p className="text-xs text-slate-500 mb-5">
+            <p className="text-xs text-slate-500 dark:text-[var(--theme-muted)] mb-5">
               {t("Berdasarkan hasil foto daun tanaman bawang di kebun Anda")}</p>
 
             {/* Donut Chart Visual */}
@@ -800,11 +800,11 @@ export default function DashboardPage() {
 
                 {/* Donut Center */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                  <span className="text-2xl font-extrabold text-slate-900 leading-none font-jakarta">
+                  <span className="text-2xl font-extrabold text-slate-900 dark:text-[var(--theme-ink)] leading-none font-jakarta">
                     58%
                   </span>
-                  <span className="text-xs font-bold text-simantri-700 mt-0.5">{t("Tanaman Sehat")}</span>
-                  <span className="text-[10px] text-slate-400 font-medium">{t("8 dari 14 sampel")}</span>
+                  <span className="text-xs font-bold text-simantri-700 dark:text-[var(--theme-green)] mt-0.5">{t("Tanaman Sehat")}</span>
+                  <span className="text-[10px] text-slate-400 dark:text-[var(--theme-muted)] font-medium">{t("8 dari 14 sampel")}</span>
                 </div>
               </div>
             </div>
@@ -816,7 +816,7 @@ export default function DashboardPage() {
                 return (
                   <div
                     key={item.key}
-                    className="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-100"
+                    className="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50 dark:bg-[var(--theme-canvas)] hover:bg-slate-100 dark:hover:bg-[var(--theme-raised)] transition-colors border border-slate-100 dark:border-[var(--theme-line)]"
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
                       <span
@@ -824,17 +824,17 @@ export default function DashboardPage() {
                         style={{ backgroundColor: item.color }}
                       />
                       <div className="flex flex-col min-w-0">
-                        <span className="text-xs font-bold text-slate-800 truncate">
+                        <span className="text-xs font-bold text-slate-800 dark:text-[var(--theme-ink)] truncate">
                           {t(item.label)}
                         </span>
-                        <span className="text-[10px] text-slate-400 truncate italic">
+                        <span className="text-[10px] text-slate-400 dark:text-[var(--theme-muted)] truncate italic">
                           {item.latin}
                         </span>
                       </div>
                     </div>
                     <div className="text-right shrink-0">
-                      <span className="text-xs font-bold text-slate-900">{percent}%</span>
-                      <span className="block text-[10px] text-slate-400">{item.count} {t("sampel")}</span>
+                      <span className="text-xs font-bold text-slate-900 dark:text-[var(--theme-ink)]">{percent}%</span>
+                      <span className="block text-[10px] text-slate-400 dark:text-[var(--theme-muted)]">{item.count} {t("sampel")}</span>
                     </div>
                   </div>
                 )
@@ -842,12 +842,12 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="mt-5 pt-3 border-t border-slate-100">
+          <div className="mt-5 pt-3 border-t border-slate-100 dark:border-[var(--theme-line)]">
             <Link
               href="/dashboard/deteksi"
-              className="w-full h-11 rounded-2xl bg-slate-100 hover:bg-simantri-50 hover:text-simantri-700 text-slate-700 font-bold text-xs inline-flex items-center justify-center gap-2 transition-all cursor-pointer"
+              className="w-full h-11 rounded-2xl bg-slate-100 dark:bg-[var(--theme-raised)] hover:bg-simantri-50 dark:hover:bg-[var(--theme-green-soft)] hover:text-simantri-700 dark:hover:text-[var(--theme-green)] text-slate-700 dark:text-[var(--theme-body)] font-bold text-xs inline-flex items-center justify-center gap-2 transition-all cursor-pointer"
             >
-              <Camera className="w-4 h-4 text-simantri-600" />
+              <Camera className="w-4 h-4 text-simantri-600 dark:text-[var(--theme-green)]" />
               <span>{t("Lihat Riwayat Lengkap Diagnosa")}</span>
             </Link>
           </div>
@@ -855,22 +855,22 @@ export default function DashboardPage() {
       </section>
 
       {/* Community & Field Knowledge Contribution Banner */}
-      <section className="bg-emerald-50/80 rounded-3xl p-5 sm:p-6 border border-emerald-200/70 shadow-xs">
+      <section className="bg-emerald-50/80 dark:bg-[var(--theme-green-soft)] rounded-3xl p-5 sm:p-6 border border-emerald-200/70 dark:border-[var(--theme-green)]/70 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-2xl bg-simantri-500 text-white flex items-center justify-center shrink-0 shadow-md shadow-simantri-500/25">
               <Lightbulb className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-slate-900">
+              <h3 className="text-base font-bold text-slate-900 dark:text-[var(--theme-ink)]">
                 {t("Punya Pengalaman Mengatasi Hama di Lapangan?")}</h3>
-              <p className="text-xs text-slate-600 mt-0.5 max-w-2xl">
+              <p className="text-xs text-slate-600 dark:text-[var(--theme-body)] mt-0.5 max-w-2xl">
                 {t("Bagikan metode budidaya Anda untuk divalidasi oleh tim penyuluh Sukomoro & Dinas Pertanian Nganjuk agar masuk ke dalam basis pengetahuan SIMA.")}</p>
             </div>
           </div>
           <Link
             href="/dashboard/usulan"
-            className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-2xl bg-white hover:bg-simantri-500 hover:text-white text-simantri-700 font-bold text-xs sm:text-sm border border-emerald-300 transition-all shrink-0 shadow-xs cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-2xl bg-white dark:bg-[var(--theme-surface)] hover:bg-simantri-500 hover:text-white text-simantri-700 dark:text-[var(--theme-green)] font-bold text-xs sm:text-sm border border-emerald-300 dark:border-[var(--theme-green)] transition-all shrink-0 shadow-xs cursor-pointer"
           >
             <FileText className="w-4 h-4" />
             <span>{t("Kirim Usulan Praktik Baik")}</span>
@@ -879,17 +879,17 @@ export default function DashboardPage() {
       </section>
 
       {/* RLS Security Accordion for Verification */}
-      <details className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs">
-        <summary className="flex min-h-12 cursor-pointer items-center justify-between px-5 py-3 font-bold text-xs text-slate-700 hover:bg-slate-50 transition">
+      <details className="bg-white dark:bg-[var(--theme-surface)] rounded-3xl border border-slate-200/80 dark:border-[var(--theme-line)] overflow-hidden shadow-xs">
+        <summary className="flex min-h-12 cursor-pointer items-center justify-between px-5 py-3 font-bold text-xs text-slate-700 dark:text-[var(--theme-body)] hover:bg-slate-50 dark:hover:bg-[var(--theme-canvas)] transition">
           <div className="flex items-center gap-2.5">
-            <ShieldCheck className="h-4 w-4 text-simantri-600" />
+            <ShieldCheck className="h-4 w-4 text-simantri-600 dark:text-[var(--theme-green)]" />
             <span>{t("Transparansi Keamanan & Privasi Data Petani (RLS Aktif)")}</span>
           </div>
-          <span className="text-[11px] font-semibold text-simantri-700 bg-simantri-50 px-2.5 py-0.5 rounded-full border border-simantri-200">
+          <span className="text-[11px] font-semibold text-simantri-700 dark:text-[var(--theme-green)] bg-simantri-50 dark:bg-[var(--theme-green-soft)] px-2.5 py-0.5 rounded-full border border-simantri-200 dark:border-[var(--theme-green)]">
             {t("Terlindungi")}</span>
         </summary>
-        <div className="border-t border-slate-100 p-5 bg-slate-50/50">
-          <p className="max-w-3xl text-xs leading-relaxed text-slate-600">
+        <div className="border-t border-slate-100 dark:border-[var(--theme-line)] p-5 bg-slate-50/50 dark:bg-[var(--theme-canvas)]/50">
+          <p className="max-w-3xl text-xs leading-relaxed text-slate-600 dark:text-[var(--theme-body)]">
             {t("Row Level Security (RLS) pada PostgreSQL Supabase memastikan bahwa data diagnosa kamera, konsultasi SIMA, dan data usaha tani hanya dapat diakses oleh akun Anda secara terenkripsi.")}</p>
           {profile?.role === 'admin' && (
             <button
@@ -907,11 +907,11 @@ export default function DashboardPage() {
               {testLog.map((log, index) => (
                 <li
                   key={`${log.table}-${index}`}
-                  className="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 text-xs"
+                  className="flex items-center gap-2 p-2 rounded-xl bg-white dark:bg-[var(--theme-surface)] border border-slate-200 dark:border-[var(--theme-line)] text-xs"
                 >
                   <CheckCircle2
                     className={`h-4 w-4 shrink-0 ${
-                      log.actual === 'success' ? 'text-simantri-600' : 'text-red-500'
+                      log.actual === 'success' ? 'text-simantri-600 dark:text-[var(--theme-green)]' : 'text-red-500 dark:text-[var(--theme-red)]'
                     }`}
                   />
                   <span>

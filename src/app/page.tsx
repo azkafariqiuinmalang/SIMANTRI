@@ -79,7 +79,7 @@ const CAROUSEL_CARDS = [
     tag: 'Ikon Sentra Agraria',
     badge: 'Nganjuk Sentra',
     badgeBg: 'bg-[#173E2D]/90 text-[#b8efc9]',
-    tagBg: 'bg-[#DDE8D8] text-[#002819]',
+    tagBg: 'bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)]',
     img: '/bg_tugu_bawang.jpg',
   },
   {
@@ -88,8 +88,8 @@ const CAROUSEL_CARDS = [
     subtitle: 'Aroma tajam, umbi padat & tahan simpan',
     tag: 'Hasil Panen Unggul',
     badge: 'Khas Nganjuk',
-    badgeBg: 'bg-[#EAC6D2]/90 text-[#6b1434]',
-    tagBg: 'bg-[#b8efc9] text-[#002110]',
+    badgeBg: 'bg-[#EAC6D2]/90 dark:bg-[var(--theme-rose-soft)] text-[#6b1434] dark:text-[var(--theme-rose)]',
+    tagBg: 'bg-[#b8efc9] dark:bg-[var(--theme-green-soft)] text-[#002110] dark:text-[var(--theme-green)]',
     img: '/varietas_tajuk.jpg',
   },
   {
@@ -99,7 +99,7 @@ const CAROUSEL_CARDS = [
     tag: 'Sukomoro & Bagor',
     badge: 'Rawat Bedengan',
     badgeBg: 'bg-[#173E2D]/90 text-[#b8efc9]',
-    tagBg: 'bg-[#DDE8D8] text-[#002819]',
+    tagBg: 'bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)]',
     img: '/petani_bawang_merah.jpg',
   },
   {
@@ -108,8 +108,8 @@ const CAROUSEL_CARDS = [
     subtitle: 'Favorit pasar lelang konsumsi & industri',
     tag: 'Karakter Umbi Padat',
     badge: 'Bibit Pilihan',
-    badgeBg: 'bg-[#f1eae0] text-[#173e2d]',
-    tagBg: 'bg-[#EAC6D2] text-[#6b1434]',
+    badgeBg: 'bg-[#f1eae0] dark:bg-[var(--theme-raised)] text-[#173e2d] dark:text-[var(--theme-green)]',
+    tagBg: 'bg-[#EAC6D2] dark:bg-[var(--theme-rose-soft)] text-[#6b1434] dark:text-[var(--theme-rose)]',
     img: '/varietas_bauji.jpg',
   },
   {
@@ -119,7 +119,7 @@ const CAROUSEL_CARDS = [
     tag: 'Gejala Bercak Ungu',
     badge: 'Scan Citra AI',
     badgeBg: 'bg-[#173E2D]/90 text-[#b8efc9]',
-    tagBg: 'bg-[#EAC6D2] text-[#6b1434]',
+    tagBg: 'bg-[#EAC6D2] dark:bg-[var(--theme-rose-soft)] text-[#6b1434] dark:text-[var(--theme-rose)]',
     img: '/penyakit_bercak_ungu.jpg',
     hasScanner: true,
   },
@@ -129,8 +129,8 @@ const CAROUSEL_CARDS = [
     subtitle: 'Prasasti kemenangan & tanah subur merdeka',
     tag: 'Bumi Anjuk Ladang',
     badge: 'Anjuk Ladang',
-    badgeBg: 'bg-[#DDE8D8] text-[#002819]',
-    tagBg: 'bg-[#b8efc9] text-[#002110]',
+    badgeBg: 'bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)]',
+    tagBg: 'bg-[#b8efc9] dark:bg-[var(--theme-green-soft)] text-[#002110] dark:text-[var(--theme-green)]',
     img: '/jayastamba.jpg',
   },
   {
@@ -139,8 +139,8 @@ const CAROUSEL_CARDS = [
     subtitle: 'Senyum keberhasilan panen melimpah',
     tag: 'Kualitas Terverifikasi',
     badge: '60-70 HST',
-    badgeBg: 'bg-[#DDE8D8] text-[#002819]',
-    tagBg: 'bg-[#b5ecc6] text-[#3a6d4e]',
+    badgeBg: 'bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)]',
+    tagBg: 'bg-[#b5ecc6] dark:bg-[var(--theme-green-soft)] text-[#3a6d4e] dark:text-[var(--theme-green)]',
     img: '/foto_bawang_merah.jpg',
   },
 ]
@@ -380,17 +380,17 @@ export default function LandingPage() {
   }, [])
 
   return (
-    <div className="bg-[#FAF7F2] text-[#1A221D] font-manrope antialiased min-h-screen selection:bg-[#b5ecc6] selection:text-[#002110]">
+    <div className="bg-[#FAF7F2] dark:bg-[var(--theme-canvas)] text-[#1A221D] dark:text-[var(--theme-ink)] font-manrope antialiased min-h-screen selection:bg-[#b5ecc6] dark:selection:bg-[var(--theme-green-soft)] selection:text-[#002110] dark:selection:text-[var(--theme-green)]">
       {/* TOP FLOATING CAPSULE NAVIGATION */}
       <header className="fixed top-4 xl:top-6 left-0 right-0 z-50 px-4 pointer-events-none">
-        <div className="max-w-6xl mx-auto h-16 bg-white/90 backdrop-blur-md border border-[#173e2d]/10 rounded-full px-3 sm:px-6 shadow-[0_8px_30px_rgba(20,35,28,0.06)] flex items-center justify-between pointer-events-auto transition-all duration-300 hover:border-[#173e2d]/25 hover:shadow-[0_12px_35px_rgba(20,35,28,0.1)]">
+        <div className="max-w-6xl mx-auto h-16 bg-white/90 dark:bg-[var(--theme-surface)]/90 backdrop-blur-md border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 rounded-full px-3 sm:px-6 shadow-[0_8px_30px_rgba(20,35,28,0.06)] flex items-center justify-between pointer-events-auto transition-all duration-300 hover:border-[#173e2d]/25 dark:hover:border-[var(--theme-green)]/25 hover:shadow-[0_12px_35px_rgba(20,35,28,0.1)]">
           {/* Brand - Official SIMANTRI Logo */}
           <Link
             href="#beranda"
             onClick={(e) => handleNavClick(e, 'beranda', '#beranda')}
-            className="flex shrink-0 items-center gap-2 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] focus-visible:ring-offset-2 rounded-full sm:pr-2"
+            className="flex shrink-0 items-center gap-2 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] dark:focus-visible:ring-[var(--theme-green)] focus-visible:ring-offset-2 rounded-full sm:pr-2"
           >
-            <div className="relative h-8 w-8 sm:h-10 sm:w-10 flex items-center justify-center rounded-full bg-[#173e2d]/5 group-hover:bg-[#173e2d]/10 transition-colors duration-200 p-1">
+            <div className="relative h-8 w-8 sm:h-10 sm:w-10 flex items-center justify-center rounded-full bg-[#173e2d]/5 dark:bg-[var(--theme-green-soft)] group-hover:bg-[#173e2d]/10 dark:group-hover:bg-[var(--theme-green-soft)] transition-colors duration-200 p-1">
               <Image
                 src="/UIUX BARU/logo_simantri.png"
                 alt={t("Logo SIMANTRI")}
@@ -401,10 +401,10 @@ export default function LandingPage() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-editorial text-[20px] font-semibold text-[#173e2d] tracking-tight leading-none group-hover:text-[#275a3d] transition-colors duration-200">
+              <span className="font-editorial text-[20px] font-semibold text-[#173e2d] dark:text-[var(--theme-green)] tracking-tight leading-none group-hover:text-[#275a3d] dark:group-hover:text-[var(--theme-green)] transition-colors duration-200">
                 SIMANTRI
               </span>
-              <span className="text-[9.5px] font-mono uppercase text-[#5E665F] tracking-wider mt-0.5 hidden sm:inline">
+              <span className="text-[9.5px] font-mono uppercase text-[#5E665F] dark:text-[var(--theme-body)] tracking-wider mt-0.5 hidden sm:inline">
                 {t("Nganjuk Agro Hub")}</span>
             </div>
           </Link>
@@ -420,7 +420,7 @@ export default function LandingPage() {
               {/* Sliding Active Pill Background Indicator with Perfect Centering */}
               <div
                 aria-hidden="true"
-                className="absolute rounded-full bg-[#173e2d]/10 pointer-events-none transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+                className="absolute rounded-full bg-[#173e2d]/10 dark:bg-[var(--theme-green-soft)] pointer-events-none transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
                 style={{
                   transform: `translate3d(${indicatorStyle.left}px, ${indicatorStyle.top}px, 0)`,
                   width: `${indicatorStyle.width}px`,
@@ -439,10 +439,10 @@ export default function LandingPage() {
                     }}
                     href={item.href}
                     onClick={(e) => handleNavClick(e, item.id, item.href)}
-                    className={`relative z-10 inline-flex items-center justify-center h-8 px-3.5 text-[13.5px] font-manrope rounded-full transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] focus-visible:ring-offset-1 select-none leading-none ${
+                    className={`relative z-10 inline-flex items-center justify-center h-8 px-3.5 text-[13.5px] font-manrope rounded-full transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] dark:focus-visible:ring-[var(--theme-green)] focus-visible:ring-offset-1 select-none leading-none ${
                       isActive
-                        ? 'text-[#002819] font-bold'
-                        : 'text-[#5E665F] hover:text-[#1A221D] hover:bg-[#173e2d]/5 font-medium'
+                        ? 'text-[#002819] dark:text-[var(--theme-green)] font-bold'
+                        : 'text-[#5E665F] dark:text-[var(--theme-body)] hover:text-[#1A221D] dark:hover:text-[var(--theme-ink)] hover:bg-[#173e2d]/5 dark:hover:bg-[var(--theme-green-soft)] font-medium'
                     }`}
                     aria-current={isActive ? 'page' : undefined}
                   >
@@ -453,12 +453,12 @@ export default function LandingPage() {
             </nav>
 
             {/* Subtle Divider */}
-            <div className="h-4 w-[1px] bg-[#173e2d]/15 mx-1" aria-hidden="true" />
+            <div className="h-4 w-[1px] bg-[#173e2d]/15 dark:bg-[var(--theme-green-soft)] mx-1" aria-hidden="true" />
 
             {/* Dedicated Dunia Brambang Link (Navigates directly to /dunia-brambang page) */}
             <Link
               href="/dunia-brambang"
-              className="inline-flex items-center justify-center gap-1.5 h-8 px-3.5 text-[13.5px] font-manrope font-semibold text-[#5E665F] hover:text-[#6b1434] hover:bg-[#EAC6D2]/50 rounded-full transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6b1434] focus-visible:ring-offset-1 leading-none select-none"
+              className="inline-flex items-center justify-center gap-1.5 h-8 px-3.5 text-[13.5px] font-manrope font-semibold text-[#5E665F] dark:text-[var(--theme-body)] hover:text-[#6b1434] dark:hover:text-[var(--theme-rose)] hover:bg-[#EAC6D2]/50 dark:hover:bg-[var(--theme-rose-soft)] rounded-full transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6b1434] dark:focus-visible:ring-[var(--theme-rose)] focus-visible:ring-offset-1 leading-none select-none"
             >
               <span className="translate-y-[-0.5px]">{t("Dunia Brambang")}</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#E25C58] animate-pulse"></span>
@@ -469,12 +469,12 @@ export default function LandingPage() {
           <div className="flex items-center gap-1 sm:gap-3">
             <Link
               href="/login"
-              className="inline-flex min-h-11 items-center text-[14px] font-semibold text-[#5E665F] hover:text-[#173e2d] hover:bg-[#173e2d]/8 px-2 sm:px-4 py-1.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] focus-visible:ring-offset-1 transition-colors duration-200"
+              className="inline-flex min-h-11 items-center text-[14px] font-semibold text-[#5E665F] dark:text-[var(--theme-body)] hover:text-[#173e2d] dark:hover:text-[var(--theme-green)] hover:bg-[#173e2d]/8 dark:hover:bg-[var(--theme-green-soft)] px-2 sm:px-4 py-1.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] dark:focus-visible:ring-[var(--theme-green)] focus-visible:ring-offset-1 transition-colors duration-200"
             >
               {t("Masuk")}</Link>
             <Link
               href="/register"
-              className="inline-flex min-h-11 items-center justify-center bg-[#173e2d] text-[#F8F4EC] text-[13.5px] font-semibold px-3 sm:px-5 py-2 rounded-full hover:bg-[#275a3d] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] focus-visible:ring-offset-2 transition-all duration-200 shadow-sm"
+              className="inline-flex min-h-11 items-center justify-center bg-[#173e2d] text-[#F8F4EC] text-[13.5px] font-semibold px-3 sm:px-5 py-2 rounded-full hover:bg-[#275a3d] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] dark:focus-visible:ring-[var(--theme-green)] focus-visible:ring-offset-2 transition-all duration-200 shadow-sm"
             >
               {t("Daftar")}</Link>
             
@@ -483,7 +483,7 @@ export default function LandingPage() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={t("Toggle navigation menu")}
               aria-expanded={mobileMenuOpen}
-              className="xl:hidden p-2 rounded-full text-[#173e2d] hover:bg-[#173e2d]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] transition-colors duration-200"
+              className="xl:hidden p-2 rounded-full text-[#173e2d] dark:text-[var(--theme-green)] hover:bg-[#173e2d]/10 dark:hover:bg-[var(--theme-green-soft)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173e2d] dark:focus-visible:ring-[var(--theme-green)] transition-colors duration-200"
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -492,7 +492,7 @@ export default function LandingPage() {
 
         {/* Mobile Dropdown Menu */}
         {(
-          <div inert={!mobileMenuOpen} aria-hidden={!mobileMenuOpen} style={{ opacity: mobileMenuOpen ? 1 : 0, visibility: mobileMenuOpen ? 'visible' : 'hidden', transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-8px)', transition: `opacity 220ms ease-out, transform 220ms ease-out, visibility 0s ${mobileMenuOpen ? '0s' : '220ms'}` }} className="absolute left-4 right-4 top-full xl:hidden max-w-6xl mx-auto mt-2 bg-white/95 backdrop-blur-md border border-[#173e2d]/10 rounded-2xl p-4 shadow-xl pointer-events-auto">
+          <div inert={!mobileMenuOpen} aria-hidden={!mobileMenuOpen} style={{ opacity: mobileMenuOpen ? 1 : 0, visibility: mobileMenuOpen ? 'visible' : 'hidden', transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-8px)', transition: `opacity 220ms ease-out, transform 220ms ease-out, visibility 0s ${mobileMenuOpen ? '0s' : '220ms'}` }} className="absolute left-4 right-4 top-full xl:hidden max-w-6xl mx-auto mt-2 bg-white/95 dark:bg-[var(--theme-surface)]/95 backdrop-blur-md border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 rounded-2xl p-4 shadow-xl pointer-events-auto">
             <nav className="flex flex-col gap-1.5 text-[14px]" role="navigation" aria-label={t("Navigasi Mobile")}>
               {LANDING_NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.id
@@ -503,8 +503,8 @@ export default function LandingPage() {
                     onClick={(e) => handleNavClick(e, item.id, item.href)}
                     className={`px-4 py-2.5 rounded-xl transition-colors duration-200 flex items-center justify-between ${
                       isActive
-                        ? 'bg-[#173e2d]/10 font-bold text-[#002819]'
-                        : 'text-[#5E665F] hover:text-[#002819] hover:bg-[#FAF7F2]'
+                        ? 'bg-[#173e2d]/10 dark:bg-[var(--theme-green-soft)] font-bold text-[#002819] dark:text-[var(--theme-green)]'
+                        : 'text-[#5E665F] dark:text-[var(--theme-body)] hover:text-[#002819] dark:hover:text-[var(--theme-green)] hover:bg-[#FAF7F2] dark:hover:bg-[var(--theme-canvas)]'
                     }`}
                     aria-current={isActive ? 'page' : undefined}
                   >
@@ -517,17 +517,17 @@ export default function LandingPage() {
               <Link
                 href="/dunia-brambang"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-2.5 rounded-xl hover:bg-[#EAC6D2]/30 text-[#173e2d] font-semibold flex items-center justify-between transition-colors duration-200"
+                className="px-4 py-2.5 rounded-xl hover:bg-[#EAC6D2]/30 text-[#173e2d] dark:text-[var(--theme-green)] font-semibold flex items-center justify-between transition-colors duration-200"
               >
                 <span>{t("Dunia Brambang (Pustaka Agronomi)")}</span>
-                <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-[#EAC6D2] text-[#6b1434]">
+                <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-[#EAC6D2] dark:bg-[var(--theme-rose-soft)] text-[#6b1434] dark:text-[var(--theme-rose)]">
                   {t("Khas Nganjuk")}</span>
               </Link>
 
-              <div className="pt-2 mt-1 border-t border-[#173e2d]/10 flex gap-2">
+              <div className="pt-2 mt-1 border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 flex gap-2">
                 <Link
                   href="/login"
-                  className="flex-1 text-center py-2.5 rounded-full border border-[#173e2d]/20 text-[#173e2d] hover:bg-[#173e2d]/5 font-semibold text-[13px] transition-colors"
+                  className="flex-1 text-center py-2.5 rounded-full border border-[#173e2d]/20 dark:border-[var(--theme-green)]/20 text-[#173e2d] dark:text-[var(--theme-green)] hover:bg-[#173e2d]/5 dark:hover:bg-[var(--theme-green-soft)] font-semibold text-[13px] transition-colors"
                 >
                   {t("Masuk Akun")}</Link>
                 <Link
@@ -542,11 +542,11 @@ export default function LandingPage() {
       </header>
 
       {/* MAIN BODY WRAPPER */}
-      <main className="w-full pt-20 sm:pt-24 bg-[#FAF7F2]">
+      <main className="w-full pt-20 sm:pt-24 bg-[#FAF7F2] dark:bg-[var(--theme-canvas)]">
         {/* HERO SECTION WITH INFINITE MOVING CAROUSEL */}
         <section id="beranda" className="relative w-full pt-10 sm:pt-14 pb-14 sm:pb-20 overflow-hidden scroll-mt-24">
           {/* Background Ambient Glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[360px] bg-gradient-to-b from-[#EFE8DC]/90 via-transparent to-transparent pointer-events-none -z-10 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[360px] bg-gradient-to-b from-[#EFE8DC]/90 dark:from-[var(--theme-raised)]/90 via-transparent to-transparent pointer-events-none -z-10 rounded-full blur-3xl"></div>
 
           <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center relative">
             {/* Top Right Annotation (Doodle Arrow & Note) */}
@@ -554,10 +554,10 @@ export default function LandingPage() {
               className="hidden md:flex absolute right-4 lg:right-10 flex-col items-center rotate-6 pointer-events-none select-none z-20"
               style={{ top: '-18px' }}
             >
-              <span className="font-handwriting text-[23px] text-[#275a3d] font-bold tracking-wide">
+              <span className="font-handwriting text-[23px] text-[#275a3d] dark:text-[var(--theme-green)] font-bold tracking-wide">
                 {t("Kawal Panen Anda!")}</span>
               <svg
-                className="w-10 h-10 text-[#275a3d] -mt-1 translate-x-3"
+                className="w-10 h-10 text-[#275a3d] dark:text-[var(--theme-green)] -mt-1 translate-x-3"
                 fill="none"
                 stroke="currentColor"
                 strokeLinecap="round"
@@ -573,7 +573,7 @@ export default function LandingPage() {
             {/* Top Left Annotation Lines */}
             <div className="hidden md:block absolute top-6 left-8 lg:left-14 pointer-events-none select-none">
               <svg
-                className="w-8 h-8 text-[#8B918B]"
+                className="w-8 h-8 text-[#8B918B] dark:text-[var(--theme-muted)]"
                 fill="none"
                 stroke="currentColor"
                 strokeLinecap="round"
@@ -586,24 +586,24 @@ export default function LandingPage() {
             </div>
 
             {/* Main Headline */}
-            <h1 className="font-editorial text-[38px] sm:text-[54px] lg:text-[68px] leading-[1.08] text-[#1A221D] tracking-tight max-w-4xl mx-auto mb-4 sm:mb-5 font-semibold">
+            <h1 className="font-editorial text-[38px] sm:text-[54px] lg:text-[68px] leading-[1.08] text-[#1A221D] dark:text-[var(--theme-ink)] tracking-tight max-w-4xl mx-auto mb-4 sm:mb-5 font-semibold">
               {t("Pertanian Bawang Merah yang Lebih Cerdas,")}{' '}
               <br className="hidden sm:inline" />
               {t("dari Lahan hingga")}{' '}
-              <span className="italic font-normal text-[#275a3d]">
+              <span className="italic font-normal text-[#275a3d] dark:text-[var(--theme-green)]">
                 {t("Keputusan Jual.")}</span>
             </h1>
 
             {/* Subheadline */}
-            <p className="text-[16px] sm:text-[18px] text-[#5E665F] max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal">
+            <p className="text-[16px] sm:text-[18px] text-[#5E665F] dark:text-[var(--theme-body)] max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal">
               {t("SIMANTRI mendampingi petani Nganjuk membaca dinamika pasar, mendeteksi ancaman penyakit sejak dini, dan mengakses pustaka budidaya terpadu.")}</p>
           </div>
 
           {/* INFINITE MOVING CAROUSEL TRACK (Right to Left, Pause on Hover with Prominent Card Zoom) */}
           <div className="carousel-container relative w-full overflow-hidden py-12 sm:py-14 select-none -my-6">
             {/* Side gradient overlays */}
-            <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-r from-[#FAF7F2] via-[#FAF7F2]/80 to-transparent z-20 pointer-events-none"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-l from-[#FAF7F2] via-[#FAF7F2]/80 to-transparent z-20 pointer-events-none"></div>
+            <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-r from-[#FAF7F2] dark:from-[var(--theme-canvas)] via-[#FAF7F2]/80 dark:via-[var(--theme-canvas)]/80 to-transparent z-20 pointer-events-none"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-l from-[#FAF7F2] dark:from-[var(--theme-canvas)] via-[#FAF7F2]/80 dark:via-[var(--theme-canvas)]/80 to-transparent z-20 pointer-events-none"></div>
 
             <div className="carousel-track items-center py-4">
               {/* SET 1: 7 CARDS */}
@@ -611,7 +611,7 @@ export default function LandingPage() {
                 {CAROUSEL_CARDS.map((card, idx) => (
                   <div
                     key={`card-set1-${idx}`}
-                    className="carousel-card w-52 sm:w-60 lg:w-64 h-76 sm:h-88 lg:h-[410px] rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-md group cursor-pointer shrink-0 bg-[#f1eae0] border border-white/70"
+                    className="carousel-card w-52 sm:w-60 lg:w-64 h-76 sm:h-88 lg:h-[410px] rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-md group cursor-pointer shrink-0 bg-[#f1eae0] dark:bg-[var(--theme-raised)] border border-white/70 dark:border-[var(--theme-line)]"
                   >
                     <Image
                       src={card.img}
@@ -623,11 +623,11 @@ export default function LandingPage() {
 
                     {/* Scanner overlay if card is detection */}
                     {card.hasScanner && (
-                      <div className="absolute inset-5 border border-white/30 rounded-xl pointer-events-none flex items-center justify-center group-hover:border-[#b8efc9]/60 transition-colors">
-                        <div className="w-4 h-4 border-t-2 border-l-2 border-[#b8efc9] absolute top-2 left-2 group-hover:scale-[1.02] transition-transform"></div>
-                        <div className="w-4 h-4 border-t-2 border-r-2 border-[#b8efc9] absolute top-2 right-2 group-hover:scale-[1.02] transition-transform"></div>
-                        <div className="w-4 h-4 border-b-2 border-l-2 border-[#b8efc9] absolute bottom-2 left-2 group-hover:scale-[1.02] transition-transform"></div>
-                        <div className="w-4 h-4 border-b-2 border-r-2 border-[#b8efc9] absolute bottom-2 right-2 group-hover:scale-[1.02] transition-transform"></div>
+                      <div className="absolute inset-5 border border-white/30 rounded-xl pointer-events-none flex items-center justify-center group-hover:border-[#b8efc9]/60 dark:group-hover:border-[var(--theme-line)] transition-colors">
+                        <div className="w-4 h-4 border-t-2 border-l-2 border-[#b8efc9] dark:border-[var(--theme-line)] absolute top-2 left-2 group-hover:scale-[1.02] transition-transform"></div>
+                        <div className="w-4 h-4 border-t-2 border-r-2 border-[#b8efc9] dark:border-[var(--theme-line)] absolute top-2 right-2 group-hover:scale-[1.02] transition-transform"></div>
+                        <div className="w-4 h-4 border-b-2 border-l-2 border-[#b8efc9] dark:border-[var(--theme-line)] absolute bottom-2 left-2 group-hover:scale-[1.02] transition-transform"></div>
+                        <div className="w-4 h-4 border-b-2 border-r-2 border-[#b8efc9] dark:border-[var(--theme-line)] absolute bottom-2 right-2 group-hover:scale-[1.02] transition-transform"></div>
                       </div>
                     )}
 
@@ -663,7 +663,7 @@ export default function LandingPage() {
                 {CAROUSEL_CARDS.map((card, idx) => (
                   <div
                     key={`card-set2-${idx}`}
-                    className="carousel-card w-52 sm:w-60 lg:w-64 h-76 sm:h-88 lg:h-[410px] rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-md group cursor-pointer shrink-0 bg-[#f1eae0] border border-white/70"
+                    className="carousel-card w-52 sm:w-60 lg:w-64 h-76 sm:h-88 lg:h-[410px] rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-md group cursor-pointer shrink-0 bg-[#f1eae0] dark:bg-[var(--theme-raised)] border border-white/70 dark:border-[var(--theme-line)]"
                   >
                     <Image
                       src={card.img}
@@ -674,11 +674,11 @@ export default function LandingPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#002819]/90 via-black/25 to-transparent transition-opacity duration-300 group-hover:from-[#002819]/95 group-hover:via-black/15 pointer-events-none"></div>
 
                     {card.hasScanner && (
-                      <div className="absolute inset-5 border border-white/30 rounded-xl pointer-events-none flex items-center justify-center group-hover:border-[#b8efc9]/60 transition-colors">
-                        <div className="w-4 h-4 border-t-2 border-l-2 border-[#b8efc9] absolute top-2 left-2 group-hover:scale-[1.02] transition-transform"></div>
-                        <div className="w-4 h-4 border-t-2 border-r-2 border-[#b8efc9] absolute top-2 right-2 group-hover:scale-[1.02] transition-transform"></div>
-                        <div className="w-4 h-4 border-b-2 border-l-2 border-[#b8efc9] absolute bottom-2 left-2 group-hover:scale-[1.02] transition-transform"></div>
-                        <div className="w-4 h-4 border-b-2 border-r-2 border-[#b8efc9] absolute bottom-2 right-2 group-hover:scale-[1.02] transition-transform"></div>
+                      <div className="absolute inset-5 border border-white/30 rounded-xl pointer-events-none flex items-center justify-center group-hover:border-[#b8efc9]/60 dark:group-hover:border-[var(--theme-line)] transition-colors">
+                        <div className="w-4 h-4 border-t-2 border-l-2 border-[#b8efc9] dark:border-[var(--theme-line)] absolute top-2 left-2 group-hover:scale-[1.02] transition-transform"></div>
+                        <div className="w-4 h-4 border-t-2 border-r-2 border-[#b8efc9] dark:border-[var(--theme-line)] absolute top-2 right-2 group-hover:scale-[1.02] transition-transform"></div>
+                        <div className="w-4 h-4 border-b-2 border-l-2 border-[#b8efc9] dark:border-[var(--theme-line)] absolute bottom-2 left-2 group-hover:scale-[1.02] transition-transform"></div>
+                        <div className="w-4 h-4 border-b-2 border-r-2 border-[#b8efc9] dark:border-[var(--theme-line)] absolute bottom-2 right-2 group-hover:scale-[1.02] transition-transform"></div>
                       </div>
                     )}
 
@@ -718,9 +718,9 @@ export default function LandingPage() {
               {t("Mulai Gunakan SIMANTRI")}</Link>
 
             {/* Hand-drawn Annotation below CTA */}
-            <div className="flex items-center gap-2 mt-2.5 text-[#5E665F] select-none">
+            <div className="flex items-center gap-2 mt-2.5 text-[#5E665F] dark:text-[var(--theme-body)] select-none">
               <svg
-                className="w-7 h-7 text-[#275a3d] -rotate-12"
+                className="w-7 h-7 text-[#275a3d] dark:text-[var(--theme-green)] -rotate-12"
                 fill="none"
                 stroke="currentColor"
                 strokeLinecap="round"
@@ -731,19 +731,19 @@ export default function LandingPage() {
                 <path d="M24 6 C 18 10, 10 16, 12 24"></path>
                 <path d="M8 20 L 12 26 L 18 22"></path>
               </svg>
-              <span className="font-handwriting text-[20px] text-[#173e2d] font-bold">
+              <span className="font-handwriting text-[20px] text-[#173e2d] dark:text-[var(--theme-green)] font-bold">
                 {t("Akses Terbuka & Gratis Petani")}</span>
             </div>
           </div>
         </section>
 
         {/* SECTION: TENTANG SIMANTRI (EDITORIAL SPLIT) */}
-        <section className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#F7F2EA] border-t border-[#173e2d]/10">
+        <section className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#F7F2EA] dark:bg-[var(--theme-raised)] border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             {/* Left: Photo Cluster */}
             <div className="lg:col-span-6 grid grid-cols-2 gap-4 sm:gap-6 relative">
               <div className="flex flex-col gap-4 sm:gap-6">
-                <div className="rounded-[24px] overflow-hidden shadow-sm h-60 sm:h-76 bg-[#f1eae0] relative hover-card-lift">
+                <div className="rounded-[24px] overflow-hidden shadow-sm h-60 sm:h-76 bg-[#f1eae0] dark:bg-[var(--theme-raised)] relative hover-card-lift">
                   <Image
                     src="/foto_bawang_merah.jpg"
                     alt={t("Bawang Merah Nganjuk Berkualitas")}
@@ -751,12 +751,12 @@ export default function LandingPage() {
                     className="object-cover transition-transform duration-500 hover:scale-[1.02]"
                   />
                 </div>
-                <div className="bg-white p-6 rounded-[24px] shadow-xs flex flex-col justify-between border border-[#173e2d]/10 hover-card-lift hover:bg-[#FAF7F2]">
-                  <span className="text-[11px] font-mono uppercase text-[#275a3d] font-bold tracking-widest">
+                <div className="bg-white dark:bg-[var(--theme-surface)] p-6 rounded-[24px] shadow-xs flex flex-col justify-between border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover-card-lift hover:bg-[#FAF7F2] dark:hover:bg-[var(--theme-canvas)]">
+                  <span className="text-[11px] font-mono uppercase text-[#275a3d] dark:text-[var(--theme-green)] font-bold tracking-widest">
                     {t("Wilayah Sentra")}</span>
-                  <p className="font-editorial text-[22px] font-semibold text-[#173e2d] mt-2">
+                  <p className="font-editorial text-[22px] font-semibold text-[#173e2d] dark:text-[var(--theme-green)] mt-2">
                     {t("Sukomoro & Bagor")}</p>
-                  <p className="text-[13px] text-[#5E665F] mt-1 leading-relaxed">
+                  <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] mt-1 leading-relaxed">
                     {t("Basis penghasil utama varietas Tajuk & Bauji dengan pasokan harian terluas Jawa Timur.")}</p>
                 </div>
               </div>
@@ -767,10 +767,10 @@ export default function LandingPage() {
                     <Sparkles size={18} />
                     <span className="text-[13px] font-semibold">{t("Sains Berbasis Lahan")}</span>
                   </div>
-                  <p className="text-[13px] text-[#81a993] leading-relaxed">
+                  <p className="text-[13px] text-[#81a993] dark:text-[var(--theme-muted)] leading-relaxed">
                     {t("Menggabungkan catatan empiris puluhan tahun dengan model algoritma analisis prediktif.")}</p>
                 </div>
-                <div className="rounded-[24px] overflow-hidden shadow-sm h-60 sm:h-76 bg-[#f1eae0] relative hover-card-lift">
+                <div className="rounded-[24px] overflow-hidden shadow-sm h-60 sm:h-76 bg-[#f1eae0] dark:bg-[var(--theme-raised)] relative hover-card-lift">
                   <Image
                     src="/bg_tugu_bawang.jpg"
                     alt={t("Lahan Sentra Nganjuk")}
@@ -783,11 +783,11 @@ export default function LandingPage() {
 
             {/* Right: Narrative */}
             <div className="lg:col-span-6 flex flex-col justify-center">
-              <span className="text-[11.5px] font-mono uppercase text-[#275a3d] tracking-[0.2em] font-bold mb-3">
+              <span className="text-[11.5px] font-mono uppercase text-[#275a3d] dark:text-[var(--theme-green)] tracking-[0.2em] font-bold mb-3">
                 {t("Tentang Platform")}</span>
-              <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight mb-6 leading-tight">
+              <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] dark:text-[var(--theme-ink)] font-medium tracking-tight mb-6 leading-tight">
                 {t("Dari Nganjuk, untuk keputusan tani yang lebih terukur.")}</h2>
-              <div className="space-y-4 text-[15px] sm:text-[16px] text-[#5E665F] leading-relaxed">
+              <div className="space-y-4 text-[15px] sm:text-[16px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                 <p>
                   {t("Bawang merah adalah urat nadi perekonomian Nganjuk. Namun, fluktuasi harga yang tajam dan ancaman serangan hama sering kali memaksa petani mengambil keputusan panen dalam posisi tertekan tanpa pegangan data yang jelas.")}</p>
                 <p>
@@ -796,7 +796,7 @@ export default function LandingPage() {
               <div className="pt-8 flex items-center gap-4">
                 <a
                   href="#solusi-section"
-                  className="hover-btn-scale inline-flex items-center gap-2 text-[14px] font-semibold bg-[#173e2d]/10 hover:bg-[#173e2d] text-[#173e2d] hover:text-white px-6 py-3 rounded-full border border-[#173e2d]/15 hover:border-transparent group shadow-xs"
+                  className="hover-btn-scale inline-flex items-center gap-2 text-[14px] font-semibold bg-[#173e2d]/10 dark:bg-[var(--theme-green-soft)] hover:bg-[#173e2d] text-[#173e2d] dark:text-[var(--theme-green)] hover:text-white px-6 py-3 rounded-full border border-[#173e2d]/15 dark:border-[var(--theme-green)]/15 hover:border-transparent group shadow-xs"
                 >
                   <span>{t("Pelajari arsitektur solusi SIMANTRI")}</span>
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -807,17 +807,17 @@ export default function LandingPage() {
         </section>
 
         {/* SECTION: MASALAH UTAMA */}
-        <section id="masalah" className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#FAF7F2] scroll-mt-24">
+        <section id="masalah" className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#FAF7F2] dark:bg-[var(--theme-canvas)] scroll-mt-24">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-12">
               <div className="lg:col-span-7">
-                <span className="text-[11.5px] font-mono uppercase text-[#6b1434] tracking-[0.2em] font-bold mb-2 block">
+                <span className="text-[11.5px] font-mono uppercase text-[#6b1434] dark:text-[var(--theme-rose)] tracking-[0.2em] font-bold mb-2 block">
                   {t("Kerentanan Musiman")}</span>
-                <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight leading-tight">
+                <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] dark:text-[var(--theme-ink)] font-medium tracking-tight leading-tight">
                   {t("Tiga tantangan utama yang dihadapi petani bawang merah Nganjuk.")}</h2>
               </div>
               <div className="lg:col-span-5">
-                <p className="text-[15px] text-[#5E665F] leading-relaxed">
+                <p className="text-[15px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                   {t("Ketergantungan pada kabar lisan dan lambatnya respon terhadap tanda-tanda kerusakan tanaman berdampak langsung pada margin pendapatan rumah tangga petani.")}</p>
               </div>
             </div>
@@ -825,62 +825,62 @@ export default function LandingPage() {
             {/* Problem Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Problem 1 */}
-              <div className="hover-card-lift bg-[#F7F2EA] hover:bg-white rounded-[24px] p-7 flex flex-col justify-between shadow-xs border border-[#173e2d]/10 hover:border-[#173e2d]/25">
+              <div className="hover-card-lift bg-[#F7F2EA] dark:bg-[var(--theme-raised)] hover:bg-white dark:hover:bg-[var(--theme-surface)] rounded-[24px] p-7 flex flex-col justify-between shadow-xs border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/25 dark:hover:border-[var(--theme-green)]/25">
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <span className="font-editorial text-[24px] font-bold text-[#275a3d]">01</span>
-                    <div className="w-10 h-10 rounded-full bg-[#EAC6D2]/50 flex items-center justify-center text-[#ba1a1a] transition-transform duration-300 group-hover:scale-[1.02]">
+                    <span className="font-editorial text-[24px] font-bold text-[#275a3d] dark:text-[var(--theme-green)]">01</span>
+                    <div className="w-10 h-10 rounded-full bg-[#EAC6D2]/50 dark:bg-[var(--theme-rose-soft)] flex items-center justify-center text-[#ba1a1a] dark:text-[var(--theme-red)] transition-transform duration-300 group-hover:scale-[1.02]">
                       <TrendingDown size={20} />
                     </div>
                   </div>
-                  <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] mb-3 leading-snug">
+                  <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mb-3 leading-snug">
                     {t("Harga bergerak lebih cepat daripada keputusan panen.")}</h3>
-                  <p className="text-[13.5px] text-[#5E665F] leading-relaxed">
+                  <p className="text-[13.5px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                     {t("Petani seringkali melepas panen pada harga terendah akibat ketiadaan proyeksi tren harga riil harian di pasar grosir Sukomoro dan sentra regional sekitarnya.")}</p>
                 </div>
-                <div className="pt-5 mt-6 border-t border-[#173e2d]/10 flex items-center gap-2">
+                <div className="pt-5 mt-6 border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#ba1a1a]"></span>
-                  <span className="text-[12px] font-medium text-[#414844]">{t("Risiko kerugian margin hingga 35%")}</span>
+                  <span className="text-[12px] font-medium text-[#414844] dark:text-[var(--theme-body)]">{t("Risiko kerugian margin hingga 35%")}</span>
                 </div>
               </div>
 
               {/* Problem 2 */}
-              <div className="hover-card-lift bg-[#F7F2EA] hover:bg-white rounded-[24px] p-7 flex flex-col justify-between shadow-xs border border-[#173e2d]/10 hover:border-[#173e2d]/25">
+              <div className="hover-card-lift bg-[#F7F2EA] dark:bg-[var(--theme-raised)] hover:bg-white dark:hover:bg-[var(--theme-surface)] rounded-[24px] p-7 flex flex-col justify-between shadow-xs border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/25 dark:hover:border-[var(--theme-green)]/25">
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <span className="font-editorial text-[24px] font-bold text-[#275a3d]">02</span>
-                    <div className="w-10 h-10 rounded-full bg-[#EAC6D2]/50 flex items-center justify-center text-[#ba1a1a] transition-transform duration-300 group-hover:scale-[1.02]">
+                    <span className="font-editorial text-[24px] font-bold text-[#275a3d] dark:text-[var(--theme-green)]">02</span>
+                    <div className="w-10 h-10 rounded-full bg-[#EAC6D2]/50 dark:bg-[var(--theme-rose-soft)] flex items-center justify-center text-[#ba1a1a] dark:text-[var(--theme-red)] transition-transform duration-300 group-hover:scale-[1.02]">
                       <Microscope size={20} />
                     </div>
                   </div>
-                  <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] mb-3 leading-snug">
+                  <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mb-3 leading-snug">
                     {t("Penyakit daun terlambat diidentifikasi pada fase awal.")}</h3>
-                  <p className="text-[13.5px] text-[#5E665F] leading-relaxed">
+                  <p className="text-[13.5px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                     {t("Gejala awal layu Fusarium (Moler) dan Trotol (Alternaria) kerap disalahartikan sebagai kekurangan air, memicu pengobatan keliru yang mempercepat pembusukan umbi.")}</p>
                 </div>
-                <div className="pt-5 mt-6 border-t border-[#173e2d]/10 flex items-center gap-2">
+                <div className="pt-5 mt-6 border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#ba1a1a]"></span>
-                  <span className="text-[12px] font-medium text-[#414844]">{t("Penyebaran patogen spora dalam 72 jam")}</span>
+                  <span className="text-[12px] font-medium text-[#414844] dark:text-[var(--theme-body)]">{t("Penyebaran patogen spora dalam 72 jam")}</span>
                 </div>
               </div>
 
               {/* Problem 3 */}
-              <div className="hover-card-lift bg-[#F7F2EA] hover:bg-white rounded-[24px] p-7 flex flex-col justify-between shadow-xs border border-[#173e2d]/10 hover:border-[#173e2d]/25">
+              <div className="hover-card-lift bg-[#F7F2EA] dark:bg-[var(--theme-raised)] hover:bg-white dark:hover:bg-[var(--theme-surface)] rounded-[24px] p-7 flex flex-col justify-between shadow-xs border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/25 dark:hover:border-[var(--theme-green)]/25">
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <span className="font-editorial text-[24px] font-bold text-[#275a3d]">03</span>
-                    <div className="w-10 h-10 rounded-full bg-[#DDE8D8] flex items-center justify-center text-[#275a3d] transition-transform duration-300 group-hover:scale-[1.02]">
+                    <span className="font-editorial text-[24px] font-bold text-[#275a3d] dark:text-[var(--theme-green)]">03</span>
+                    <div className="w-10 h-10 rounded-full bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] flex items-center justify-center text-[#275a3d] dark:text-[var(--theme-green)] transition-transform duration-300 group-hover:scale-[1.02]">
                       <BookOpen size={20} />
                     </div>
                   </div>
-                  <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] mb-3 leading-snug">
+                  <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mb-3 leading-snug">
                     {t("Kearifan lokal agronomi belum terhimpun rapi.")}</h3>
-                  <p className="text-[13.5px] text-[#5E665F] leading-relaxed">
+                  <p className="text-[13.5px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                     {t("Taktik pemupukan spesifik tanah liat berpasir Nganjuk dan penanganan bibit Tajuk tersimpan sporadis pada ingatan petani lansia tanpa transmisi sistematis.")}</p>
                 </div>
-                <div className="pt-5 mt-6 border-t border-[#173e2d]/10 flex items-center gap-2">
+                <div className="pt-5 mt-6 border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#36684a]"></span>
-                  <span className="text-[12px] font-medium text-[#414844]">{t("Hilangnya panduan adaptasi cuaca ekstrem")}</span>
+                  <span className="text-[12px] font-medium text-[#414844] dark:text-[var(--theme-body)]">{t("Hilangnya panduan adaptasi cuaca ekstrem")}</span>
                 </div>
               </div>
             </div>
@@ -888,22 +888,22 @@ export default function LandingPage() {
         </section>
 
         {/* SECTION: EMPAT SOLUSI UTAMA */}
-        <section id="solusi-section" className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#F7F2EA] border-t border-[#173e2d]/10 scroll-mt-24">
+        <section id="solusi-section" className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#F7F2EA] dark:bg-[var(--theme-raised)] border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 scroll-mt-24">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
               <div>
-                <span className="text-[11.5px] font-mono uppercase text-[#275a3d] tracking-[0.2em] font-bold mb-2 block">
+                <span className="text-[11.5px] font-mono uppercase text-[#275a3d] dark:text-[var(--theme-green)] tracking-[0.2em] font-bold mb-2 block">
                   {t("Ekosistem Terintegrasi")}</span>
-                <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight leading-tight">
+                <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] dark:text-[var(--theme-ink)] font-medium tracking-tight leading-tight">
                   {t("Semua yang dibutuhkan petani bawang merah.")}</h2>
               </div>
-              <p className="text-[15px] text-[#5E665F] mt-3 md:mt-0 max-w-md">
+              <p className="text-[15px] text-[#5E665F] dark:text-[var(--theme-body)] mt-3 md:mt-0 max-w-md">
                 {t("Empat pilar fungsional yang dirancang khusus untuk memandu setiap tahapan budidaya di tanah Nganjuk.")}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Solution 1 */}
-              <div className="hover-card-lift group relative rounded-[24px] overflow-hidden min-h-[400px] flex flex-col justify-end p-6 shadow-sm border border-transparent hover:border-[#b8efc9]/40">
+              <div className="hover-card-lift group relative rounded-[24px] overflow-hidden min-h-[400px] flex flex-col justify-end p-6 shadow-sm border border-transparent hover:border-[#b8efc9]/40 dark:hover:border-[var(--theme-line)]">
                 <Image
                   src="/bg_tugu_bawang.jpg"
                   alt={t("Pasar Sukomoro")}
@@ -912,11 +912,11 @@ export default function LandingPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#b5ecc6] text-[#002110] text-[11px] font-bold self-start mb-3 shadow-xs">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#b5ecc6] dark:bg-[var(--theme-green-soft)] text-[#002110] dark:text-[var(--theme-green)] text-[11px] font-bold self-start mb-3 shadow-xs">
                     {t("Analitik Pasar")}</span>
                   <h3 className="font-editorial text-[22px] font-semibold text-white mb-2">
                     {t("Prediksi Harga")}</h3>
-                  <p className="text-[13px] text-[#81a993] mb-4 line-clamp-3 leading-relaxed">
+                  <p className="text-[13px] text-[#81a993] dark:text-[var(--theme-muted)] mb-4 line-clamp-3 leading-relaxed">
                     {t("Estimasi tren harga pasar 3-7 hari ke depan berbasis data historis transaksi untuk memilih hari lepas panen terbaik.")}</p>
                   <Link
                     href="/login"
@@ -929,7 +929,7 @@ export default function LandingPage() {
               </div>
 
               {/* Solution 2 */}
-              <div className="hover-card-lift group relative rounded-[24px] overflow-hidden min-h-[400px] flex flex-col justify-end p-6 shadow-sm border border-transparent hover:border-[#b8efc9]/40">
+              <div className="hover-card-lift group relative rounded-[24px] overflow-hidden min-h-[400px] flex flex-col justify-end p-6 shadow-sm border border-transparent hover:border-[#b8efc9]/40 dark:hover:border-[var(--theme-line)]">
                 <Image
                   src="/penyakit_bercak_ungu.jpg"
                   alt={t("Deteksi Penyakit Daun")}
@@ -938,11 +938,11 @@ export default function LandingPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#EAC6D2] text-[#6b1434] text-[11px] font-bold self-start mb-3 shadow-xs">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#EAC6D2] dark:bg-[var(--theme-rose-soft)] text-[#6b1434] dark:text-[var(--theme-rose)] text-[11px] font-bold self-start mb-3 shadow-xs">
                     {t("Diagnostik Citra AI")}</span>
                   <h3 className="font-editorial text-[22px] font-semibold text-white mb-2">
                     {t("Deteksi Penyakit")}</h3>
-                  <p className="text-[13px] text-[#81a993] mb-4 line-clamp-3 leading-relaxed">
+                  <p className="text-[13px] text-[#81a993] dark:text-[var(--theme-muted)] mb-4 line-clamp-3 leading-relaxed">
                     {t("Identifikasi visual penyakit moler, ulat grayak, dan antraknosa secara transparan dengan skor keyakinan terukur.")}</p>
                   <Link
                     href="/login"
@@ -955,7 +955,7 @@ export default function LandingPage() {
               </div>
 
               {/* Solution 3 */}
-              <div className="hover-card-lift group relative rounded-[24px] overflow-hidden min-h-[400px] flex flex-col justify-end p-6 shadow-sm border border-transparent hover:border-[#b8efc9]/40">
+              <div className="hover-card-lift group relative rounded-[24px] overflow-hidden min-h-[400px] flex flex-col justify-end p-6 shadow-sm border border-transparent hover:border-[#b8efc9]/40 dark:hover:border-[var(--theme-line)]">
                 <Image
                   src="/petani_bawang_merah.jpg"
                   alt={t("SIMA Asisten Tani")}
@@ -964,11 +964,11 @@ export default function LandingPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#c1ecd4] text-[#002114] text-[11px] font-bold self-start mb-3 shadow-xs">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#c1ecd4] dark:bg-[var(--theme-green-soft)] text-[#002114] dark:text-[var(--theme-green)] text-[11px] font-bold self-start mb-3 shadow-xs">
                     {t("Asisten AI Cerdas")}</span>
                   <h3 className="font-editorial text-[22px] font-semibold text-white mb-2">
                     {t("SIMA (Asisten Tani)")}</h3>
-                  <p className="text-[13px] text-[#81a993] mb-4 line-clamp-3 leading-relaxed">
+                  <p className="text-[13px] text-[#81a993] dark:text-[var(--theme-muted)] mb-4 line-clamp-3 leading-relaxed">
                     {t("Tanya jawab seputar takaran pupuk NPK, pengendalian jamur saat hujan deras, dan rekomendasi cuaca harian Nganjuk.")}</p>
                   <a
                     href="#sima-showcase"
@@ -981,7 +981,7 @@ export default function LandingPage() {
               </div>
 
               {/* Solution 4 */}
-              <div className="hover-card-lift group relative rounded-[24px] overflow-hidden min-h-[400px] flex flex-col justify-end p-6 shadow-sm border border-transparent hover:border-[#b8efc9]/40">
+              <div className="hover-card-lift group relative rounded-[24px] overflow-hidden min-h-[400px] flex flex-col justify-end p-6 shadow-sm border border-transparent hover:border-[#b8efc9]/40 dark:hover:border-[var(--theme-line)]">
                 <Image
                   src="/varietas_tajuk.jpg"
                   alt={t("Dunia Brambang")}
@@ -990,11 +990,11 @@ export default function LandingPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#f1eae0] text-[#173e2d] text-[11px] font-bold self-start mb-3 shadow-xs">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#f1eae0] dark:bg-[var(--theme-raised)] text-[#173e2d] dark:text-[var(--theme-green)] text-[11px] font-bold self-start mb-3 shadow-xs">
                     {t("Pustaka Agronomi")}</span>
                   <h3 className="font-editorial text-[22px] font-semibold text-white mb-2">
                     {t("Dunia Brambang")}</h3>
-                  <p className="text-[13px] text-[#81a993] mb-4 line-clamp-3 leading-relaxed">
+                  <p className="text-[13px] text-[#81a993] dark:text-[var(--theme-muted)] mb-4 line-clamp-3 leading-relaxed">
                     {t("Ensiklopedia varietas lokal unggul (Tajuk, Bauji, Trisula), metode simpan bibit tradisional, dan tata kelola tanah.")}</p>
                   <Link
                     href="/dunia-brambang"
@@ -1010,47 +1010,47 @@ export default function LandingPage() {
         </section>
 
         {/* SECTION: DEDICATED INTERACTIVE SIMA AI CHAT */}
-        <section className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#FAF7F2]" id="sima-showcase">
+        <section className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#FAF7F2] dark:bg-[var(--theme-canvas)]" id="sima-showcase">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             {/* Left Column: Context & Overview */}
             <div className="lg:col-span-5 flex flex-col justify-center">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DDE8D8] text-[#002819] text-xs font-semibold uppercase tracking-wider self-start mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)] text-xs font-semibold uppercase tracking-wider self-start mb-4">
                 <Sparkles size={14} />
                 <span>{t("AI Asisten Tani Nganjuk")}</span>
               </div>
-              <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight mb-5 leading-tight">
+              <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] dark:text-[var(--theme-ink)] font-medium tracking-tight mb-5 leading-tight">
                 {t("Punya kendala di bedengan? Tanyakan langsung pada SIMA.")}</h2>
-              <p className="text-[15px] sm:text-[16px] text-[#5E665F] leading-relaxed mb-8 font-normal">
+              <p className="text-[15px] sm:text-[16px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed mb-8 font-normal">
                 {t("SIMA mendampingi petani Nganjuk membedah penyakit tanaman, rekomendasi pupuk musiman, hingga proyeksi lelang pasar Sukomoro secara real-time lewat bahasa yang akrab dan lugas.")}</p>
 
               <div className="space-y-4 mb-9">
-                <div className="flex items-center gap-3.5 p-2 rounded-2xl hover:bg-[#F7F2EA] transition-colors cursor-pointer">
-                  <div className="w-10 h-10 rounded-full bg-[#DDE8D8] flex items-center justify-center shrink-0 text-[#173e2d] transition-transform duration-300 hover:scale-[1.02]">
+                <div className="flex items-center gap-3.5 p-2 rounded-2xl hover:bg-[#F7F2EA] dark:hover:bg-[var(--theme-raised)] transition-colors cursor-pointer">
+                  <div className="w-10 h-10 rounded-full bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] flex items-center justify-center shrink-0 text-[#173e2d] dark:text-[var(--theme-green)] transition-transform duration-300 hover:scale-[1.02]">
                     <Microscope size={19} />
                   </div>
                   <div>
-                    <p className="text-[14px] font-bold text-[#1A221D] leading-tight">{t("Diagnostik Gejala Cepat")}</p>
-                    <p className="text-[12.5px] text-[#5E665F]">{t("Pemisahan akurat antara layu moler vs trotol bercak ungu.")}</p>
+                    <p className="text-[14px] font-bold text-[#1A221D] dark:text-[var(--theme-ink)] leading-tight">{t("Diagnostik Gejala Cepat")}</p>
+                    <p className="text-[12.5px] text-[#5E665F] dark:text-[var(--theme-body)]">{t("Pemisahan akurat antara layu moler vs trotol bercak ungu.")}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3.5 p-2 rounded-2xl hover:bg-[#F7F2EA] transition-colors cursor-pointer">
-                  <div className="w-10 h-10 rounded-full bg-[#DDE8D8] flex items-center justify-center shrink-0 text-[#173e2d] transition-transform duration-300 hover:scale-[1.02]">
+                <div className="flex items-center gap-3.5 p-2 rounded-2xl hover:bg-[#F7F2EA] dark:hover:bg-[var(--theme-raised)] transition-colors cursor-pointer">
+                  <div className="w-10 h-10 rounded-full bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] flex items-center justify-center shrink-0 text-[#173e2d] dark:text-[var(--theme-green)] transition-transform duration-300 hover:scale-[1.02]">
                     <Calendar size={19} />
                   </div>
                   <div>
-                    <p className="text-[14px] font-bold text-[#1A221D] leading-tight">{t("Kalender Agronomi Nganjuk")}</p>
-                    <p className="text-[12.5px] text-[#5E665F]">{t("Jadwal tanam & dosis pupuk disesuaikan iklim Sukomoro & Bagor.")}</p>
+                    <p className="text-[14px] font-bold text-[#1A221D] dark:text-[var(--theme-ink)] leading-tight">{t("Kalender Agronomi Nganjuk")}</p>
+                    <p className="text-[12.5px] text-[#5E665F] dark:text-[var(--theme-body)]">{t("Jadwal tanam & dosis pupuk disesuaikan iklim Sukomoro & Bagor.")}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3.5 p-2 rounded-2xl hover:bg-[#F7F2EA] transition-colors cursor-pointer">
-                  <div className="w-10 h-10 rounded-full bg-[#DDE8D8] flex items-center justify-center shrink-0 text-[#173e2d] transition-transform duration-300 hover:scale-[1.02]">
+                <div className="flex items-center gap-3.5 p-2 rounded-2xl hover:bg-[#F7F2EA] dark:hover:bg-[var(--theme-raised)] transition-colors cursor-pointer">
+                  <div className="w-10 h-10 rounded-full bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] flex items-center justify-center shrink-0 text-[#173e2d] dark:text-[var(--theme-green)] transition-transform duration-300 hover:scale-[1.02]">
                     <TrendingUp size={19} />
                   </div>
                   <div>
-                    <p className="text-[14px] font-bold text-[#1A221D] leading-tight">{t("Pantauan Harga Lelang Sukomoro")}</p>
-                    <p className="text-[12.5px] text-[#5E665F]">{t("Data rujukan timbang harian pasar grosir terbesar se-Jawa Timur.")}</p>
+                    <p className="text-[14px] font-bold text-[#1A221D] dark:text-[var(--theme-ink)] leading-tight">{t("Pantauan Harga Lelang Sukomoro")}</p>
+                    <p className="text-[12.5px] text-[#5E665F] dark:text-[var(--theme-body)]">{t("Data rujukan timbang harian pasar grosir terbesar se-Jawa Timur.")}</p>
                   </div>
                 </div>
               </div>
@@ -1068,30 +1068,30 @@ export default function LandingPage() {
 
             {/* Right Column: Interactive Chat Simulation Widget */}
             <div className="lg:col-span-7">
-              <div className="w-full bg-white rounded-[28px] border border-[#173e2d]/10 shadow-[0_16px_36px_-12px_rgba(23,62,45,0.12)] overflow-hidden flex flex-col hover-card-lift">
+              <div className="w-full bg-white dark:bg-[var(--theme-surface)] rounded-[28px] border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 shadow-[0_16px_36px_-12px_rgba(23,62,45,0.12)] overflow-hidden flex flex-col hover-card-lift">
                 {/* Chat Header */}
-                <div className="px-6 py-4 border-b border-[#173e2d]/10 flex items-center justify-between bg-[#FDFBF7]">
+                <div className="px-6 py-4 border-b border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 flex items-center justify-between bg-[#FDFBF7] dark:bg-[var(--theme-surface)]">
                   <div className="flex items-center gap-3">
                     <div className="relative">
                       <div className="w-11 h-11 rounded-full bg-[#173E2D] text-[#b8efc9] flex items-center justify-center font-bold shadow-xs transition-transform hover:scale-[1.02]">
                         <Sparkles size={20} />
                       </div>
-                      <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#36684a] border-2 border-white"></span>
+                      <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#36684a] border-2 border-white dark:border-[var(--theme-line)]"></span>
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-editorial text-[18px] font-bold text-[#173e2d] leading-none">
+                        <span className="font-editorial text-[18px] font-bold text-[#173e2d] dark:text-[var(--theme-green)] leading-none">
                           {t("SIMA Lapangan")}</span>
-                        <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-[#DDE8D8] text-[#002819]">
+                        <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)]">
                           {t("v2.4 Online")}</span>
                       </div>
-                      <span className="text-[11px] text-[#5E665F] block mt-0.5 font-medium">
+                      <span className="text-[11px] text-[#5E665F] dark:text-[var(--theme-body)] block mt-0.5 font-medium">
                         {t("Agronomi Telemetri • Kec. Sukomoro & Bagor")}</span>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DDE8D8]/70 border border-[#36684a]/15 text-[11.5px] font-medium text-[#002819]">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DDE8D8]/70 dark:bg-[var(--theme-green-soft)] border border-[#36684a]/15 dark:border-[var(--theme-green)]/15 text-[11.5px] font-medium text-[#002819] dark:text-[var(--theme-green)]">
                       <span className="w-2 h-2 rounded-full bg-[#36684a] animate-pulse"></span>
                       <span>{t("Live Telemetri")}</span>
                     </span>
@@ -1099,11 +1099,11 @@ export default function LandingPage() {
                 </div>
 
                 {/* Chat Body */}
-                <div className="p-6 space-y-4 bg-[#FAF7F2] min-h-[380px] sm:min-h-[410px] flex flex-col justify-between overflow-y-auto">
+                <div className="p-6 space-y-4 bg-[#FAF7F2] dark:bg-[var(--theme-canvas)] min-h-[380px] sm:min-h-[410px] flex flex-col justify-between overflow-y-auto">
                   <div className="space-y-4">
                     {/* System Welcome Banner */}
-                    <div className="bg-[#F7F2EA] border border-[#173e2d]/10 rounded-2xl p-3.5 text-left text-[#5E665F] text-xs flex items-center gap-3">
-                      <ShieldCheck size={18} className="text-[#275a3d] shrink-0" />
+                    <div className="bg-[#F7F2EA] dark:bg-[var(--theme-raised)] border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 rounded-2xl p-3.5 text-left text-[#5E665F] dark:text-[var(--theme-body)] text-xs flex items-center gap-3">
+                      <ShieldCheck size={18} className="text-[#275a3d] dark:text-[var(--theme-green)] shrink-0" />
                       <p className="leading-relaxed">
                         {t("Percakapan interaktif berbasis data lapangan Balitsa & harga lelang pasar grosir Sukomoro hari ini.")}</p>
                     </div>
@@ -1113,20 +1113,20 @@ export default function LandingPage() {
                       <div className="bg-[#173E2D] text-[#F8F4EC] rounded-2xl rounded-tr-none px-4 py-3 max-w-[85%] shadow-sm text-left">
                         <div className="flex items-center justify-between gap-3 mb-1 text-[11px] text-[#b8efc9]/90 font-medium">
                           <span>{userCustomQuery ? t("Anda (Petani Mandiri)") : t("Pak Sugiono (Sukomoro)")}</span>
-                          <span className="text-[10px] font-mono text-[#a6d0b8]">{t("08:48 WIB")}</span>
+                          <span className="text-[10px] font-mono text-[#a6d0b8] dark:text-[var(--theme-muted)]">{t("08:48 WIB")}</span>
                         </div>
                         <p className="text-[13.5px] leading-relaxed">
                           {displayedData.user}
                         </p>
                       </div>
-                      <div className="w-9 h-9 rounded-full bg-[#E9E2D4] border border-[#173e2d]/15 flex items-center justify-center shrink-0 text-[#173e2d] font-bold text-xs shadow-xs">
+                      <div className="w-9 h-9 rounded-full bg-[#E9E2D4] dark:bg-[var(--theme-raised)] border border-[#173e2d]/15 dark:border-[var(--theme-green)]/15 flex items-center justify-center shrink-0 text-[#173e2d] dark:text-[var(--theme-green)] font-bold text-xs shadow-xs">
                         {userCustomQuery ? t("PT") : t("SG")}
                       </div>
                     </div>
 
                     {/* Typing Indicator */}
                     {isTyping && (
-                      <div className="flex items-center gap-2 text-[#5E665F] text-[12px] pl-3 py-1">
+                      <div className="flex items-center gap-2 text-[#5E665F] dark:text-[var(--theme-body)] text-[12px] pl-3 py-1">
                         <div className="flex gap-1">
                           <span className="w-2 h-2 rounded-full bg-[#36684a] sim-typing-dot"></span>
                           <span className="w-2 h-2 rounded-full bg-[#36684a] sim-typing-dot [animation-delay:0.2s]"></span>
@@ -1139,29 +1139,29 @@ export default function LandingPage() {
                     {/* SIMA AI Response Bubble */}
                     {!isTyping && (
                       <div className="flex items-start gap-3 transition-all duration-300">
-                        <div className="w-9 h-9 rounded-full bg-[#173E2D] text-[#b8efc9] flex items-center justify-center shrink-0 border border-[#36684a]/20 shadow-xs">
+                        <div className="w-9 h-9 rounded-full bg-[#173E2D] text-[#b8efc9] flex items-center justify-center shrink-0 border border-[#36684a]/20 dark:border-[var(--theme-green)]/20 shadow-xs">
                           <Sparkles size={16} />
                         </div>
-                        <div className="bg-white border border-[#173e2d]/10 text-[#173e2d] rounded-2xl rounded-tl-none p-4 max-w-[88%] shadow-sm text-left">
+                        <div className="bg-white dark:bg-[var(--theme-surface)] border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 text-[#173e2d] dark:text-[var(--theme-green)] rounded-2xl rounded-tl-none p-4 max-w-[88%] shadow-sm text-left">
                           <div className="flex items-center gap-2 mb-2 flex-wrap">
-                            <span className="text-[12.5px] font-bold text-[#002819]">
+                            <span className="text-[12.5px] font-bold text-[#002819] dark:text-[var(--theme-green)]">
                               {t("SIMA Agronomi")}</span>
-                            <span className="text-[10px] text-[#8B918B] font-mono">
+                            <span className="text-[10px] text-[#8B918B] dark:text-[var(--theme-muted)] font-mono">
                               {t("• 08:49 WIB")}</span>
-                            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#36684a] bg-[#DDE8D8] px-2 py-0.5 rounded-full">
+                            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#36684a] dark:text-[var(--theme-green)] bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] px-2 py-0.5 rounded-full">
                               <CheckCircle2 size={12} />  {t("RAG Terverifikasi")}</span>
                           </div>
-                          <p className="text-[13.5px] leading-relaxed text-[#1e1b13]">
+                          <p className="text-[13.5px] leading-relaxed text-[#1e1b13] dark:text-[var(--theme-ink)]">
                             {t(displayedData.reply)}
                           </p>
-                          <div className="mt-3 pt-2.5 border-t border-[#173e2d]/10 flex flex-wrap items-center justify-between gap-2">
-                            <span className="inline-flex items-center gap-1 text-[11px] text-[#5E665F]">
-                              <BookOpen size={13} className="text-[#36684a]" />
+                          <div className="mt-3 pt-2.5 border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 flex flex-wrap items-center justify-between gap-2">
+                            <span className="inline-flex items-center gap-1 text-[11px] text-[#5E665F] dark:text-[var(--theme-body)]">
+                              <BookOpen size={13} className="text-[#36684a] dark:text-[var(--theme-green)]" />
                               <span>{displayedData.source}</span>
                             </span>
                             <Link
                               href={displayedData.target}
-                              className="hover-btn-scale inline-flex items-center gap-1 text-[11.5px] font-bold text-[#275a3d] hover:text-[#002819] px-2.5 py-1 rounded-full hover:bg-[#DDE8D8]/50"
+                              className="hover-btn-scale inline-flex items-center gap-1 text-[11.5px] font-bold text-[#275a3d] dark:text-[var(--theme-green)] hover:text-[#002819] dark:hover:text-[var(--theme-green)] px-2.5 py-1 rounded-full hover:bg-[#DDE8D8]/50 dark:hover:bg-[var(--theme-green-soft)]"
                             >
                               <span>{t(displayedData.action)}</span>
                               <ArrowRight size={13} />
@@ -1173,11 +1173,11 @@ export default function LandingPage() {
                   </div>
 
                   {/* Interactive Question Chips */}
-                  <div className="pt-3 border-t border-[#173e2d]/10">
+                  <div className="pt-3 border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10">
                     <div className="flex items-center justify-between mb-2">
-                      <p className="text-[11px] font-mono uppercase tracking-wider text-[#5E665F] font-bold">
+                      <p className="text-[11px] font-mono uppercase tracking-wider text-[#5E665F] dark:text-[var(--theme-body)] font-bold">
                         {t("Pilih Pertanyaan Cepat:")}</p>
-                      <span className="text-[10px] text-[#8B918B] flex items-center gap-1">
+                      <span className="text-[10px] text-[#8B918B] dark:text-[var(--theme-muted)] flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#36684a]"></span>
                         {t("Klik untuk simulasikan")}</span>
                     </div>
@@ -1189,7 +1189,7 @@ export default function LandingPage() {
                           className={`hover-btn-scale px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all text-left flex items-center gap-1.5 cursor-pointer ${
                             activeScenarioIdx === idx
                               ? 'bg-[#173E2D] text-[#F8F4EC] shadow-xs hover:bg-[#275a3d]'
-                              : 'bg-white hover:bg-[#FAF7F2] text-[#173e2d] border border-[#173e2d]/15 hover:border-[#173e2d]/30'
+                              : 'bg-white dark:bg-[var(--theme-surface)] hover:bg-[#FAF7F2] dark:hover:bg-[var(--theme-canvas)] text-[#173e2d] dark:text-[var(--theme-green)] border border-[#173e2d]/15 dark:border-[var(--theme-green)]/15 hover:border-[#173e2d]/30 dark:hover:border-[var(--theme-green)]/30'
                           }`}
                         >
                           <span aria-hidden="true">{item.category === 'Penyakit Daun' ? <Microscope className="h-3.5 w-3.5" /> : item.category === 'Waktu Tanam' ? <Calendar className="h-3.5 w-3.5" /> : <TrendingUp className="h-3.5 w-3.5" />}</span>
@@ -1201,14 +1201,14 @@ export default function LandingPage() {
                 </div>
 
                 {/* Interactive Composer Input */}
-                <form onSubmit={handleCustomSubmit} className="p-4 bg-white border-t border-[#173e2d]/10 flex items-center gap-3">
+                <form onSubmit={handleCustomSubmit} className="p-4 bg-white dark:bg-[var(--theme-surface)] border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 flex items-center gap-3">
                   <div className="relative flex-1">
                     <input
                       type="text"
                       value={customInput}
                       onChange={(e) => setCustomInput(e.target.value)}
                       placeholder={t("Tanyakan seputar pupuk, hama, atau harga Sukomoro...")}
-                      className="w-full bg-[#FAF7F2] border border-[#173e2d]/15 text-[#173e2d] text-sm rounded-full pl-4 pr-11 py-2.5 focus:outline-none focus:border-[#173e2d] focus:bg-white placeholder:text-[#5E665F]/70 transition-all"
+                      className="w-full bg-[#FAF7F2] dark:bg-[var(--theme-canvas)] border border-[#173e2d]/15 dark:border-[var(--theme-green)]/15 text-[#173e2d] dark:text-[var(--theme-green)] text-sm rounded-full pl-4 pr-11 py-2.5 focus:outline-none focus:border-[#173e2d] dark:focus:border-[var(--theme-green)] focus:bg-white dark:focus:bg-[var(--theme-surface)] placeholder:text-[#5E665F]/70 dark:placeholder:text-[var(--theme-body)] transition-all"
                     />
                     <button
                       type="submit"
@@ -1225,56 +1225,56 @@ export default function LandingPage() {
         </section>
 
         {/* SECTION: CARA KERJA (MODULAR PROCESS) */}
-        <section id="cara-kerja" className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#F7F2EA] border-t border-[#173e2d]/10 scroll-mt-24">
+        <section id="cara-kerja" className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#F7F2EA] dark:bg-[var(--theme-raised)] border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 scroll-mt-24">
           <div className="max-w-7xl mx-auto">
             <div className="text-center max-w-2xl mx-auto mb-14">
-              <span className="text-[11.5px] font-mono uppercase text-[#275a3d] tracking-[0.2em] font-bold mb-3 block">
+              <span className="text-[11.5px] font-mono uppercase text-[#275a3d] dark:text-[var(--theme-green)] tracking-[0.2em] font-bold mb-3 block">
                 {t("Alur Penerapan")}</span>
-              <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight leading-tight">
+              <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] dark:text-[var(--theme-ink)] font-medium tracking-tight leading-tight">
                 {t("Cara kerja SIMANTRI, dari lahan sampai keputusan jual.")}</h2>
-              <p className="text-[15px] text-[#5E665F] mt-3">
+              <p className="text-[15px] text-[#5E665F] dark:text-[var(--theme-body)] mt-3">
                 {t("Pendampingan terstruktur di setiap fase vegetatif dan generatif tanaman bawang merah Anda.")}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               {/* Step 1 */}
-              <div className="hover-card-lift bg-white p-6 rounded-[20px] border border-[#173e2d]/10 hover:border-[#173e2d]/25 flex flex-col justify-between shadow-xs">
+              <div className="hover-card-lift bg-white dark:bg-[var(--theme-surface)] p-6 rounded-[20px] border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/25 dark:hover:border-[var(--theme-green)]/25 flex flex-col justify-between shadow-xs">
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-[#b5ecc6] text-[#002110] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
+                  <div className="w-10 h-10 rounded-full bg-[#b5ecc6] dark:bg-[var(--theme-green-soft)] text-[#002110] dark:text-[var(--theme-green)] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     1
                   </div>
-                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">{t("Persiapan")}</h4>
-                  <p className="text-[13px] text-[#5E665F] leading-relaxed">
+                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mb-2">{t("Persiapan")}</h4>
+                  <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                     {t("Pengecekan kualitas bibit umbi sertifikasi dan kalibrasi pH tanah bedengan Nganjuk.")}</p>
                 </div>
-                <span className="text-[11px] font-mono uppercase text-[#275a3d] mt-6 tracking-wider font-semibold">
+                <span className="text-[11px] font-mono uppercase text-[#275a3d] dark:text-[var(--theme-green)] mt-6 tracking-wider font-semibold">
                   {t("Fase Pra-Tanam")}</span>
               </div>
 
               {/* Step 2 */}
-              <div className="hover-card-lift bg-white p-6 rounded-[20px] border border-[#173e2d]/10 hover:border-[#173e2d]/25 flex flex-col justify-between shadow-xs">
+              <div className="hover-card-lift bg-white dark:bg-[var(--theme-surface)] p-6 rounded-[20px] border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/25 dark:hover:border-[var(--theme-green)]/25 flex flex-col justify-between shadow-xs">
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-[#f1eae0] text-[#173e2d] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
+                  <div className="w-10 h-10 rounded-full bg-[#f1eae0] dark:bg-[var(--theme-raised)] text-[#173e2d] dark:text-[var(--theme-green)] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     2
                   </div>
-                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">{t("Tanam")}</h4>
-                  <p className="text-[13px] text-[#5E665F] leading-relaxed">
+                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mb-2">{t("Tanam")}</h4>
+                  <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                     {t("Pencatatan tanggal tanam, pola jarak kerapatan (15x15 cm), dan panduan pemupukan dasar.")}</p>
                 </div>
-                <span className="text-[11px] font-mono uppercase text-[#275a3d] mt-6 tracking-wider font-semibold">
+                <span className="text-[11px] font-mono uppercase text-[#275a3d] dark:text-[var(--theme-green)] mt-6 tracking-wider font-semibold">
                   {t("Hari Ke 1-15")}</span>
               </div>
 
               {/* Step 3 (Highlighted Kritis) */}
               <div className="hover-card-lift bg-[#173E2D] hover:bg-[#275a3d] text-[#F8F4EC] p-6 rounded-[20px] flex flex-col justify-between shadow-md relative">
-                <div className="absolute -top-3 right-4 bg-[#b8efc9] text-[#002110] text-[10px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
+                <div className="absolute -top-3 right-4 bg-[#b8efc9] dark:bg-[var(--theme-green-soft)] text-[#002110] dark:text-[var(--theme-green)] text-[10px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
                   {t("Kritis")}</div>
                 <div>
                   <div className="w-10 h-10 rounded-full bg-[#36684a] text-white font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     3
                   </div>
                   <h4 className="font-editorial text-[18px] font-semibold text-white mb-2">{t("Rawat")}</h4>
-                  <p className="text-[13px] text-[#81a993] leading-relaxed">
+                  <p className="text-[13px] text-[#81a993] dark:text-[var(--theme-muted)] leading-relaxed">
                     {t("Monitoring gejala hama melalui kamera ponsel dan konsultasi tanggap darurat asisten SIMA.")}</p>
                 </div>
                 <span className="text-[11px] font-mono uppercase text-[#b8efc9] mt-6 tracking-wider font-semibold">
@@ -1282,30 +1282,30 @@ export default function LandingPage() {
               </div>
 
               {/* Step 4 */}
-              <div className="hover-card-lift bg-white p-6 rounded-[20px] border border-[#173e2d]/10 hover:border-[#173e2d]/25 flex flex-col justify-between shadow-xs">
+              <div className="hover-card-lift bg-white dark:bg-[var(--theme-surface)] p-6 rounded-[20px] border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/25 dark:hover:border-[var(--theme-green)]/25 flex flex-col justify-between shadow-xs">
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-[#f1eae0] text-[#173e2d] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
+                  <div className="w-10 h-10 rounded-full bg-[#f1eae0] dark:bg-[var(--theme-raised)] text-[#173e2d] dark:text-[var(--theme-green)] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     4
                   </div>
-                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">{t("Panen")}</h4>
-                  <p className="text-[13px] text-[#5E665F] leading-relaxed">
+                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mb-2">{t("Panen")}</h4>
+                  <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                     {t("Penentuan umur panen optimal (60-70 HST) dan metode pengeringan lapangan (ayom).")}</p>
                 </div>
-                <span className="text-[11px] font-mono uppercase text-[#275a3d] mt-6 tracking-wider font-semibold">
+                <span className="text-[11px] font-mono uppercase text-[#275a3d] dark:text-[var(--theme-green)] mt-6 tracking-wider font-semibold">
                   {t("Hari Ke 55-65")}</span>
               </div>
 
               {/* Step 5 */}
-              <div className="hover-card-lift bg-white p-6 rounded-[20px] border border-[#173e2d]/10 hover:border-[#173e2d]/25 flex flex-col justify-between shadow-xs">
+              <div className="hover-card-lift bg-white dark:bg-[var(--theme-surface)] p-6 rounded-[20px] border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/25 dark:hover:border-[var(--theme-green)]/25 flex flex-col justify-between shadow-xs">
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-[#EAC6D2] text-[#6b1434] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
+                  <div className="w-10 h-10 rounded-full bg-[#EAC6D2] dark:bg-[var(--theme-rose-soft)] text-[#6b1434] dark:text-[var(--theme-rose)] font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     5
                   </div>
-                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">{t("Jual")}</h4>
-                  <p className="text-[13px] text-[#5E665F] leading-relaxed">
+                  <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mb-2">{t("Jual")}</h4>
+                  <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                     {t("Melihat indeks harga regional, negosiasi adil dengan pembeli, dan pencatatan laba bersih.")}</p>
                 </div>
-                <span className="text-[11px] font-mono uppercase text-[#275a3d] mt-6 tracking-wider font-semibold">
+                <span className="text-[11px] font-mono uppercase text-[#275a3d] dark:text-[var(--theme-green)] mt-6 tracking-wider font-semibold">
                   {t("Pascapanen")}</span>
               </div>
             </div>
@@ -1313,36 +1313,36 @@ export default function LandingPage() {
         </section>
 
         {/* SECTION: PLATFORM SPOTLIGHT DASHBOARD */}
-        <section className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#FAF7F2]">
+        <section className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#FAF7F2] dark:bg-[var(--theme-canvas)]">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             {/* Left: Realistic Mock UI Window */}
-            <div className="lg:col-span-7 bg-white rounded-[24px] p-6 sm:p-8 shadow-xl border border-[#173e2d]/10 hover-card-lift">
-              <div className="flex items-center justify-between pb-5 border-b border-[#173e2d]/10">
+            <div className="lg:col-span-7 bg-white dark:bg-[var(--theme-surface)] rounded-[24px] p-6 sm:p-8 shadow-xl border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover-card-lift">
+              <div className="flex items-center justify-between pb-5 border-b border-[#173e2d]/10 dark:border-[var(--theme-green)]/10">
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-red-400"></span>
                   <span className="w-3 h-3 rounded-full bg-amber-400"></span>
                   <span className="w-3 h-3 rounded-full bg-green-400"></span>
-                  <span className="ml-2 font-mono text-[12px] text-[#5E665F]">{t("simantri.nganjukkab.go.id")}</span>
+                  <span className="ml-2 font-mono text-[12px] text-[#5E665F] dark:text-[var(--theme-body)]">{t("simantri.nganjukkab.go.id")}</span>
                 </div>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#DDE8D8] text-[#002819] text-[11px] font-bold">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)] text-[11px] font-bold">
                   <span className="w-2 h-2 rounded-full bg-[#36684a] animate-pulse"></span>  {t("Data Pasar Aktif")}</span>
               </div>
 
               <div className="mt-6 space-y-6">
-                <div className="bg-[#F7F2EA] hover:bg-white transition-colors p-5 rounded-[18px] border border-transparent hover:border-[#173e2d]/15 shadow-xs">
+                <div className="bg-[#F7F2EA] dark:bg-[var(--theme-raised)] hover:bg-white dark:hover:bg-[var(--theme-surface)] transition-colors p-5 rounded-[18px] border border-transparent hover:border-[#173e2d]/15 dark:hover:border-[var(--theme-green)]/15 shadow-xs">
                   <div className="flex items-center justify-between mb-3">
                     <div>
-                      <span className="text-[11px] font-mono uppercase text-[#5E665F] font-semibold">
+                      <span className="text-[11px] font-mono uppercase text-[#5E665F] dark:text-[var(--theme-body)] font-semibold">
                         {t("Harga Acuan Rata-rata")}</span>
-                      <p className="font-editorial text-[24px] font-semibold text-[#173e2d]">
-                        {t("Rp 28.500")} <span className="text-[13px] text-[#5E665F] font-normal">{t("/ kg (Basah)")}</span>
+                      <p className="font-editorial text-[24px] font-semibold text-[#173e2d] dark:text-[var(--theme-green)]">
+                        {t("Rp 28.500")} <span className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] font-normal">{t("/ kg (Basah)")}</span>
                       </p>
                     </div>
                     <div className="text-right">
-                      <span className="inline-flex items-center text-[#275a3d] text-[13px] font-bold">
+                      <span className="inline-flex items-center text-[#275a3d] dark:text-[var(--theme-green)] text-[13px] font-bold">
                         <TrendingUp size={16} className="mr-1" /> +4.2%
                       </span>
-                      <p className="text-[11.5px] text-[#5E665F]">{t("Pasar Sukomoro")}</p>
+                      <p className="text-[11.5px] text-[#5E665F] dark:text-[var(--theme-body)]">{t("Pasar Sukomoro")}</p>
                     </div>
                   </div>
 
@@ -1363,20 +1363,20 @@ export default function LandingPage() {
                       <circle cx="300" cy="8" fill="#173E2D" r="4" />
                     </svg>
                   </div>
-                  <div className="flex justify-between text-[11px] font-mono text-[#5E665F] pt-2">
+                  <div className="flex justify-between text-[11px] font-mono text-[#5E665F] dark:text-[var(--theme-body)] pt-2">
                     <span>{t("Sen")}</span>
                     <span>{t("Sel")}</span>
                     <span>{t("Rab")}</span>
                     <span>{t("Kam")}</span>
                     <span>{t("Jum")}</span>
                     <span>{t("Sab")}</span>
-                    <span className="font-bold text-[#173e2d]">{t("Hari Ini")}</span>
+                    <span className="font-bold text-[#173e2d] dark:text-[var(--theme-green)]">{t("Hari Ini")}</span>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="bg-[#F7F2EA] hover:bg-white transition-colors p-4 rounded-[18px] flex items-center gap-3.5 border border-transparent hover:border-[#173e2d]/15 shadow-xs">
-                    <div className="w-14 h-14 rounded-[12px] overflow-hidden shrink-0 bg-[#f1eae0] relative">
+                  <div className="bg-[#F7F2EA] dark:bg-[var(--theme-raised)] hover:bg-white dark:hover:bg-[var(--theme-surface)] transition-colors p-4 rounded-[18px] flex items-center gap-3.5 border border-transparent hover:border-[#173e2d]/15 dark:hover:border-[var(--theme-green)]/15 shadow-xs">
+                    <div className="w-14 h-14 rounded-[12px] overflow-hidden shrink-0 bg-[#f1eae0] dark:bg-[var(--theme-raised)] relative">
                       <Image
                         src="/penyakit_bercak_ungu.jpg"
                         alt={t("Diagnostik Trotol")}
@@ -1385,13 +1385,13 @@ export default function LandingPage() {
                       />
                     </div>
                     <div>
-                      <span className="text-[10px] font-mono uppercase text-[#6b1434] font-bold">
+                      <span className="text-[10px] font-mono uppercase text-[#6b1434] dark:text-[var(--theme-rose)] font-bold">
                         {t("Deteksi Citra AI")}</span>
-                      <p className="text-[13px] font-bold text-[#1A221D] leading-tight mt-0.5">
+                      <p className="text-[13px] font-bold text-[#1A221D] dark:text-[var(--theme-ink)] leading-tight mt-0.5">
                         {t("Alternaria porri (Trotol)")}</p>
                       <div className="flex items-center gap-1.5 mt-1">
                         <span className="w-2 h-2 rounded-full bg-[#36684a]"></span>
-                        <span className="text-[11.5px] text-[#5E665F]">{t("Keyakinan 94.2%")}</span>
+                        <span className="text-[11.5px] text-[#5E665F] dark:text-[var(--theme-body)]">{t("Keyakinan 94.2%")}</span>
                       </div>
                     </div>
                   </div>
@@ -1401,9 +1401,9 @@ export default function LandingPage() {
                       <Sparkles size={15} />
                       <span className="text-[12px] font-semibold">{t("SIMA Pertanian")}</span>
                     </div>
-                    <p className="text-[12px] text-[#81a993] line-clamp-2 leading-relaxed">
+                    <p className="text-[12px] text-[#81a993] dark:text-[var(--theme-muted)] line-clamp-2 leading-relaxed">
                       {t("\"Kurangi pupuk Urea saat kelembaban udara malam hari >85% di Sukomoro...\"")}</p>
-                    <span className="text-[10px] text-[#a6d0b8] text-right mt-1 font-mono">{t("Respons instan")}</span>
+                    <span className="text-[10px] text-[#a6d0b8] dark:text-[var(--theme-muted)] text-right mt-1 font-mono">{t("Respons instan")}</span>
                   </div>
                 </div>
               </div>
@@ -1411,34 +1411,34 @@ export default function LandingPage() {
 
             {/* Right: Narrative */}
             <div className="lg:col-span-5 flex flex-col">
-              <span className="text-[11.5px] font-mono uppercase text-[#275a3d] tracking-[0.2em] font-bold mb-3">
+              <span className="text-[11.5px] font-mono uppercase text-[#275a3d] dark:text-[var(--theme-green)] tracking-[0.2em] font-bold mb-3">
                 {t("Pusat Informasi")}</span>
-              <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight mb-6 leading-tight">
+              <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] dark:text-[var(--theme-ink)] font-medium tracking-tight mb-6 leading-tight">
                 {t("Semua informasi penting, dalam satu genggaman.")}</h2>
-              <p className="text-[15px] text-[#5E665F] leading-relaxed mb-8">
+              <p className="text-[15px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed mb-8">
                 {t("Antarmuka yang tenang dan bersih tanpa grafik rumit yang membingungkan. Dirancang agar mudah dioperasikan langsung di pematang sawah lewat ponsel cerdas Anda.")}</p>
               <ul className="space-y-4">
-                <li className="flex items-start gap-3 p-2 rounded-2xl hover:bg-white transition-colors">
-                  <CheckCircle2 size={20} className="text-[#275a3d] mt-0.5 shrink-0" />
+                <li className="flex items-start gap-3 p-2 rounded-2xl hover:bg-white dark:hover:bg-[var(--theme-surface)] transition-colors">
+                  <CheckCircle2 size={20} className="text-[#275a3d] dark:text-[var(--theme-green)] mt-0.5 shrink-0" />
                   <div>
-                    <h4 className="text-[14px] font-bold text-[#1A221D]">{t("Harga Harian Terverifikasi")}</h4>
-                    <p className="text-[13px] text-[#5E665F] leading-relaxed">
+                    <h4 className="text-[14px] font-bold text-[#1A221D] dark:text-[var(--theme-ink)]">{t("Harga Harian Terverifikasi")}</h4>
+                    <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                       {t("Pembaruan data harga setiap pukul 09.00 WIB langsung dari sentra timbang.")}</p>
                   </div>
                 </li>
-                <li className="flex items-start gap-3 p-2 rounded-2xl hover:bg-white transition-colors">
-                  <CheckCircle2 size={20} className="text-[#275a3d] mt-0.5 shrink-0" />
+                <li className="flex items-start gap-3 p-2 rounded-2xl hover:bg-white dark:hover:bg-[var(--theme-surface)] transition-colors">
+                  <CheckCircle2 size={20} className="text-[#275a3d] dark:text-[var(--theme-green)] mt-0.5 shrink-0" />
                   <div>
-                    <h4 className="text-[14px] font-bold text-[#1A221D]">{t("Deteksi Penyakit dalam Hitungan Detik")}</h4>
-                    <p className="text-[13px] text-[#5E665F] leading-relaxed">
+                    <h4 className="text-[14px] font-bold text-[#1A221D] dark:text-[var(--theme-ink)]">{t("Deteksi Penyakit dalam Hitungan Detik")}</h4>
+                    <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                       {t("Cukup foto daun tanaman yang bergejala tanpa perlu menunggu sampel uji lab berhari-hari.")}</p>
                   </div>
                 </li>
-                <li className="flex items-start gap-3 p-2 rounded-2xl hover:bg-white transition-colors">
-                  <CheckCircle2 size={20} className="text-[#275a3d] mt-0.5 shrink-0" />
+                <li className="flex items-start gap-3 p-2 rounded-2xl hover:bg-white dark:hover:bg-[var(--theme-surface)] transition-colors">
+                  <CheckCircle2 size={20} className="text-[#275a3d] dark:text-[var(--theme-green)] mt-0.5 shrink-0" />
                   <div>
-                    <h4 className="text-[14px] font-bold text-[#1A221D]">{t("Asisten yang Memahami Tanah Nganjuk")}</h4>
-                    <p className="text-[13px] text-[#5E665F] leading-relaxed">
+                    <h4 className="text-[14px] font-bold text-[#1A221D] dark:text-[var(--theme-ink)]">{t("Asisten yang Memahami Tanah Nganjuk")}</h4>
+                    <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                       {t("Diprogram dengan konteks lokal jenis tanah Alluvial dan iklim mikrokosmos Sukomoro-Rejoso.")}</p>
                   </div>
                 </li>
@@ -1448,21 +1448,21 @@ export default function LandingPage() {
         </section>
 
         {/* SECTION: UNTUK SIAPA */}
-        <section id="untuk-siapa" className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#F7F2EA] border-t border-[#173e2d]/10 scroll-mt-24">
+        <section id="untuk-siapa" className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#F7F2EA] dark:bg-[var(--theme-raised)] border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 scroll-mt-24">
           <div className="max-w-7xl mx-auto">
             <div className="max-w-2xl mb-12">
-              <span className="text-[11.5px] font-mono uppercase text-[#275a3d] tracking-[0.2em] font-bold mb-3 block">
+              <span className="text-[11.5px] font-mono uppercase text-[#275a3d] dark:text-[var(--theme-green)] tracking-[0.2em] font-bold mb-3 block">
                 {t("Penerima Manfaat")}</span>
-              <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight leading-tight">
+              <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] dark:text-[var(--theme-ink)] font-medium tracking-tight leading-tight">
                 {t("Dibuat untuk seluruh ekosistem pertanian bawang merah.")}</h2>
-              <p className="text-[15px] text-[#5E665F] mt-3">
+              <p className="text-[15px] text-[#5E665F] dark:text-[var(--theme-body)] mt-3">
                 {t("Menghubungkan praktisi di lapangan, pendamping teknis, hingga pengambil kebijakan daerah.")}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Role 1 */}
-              <div className="hover-card-lift bg-white rounded-[28px] overflow-hidden flex flex-col justify-between shadow-xs border border-[#173e2d]/10 hover:border-[#173e2d]/30">
-                <div className="h-48 sm:h-52 w-full bg-[#f1eae0] overflow-hidden relative">
+              <div className="hover-card-lift bg-white dark:bg-[var(--theme-surface)] rounded-[28px] overflow-hidden flex flex-col justify-between shadow-xs border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/30 dark:hover:border-[var(--theme-green)]/30">
+                <div className="h-48 sm:h-52 w-full bg-[#f1eae0] dark:bg-[var(--theme-raised)] overflow-hidden relative">
                   <Image
                     src="/petani_bawang_merah.jpg"
                     alt={t("Petani Nganjuk")}
@@ -1472,13 +1472,13 @@ export default function LandingPage() {
                 </div>
                 <div className="p-7 flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-[11px] font-mono uppercase text-[#275a3d] font-bold">{t("Praktisi Lapangan")}</span>
-                    <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] mt-1 mb-3">
+                    <span className="text-[11px] font-mono uppercase text-[#275a3d] dark:text-[var(--theme-green)] font-bold">{t("Praktisi Lapangan")}</span>
+                    <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mt-1 mb-3">
                       {t("Petani Mandiri & Kelompok Tani")}</h3>
-                    <p className="text-[13px] text-[#5E665F] leading-relaxed mb-6">
+                    <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed mb-6">
                       {t("Memperoleh kepastian harga jual, panduan dosis obat tepat guna, serta konsultasi cepat tanpa rasa sungkan saat menemukan bercak aneh pada daun bibit.")}</p>
                   </div>
-                  <ul className="space-y-2 text-[12.5px] text-[#414844] pt-4 border-t border-[#173e2d]/10">
+                  <ul className="space-y-2 text-[12.5px] text-[#414844] dark:text-[var(--theme-body)] pt-4 border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10">
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#36684a]"></span>
                       <span>{t("Akses proyeksi tren harga")}</span>
@@ -1492,8 +1492,8 @@ export default function LandingPage() {
               </div>
 
               {/* Role 2 */}
-              <div className="hover-card-lift bg-white rounded-[28px] overflow-hidden flex flex-col justify-between shadow-xs border border-[#173e2d]/10 hover:border-[#173e2d]/30">
-                <div className="h-48 sm:h-52 w-full bg-[#f1eae0] overflow-hidden relative">
+              <div className="hover-card-lift bg-white dark:bg-[var(--theme-surface)] rounded-[28px] overflow-hidden flex flex-col justify-between shadow-xs border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/30 dark:hover:border-[var(--theme-green)]/30">
+                <div className="h-48 sm:h-52 w-full bg-[#f1eae0] dark:bg-[var(--theme-raised)] overflow-hidden relative">
                   <Image
                     src="/jayastamba.jpg"
                     alt={t("PPL Pertanian Nganjuk")}
@@ -1503,13 +1503,13 @@ export default function LandingPage() {
                 </div>
                 <div className="p-7 flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-[11px] font-mono uppercase text-[#275a3d] font-bold">{t("Pendamping Teknis")}</span>
-                    <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] mt-1 mb-3">
+                    <span className="text-[11px] font-mono uppercase text-[#275a3d] dark:text-[var(--theme-green)] font-bold">{t("Pendamping Teknis")}</span>
+                    <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mt-1 mb-3">
                       {t("Penyuluh Lapangan (PPL)")}</h3>
-                    <p className="text-[13px] text-[#5E665F] leading-relaxed mb-6">
+                    <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed mb-6">
                       {t("Memantau peta sebaran kendala hama di tingkat desa, mencatat validasi temuan lapangan, serta menyebarkan panduan teknis musiman secara efisien.")}</p>
                   </div>
-                  <ul className="space-y-2 text-[12.5px] text-[#414844] pt-4 border-t border-[#173e2d]/10">
+                  <ul className="space-y-2 text-[12.5px] text-[#414844] dark:text-[var(--theme-body)] pt-4 border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10">
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#36684a]"></span>
                       <span>{t("Peta persebaran serangan patogen")}</span>
@@ -1523,8 +1523,8 @@ export default function LandingPage() {
               </div>
 
               {/* Role 3 */}
-              <div className="hover-card-lift bg-white rounded-[28px] overflow-hidden flex flex-col justify-between shadow-xs border border-[#173e2d]/10 hover:border-[#173e2d]/30">
-                <div className="h-48 sm:h-52 w-full bg-[#f1eae0] overflow-hidden relative">
+              <div className="hover-card-lift bg-white dark:bg-[var(--theme-surface)] rounded-[28px] overflow-hidden flex flex-col justify-between shadow-xs border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/30 dark:hover:border-[var(--theme-green)]/30">
+                <div className="h-48 sm:h-52 w-full bg-[#f1eae0] dark:bg-[var(--theme-raised)] overflow-hidden relative">
                   <Image
                     src="/bg_tugu_bawang.jpg"
                     alt={t("Dinas Pertanian Nganjuk")}
@@ -1534,13 +1534,13 @@ export default function LandingPage() {
                 </div>
                 <div className="p-7 flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-[11px] font-mono uppercase text-[#275a3d] font-bold">{t("Pemerintah Daerah")}</span>
-                    <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] mt-1 mb-3">
+                    <span className="text-[11px] font-mono uppercase text-[#275a3d] dark:text-[var(--theme-green)] font-bold">{t("Pemerintah Daerah")}</span>
+                    <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mt-1 mb-3">
                       {t("Dinas Pertanian & Regulator")}</h3>
-                    <p className="text-[13px] text-[#5E665F] leading-relaxed mb-6">
+                    <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed mb-6">
                       {t("Melihat neraca estimasi pasokan bawang merah daerah, mengantisipasi kelangkaan pasokan, serta merumuskan kebijakan pupuk bersubsidi yang akurat.")}</p>
                   </div>
-                  <ul className="space-y-2 text-[12.5px] text-[#414844] pt-4 border-t border-[#173e2d]/10">
+                  <ul className="space-y-2 text-[12.5px] text-[#414844] dark:text-[var(--theme-body)] pt-4 border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10">
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#36684a]"></span>
                       <span>{t("Data agregasi luas tanam real-time")}</span>
@@ -1557,55 +1557,55 @@ export default function LandingPage() {
         </section>
 
         {/* SECTION: TRANSPARANSI & INTEGRITAS TEKNOLOGI / DUNIA BRAMBANG */}
-        <section id="dunia-brambang" className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#FAF7F2] scroll-mt-24">
+        <section id="dunia-brambang" className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#FAF7F2] dark:bg-[var(--theme-canvas)] scroll-mt-24">
           <div className="max-w-7xl mx-auto">
             <div className="text-center max-w-2xl mx-auto mb-14">
-              <span className="text-[11.5px] font-mono uppercase text-[#275a3d] tracking-[0.2em] font-bold mb-3 block">
+              <span className="text-[11.5px] font-mono uppercase text-[#275a3d] dark:text-[var(--theme-green)] tracking-[0.2em] font-bold mb-3 block">
                 {t("Prinsip Integritas Data")}</span>
-              <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] font-medium tracking-tight leading-tight">
+              <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] dark:text-[var(--theme-ink)] font-medium tracking-tight leading-tight">
                 {t("Teknologi yang menjelaskan dari mana jawabannya berasal.")}</h2>
-              <p className="text-[15px] text-[#5E665F] mt-3">
+              <p className="text-[15px] text-[#5E665F] dark:text-[var(--theme-body)] mt-3">
                 {t("Kami menolak sistem kotak hitam. Setiap rekomendasi dapat dilacak sumber data rujukannya.")}</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="hover-card-lift flex flex-col bg-white p-6 rounded-2xl border border-[#173e2d]/10 hover:border-[#173e2d]/30 shadow-xs">
-                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] text-[#002819] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
+              <div className="hover-card-lift flex flex-col bg-white dark:bg-[var(--theme-surface)] p-6 rounded-2xl border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/30 dark:hover:border-[var(--theme-green)]/30 shadow-xs">
+                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                   <Database size={24} />
                 </div>
-                <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">
+                <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mb-2">
                   {t("Sumber Terverifikasi")}</h4>
-                <p className="text-[13px] text-[#5E665F] leading-relaxed">
+                <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                   {t("Data pasar bersumber dari pencatatan harian pedagang grosir Sukomoro dan PIHPS nasional, bukan estimasi sintetis.")}</p>
               </div>
 
-              <div className="hover-card-lift flex flex-col bg-white p-6 rounded-2xl border border-[#173e2d]/10 hover:border-[#173e2d]/30 shadow-xs">
-                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] text-[#002819] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
+              <div className="hover-card-lift flex flex-col bg-white dark:bg-[var(--theme-surface)] p-6 rounded-2xl border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/30 dark:hover:border-[var(--theme-green)]/30 shadow-xs">
+                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                   <Percent size={24} />
                 </div>
-                <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">
+                <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mb-2">
                   {t("Tingkat Keyakinan Jelas")}</h4>
-                <p className="text-[13px] text-[#5E665F] leading-relaxed">
+                <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                   {t("Hasil deteksi citra selalu menyertakan persentase keyakinan. Jika citra buram, sistem meminta foto ulang secara jujur.")}</p>
               </div>
 
-              <div className="hover-card-lift flex flex-col bg-white p-6 rounded-2xl border border-[#173e2d]/10 hover:border-[#173e2d]/30 shadow-xs">
-                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] text-[#002819] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
+              <div className="hover-card-lift flex flex-col bg-white dark:bg-[var(--theme-surface)] p-6 rounded-2xl border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/30 dark:hover:border-[var(--theme-green)]/30 shadow-xs">
+                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                   <ShieldCheck size={24} />
                 </div>
-                <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">
+                <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mb-2">
                   {t("Berbasis Bukti Ilmiah")}</h4>
-                <p className="text-[13px] text-[#5E665F] leading-relaxed">
+                <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                   {t("Setiap dosis anjuran pupuk dan pestisida merujuk pada standar agronomi Kementerian Pertanian dan Balitsa Lembang.")}</p>
               </div>
 
-              <div className="hover-card-lift flex flex-col bg-white p-6 rounded-2xl border border-[#173e2d]/10 hover:border-[#173e2d]/30 shadow-xs">
-                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] text-[#002819] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
+              <div className="hover-card-lift flex flex-col bg-white dark:bg-[var(--theme-surface)] p-6 rounded-2xl border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/30 dark:hover:border-[var(--theme-green)]/30 shadow-xs">
+                <div className="w-12 h-12 rounded-[16px] bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)] flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                   <Lock size={24} />
                 </div>
-                <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] mb-2">
+                <h4 className="font-editorial text-[18px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mb-2">
                   {t("Akses Terstruktur")}</h4>
-                <p className="text-[13px] text-[#5E665F] leading-relaxed">
+                <p className="text-[13px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
                   {t("Privasi data lahan petani dijaga ketat. Tidak ada data pribadi yang dijualbelikan kepada pihak ketiga komersial.")}</p>
               </div>
             </div>
@@ -1626,7 +1626,7 @@ export default function LandingPage() {
                 {t("Ekosistem Pertanian Nganjuk")}</span>
               <h2 className="font-editorial text-[30px] sm:text-[42px] font-normal leading-tight text-white tracking-tight mb-5 max-w-2xl text-center">
                 {t("Mulai perjalanan pertanian bawang merah yang lebih cerdas bersama SIMANTRI.")}</h2>
-              <p className="text-[15px] sm:text-[16px] font-normal text-[#81a993] max-w-xl mb-9 leading-relaxed text-center">
+              <p className="text-[15px] sm:text-[16px] font-normal text-[#81a993] dark:text-[var(--theme-muted)] max-w-xl mb-9 leading-relaxed text-center">
                 {t("Bergabunglah bersama ribuan petani, penyuluh kecamatan, dan praktisi agrikultur se-Kabupaten Nganjuk dalam ekosistem digital terpadu.")}</p>
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <Link
@@ -1636,7 +1636,7 @@ export default function LandingPage() {
                   {t("Mulai Gunakan SIMANTRI")}</Link>
                 <Link
                   href="/dunia-brambang"
-                  className="hover-btn-scale inline-flex items-center justify-center border border-[#81a993]/40 text-white hover:bg-white/10 font-semibold text-[14px] px-8 py-3.5 rounded-full"
+                  className="hover-btn-scale inline-flex items-center justify-center border border-[#81a993]/40 dark:border-[var(--theme-line)] text-white hover:bg-white/10 font-semibold text-[14px] px-8 py-3.5 rounded-full"
                 >
                   {t("Jelajahi Dunia Brambang")}</Link>
               </div>
@@ -1664,12 +1664,12 @@ export default function LandingPage() {
                   SIMANTRI
                 </span>
               </div>
-              <p className="text-[13px] text-[#81a993] max-w-md leading-relaxed">
+              <p className="text-[13px] text-[#81a993] dark:text-[var(--theme-muted)] max-w-md leading-relaxed">
                 {t("Platform informasi dan tata kelola pertanian presisi untuk memperkuat ketahanan pangan komoditas bawang merah di Kabupaten Nganjuk secara berkelanjutan.")}</p>
               <div className="pt-2 flex flex-wrap items-center gap-2.5">
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#b5ecc6] text-[#002110] text-[11px] font-semibold">
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#b5ecc6] dark:bg-[var(--theme-green-soft)] text-[#002110] dark:text-[var(--theme-green)] text-[11px] font-semibold">
                   {t("Nganjuk Agro Hub")}</span>
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#EAC6D2] text-[#6b1434] text-[11px] font-semibold">
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#EAC6D2] dark:bg-[var(--theme-rose-soft)] text-[#6b1434] dark:text-[var(--theme-rose)] text-[11px] font-semibold">
                   {t("Varietas Tajuk & Bauji")}</span>
               </div>
             </div>
@@ -1679,28 +1679,28 @@ export default function LandingPage() {
                 {t("NAVIGASI")}</h4>
               <ul className="space-y-2.5 text-[13px]">
                 <li className="flex items-center gap-1.5">
-                  <ArrowRight size={13} className="text-[#81a993]" />
-                  <a href="#masalah" className="text-[#81a993] hover:text-white transition-colors">
+                  <ArrowRight size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />
+                  <a href="#masalah" className="text-[#81a993] dark:text-[var(--theme-muted)] hover:text-white transition-colors">
                     {t("Masalah")}</a>
                 </li>
                 <li className="flex items-center gap-1.5">
-                  <ArrowRight size={13} className="text-[#81a993]" />
-                  <a href="#solusi-section" className="text-[#81a993] hover:text-white transition-colors">
+                  <ArrowRight size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />
+                  <a href="#solusi-section" className="text-[#81a993] dark:text-[var(--theme-muted)] hover:text-white transition-colors">
                     {t("Solusi Terpadu")}</a>
                 </li>
                 <li className="flex items-center gap-1.5">
-                  <ArrowRight size={13} className="text-[#81a993]" />
-                  <a href="#cara-kerja" className="text-[#81a993] hover:text-white transition-colors">
+                  <ArrowRight size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />
+                  <a href="#cara-kerja" className="text-[#81a993] dark:text-[var(--theme-muted)] hover:text-white transition-colors">
                     {t("Cara Kerja")}</a>
                 </li>
                 <li className="flex items-center gap-1.5">
-                  <ArrowRight size={13} className="text-[#81a993]" />
-                  <a href="#untuk-siapa" className="text-[#81a993] hover:text-white transition-colors">
+                  <ArrowRight size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />
+                  <a href="#untuk-siapa" className="text-[#81a993] dark:text-[var(--theme-muted)] hover:text-white transition-colors">
                     {t("Untuk Siapa")}</a>
                 </li>
                 <li className="flex items-center gap-1.5">
-                  <ArrowRight size={13} className="text-[#81a993]" />
-                  <Link href="/dunia-brambang" className="text-[#81a993] hover:text-white transition-colors">
+                  <ArrowRight size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />
+                  <Link href="/dunia-brambang" className="text-[#81a993] dark:text-[var(--theme-muted)] hover:text-white transition-colors">
                     {t("Dunia Brambang")}</Link>
                 </li>
               </ul>
@@ -1711,23 +1711,23 @@ export default function LandingPage() {
                 {t("AKSES LAYANAN")}</h4>
               <ul className="space-y-2.5 text-[13px]">
                 <li className="flex items-center gap-1.5">
-                  <LogIn size={13} className="text-[#81a993]" />
-                  <Link href="/login" className="text-[#81a993] hover:text-white transition-colors">
+                  <LogIn size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />
+                  <Link href="/login" className="text-[#81a993] dark:text-[var(--theme-muted)] hover:text-white transition-colors">
                     {t("Masuk Petani")}</Link>
                 </li>
                 <li className="flex items-center gap-1.5">
-                  <UserPlus size={13} className="text-[#81a993]" />
-                  <Link href="/register" className="text-[#81a993] hover:text-white transition-colors">
+                  <UserPlus size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />
+                  <Link href="/register" className="text-[#81a993] dark:text-[var(--theme-muted)] hover:text-white transition-colors">
                     {t("Daftar Akun Baru")}</Link>
                 </li>
                 <li className="flex items-center gap-1.5">
-                  <Layers size={13} className="text-[#81a993]" />
-                  <Link href="/dashboard" className="text-[#81a993] hover:text-white transition-colors">
+                  <Layers size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />
+                  <Link href="/dashboard" className="text-[#81a993] dark:text-[var(--theme-muted)] hover:text-white transition-colors">
                     {t("Dashboard Mandiri")}</Link>
                 </li>
                 <li className="flex items-center gap-1.5">
-                  <TrendingUp size={13} className="text-[#81a993]" />
-                  <Link href="/login" className="text-[#81a993] hover:text-white transition-colors">
+                  <TrendingUp size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />
+                  <Link href="/login" className="text-[#81a993] dark:text-[var(--theme-muted)] hover:text-white transition-colors">
                     {t("Analitik Pasar")}</Link>
                 </li>
               </ul>
@@ -1738,30 +1738,30 @@ export default function LandingPage() {
                 {t("BANTUAN & KEBIJAKAN")}</h4>
               <ul className="space-y-2.5 text-[13px]">
                 <li className="flex items-center gap-1.5">
-                  <ChevronRight size={13} className="text-[#81a993]" />
-                  <Link href="/terms" className="text-[#81a993] hover:text-white transition-colors">
+                  <ChevronRight size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />
+                  <Link href="/terms" className="text-[#81a993] dark:text-[var(--theme-muted)] hover:text-white transition-colors">
                     {t("Syarat & Ketentuan")}</Link>
                 </li>
                 <li className="flex items-center gap-1.5">
-                  <ChevronRight size={13} className="text-[#81a993]" />
-                  <Link href="/privacy" className="text-[#81a993] hover:text-white transition-colors">
+                  <ChevronRight size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />
+                  <Link href="/privacy" className="text-[#81a993] dark:text-[var(--theme-muted)] hover:text-white transition-colors">
                     {t("Kebijakan Privasi")}</Link>
                 </li>
                 <li className="flex items-center gap-1.5">
-                  <ChevronRight size={13} className="text-[#81a993]" />
-                  <Link href="/data-deletion" className="text-[#81a993] hover:text-white transition-colors">
+                  <ChevronRight size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />
+                  <Link href="/data-deletion" className="text-[#81a993] dark:text-[var(--theme-muted)] hover:text-white transition-colors">
                     {t("Penghapusan Data")}</Link>
                 </li>
                 <li className="flex items-center gap-1.5">
-                  <PhoneCall size={13} className="text-[#81a993]" />
-                  <span className="text-[#81a993]">
+                  <PhoneCall size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />
+                  <span className="text-[#81a993] dark:text-[var(--theme-muted)]">
                     {t("Dispertan Nganjuk")}</span>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-[#81a993] border-t border-white/10">
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-[#81a993] dark:text-[var(--theme-muted)] border-t border-white/10">
             <p>© {new Date().getFullYear()}  {t("SIMANTRI Nganjuk. Semua hak dilindungi.")}</p>
             <div className="flex items-center gap-6">
               <Link href="/privacy" className="hover:text-white transition-colors">

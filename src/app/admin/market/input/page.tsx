@@ -198,7 +198,7 @@ export default function AdminMarketInputPage() {
   if (loading) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center font-jakarta">
-        <Loader2 className="w-8 h-8 animate-spin text-simantri-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-simantri-600 dark:text-[var(--theme-green)]" />
       </div>
     )
   }
@@ -209,41 +209,41 @@ export default function AdminMarketInputPage() {
       <section className="space-y-4">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="space-y-1 max-w-3xl">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-[var(--theme-ink)] tracking-tight">
               Kelola &amp; Pembaruan Harga Harian
             </h1>
-            <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-[var(--theme-muted)] leading-relaxed">
               Pembaruan data harga transaksi komoditas bawang merah basah (Pasar Induk Sukomoro) sebagai fitur utama umpan pelatihan model AI XGBoost dan kalibrasi rekomendasi masa panen.
             </p>
           </div>
         </div>
 
         {/* Live Status Hero Card */}
-        <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-100 shadow-sm relative overflow-hidden">
+        <div className="bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-5 sm:p-6 border border-slate-100 dark:border-[var(--theme-line)] shadow-sm relative overflow-hidden">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
             {/* Left: Current Price */}
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-simantri-600 flex items-center justify-center shrink-0 shadow-xs">
+              <div className="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-simantri-600 dark:text-[var(--theme-green)] flex items-center justify-center shrink-0 shadow-xs">
                 <TrendingUp className="w-7 h-7" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase tracking-wider">
                     Status Data Hari Ini ({prices[0]?.tanggal || 'Terbaru'})
                   </span>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-simantri-800 font-bold text-[10px] border border-emerald-200">
-                    <CheckCircle2 className="w-3 h-3 text-simantri-600" />
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-simantri-800 dark:text-[var(--theme-green)] font-bold text-[10px] border border-emerald-200 dark:border-[var(--theme-green)]">
+                    <CheckCircle2 className="w-3 h-3 text-simantri-600 dark:text-[var(--theme-green)]" />
                     <span>Terverifikasi Sistem</span>
                   </span>
                 </div>
                 <div className="flex items-baseline gap-2 mt-1">
-                  <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-jakarta">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-[var(--theme-ink)] tracking-tight font-jakarta">
                     Rp {latestPrice.toLocaleString('id-ID')}
                   </span>
-                  <span className="text-xs text-slate-400 font-medium">/ kg (Basah Super)</span>
+                  <span className="text-xs text-slate-400 dark:text-[var(--theme-muted)] font-medium">/ kg (Basah Super)</span>
                   <span
                     className={`ml-2 inline-flex items-center gap-0.5 text-xs font-bold ${
-                      delta >= 0 ? 'text-simantri-600' : 'text-red-600'
+                      delta >= 0 ? 'text-simantri-600 dark:text-[var(--theme-green)]' : 'text-red-600 dark:text-[var(--theme-red)]'
                     }`}
                   >
                     {delta >= 0 ? '+' : ''}Rp {delta.toLocaleString('id-ID')} ({deltaPercent.toFixed(1)}%)
@@ -254,17 +254,17 @@ export default function AdminMarketInputPage() {
 
             {/* Center: Source Telemetry */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100">
-                <span className="text-[10px] font-bold text-slate-400 uppercase block">Pusat Lelang / Pasar</span>
-                <span className="text-xs font-bold text-slate-800">Pasar Induk Sukomoro</span>
+              <div className="bg-slate-50 dark:bg-[var(--theme-canvas)] p-3 rounded-2xl border border-slate-100 dark:border-[var(--theme-line)]">
+                <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase block">Pusat Lelang / Pasar</span>
+                <span className="text-xs font-bold text-slate-800 dark:text-[var(--theme-ink)]">Pasar Induk Sukomoro</span>
               </div>
-              <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100">
-                <span className="text-[10px] font-bold text-slate-400 uppercase block">Volume Pasokan</span>
-                <span className="text-xs font-bold text-slate-800">42.8 Ton (Tinggi)</span>
+              <div className="bg-slate-50 dark:bg-[var(--theme-canvas)] p-3 rounded-2xl border border-slate-100 dark:border-[var(--theme-line)]">
+                <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase block">Volume Pasokan</span>
+                <span className="text-xs font-bold text-slate-800 dark:text-[var(--theme-ink)]">42.8 Ton (Tinggi)</span>
               </div>
-              <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100 col-span-2 sm:col-span-1">
-                <span className="text-[10px] font-bold text-slate-400 uppercase block">Integritas Pipeline</span>
-                <span className="text-xs font-bold text-simantri-700">Siap Retrain AI</span>
+              <div className="bg-slate-50 dark:bg-[var(--theme-canvas)] p-3 rounded-2xl border border-slate-100 dark:border-[var(--theme-line)] col-span-2 sm:col-span-1">
+                <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase block">Integritas Pipeline</span>
+                <span className="text-xs font-bold text-simantri-700 dark:text-[var(--theme-green)]">Siap Retrain AI</span>
               </div>
             </div>
           </div>
@@ -273,15 +273,15 @@ export default function AdminMarketInputPage() {
 
       {/* Alerts */}
       {successMessage && (
-        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs font-medium text-emerald-800 flex items-start gap-2.5 animate-fadeIn">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+        <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-[var(--theme-green-soft)] border border-emerald-200 dark:border-[var(--theme-green)] text-xs font-medium text-emerald-800 dark:text-[var(--theme-green)] flex items-start gap-2.5 animate-fadeIn">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-[var(--theme-green)] shrink-0 mt-0.5" />
           <span>{successMessage}</span>
         </div>
       )}
 
       {errorMessage && (
-        <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-xs font-medium text-red-800 flex items-start gap-2.5 animate-fadeIn">
-          <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+        <div className="p-4 rounded-2xl bg-red-50 dark:bg-[var(--theme-red-soft)] border border-red-200 dark:border-[var(--theme-red)] text-xs font-medium text-red-800 dark:text-[var(--theme-red)] flex items-start gap-2.5 animate-fadeIn">
+          <AlertCircle className="w-4 h-4 text-red-600 dark:text-[var(--theme-red)] shrink-0 mt-0.5" />
           <span>{errorMessage}</span>
         </div>
       )}
@@ -289,56 +289,56 @@ export default function AdminMarketInputPage() {
       {/* SECTION 2: DUAL UPDATE METHODS (Bento Grid) */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         {/* CARD A: SINKRONISASI OTOMATIS (WEB SCRAPING) */}
-        <div className="lg:col-span-6 bg-white rounded-3xl p-5 sm:p-6 border border-slate-100 shadow-sm flex flex-col justify-between space-y-4">
+        <div className="lg:col-span-6 bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-5 sm:p-6 border border-slate-100 dark:border-[var(--theme-line)] shadow-sm flex flex-col justify-between space-y-4">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-simantri-600 flex items-center justify-center shadow-xs">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-simantri-600 dark:text-[var(--theme-green)] flex items-center justify-center shadow-xs">
                 <Bot className="w-6 h-6" />
               </div>
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-simantri-700">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-simantri-700 dark:text-[var(--theme-green)]">
                   Metode 1: Otomasi Scraper
                 </span>
-                <h2 className="text-base sm:text-lg font-bold text-slate-900 font-jakarta">
+                <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[var(--theme-ink)] font-jakarta">
                   Sinkronisasi Web Scraping Pasar
                 </h2>
               </div>
             </div>
 
-            <p className="text-xs text-slate-500 leading-relaxed">
+            <p className="text-xs text-slate-500 dark:text-[var(--theme-muted)] leading-relaxed">
               Sistem mengumpulkan data harga transaksi grosir terverifikasi dari portal pasar daerah dan agregator komoditas secara terjadwal setiap pukul 06:00 WIB.
             </p>
 
             {/* Scraping Telemetry Box */}
-            <div className="bg-slate-50 rounded-2xl p-4 space-y-3 border border-slate-100">
+            <div className="bg-slate-50 dark:bg-[var(--theme-canvas)] rounded-2xl p-4 space-y-3 border border-slate-100 dark:border-[var(--theme-line)]">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-[10px] font-bold text-slate-400 uppercase">Ekstraksi Bot Scraping</span>
-                <span className="text-simantri-700 font-bold text-[11px] flex items-center gap-1">
+                <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase">Ekstraksi Bot Scraping</span>
+                <span className="text-simantri-700 dark:text-[var(--theme-green)] font-bold text-[11px] flex items-center gap-1">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span>Confidence 98.4%</span>
                 </span>
               </div>
 
               <div className="grid grid-cols-2 gap-2.5 pt-1">
-                <div className="bg-white p-3 rounded-xl border border-slate-100 shadow-xs">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase block">Sumber Data</span>
-                  <span className="text-xs font-bold text-slate-800 truncate block">Pasar Induk Sukomoro</span>
-                  <span className="text-[10px] text-slate-500">&amp; Disperindag Jatim</span>
+                <div className="bg-white dark:bg-[var(--theme-surface)] p-3 rounded-xl border border-slate-100 dark:border-[var(--theme-line)] shadow-xs">
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase block">Sumber Data</span>
+                  <span className="text-xs font-bold text-slate-800 dark:text-[var(--theme-ink)] truncate block">Pasar Induk Sukomoro</span>
+                  <span className="text-[10px] text-slate-500 dark:text-[var(--theme-muted)]">&amp; Disperindag Jatim</span>
                 </div>
-                <div className="bg-white p-3 rounded-xl border border-slate-100 shadow-xs">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase block">Crawl Terakhir</span>
-                  <span className="text-xs font-bold text-slate-800 block">Hari Ini, 06:15 WIB</span>
-                  <span className="text-[10px] text-simantri-700 font-semibold">Status: Berhasil</span>
+                <div className="bg-white dark:bg-[var(--theme-surface)] p-3 rounded-xl border border-slate-100 dark:border-[var(--theme-line)] shadow-xs">
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase block">Crawl Terakhir</span>
+                  <span className="text-xs font-bold text-slate-800 dark:text-[var(--theme-ink)] block">Hari Ini, 06:15 WIB</span>
+                  <span className="text-[10px] text-simantri-700 dark:text-[var(--theme-green)] font-semibold">Status: Berhasil</span>
                 </div>
-                <div className="bg-white p-3 rounded-xl border border-slate-100 shadow-xs">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase block">Harga Terdeteksi</span>
-                  <span className="text-sm font-extrabold text-simantri-700 block">Rp 29.000</span>
-                  <span className="text-[10px] text-slate-500">Mutu Super / Tajuk</span>
+                <div className="bg-white dark:bg-[var(--theme-surface)] p-3 rounded-xl border border-slate-100 dark:border-[var(--theme-line)] shadow-xs">
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase block">Harga Terdeteksi</span>
+                  <span className="text-sm font-extrabold text-simantri-700 dark:text-[var(--theme-green)] block">Rp 29.000</span>
+                  <span className="text-[10px] text-slate-500 dark:text-[var(--theme-muted)]">Mutu Super / Tajuk</span>
                 </div>
-                <div className="bg-white p-3 rounded-xl border border-slate-100 shadow-xs">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase block">Konsistensi Cuaca</span>
-                  <span className="text-xs font-bold text-slate-800 block">Open-Meteo Ready</span>
-                  <span className="text-[10px] text-slate-500">Stasiun Nganjuk</span>
+                <div className="bg-white dark:bg-[var(--theme-surface)] p-3 rounded-xl border border-slate-100 dark:border-[var(--theme-line)] shadow-xs">
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase block">Konsistensi Cuaca</span>
+                  <span className="text-xs font-bold text-slate-800 dark:text-[var(--theme-ink)] block">Open-Meteo Ready</span>
+                  <span className="text-[10px] text-slate-500 dark:text-[var(--theme-muted)]">Stasiun Nganjuk</span>
                 </div>
               </div>
             </div>
@@ -354,59 +354,59 @@ export default function AdminMarketInputPage() {
               <RefreshCw className={`w-4 h-4 ${syncingScraper ? 'animate-spin' : ''}`} />
               <span>Sinkronisasi Sekarang (Terapkan Otomatis)</span>
             </button>
-            <p className="text-[10px] text-center text-slate-400 uppercase tracking-wider">
+            <p className="text-[10px] text-center text-slate-400 dark:text-[var(--theme-muted)] uppercase tracking-wider">
               Memvalidasi integritas hash transaksi di database Supabase
             </p>
           </div>
         </div>
 
         {/* CARD B: INPUT & KOREKSI MANUAL */}
-        <div className="lg:col-span-6 bg-white rounded-3xl p-5 sm:p-6 border border-slate-100 shadow-sm flex flex-col justify-between space-y-4">
+        <div className="lg:col-span-6 bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-5 sm:p-6 border border-slate-100 dark:border-[var(--theme-line)] shadow-sm flex flex-col justify-between space-y-4">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-shallot-50 text-shallot-600 flex items-center justify-center shadow-xs">
+                <div className="w-12 h-12 rounded-2xl bg-shallot-50 dark:bg-[var(--theme-rose-soft)] text-shallot-600 dark:text-[var(--theme-rose)] flex items-center justify-center shadow-xs">
                   <Edit3 className="w-6 h-6" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-shallot-600">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-shallot-600 dark:text-[var(--theme-rose)]">
                     Metode 2: Intervensi Petugas
                   </span>
-                  <h2 className="text-base sm:text-lg font-bold text-slate-900 font-jakarta">
+                  <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[var(--theme-ink)] font-jakarta">
                     Input &amp; Koreksi Manual
                   </h2>
                 </div>
               </div>
-              <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 font-bold text-[10px]">
+              <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-[var(--theme-raised)] text-slate-700 dark:text-[var(--theme-body)] font-bold text-[10px]">
                 Form Aktif
               </span>
             </div>
 
-            <p className="text-xs text-slate-500 leading-relaxed">
+            <p className="text-xs text-slate-500 dark:text-[var(--theme-muted)] leading-relaxed">
               Gunakan formulir ini untuk entri mandiri jika scraper memerlukan penyesuaian atau merefleksikan harga lelang riil setelah verifikasi penimbang pasar.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-3">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Tanggal Transaksi <span className="text-shallot-600">*</span>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] mb-1">
+                    Tanggal Transaksi <span className="text-shallot-600 dark:text-[var(--theme-rose)]">*</span>
                   </label>
                   <input
                     type="date"
                     required
                     value={tanggal}
                     onChange={(e) => setTanggal(e.target.value)}
-                    className="w-full h-11 px-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800 outline-none focus:border-simantri-500 focus:bg-white transition"
+                    className="w-full h-11 px-3.5 rounded-2xl bg-slate-50 dark:bg-[var(--theme-canvas)] border border-slate-200 dark:border-[var(--theme-line)] text-xs text-slate-800 dark:text-[var(--theme-ink)] outline-none focus:border-simantri-500 dark:focus:border-[var(--theme-green)] focus:bg-white dark:focus:bg-[var(--theme-surface)] transition"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Harga per Kg (IDR) <span className="text-shallot-600">*</span>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] mb-1">
+                    Harga per Kg (IDR) <span className="text-shallot-600 dark:text-[var(--theme-rose)]">*</span>
                   </label>
                   <div className="relative flex items-center">
-                    <span className="absolute left-3.5 text-xs font-bold text-slate-400">Rp</span>
+                    <span className="absolute left-3.5 text-xs font-bold text-slate-400 dark:text-[var(--theme-muted)]">Rp</span>
                     <input
                       type="number"
                       required
@@ -416,14 +416,14 @@ export default function AdminMarketInputPage() {
                       value={harga}
                       onChange={(e) => setHarga(e.target.value)}
                       placeholder="29000"
-                      className="w-full h-11 pl-10 pr-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 outline-none focus:border-simantri-500 focus:bg-white transition"
+                      className="w-full h-11 pl-10 pr-3.5 rounded-2xl bg-slate-50 dark:bg-[var(--theme-canvas)] border border-slate-200 dark:border-[var(--theme-line)] text-xs font-bold text-slate-800 dark:text-[var(--theme-ink)] outline-none focus:border-simantri-500 dark:focus:border-[var(--theme-green)] focus:bg-white dark:focus:bg-[var(--theme-surface)] transition"
                     />
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] mb-1">
                   Catatan Verifikasi Petugas Lapangan
                 </label>
                 <textarea
@@ -431,7 +431,7 @@ export default function AdminMarketInputPage() {
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Catatan justifikasi mutu, kondisi panen, atau penimbangan..."
-                  className="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-800 outline-none focus:border-simantri-500 focus:bg-white transition resize-none"
+                  className="w-full p-3 rounded-2xl bg-slate-50 dark:bg-[var(--theme-canvas)] border border-slate-200 dark:border-[var(--theme-line)] text-xs text-slate-800 dark:text-[var(--theme-ink)] outline-none focus:border-simantri-500 dark:focus:border-[var(--theme-green)] focus:bg-white dark:focus:bg-[var(--theme-surface)] transition resize-none"
                 />
               </div>
 
@@ -455,29 +455,29 @@ export default function AdminMarketInputPage() {
       </section>
 
       {/* SECTION 3: RIWAYAT & LOG PEMBARUAN HARGA (TABLE) */}
-      <section className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-100 shadow-sm space-y-4">
+      <section className="bg-white dark:bg-[var(--theme-surface)] rounded-3xl p-5 sm:p-6 border border-slate-100 dark:border-[var(--theme-line)] shadow-sm space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <Activity className="w-5 h-5 text-simantri-600" />
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 font-jakarta">
+              <Activity className="w-5 h-5 text-simantri-600 dark:text-[var(--theme-green)]" />
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[var(--theme-ink)] font-jakarta">
                 Riwayat Transaksi &amp; Log Pembaruan Harga
               </h3>
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-slate-500 dark:text-[var(--theme-muted)] mt-0.5">
               Pencatatan historis harga pasar untuk transparansi audit dan dataset model AI prediksi
             </p>
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="inline-flex p-1 bg-slate-100 rounded-2xl border border-slate-200/60">
+            <div className="inline-flex p-1 bg-slate-100 dark:bg-[var(--theme-raised)] rounded-2xl border border-slate-200/60 dark:border-[var(--theme-line)]">
               {([7, 30, 90] as const).map((d) => (
                 <button
                   key={d}
                   type="button"
                   onClick={() => setFilterDays(d)}
                   className={`px-3 py-1 rounded-xl text-xs font-bold transition cursor-pointer ${
-                    filterDays === d ? 'bg-white text-simantri-700 shadow-xs' : 'text-slate-500 hover:text-slate-800'
+                    filterDays === d ? 'bg-white dark:bg-[var(--theme-surface)] text-simantri-700 dark:text-[var(--theme-green)] shadow-xs' : 'text-slate-500 dark:text-[var(--theme-muted)] hover:text-slate-800 dark:hover:text-[var(--theme-ink)]'
                   }`}
                 >
                   {d} Hari
@@ -488,18 +488,18 @@ export default function AdminMarketInputPage() {
             <button
               type="button"
               onClick={handleExportCSV}
-              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition cursor-pointer shadow-xs"
+              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl bg-slate-100 dark:bg-[var(--theme-raised)] hover:bg-slate-200 dark:hover:bg-[var(--theme-raised)] text-slate-700 dark:text-[var(--theme-body)] font-bold text-xs transition cursor-pointer shadow-xs"
             >
-              <FileDown className="w-4 h-4 text-slate-500" />
+              <FileDown className="w-4 h-4 text-slate-500 dark:text-[var(--theme-muted)]" />
               <span>Ekspor CSV</span>
             </button>
           </div>
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-slate-100">
+        <div className="overflow-x-auto rounded-2xl border border-slate-100 dark:border-[var(--theme-line)]">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-slate-50 text-slate-500 font-bold uppercase text-[10px] h-11 border-b border-slate-100">
+              <tr className="bg-slate-50 dark:bg-[var(--theme-canvas)] text-slate-500 dark:text-[var(--theme-muted)] font-bold uppercase text-[10px] h-11 border-b border-slate-100 dark:border-[var(--theme-line)]">
                 <th className="py-3 px-4">Tanggal Transaksi</th>
                 <th className="py-3 px-4 text-right">Harga per Kg</th>
                 <th className="py-3 px-4">Metode Entri</th>
@@ -508,37 +508,37 @@ export default function AdminMarketInputPage() {
                 <th className="py-3 px-4">Petugas / Sistem</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 text-slate-700">
+            <tbody className="divide-y divide-slate-100 dark:divide-[var(--theme-line)] text-slate-700 dark:text-[var(--theme-body)]">
               {filteredPrices.map((p, idx) => (
-                <tr key={p.id || idx} className="hover:bg-slate-50/80 transition-colors">
-                  <td className="py-3.5 px-4 font-semibold text-slate-900">
+                <tr key={p.id || idx} className="hover:bg-slate-50/80 dark:hover:bg-[var(--theme-canvas)]/80 transition-colors">
+                  <td className="py-3.5 px-4 font-semibold text-slate-900 dark:text-[var(--theme-ink)]">
                     {p.tanggal}
                     {idx === 0 && (
-                      <span className="block text-[10px] text-simantri-700 font-bold">Terbaru</span>
+                      <span className="block text-[10px] text-simantri-700 dark:text-[var(--theme-green)] font-bold">Terbaru</span>
                     )}
                   </td>
-                  <td className="py-3.5 px-4 text-right font-extrabold text-simantri-700 font-mono text-sm">
+                  <td className="py-3.5 px-4 text-right font-extrabold text-simantri-700 dark:text-[var(--theme-green)] font-mono text-sm">
                     Rp {Number(p.harga).toLocaleString('id-ID')}
                   </td>
                   <td className="py-3.5 px-4">
                     <span
                       className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
                         p.input_by
-                          ? 'bg-shallot-50 text-shallot-600 border border-shallot-200'
-                          : 'bg-emerald-50 text-simantri-800 border border-emerald-200'
+                          ? 'bg-shallot-50 dark:bg-[var(--theme-rose-soft)] text-shallot-600 dark:text-[var(--theme-rose)] border border-shallot-200 dark:border-[var(--theme-rose)]'
+                          : 'bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-simantri-800 dark:text-[var(--theme-green)] border border-emerald-200 dark:border-[var(--theme-green)]'
                       }`}
                     >
                       {p.input_by ? 'Koreksi Manual' : 'Scraper Otomatis'}
                     </span>
                   </td>
-                  <td className="py-3.5 px-4 text-slate-600">{p.source || 'Pasar Sukomoro'}</td>
+                  <td className="py-3.5 px-4 text-slate-600 dark:text-[var(--theme-body)]">{p.source || 'Pasar Sukomoro'}</td>
                   <td className="py-3.5 px-4">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-[10px] font-bold">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-[var(--theme-raised)] text-slate-700 dark:text-[var(--theme-body)] text-[10px] font-bold">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                       <span>Model Ingested</span>
                     </span>
                   </td>
-                  <td className="py-3.5 px-4 text-slate-500">{p.input_by ? 'PPL Dinas' : 'Scraper Bot v2'}</td>
+                  <td className="py-3.5 px-4 text-slate-500 dark:text-[var(--theme-muted)]">{p.input_by ? 'PPL Dinas' : 'Scraper Bot v2'}</td>
                 </tr>
               ))}
             </tbody>
@@ -547,19 +547,19 @@ export default function AdminMarketInputPage() {
       </section>
 
       {/* SECTION 4: AUDIT COMPLIANCE BANNER */}
-      <section className="bg-slate-100 rounded-3xl p-5 border border-slate-200/80 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-slate-600">
+      <section className="bg-slate-100 dark:bg-[var(--theme-raised)] rounded-3xl p-5 border border-slate-200/80 dark:border-[var(--theme-line)] shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-slate-600 dark:text-[var(--theme-body)]">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-white text-simantri-600 flex items-center justify-center shrink-0 shadow-xs">
+          <div className="w-10 h-10 rounded-2xl bg-white dark:bg-[var(--theme-surface)] text-simantri-600 dark:text-[var(--theme-green)] flex items-center justify-center shrink-0 shadow-xs">
             <ShieldCheck className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="font-bold text-slate-900">Protokol Integritas Data &amp; Audit Retraining AI</h4>
-            <p className="text-[11px] text-slate-500 mt-0.5">
+            <h4 className="font-bold text-slate-900 dark:text-[var(--theme-ink)]">Protokol Integritas Data &amp; Audit Retraining AI</h4>
+            <p className="text-[11px] text-slate-500 dark:text-[var(--theme-muted)] mt-0.5">
               Setiap mutasi harga harian mencatat log audit di database Supabase dan secara simultan menyinkronkan data cuaca Open-Meteo API.
             </p>
           </div>
         </div>
-        <span className="px-3 py-1 rounded-full bg-white text-simantri-800 font-mono font-bold text-[11px] border border-slate-200">
+        <span className="px-3 py-1 rounded-full bg-white dark:bg-[var(--theme-surface)] text-simantri-800 dark:text-[var(--theme-green)] font-mono font-bold text-[11px] border border-slate-200 dark:border-[var(--theme-line)]">
           Hash: #XGB-892F
         </span>
       </section>

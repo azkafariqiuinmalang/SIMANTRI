@@ -26,7 +26,7 @@ export function PageHeading({
           <h1 className="text-[clamp(1.85rem,4vw,2.6rem)] font-bold tracking-[-0.035em] text-[var(--sim-color-foreground)]">
             {t(title)}
           </h1>
-          {Icon && <Icon className="hidden h-7 w-7 text-[var(--sim-color-primary)] sm:block" aria-hidden="true" />}
+          {Icon && <Icon className="hidden h-7 w-7 text-[var(--sim-color-primary)] dark:text-[var(--theme-green)] sm:block" aria-hidden="true" />}
         </div>
         <p className="mt-1 max-w-3xl text-sm leading-6 text-[var(--sim-color-muted)] sm:text-base">
           {t(description)}
@@ -67,7 +67,7 @@ export function MetricCard({
           <Icon className="h-5 w-5" aria-hidden="true" />
         </div>
         {href && (
-          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--sim-color-border)] text-[var(--sim-color-muted)] transition-colors group-hover:border-[var(--sim-green-200)] group-hover:text-[var(--sim-color-primary)]">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--sim-color-border)] text-[var(--sim-color-muted)] transition-colors group-hover:border-[var(--sim-green-200)] group-hover:text-[var(--sim-color-primary)] dark:group-hover:text-[var(--theme-green)]">
             <ChevronRight className="h-4 w-4" aria-hidden="true" />
           </span>
         )}
@@ -130,7 +130,7 @@ export function PriceLineChart({
   if (!geometry) {
     return (
       <div className="flex min-h-56 flex-col items-center justify-center rounded-2xl border border-dashed border-[var(--sim-color-border)] bg-[var(--sim-green-50)]/40 px-6 text-center">
-        <Info className="mb-2 h-6 w-6 text-[var(--sim-color-primary)]" aria-hidden="true" />
+        <Info className="mb-2 h-6 w-6 text-[var(--sim-color-primary)] dark:text-[var(--theme-green)]" aria-hidden="true" />
         <p className="text-sm font-semibold text-[var(--sim-color-body)]">{t("Data tren belum mencukupi")}</p>
         <p className="mt-1 text-xs text-[var(--sim-color-muted)]">{t("Grafik akan muncul setelah tersedia sedikitnya dua catatan harga.")}</p>
       </div>
