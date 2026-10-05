@@ -3,6 +3,7 @@
 import { LanguageSwitcher, useLanguage } from '@/components/ui/LanguageProvider'
 import { ThemeSwitcher } from '@/components/ui/ThemeProvider'
 import { PlatformVideoDemo } from '@/components/landing/PlatformVideoDemo'
+import { setupLandingEntrances } from '@/components/landing/entrances'
 
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
@@ -290,23 +291,10 @@ export default function LandingPage() {
     setMobileMenuOpen(false)
   }
 
-  // Reveal only the major heading/content groups once, with an accessible fallback.
+  // Stagger section content as it enters the viewport; keep chat, video and carousel state intact.
   useEffect(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
-    if (media.matches) return
-    const groups = Array.from(document.querySelectorAll<HTMLElement>('main > section > div > .text-center'))
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue
-        entry.target.classList.remove('sim-reveal-pending')
-        entry.target.classList.add('sim-reveal-visible')
-        observer.unobserve(entry.target)
-      }
-    }, { threshold: 0.12 })
-    groups.forEach((group) => { group.classList.add('sim-reveal-pending'); observer.observe(group) })
-    const revealAll = () => groups.forEach((group) => group.classList.remove('sim-reveal-pending'))
-    media.addEventListener('change', revealAll)
-    return () => { observer.disconnect(); revealAll(); media.removeEventListener('change', revealAll) }
+    const root = document.getElementById('landing-content')
+    if (root) return setupLandingEntrances(root)
   }, [])
 
   useEffect(() => {
@@ -556,7 +544,7 @@ export default function LandingPage() {
       </header>
 
       {/* MAIN BODY WRAPPER */}
-      <main className="w-full pt-20 sm:pt-24 bg-[#FAF7F2] dark:bg-[var(--theme-canvas)]">
+      <main id="landing-content" className="w-full pt-20 sm:pt-24 bg-[#FAF7F2] dark:bg-[var(--theme-canvas)]">
         {/* HERO SECTION WITH INFINITE MOVING CAROUSEL */}
         <section id="beranda" className="relative w-full pt-10 sm:pt-14 pb-14 sm:pb-20 overflow-hidden scroll-mt-24">
           {/* Background Ambient Glow */}
