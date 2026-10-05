@@ -17,8 +17,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
-    <!-- Tone.js for Museum Ambient Soundscape -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <!-- Local acoustic accompaniment; starts only on user request. -->
+    <script src="/dunia-brambang-audio.js" defer></script>
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -113,9 +113,9 @@
         </div>
 
         <div class="pointer-events-auto flex items-center space-x-4">
-            <button id="audioToggleBtn" class="glass-panel px-4 py-2 rounded-full text-xs flex items-center space-x-2 text-cream/90 hover:text-cream transition-all duration-300">
+            <button id="audioToggleBtn" type="button" aria-pressed="false" aria-label="Aktifkan musik akustik" title="Aktifkan musik akustik" class="glass-panel min-h-[44px] min-w-[44px] px-4 py-2 rounded-full text-xs flex items-center space-x-2 text-cream/90 hover:text-cream transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cream">
                 <i data-lucide="volume-x" id="audioIcon" class="w-4 h-4 text-shallot-pink"></i>
-                <span id="audioText" class="hidden sm:inline">Suara Ambien: Mati</span>
+                <span id="audioText" class="hidden sm:inline" role="status">Musik Akustik: Mati</span>
             </button>
             
             <div id="galleryCounter" class="glass-panel px-4 py-2 rounded-full text-xs font-mono text-cream/80">
@@ -1000,46 +1000,6 @@
     <script>
         lucide.createIcons();
         gsap.registerPlugin(ScrollTrigger);
-
-        let synth = null;
-        let isAudioPlaying = false;
-
-        async function initAudio() {
-            if (!synth) {
-                synth = new Tone.PolySynth(Tone.Synth, {
-                    oscillator: { type: "sine" },
-                    envelope: { attack: 3, decay: 4, sustain: 0.8, release: 5 }
-                }).toDestination();
-                synth.volume.value = -24;
-            }
-        }
-
-        function playAmbientNotes() {
-            if (!isAudioPlaying || !synth) return;
-            const chords = [["C3", "G3", "D4"], ["A2", "E3", "C4"], ["F2", "C3", "A3"]];
-            const randomChord = chords[Math.floor(Math.random() * chords.length)];
-            synth.triggerAttackRelease(randomChord, "4n");
-            setTimeout(playAmbientNotes, 6000);
-        }
-
-        document.getElementById('audioToggleBtn').addEventListener('click', async () => {
-            await Tone.start();
-            await initAudio();
-
-            isAudioPlaying = !isAudioPlaying;
-            const icon = document.getElementById('audioIcon');
-            const text = document.getElementById('audioText');
-
-            if (isAudioPlaying) {
-                icon.setAttribute('data-lucide', 'volume-2');
-                text.textContent = 'Suara Ambien: Nyala';
-                playAmbientNotes();
-            } else {
-                icon.setAttribute('data-lucide', 'volume-x');
-                text.textContent = 'Suara Ambien: Mati';
-            }
-            lucide.createIcons();
-        });
 
         window.addEventListener('load', () => {
             gsap.timeline()
