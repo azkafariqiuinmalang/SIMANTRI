@@ -4,6 +4,7 @@ import { LanguageSwitcher, useLanguage } from '@/components/ui/LanguageProvider'
 import { ThemeSwitcher } from '@/components/ui/ThemeProvider'
 import { PlatformVideoDemo } from '@/components/landing/PlatformVideoDemo'
 import { setupLandingEntrances } from '@/components/landing/entrances'
+import { setupCurvedCarousel } from '@/components/landing/curved-carousel'
 
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
@@ -292,6 +293,11 @@ export default function LandingPage() {
   }
 
   // Stagger section content as it enters the viewport; keep chat, video and carousel state intact.
+  useEffect(() => {
+    const gallery = document.querySelector<HTMLElement>('.carousel-container')
+    if (gallery) return setupCurvedCarousel(gallery)
+  }, [])
+
   useEffect(() => {
     const root = document.getElementById('landing-content')
     if (root) return setupLandingEntrances(root)
