@@ -79,50 +79,30 @@ const CAROUSEL_CARDS = [
     id: 'tugu-bawang',
     title: 'Tugu Bawang Nganjuk',
     subtitle: 'Simbol kejayaan bawang merah nasional',
-    tag: 'Ikon Sentra Agraria',
-    badge: 'Nganjuk Sentra',
-    badgeBg: 'bg-[#173E2D]/90 text-[#b8efc9]',
-    tagBg: 'bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)]',
     img: '/bg_tugu_bawang.jpg',
   },
   {
     id: 'varietas-tajuk',
     title: 'Varietas Tajuk',
     subtitle: 'Aroma tajam, umbi padat & tahan simpan',
-    tag: 'Hasil Panen Unggul',
-    badge: 'Khas Nganjuk',
-    badgeBg: 'bg-[#EAC6D2]/90 dark:bg-[var(--theme-rose-soft)] text-[#6b1434] dark:text-[var(--theme-rose)]',
-    tagBg: 'bg-[#b8efc9] dark:bg-[var(--theme-green-soft)] text-[#002110] dark:text-[var(--theme-green)]',
     img: '/varietas_tajuk.jpg',
   },
   {
     id: 'petani-merah',
     title: 'Petani Bawang Merah',
     subtitle: 'Dedikasi pemeliharaan parit & tanah subur',
-    tag: 'Sukomoro & Bagor',
-    badge: 'Rawat Bedengan',
-    badgeBg: 'bg-[#173E2D]/90 text-[#b8efc9]',
-    tagBg: 'bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)]',
     img: '/petani_bawang_merah.jpg',
   },
   {
     id: 'varietas-bauji',
     title: 'Varietas Bauji',
     subtitle: 'Favorit pasar lelang konsumsi & industri',
-    tag: 'Karakter Umbi Padat',
-    badge: 'Bibit Pilihan',
-    badgeBg: 'bg-[#f1eae0] dark:bg-[var(--theme-raised)] text-[#173e2d] dark:text-[var(--theme-green)]',
-    tagBg: 'bg-[#EAC6D2] dark:bg-[var(--theme-rose-soft)] text-[#6b1434] dark:text-[var(--theme-rose)]',
     img: '/varietas_bauji.jpg',
   },
   {
     id: 'deteksi-penyakit',
     title: 'Deteksi Penyakit',
     subtitle: 'Diagnostik dini Alternaria porri (Trotol)',
-    tag: 'Gejala Bercak Ungu',
-    badge: 'Scan Citra AI',
-    badgeBg: 'bg-[#173E2D]/90 text-[#b8efc9]',
-    tagBg: 'bg-[#EAC6D2] dark:bg-[var(--theme-rose-soft)] text-[#6b1434] dark:text-[var(--theme-rose)]',
     img: '/penyakit_bercak_ungu.jpg',
     hasScanner: true,
   },
@@ -130,20 +110,12 @@ const CAROUSEL_CARDS = [
     id: 'jayastamba',
     title: 'Jayastamba Nganjuk',
     subtitle: 'Prasasti kemenangan & tanah subur merdeka',
-    tag: 'Bumi Anjuk Ladang',
-    badge: 'Anjuk Ladang',
-    badgeBg: 'bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)]',
-    tagBg: 'bg-[#b8efc9] dark:bg-[var(--theme-green-soft)] text-[#002110] dark:text-[var(--theme-green)]',
     img: '/jayastamba.jpg',
   },
   {
     id: 'panen-petani',
     title: 'Panen Petani',
     subtitle: 'Senyum keberhasilan panen melimpah',
-    tag: 'Kualitas Terverifikasi',
-    badge: '60-70 HST',
-    badgeBg: 'bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)]',
-    tagBg: 'bg-[#b5ecc6] dark:bg-[var(--theme-green-soft)] text-[#3a6d4e] dark:text-[var(--theme-green)]',
     img: '/foto_bawang_merah.jpg',
   },
 ]
@@ -639,22 +611,8 @@ export default function LandingPage() {
                       </div>
                     )}
 
-                    {/* Top Tag */}
-                    <div className="absolute top-3.5 left-3.5 pointer-events-none">
-                      <span
-                        className={`inline-flex items-center text-[10.5px] font-mono uppercase px-2.5 py-1 rounded-full font-bold shadow-xs transition-transform duration-300 group-hover:scale-[1.02] ${card.badgeBg}`}
-                      >
-                        {t(card.badge)}
-                      </span>
-                    </div>
-
                     {/* Bottom Content */}
                     <div className="absolute bottom-4 left-4 right-4 text-left transition-transform duration-300 group-hover:translate-y-[-2px] pointer-events-none">
-                      <span
-                        className={`inline-block text-[10.5px] font-mono uppercase px-2.5 py-0.5 rounded-full font-bold mb-1.5 shadow-xs ${card.tagBg}`}
-                      >
-                        {t(card.tag)}
-                      </span>
                       <h4 className="text-white text-[16px] sm:text-[17px] font-editorial font-semibold leading-snug drop-shadow-sm group-hover:text-[#b8efc9] transition-colors">
                         {t(card.title)}
                       </h4>
@@ -690,20 +648,7 @@ export default function LandingPage() {
                       </div>
                     )}
 
-                    <div className="absolute top-3.5 left-3.5 pointer-events-none">
-                      <span
-                        className={`inline-flex items-center text-[10.5px] font-mono uppercase px-2.5 py-1 rounded-full font-bold shadow-xs transition-transform duration-300 group-hover:scale-[1.02] ${card.badgeBg}`}
-                      >
-                        {t(card.badge)}
-                      </span>
-                    </div>
-
                     <div className="absolute bottom-4 left-4 right-4 text-left transition-transform duration-300 group-hover:translate-y-[-2px] pointer-events-none">
-                      <span
-                        className={`inline-block text-[10.5px] font-mono uppercase px-2.5 py-0.5 rounded-full font-bold mb-1.5 shadow-xs ${card.tagBg}`}
-                      >
-                        {t(card.tag)}
-                      </span>
                       <h4 className="text-white text-[16px] sm:text-[17px] font-editorial font-semibold leading-snug drop-shadow-sm group-hover:text-[#b8efc9] transition-colors">
                         {t(card.title)}
                       </h4>
@@ -842,8 +787,6 @@ export default function LandingPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#b5ecc6] dark:bg-[var(--theme-green-soft)] text-[#002110] dark:text-[var(--theme-green)] text-[11px] font-bold self-start mb-3 shadow-xs">
-                    {t("Analitik Pasar")}</span>
                   <h3 className="font-editorial text-[22px] font-semibold text-white mb-2">
                     {t("Prediksi Harga")}</h3>
                   <p className="text-[13px] text-[#81a993] dark:text-[var(--theme-muted)] mb-4 line-clamp-3 leading-relaxed">
@@ -868,8 +811,6 @@ export default function LandingPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#EAC6D2] dark:bg-[var(--theme-rose-soft)] text-[#6b1434] dark:text-[var(--theme-rose)] text-[11px] font-bold self-start mb-3 shadow-xs">
-                    {t("Diagnostik Citra AI")}</span>
                   <h3 className="font-editorial text-[22px] font-semibold text-white mb-2">
                     {t("Deteksi Penyakit")}</h3>
                   <p className="text-[13px] text-[#81a993] dark:text-[var(--theme-muted)] mb-4 line-clamp-3 leading-relaxed">
@@ -894,8 +835,6 @@ export default function LandingPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#c1ecd4] dark:bg-[var(--theme-green-soft)] text-[#002114] dark:text-[var(--theme-green)] text-[11px] font-bold self-start mb-3 shadow-xs">
-                    {t("Asisten AI Cerdas")}</span>
                   <h3 className="font-editorial text-[22px] font-semibold text-white mb-2">
                     {t("SIMA (Asisten Tani)")}</h3>
                   <p className="text-[13px] text-[#81a993] dark:text-[var(--theme-muted)] mb-4 line-clamp-3 leading-relaxed">
@@ -920,8 +859,6 @@ export default function LandingPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#002819] via-[#002819]/65 to-transparent"></div>
                 <div className="relative z-10 flex flex-col">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#f1eae0] dark:bg-[var(--theme-raised)] text-[#173e2d] dark:text-[var(--theme-green)] text-[11px] font-bold self-start mb-3 shadow-xs">
-                    {t("Pustaka Agronomi")}</span>
                   <h3 className="font-editorial text-[22px] font-semibold text-white mb-2">
                     {t("Dunia Brambang")}</h3>
                   <p className="text-[13px] text-[#81a993] dark:text-[var(--theme-muted)] mb-4 line-clamp-3 leading-relaxed">
@@ -944,10 +881,6 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             {/* Left Column: Context & Overview */}
             <div className="lg:col-span-5 flex flex-col justify-center">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)] text-xs font-semibold uppercase tracking-wider self-start mb-4">
-                <Sparkles size={14} />
-                <span>{t("AI Asisten Tani Nganjuk")}</span>
-              </div>
               <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] dark:text-[var(--theme-ink)] font-medium tracking-tight mb-5 leading-tight">
                 {t("Punya kendala di bedengan? Tanyakan langsung pada SIMA.")}</h2>
               <p className="text-[15px] sm:text-[16px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed mb-8 font-normal">
@@ -1006,26 +939,17 @@ export default function LandingPage() {
                       <div className="w-11 h-11 rounded-full bg-[#173E2D] text-[#b8efc9] flex items-center justify-center font-bold shadow-xs transition-transform hover:scale-[1.02]">
                         <Sparkles size={20} />
                       </div>
-                      <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#36684a] border-2 border-white dark:border-[var(--theme-line)]"></span>
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="font-editorial text-[18px] font-bold text-[#173e2d] dark:text-[var(--theme-green)] leading-none">
                           {t("SIMA Lapangan")}</span>
-                        <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)]">
-                          {t("v2.4 Online")}</span>
                       </div>
                       <span className="text-[11px] text-[#5E665F] dark:text-[var(--theme-body)] block mt-0.5 font-medium">
                         {t("Agronomi Telemetri • Kec. Sukomoro & Bagor")}</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DDE8D8]/70 dark:bg-[var(--theme-green-soft)] border border-[#36684a]/15 dark:border-[var(--theme-green)]/15 text-[11.5px] font-medium text-[#002819] dark:text-[var(--theme-green)]">
-                      <span className="w-2 h-2 rounded-full bg-[#36684a] animate-pulse"></span>
-                      <span>{t("Live Telemetri")}</span>
-                    </span>
-                  </div>
                 </div>
 
                 {/* Chat Body */}
@@ -1078,8 +1002,6 @@ export default function LandingPage() {
                               {t("SIMA Agronomi")}</span>
                             <span className="text-[10px] text-[#8B918B] dark:text-[var(--theme-muted)] font-mono">
                               {t("• 08:49 WIB")}</span>
-                            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#36684a] dark:text-[var(--theme-green)] bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] px-2 py-0.5 rounded-full">
-                              <CheckCircle2 size={12} />  {t("RAG Terverifikasi")}</span>
                           </div>
                           <p className="text-[13.5px] leading-relaxed text-[#1e1b13] dark:text-[var(--theme-ink)]">
                             {t(displayedData.reply)}
@@ -1197,8 +1119,6 @@ export default function LandingPage() {
 
               {/* Step 3 (Highlighted Kritis) */}
               <div className="hover-card-lift bg-[#173E2D] hover:bg-[#275a3d] text-[#F8F4EC] p-6 rounded-[20px] flex flex-col justify-between shadow-md relative">
-                <div className="absolute -top-3 right-4 bg-[#b8efc9] dark:bg-[var(--theme-green-soft)] text-[#002110] dark:text-[var(--theme-green)] text-[10px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
-                  {t("Kritis")}</div>
                 <div>
                   <div className="w-10 h-10 rounded-full bg-[#36684a] text-white font-editorial text-[20px] font-bold flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-[1.02]">
                     3
@@ -1254,8 +1174,6 @@ export default function LandingPage() {
                   <span className="w-3 h-3 rounded-full bg-green-400"></span>
                   <span className="ml-2 font-mono text-[12px] text-[#5E665F] dark:text-[var(--theme-body)]">{t("simantri.nganjukkab.go.id")}</span>
                 </div>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] text-[#002819] dark:text-[var(--theme-green)] text-[11px] font-bold">
-                  <span className="w-2 h-2 rounded-full bg-[#36684a] animate-pulse"></span>  {t("Data Pasar Aktif")}</span>
               </div>
 
               <div className="mt-6 space-y-6">
@@ -1596,12 +1514,6 @@ export default function LandingPage() {
               </div>
               <p className="text-[13px] text-[#81a993] dark:text-[var(--theme-muted)] max-w-md leading-relaxed">
                 {t("Platform informasi dan tata kelola pertanian presisi untuk memperkuat ketahanan pangan komoditas bawang merah di Kabupaten Nganjuk secara berkelanjutan.")}</p>
-              <div className="pt-2 flex flex-wrap items-center gap-2.5">
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#b5ecc6] dark:bg-[var(--theme-green-soft)] text-[#002110] dark:text-[var(--theme-green)] text-[11px] font-semibold">
-                  {t("Nganjuk Agro Hub")}</span>
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#EAC6D2] dark:bg-[var(--theme-rose-soft)] text-[#6b1434] dark:text-[var(--theme-rose)] text-[11px] font-semibold">
-                  {t("Varietas Tajuk & Bauji")}</span>
-              </div>
             </div>
 
             <div className="lg:col-span-2">

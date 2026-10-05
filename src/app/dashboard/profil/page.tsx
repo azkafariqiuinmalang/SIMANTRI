@@ -202,12 +202,6 @@ export default function ProfilPage() {
               {t("Informasi identitas akun, rincian lokasi hamparan binaan, dan pengelolaan keamanan sesi SIMANTRI Kabupaten Nganjuk.")}</p>
           </div>
 
-          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/15 self-start md:self-auto">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-xs font-extrabold text-white">{t("Sinkronisasi Si-Petani Aktif")}</span>
-            <span className="text-white/40">•</span>
-            <span className="text-[11px] text-emerald-200 font-mono">{t("v2.4 Nganjuk")}</span>
-          </div>
         </div>
       </div>
 

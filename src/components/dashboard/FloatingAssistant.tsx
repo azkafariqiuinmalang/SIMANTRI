@@ -227,7 +227,6 @@ export default function FloatingAssistant() {
               {/* Header row with Title and Close Button */}
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-1.5">
-                  <span className="inline-block w-2 h-2 rounded-full bg-[#167A4A] shrink-0" />
                   <p className="text-xs sm:text-[13px] font-bold text-[#1F2922] dark:text-[var(--theme-ink)] leading-tight">
                     <span className="hidden sm:inline">{t("Ada yang bisa SIMA bantu?")}</span>
                     <span className="sm:hidden">{t("Ada yang bisa dibantu?")}</span>
@@ -258,9 +257,6 @@ export default function FloatingAssistant() {
                   {t("Tanya SIMA")}<ArrowRight className="w-3.5 h-3.5" />
                 </span>
 
-                <span className="text-[10px] font-medium text-[#A63C5D] dark:text-[var(--theme-rose)] bg-[#FDF2F4] dark:bg-[var(--theme-rose-soft)] px-2 py-0.5 rounded-full">
-                  SIMANTRI
-                </span>
               </div>
 
               {/* Speech Bubble Triangular Pointer toward SIMA Mascot */}
@@ -342,7 +338,6 @@ export default function FloatingAssistant() {
                 <div className="flex items-center gap-1.5">
                   <span className="text-xs sm:text-sm font-extrabold text-white leading-tight truncate">
                     {t("SIMA AI Assistant")}</span>
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
                 </div>
                 <p className="text-[10px] text-emerald-100 leading-none mt-0.5 truncate">
                   {isMinimized ? t("Klik untuk membuka") : t("Knowledge Base Bawang Merah Nganjuk")}

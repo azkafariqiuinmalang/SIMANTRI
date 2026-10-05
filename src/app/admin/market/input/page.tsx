@@ -231,10 +231,6 @@ export default function AdminMarketInputPage() {
                   <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase tracking-wider">
                     Status Data Hari Ini ({prices[0]?.tanggal || 'Terbaru'})
                   </span>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-simantri-800 dark:text-[var(--theme-green)] font-bold text-[10px] border border-emerald-200 dark:border-[var(--theme-green)]">
-                    <CheckCircle2 className="w-3 h-3 text-simantri-600 dark:text-[var(--theme-green)]" />
-                    <span>Terverifikasi Sistem</span>
-                  </span>
                 </div>
                 <div className="flex items-baseline gap-2 mt-1">
                   <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-[var(--theme-ink)] tracking-tight font-jakarta">

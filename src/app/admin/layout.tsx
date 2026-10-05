@@ -146,15 +146,11 @@ export default function AdminLayout({
           <div className="flex items-center gap-3">
             <LanguageSwitcher compact />
             <ThemeSwitcher />
-            <div className="hidden 2xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-[var(--theme-raised)] text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)]">
+            <div className="hidden 2xl:inline-flex items-center gap-1.5 text-xs text-slate-700 dark:text-[var(--theme-body)]">
               <Calendar className="w-3.5 h-3.5 text-simantri-600 dark:text-[var(--theme-green)]" />
               <span>{formattedDate || 'Selasa, 24 Oktober'}</span>
             </div>
 
-            <div className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-xs font-bold text-simantri-800 dark:text-[var(--theme-green)] border border-emerald-200 dark:border-[var(--theme-green)] shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Sistem Optimal</span>
-            </div>
 
             <Link
               href="/dashboard/profil"

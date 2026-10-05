@@ -3,7 +3,7 @@ import { ThemeSwitcher } from '@/components/ui/ThemeProvider'
 import { LanguageSwitcher } from '@/components/ui/LanguageProvider'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Shield, Lock, Eye, FileText, Database, Trash2, Mail, CheckCircle2, ArrowRight } from 'lucide-react'
+import { ArrowLeft, Lock, Eye, FileText, Database, Trash2, Mail, CheckCircle2, ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Kebijakan Privasi (Privacy Policy) | SIMANTRI',
@@ -91,10 +91,6 @@ export default function PrivacyPage() {
           {/* HERO BANNER */}
           <div className="mb-10 sm:mb-14 rounded-3xl bg-gradient-to-br from-[#FFFDF8] dark:from-[var(--theme-surface)] via-white dark:via-[var(--theme-surface)] to-[#FAF0E4] dark:to-[var(--theme-raised)] p-6 sm:p-10 border border-[#241812]/10 dark:border-[var(--theme-line)] shadow-[0_20px_45px_-20px_rgba(36,24,18,0.15)] relative overflow-hidden">
             <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-[#A6304F]/10 dark:bg-[var(--theme-rose-soft)] rounded-full blur-3xl pointer-events-none" />
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#A6304F]/20 dark:border-[var(--theme-rose)]/20 bg-[#A6304F]/10 dark:bg-[var(--theme-rose-soft)] px-3.5 py-1.5 font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-[#7E2340] dark:text-[var(--theme-rose)] mb-4">
-              <Shield className="h-3.5 w-3.5 text-[#A6304F] dark:text-[var(--theme-rose)]" />
-              Transparansi & Perlindungan Data
-            </div>
             <h1 className="font-serif text-2xl sm:text-4xl font-bold text-[#241812] dark:text-[var(--theme-ink)] tracking-tight leading-tight">
               Kebijakan Privasi SIMANTRI
             </h1>

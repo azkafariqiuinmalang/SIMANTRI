@@ -183,10 +183,6 @@ export default function AdminVerifikasiPenyuluhPage() {
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] font-bold text-simantri-200">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Governance & Credential Authority</span>
-            </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
               Verifikasi Kredensial Penyuluh Pertanian
             </h1>

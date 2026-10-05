@@ -14,7 +14,6 @@ import {
   EyeOff,
   ArrowLeft,
   ChevronRight,
-  Sparkles,
   HelpCircle,
   ShieldCheck,
 } from 'lucide-react'
@@ -118,11 +117,7 @@ export default function LoginPage() {
           <div className="absolute inset-0 hero-mask z-0" />
 
           {/* Showcase Header */}
-          <header className="relative z-10 flex items-center justify-between gap-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-xs font-semibold tracking-wide">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-white/95">{t("Sistem Agrikultur Nganjuk")}</span>
-            </div>
+          <header className="relative z-10 flex items-center justify-end gap-4">
 
             <div className="flex items-center space-x-2 text-xs sm:text-sm font-medium">
               <Link
@@ -140,10 +135,6 @@ export default function LoginPage() {
 
           {/* Middle Highlight Quote */}
           <div className="relative z-10 my-auto py-8 max-w-md">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/25 border border-emerald-400/30 dark:border-[var(--theme-green)]/30 text-emerald-200 text-xs font-semibold mb-3 backdrop-blur-sm">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>{t("Agro-Intelligence Platform")}</span>
-            </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight drop-shadow-sm">
               {t("Digitalisasi Pertanian Bawang Merah Berkelanjutan")}</h2>
             <p className="mt-3 text-xs sm:text-sm text-emerald-50/85 leading-relaxed font-normal">
@@ -215,10 +206,6 @@ export default function LoginPage() {
               </div>
             </Link>
 
-            <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full border border-slate-200 dark:border-[var(--theme-line)] text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)] bg-slate-50/80 dark:bg-[var(--theme-canvas)]/80">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              <span>{t("Portal Masuk")}</span>
-            </div>
           </div>
 
           {/* Main Form Body */}

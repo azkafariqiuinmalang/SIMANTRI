@@ -154,14 +154,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               </span>
             </Link>
 
-            {/* Location & Date Pills (Desktop) */}
+            {/* Location & Date (Desktop) */}
             <div className="hidden 2xl:flex items-center gap-2.5">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-[var(--theme-raised)] text-xs font-semibold text-slate-700 dark:text-[var(--theme-body)]">
+              <div className="inline-flex items-center gap-1.5 text-xs text-slate-700 dark:text-[var(--theme-body)]">
                 <Calendar className="w-3.5 h-3.5 text-simantri-600 dark:text-[var(--theme-green)]" />
                 <span>{formattedDate || t("Selasa, 24 Oktober")}</span>
               </div>
 
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-simantri-50 dark:bg-[var(--theme-green-soft)] text-xs font-bold text-simantri-700 dark:text-[var(--theme-green)] border border-simantri-200/50 dark:border-[var(--theme-green)]/50">
+              <div className="inline-flex items-center gap-1.5 text-xs text-slate-700 dark:text-[var(--theme-body)]">
                 <MapPin className="w-3.5 h-3.5 text-simantri-600 dark:text-[var(--theme-green)]" />
                 <span>{t("Nganjuk (Sentra Bawang Merah)")}</span>
               </div>

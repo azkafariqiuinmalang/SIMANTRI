@@ -216,10 +216,6 @@ export default function AdminDashboardPage() {
               <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-[var(--theme-green-soft)] flex items-center justify-center text-simantri-600 dark:text-[var(--theme-green)]">
                 <Cpu className="w-5 h-5" />
               </div>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-[var(--theme-green-soft)] text-simantri-800 dark:text-[var(--theme-green)] border border-emerald-200 dark:border-[var(--theme-green)]">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                <span>Optimal (v2.4)</span>
-              </span>
             </div>
             <div>
               <span className="text-[10px] font-bold text-slate-400 dark:text-[var(--theme-muted)] uppercase tracking-wider block mb-1">

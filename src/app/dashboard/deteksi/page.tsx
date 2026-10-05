@@ -346,7 +346,7 @@ export default function DiseaseDetectionPage() {
                     <p className="text-xs text-[#8A8580] dark:text-[var(--theme-muted)] mt-1">
                       {t("atau klik untuk memilih file foto dari galeri/kamera")}</p>
                   </div>
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono text-[#8A8580] dark:text-[var(--theme-muted)] bg-[#FBF4EE] dark:bg-[var(--theme-canvas)] border border-[#E5DFD6] dark:border-[var(--theme-line)]">
+                  <div className="text-[11px] text-[#8A8580] dark:text-[var(--theme-muted)]">
                     {t("Format: JPG, PNG • Maks 10MB")}</div>
                 </div>
               )}

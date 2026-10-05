@@ -75,29 +75,21 @@ const TRENDING_TOPICS = [
   {
     title: 'Strategi tunda jual vs jual basah di tebas',
     category: 'Analisis Pasar',
-    count: '48 Petani',
-    badgeColor: 'text-shallot-600 dark:text-[var(--theme-rose)] bg-shallot-50 dark:bg-[var(--theme-rose-soft)]',
     prompt: 'Bagaimana analisis perbandingan keuntungan strategi tunda jual simpan gudang vs jual basah tebas di Pasar Sukomoro saat ini?',
   },
   {
     title: 'Penyemprotan nutrisi Kalium Silika fase umbi',
     category: 'Pemupukan',
-    count: '39 Petani',
-    badgeColor: 'text-simantri-700 dark:text-[var(--theme-green)] bg-simantri-50 dark:bg-[var(--theme-green-soft)]',
     prompt: 'Bagaimana cara dan waktu aplikasi penyemprotan pupuk Kalium Silika pada fase pembesaran umbi bawang merah agar kulit merah mengkilap?',
   },
   {
     title: 'Rotasi fungisida Mankozeb + Azoksistrobin',
     category: 'Hama & Penyakit',
-    count: '31 Petani',
-    badgeColor: 'text-simantri-700 dark:text-[var(--theme-green)] bg-simantri-50 dark:bg-[var(--theme-green-soft)]',
     prompt: 'Bagaimana jadwal rotasi bahan aktif fungisida kontak Mankozeb dan sistemik Azoksistrobin untuk mencegah resistensi jamur Alternaria porri?',
   },
   {
     title: 'Penyesuaian irigasi pompa sumur bor diesel',
     category: 'Pengairan',
-    count: '19 Petani',
-    badgeColor: 'text-amber-700 dark:text-[var(--theme-amber)] bg-amber-50 dark:bg-[var(--theme-amber-soft)]',
     prompt: 'Berapa frekuensi ideal penggenangan parit bedengan menggunakan pompa sumur bor pada tanah lempung berpasir Nganjuk di usia 35-50 HST?',
   },
 ]
@@ -276,18 +268,12 @@ export default function ChatAssistantPage() {
                 className="w-full h-full object-cover rounded-xl"
                 priority
               />
-              <span className="absolute -bottom-1 -right-1 flex h-4 w-4">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border-2 border-white dark:border-[var(--theme-line)]" />
-              </span>
             </div>
 
             <div className="space-y-1">
               <div className="flex items-center gap-2 flex-wrap">
                 <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
                   {t("SIMA AI Assistant")}</h1>
-                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 dark:border-[var(--theme-green)]/30 text-[11px] font-extrabold">
-                  {t("v2.4 Gemini + RAG Pertanian")}</span>
               </div>
               <p className="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed">
                 {t("Asisten cerdas agronomi budidaya, pengendalian OPT, dan analisis pasar bawang merah Kabupaten Nganjuk.")}</p>
@@ -403,7 +389,7 @@ export default function ChatAssistantPage() {
                         <span className="text-xs font-extrabold text-simantri-800 dark:text-[var(--theme-green)]">{t("SIMA Agronomi Nganjuk")}</span>
                         <span className="text-[10px] text-slate-400 dark:text-[var(--theme-muted)] font-medium">• {message.timestamp}</span>
                         {message.dari_kb && (
-                          <span className="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-[var(--theme-green-soft)] text-emerald-800 dark:text-[var(--theme-green)] text-[10px] font-bold">
+                          <span className="text-emerald-800 dark:text-[var(--theme-green)] text-[10px] font-medium">
                             {t("Tervalidasi RAG BPTP")}</span>
                         )}
                       </div>
@@ -575,8 +561,6 @@ export default function ChatAssistantPage() {
                   <p className="text-[10px] text-slate-400 dark:text-[var(--theme-muted)] uppercase font-semibold">{t("Telemetri Lapangan")}</p>
                 </div>
               </div>
-              <span className="px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-[var(--theme-green-soft)] border border-emerald-200 dark:border-[var(--theme-green)] text-[10px] font-extrabold text-emerald-800 dark:text-[var(--theme-green)]">
-                {t("TERDETEKSI")}</span>
             </div>
 
             <div className="space-y-2.5 text-xs">
@@ -634,9 +618,6 @@ export default function ChatAssistantPage() {
                     </span>
                     <span className="text-[10px] text-slate-500 dark:text-[var(--theme-muted)]">{t(topic.category)}</span>
                   </div>
-                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold shrink-0 ${topic.badgeColor}`}>
-                    {t(topic.count)}
-                  </span>
                 </button>
               ))}
             </div>

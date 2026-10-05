@@ -91,10 +91,6 @@ export default function TermsPage() {
           {/* HERO BANNER */}
           <div className="mb-10 sm:mb-14 rounded-3xl bg-gradient-to-br from-[#FFFDF8] dark:from-[var(--theme-surface)] via-white dark:via-[var(--theme-surface)] to-[#FAF0E4] dark:to-[var(--theme-raised)] p-6 sm:p-10 border border-[#241812]/10 dark:border-[var(--theme-line)] shadow-[0_20px_45px_-20px_rgba(36,24,18,0.15)] relative overflow-hidden">
             <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-[#E6A15C]/15 dark:bg-[var(--theme-amber-soft)] rounded-full blur-3xl pointer-events-none" />
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#E6A15C]/30 dark:border-[var(--theme-amber)]/30 bg-[#E6A15C]/15 dark:bg-[var(--theme-amber-soft)] px-3.5 py-1.5 font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8C531B] dark:text-[var(--theme-amber)] mb-4">
-              <Scale className="h-3.5 w-3.5 text-[#8C531B] dark:text-[var(--theme-amber)]" />
-              Ketentuan Penggunaan Platform
-            </div>
             <h1 className="font-serif text-2xl sm:text-4xl font-bold text-[#241812] dark:text-[var(--theme-ink)] tracking-tight leading-tight">
               Syarat dan Ketentuan Layanan
             </h1>
