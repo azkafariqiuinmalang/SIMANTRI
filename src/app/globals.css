@@ -153,21 +153,32 @@ input:not([type="checkbox"]):not([type="radio"]), select, textarea {
   transform: scale(1);
 }
 
-@media (hover: hover) and (pointer: fine) {
+/* Include a mouse attached to a touch-first laptop/tablet, not only the primary pointer. */
+@media (any-hover: hover) and (any-pointer: fine) {
   .carousel-card:hover {
-    transform: translateY(-6px) scale(1.06);
+    transform: translateY(-6px) scale(1.08);
     z-index: 50;
   }
 
   .carousel-card:hover .carousel-card-img {
-    transform: scale(1.08);
+    transform: scale(1.12);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .carousel-card:hover,
-  .carousel-card:hover .carousel-card-img {
-    transform: none;
+  /* Stop continuous movement, but retain the user's requested static hover enlargement. */
+  .carousel-track {
+    animation: none;
+    will-change: auto;
+  }
+
+  .carousel-card,
+  .carousel-card-img {
+    transition: none !important;
+  }
+
+  .carousel-container {
+    overflow-x: auto;
   }
 }
 
