@@ -2,6 +2,7 @@
 
 import { LanguageSwitcher, useLanguage } from '@/components/ui/LanguageProvider'
 import { ThemeSwitcher } from '@/components/ui/ThemeProvider'
+import { PlatformVideoDemo } from '@/components/landing/PlatformVideoDemo'
 
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
@@ -9,7 +10,6 @@ import Link from 'next/link'
 import {
   ArrowRight,
   TrendingUp,
-  TrendingDown,
   Sparkles,
   CheckCircle2,
   Menu,
@@ -148,7 +148,7 @@ const CAROUSEL_CARDS = [
 
 const LANDING_NAV_ITEMS = [
   { id: 'beranda', label: 'Beranda', href: '#beranda' },
-  { id: 'masalah', label: 'Masalah', href: '#masalah' },
+  { id: 'masalah', label: 'Lihat Demo', href: '#masalah' },
   { id: 'solusi-section', label: 'Solusi', href: '#solusi-section' },
   { id: 'cara-kerja', label: 'Cara Kerja', href: '#cara-kerja' },
   { id: 'untuk-siapa', label: 'Untuk Siapa', href: '#untuk-siapa' },
@@ -820,86 +820,8 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* SECTION: MASALAH UTAMA */}
-        <section id="masalah" className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#FAF7F2] dark:bg-[var(--theme-canvas)] scroll-mt-24">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-12">
-              <div className="lg:col-span-7">
-                <span className="text-[11.5px] font-mono uppercase text-[#6b1434] dark:text-[var(--theme-rose)] tracking-[0.2em] font-bold mb-2 block">
-                  {t("Kerentanan Musiman")}</span>
-                <h2 className="font-editorial text-[32px] sm:text-[42px] text-[#1A221D] dark:text-[var(--theme-ink)] font-medium tracking-tight leading-tight">
-                  {t("Tiga tantangan utama yang dihadapi petani bawang merah Nganjuk.")}</h2>
-              </div>
-              <div className="lg:col-span-5">
-                <p className="text-[15px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
-                  {t("Ketergantungan pada kabar lisan dan lambatnya respon terhadap tanda-tanda kerusakan tanaman berdampak langsung pada margin pendapatan rumah tangga petani.")}</p>
-              </div>
-            </div>
-
-            {/* Problem Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Problem 1 */}
-              <div className="hover-card-lift bg-[#F7F2EA] dark:bg-[var(--theme-raised)] hover:bg-white dark:hover:bg-[var(--theme-surface)] rounded-[24px] p-7 flex flex-col justify-between shadow-xs border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/25 dark:hover:border-[var(--theme-green)]/25">
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="font-editorial text-[24px] font-bold text-[#275a3d] dark:text-[var(--theme-green)]">01</span>
-                    <div className="w-10 h-10 rounded-full bg-[#EAC6D2]/50 dark:bg-[var(--theme-rose-soft)] flex items-center justify-center text-[#ba1a1a] dark:text-[var(--theme-red)] transition-transform duration-300 group-hover:scale-[1.02]">
-                      <TrendingDown size={20} />
-                    </div>
-                  </div>
-                  <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mb-3 leading-snug">
-                    {t("Harga bergerak lebih cepat daripada keputusan panen.")}</h3>
-                  <p className="text-[13.5px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
-                    {t("Petani seringkali melepas panen pada harga terendah akibat ketiadaan proyeksi tren harga riil harian di pasar grosir Sukomoro dan sentra regional sekitarnya.")}</p>
-                </div>
-                <div className="pt-5 mt-6 border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#ba1a1a]"></span>
-                  <span className="text-[12px] font-medium text-[#414844] dark:text-[var(--theme-body)]">{t("Risiko kerugian margin hingga 35%")}</span>
-                </div>
-              </div>
-
-              {/* Problem 2 */}
-              <div className="hover-card-lift bg-[#F7F2EA] dark:bg-[var(--theme-raised)] hover:bg-white dark:hover:bg-[var(--theme-surface)] rounded-[24px] p-7 flex flex-col justify-between shadow-xs border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/25 dark:hover:border-[var(--theme-green)]/25">
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="font-editorial text-[24px] font-bold text-[#275a3d] dark:text-[var(--theme-green)]">02</span>
-                    <div className="w-10 h-10 rounded-full bg-[#EAC6D2]/50 dark:bg-[var(--theme-rose-soft)] flex items-center justify-center text-[#ba1a1a] dark:text-[var(--theme-red)] transition-transform duration-300 group-hover:scale-[1.02]">
-                      <Microscope size={20} />
-                    </div>
-                  </div>
-                  <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mb-3 leading-snug">
-                    {t("Penyakit daun terlambat diidentifikasi pada fase awal.")}</h3>
-                  <p className="text-[13.5px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
-                    {t("Gejala awal layu Fusarium (Moler) dan Trotol (Alternaria) kerap disalahartikan sebagai kekurangan air, memicu pengobatan keliru yang mempercepat pembusukan umbi.")}</p>
-                </div>
-                <div className="pt-5 mt-6 border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#ba1a1a]"></span>
-                  <span className="text-[12px] font-medium text-[#414844] dark:text-[var(--theme-body)]">{t("Penyebaran patogen spora dalam 72 jam")}</span>
-                </div>
-              </div>
-
-              {/* Problem 3 */}
-              <div className="hover-card-lift bg-[#F7F2EA] dark:bg-[var(--theme-raised)] hover:bg-white dark:hover:bg-[var(--theme-surface)] rounded-[24px] p-7 flex flex-col justify-between shadow-xs border border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 hover:border-[#173e2d]/25 dark:hover:border-[var(--theme-green)]/25">
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="font-editorial text-[24px] font-bold text-[#275a3d] dark:text-[var(--theme-green)]">03</span>
-                    <div className="w-10 h-10 rounded-full bg-[#DDE8D8] dark:bg-[var(--theme-green-soft)] flex items-center justify-center text-[#275a3d] dark:text-[var(--theme-green)] transition-transform duration-300 group-hover:scale-[1.02]">
-                      <BookOpen size={20} />
-                    </div>
-                  </div>
-                  <h3 className="font-editorial text-[20px] font-semibold text-[#1A221D] dark:text-[var(--theme-ink)] mb-3 leading-snug">
-                    {t("Kearifan lokal agronomi belum terhimpun rapi.")}</h3>
-                  <p className="text-[13.5px] text-[#5E665F] dark:text-[var(--theme-body)] leading-relaxed">
-                    {t("Taktik pemupukan spesifik tanah liat berpasir Nganjuk dan penanganan bibit Tajuk tersimpan sporadis pada ingatan petani lansia tanpa transmisi sistematis.")}</p>
-                </div>
-                <div className="pt-5 mt-6 border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#36684a]"></span>
-                  <span className="text-[12px] font-medium text-[#414844] dark:text-[var(--theme-body)]">{t("Hilangnya panduan adaptasi cuaca ekstrem")}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Recorded product walkthrough; retain the existing anchor for shared links. */}
+        <PlatformVideoDemo />
 
         {/* SECTION: EMPAT SOLUSI UTAMA */}
         <section id="solusi-section" className="w-full px-6 lg:px-14 py-16 lg:py-24 bg-[#F7F2EA] dark:bg-[var(--theme-raised)] border-t border-[#173e2d]/10 dark:border-[var(--theme-green)]/10 scroll-mt-24">
@@ -1695,7 +1617,7 @@ export default function LandingPage() {
                 <li className="flex items-center gap-1.5">
                   <ArrowRight size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />
                   <a href="#masalah" className="text-[#81a993] dark:text-[var(--theme-muted)] hover:text-white transition-colors">
-                    {t("Masalah")}</a>
+                    {t("Lihat Demo")}</a>
                 </li>
                 <li className="flex items-center gap-1.5">
                   <ArrowRight size={13} className="text-[#81a993] dark:text-[var(--theme-muted)]" />

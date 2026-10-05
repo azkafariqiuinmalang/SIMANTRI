@@ -56,6 +56,26 @@ test('Indonesian is the backward-compatible default; only jv enables Javanese', 
   assert.equal(i18n.translate('Prediksi Harga', 'jv'), 'Prakiraan Regi')
 })
 
+test('Landing demo uses real bundled media and user-controlled inline playback in both languages', () => {
+  const { renderToStaticMarkup } = require('react-dom/server')
+  for (const language of ['id', 'jv']) {
+    const { PlatformVideoDemo } = loadTypeScript('src/components/landing/PlatformVideoDemo.tsx', {
+      react: { ...require('react'), useState: () => [false, () => {}] },
+      '@/components/ui/LanguageProvider': { useLanguage: () => ({ t: source => i18n.translate(source, language) }) },
+    })
+    const markup = renderToStaticMarkup(PlatformVideoDemo())
+    assert.match(markup, /id="masalah"/)
+    assert.match(markup, /<video[^>]*controls=""[^>]*playsInline=""[^>]*preload="none"/)
+    assert.ok(!markup.includes('autoPlay') && !markup.includes('loop=""'))
+    assert.match(markup, /src="\/media\/simantri-demo.mp4"/)
+    assert.match(markup, /poster="\/media\/simantri-demo-poster.jpg"/)
+    assert.equal((markup.match(/<article /g) || []).length, 4)
+    assert.ok(markup.includes(i18n.translate('Lihat SIMANTRI bekerja untuk petani.', language)))
+    assert.ok(markup.includes(i18n.translate('Rekaman demonstrasi, bukan data terkini. Video tetap menggunakan bahasa rekaman asli.', language)))
+  }
+  for (const asset of ['public/media/simantri-demo.mp4', 'public/media/simantri-demo-poster.jpg']) assert.ok(fs.statSync(asset).size > 0)
+})
+
 test('Unknown content, technical names, and numbers are never guessed or altered', () => {
   for (const value of ['Alternaria porri', 'Mankozeb 2 g/l', 'Rp 28.500/kg', 'Pesan pengguna uji', '__proto__']) assert.equal(i18n.translate(value, 'jv'), value)
   assert.equal(i18n.translate('Target {days}', 'id', { days: 7 }), 'Target 7')
